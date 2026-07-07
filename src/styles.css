@@ -57,6 +57,10 @@
   --sage: #A8CFA3;         /* 鼠尾草绿 */
   --sunny: #FFD86B;        /* 暖黄 */
   --tan: #E4C79A;          /* 浅棕 */
+  --parchment: #F1E1B8;    /* 羊皮纸标题条 */
+  --gold: #F0B23A;         /* 成就金 */
+  --danger: #E5644A;       /* 危险 / 跑路 */
+  --wood: #7A4A2B;         /* 木边角标 */
 
   --background: var(--paper);
   --foreground: var(--text);
@@ -454,3 +458,167 @@
 @utility animate-balloon2 { animation: balloon-bob 2.8s ease-in-out infinite .4s; }
 @utility animate-cursor { animation: cursor-blink 1s steps(2) infinite; }
 
+
+/* ============ Redesign v3: pixel game UI kit ============ */
+
+@utility panel-title-strip {
+  background: var(--parchment);
+  border-bottom: 3px solid var(--ink);
+  padding: 4px 10px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@utility tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  background: var(--cream);
+  font-size: 10px;
+  line-height: 1.2;
+  font-family: var(--font-body);
+  box-shadow: 1px 1px 0 0 var(--ink);
+  white-space: nowrap;
+}
+@utility tag-hot   { background: var(--cherry); color: var(--cream); }
+@utility tag-hard  { background: var(--danger); color: var(--cream); }
+@utility tag-stable{ background: var(--sage); }
+@utility tag-job   { background: var(--sky); }
+@utility tag-fun   { background: var(--sunny); }
+@utility tag-rare  { background: var(--tan); }
+@utility tag-warn  { background: #F1B196; }
+
+@utility rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  line-height: 1;
+  box-shadow: 2px 2px 0 0 var(--ink);
+}
+@utility rank-S { background: var(--gold); color: var(--ink); }
+@utility rank-A { background: var(--cherry); color: var(--cream); }
+@utility rank-B { background: var(--sky); color: var(--ink); }
+@utility rank-C { background: var(--tan); color: var(--ink); }
+
+@utility quest-card {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 0 var(--ink);
+  overflow: hidden;
+  transition: transform 100ms, box-shadow 100ms, border-color 120ms;
+}
+@utility quest-card-hover {
+  &:hover {
+    transform: translate(-1px, -2px);
+    box-shadow: 6px 6px 0 0 var(--ink);
+    border-color: var(--cherry);
+  }
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 0 var(--ink);
+  }
+}
+@utility quest-card-selected {
+  border-color: var(--cherry);
+  box-shadow: 6px 6px 0 0 var(--cherry);
+}
+
+@utility stat-row {
+  display: grid;
+  grid-template-columns: 44px 1fr 28px;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+
+@utility timeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--font-display);
+  font-size: 9px;
+  color: var(--ink);
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+@utility timeline-dot {
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--ink);
+  background: var(--cream);
+  box-shadow: 1px 1px 0 0 var(--ink);
+}
+@utility timeline-active { opacity: 1; }
+@utility timeline-active-dot {
+  background: var(--cherry);
+}
+@utility timeline-done-dot {
+  background: var(--sage);
+}
+@utility timeline-line {
+  height: 3px;
+  background: var(--ink);
+  align-self: center;
+  flex: 1;
+  min-width: 6px;
+}
+
+@utility diag-note {
+  background: var(--parchment);
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  box-shadow: 2px 2px 0 0 var(--ink);
+  padding: 6px 8px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ink);
+  position: relative;
+}
+@utility diag-note::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 10px;
+  width: 12px;
+  height: 12px;
+  background: var(--cherry);
+  border: 2px solid var(--ink);
+  transform: rotate(45deg);
+}
+
+@utility achievement-medal {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--gold);
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--ink);
+  box-shadow: 2px 2px 0 0 var(--ink);
+}
+
+@utility hot-meter {
+  height: 6px;
+  background: repeating-linear-gradient(90deg, var(--danger) 0 4px, transparent 4px 6px);
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+}
