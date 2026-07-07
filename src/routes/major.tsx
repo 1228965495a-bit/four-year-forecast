@@ -326,7 +326,7 @@ function DetailContent({ major, onConfirm }: { major: any; onConfirm: () => void
         </div>
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <span className={cn("rank-badge shrink-0", `rank-${rank}`)}>{rank}</span>
+            <PixelTierBadge tier={rank} size={30} className="shrink-0 -my-2" />
             <div className="font-display text-[18px] leading-tight truncate">{major.name}</div>
           </div>
           <div className="text-[11px] text-ink/70 mt-0.5">
