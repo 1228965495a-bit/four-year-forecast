@@ -1,7 +1,8 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { GameLayout } from "@/components/game/GameLayout";
-import { PixelButton } from "@/components/game/PixelButton";
-import { PixelCard } from "@/components/game/PixelCard";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { GameShell } from "@/components/game/GameShell";
+import { HomeHeroScene } from "@/components/game/HomeHeroScene";
+import { StudentProfileCard } from "@/components/game/StudentProfileCard";
+import { PropStatusBar } from "@/components/game/PropStatusBar";
 import { useGameState, gameStore } from "@/lib/gameStore";
 import { getMajorById } from "@/data/majors";
 
@@ -15,153 +16,253 @@ function HomePage() {
   const currentMajor = game.majorId ? getMajorById(game.majorId) : null;
   const hasSave = !!currentMajor;
 
+  const menuHandlers = {
+    hasSave,
+    canLoad: hasSave,
+    onStart: () => {
+      if (!hasSave) gameStore.reset();
+      navigate({ to: "/major" });
+    },
+    onDex: () => navigate({ to: "/major" }),
+    onCharacter: () => {
+      const name =
+        window.prompt("给你的角色起个名字：", game.characterName) ||
+        game.characterName;
+      const school =
+        window.prompt("学校叫什么？", game.school) || game.school;
+      gameStore.set({ characterName: name, school });
+    },
+    onLoad: () =>
+      navigate({ to: game.finished ? "/result" : "/semester" }),
+  };
+
+  const profileProps = {
+    name: hasSave ? game.characterName : "未创建角色",
+    status: hasSave
+      ? `进度：大${["一", "二", "三", "四"][game.year - 1]}${
+          game.semester === 1 ? "上" : "下"
+        } · 第 ${game.week} 周`
+      : "新生档案 · 待办理",
+    major: currentMajor?.name,
+    school: hasSave ? game.school : undefined,
+    hasCharacter: hasSave,
+  };
+
   return (
-    <GameLayout showHome={false}>
-      {/* 像素校园背景板 */}
-      <PixelCard tone="sky" className="relative overflow-hidden !p-0">
-        <div
-          className="relative h-72 md:h-96"
-          style={{
-            background:
-              "linear-gradient(to bottom, var(--sky) 0 55%, var(--sage) 55% 100%)",
-          }}
-        >
-          {/* 云 */}
-          <div className="absolute left-6 top-6 text-4xl animate-pixel-float">☁️</div>
-          <div className="absolute right-16 top-10 text-3xl animate-pixel-float" style={{ animationDelay: "0.6s" }}>☁️</div>
-          <div className="absolute left-1/3 top-4 text-2xl">☀️</div>
-          {/* 校园建筑（emoji 占位） */}
-          <div className="absolute bottom-16 left-6 text-6xl">🏫</div>
-          <div className="absolute bottom-14 left-1/3 text-5xl">🏛️</div>
-          <div className="absolute bottom-16 right-10 text-6xl">🏬</div>
-          {/* 树 */}
-          <div className="absolute bottom-8 left-1/2 text-4xl">🌳</div>
-          <div className="absolute bottom-6 right-1/3 text-4xl">🌲</div>
-          {/* 小人 */}
-          <div className="absolute bottom-4 left-16 text-3xl animate-pixel-float">🧑‍🎓</div>
-          <div className="absolute bottom-4 right-24 text-3xl animate-pixel-float" style={{ animationDelay: "0.4s" }}>👩‍🎓</div>
+    <GameShell>
+      {/* ============ 桌面端：16:9 游戏窗口，绝对定位 ============ */}
+      <div
+        className="pixel-panel relative hidden md:block w-full max-w-[1160px] overflow-hidden !p-0"
+        style={{ aspectRatio: "16 / 9", minHeight: 520 }}
+      >
+        <GameWindowChrome />
+        <HomeHeroScene />
 
-          {/* 标题 */}
-          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-6 text-center">
-            <div className="inline-block pixel-border bg-cream/90 px-4 py-3 md:px-6 md:py-4">
-              <h1 className="font-display text-2xl md:text-4xl leading-tight">
-                《这专业我先替你读了四年》
-              </h1>
-              <p className="mt-1 text-xs md:text-sm text-ink/80">
-                选择一个专业，开启一段离谱又真实的本科人生。
-              </p>
-            </div>
-          </div>
-        </div>
-      </PixelCard>
-
-      {/* 主操作区 */}
-      <div className="mt-5 grid gap-4 md:grid-cols-3">
-        <div className="md:col-span-2 space-y-4">
-          <PixelCard tone="cream">
-            <div className="flex flex-wrap items-center gap-3">
-              <PixelButton
-                variant="accent"
-                size="lg"
-                onClick={() => {
-                  if (!hasSave) gameStore.reset();
-                  navigate({ to: "/major" });
-                }}
-              >
-                ▶ 开始模拟
-              </PixelButton>
-
-              <Link to="/major">
-                <PixelButton variant="secondary">📚 专业图鉴</PixelButton>
-              </Link>
-
-              <PixelButton
-                variant="sunny"
-                onClick={() => {
-                  const name = prompt("给你的角色起个名字：", game.characterName) || game.characterName;
-                  const school = prompt("学校叫什么？", game.school) || game.school;
-                  gameStore.set({ characterName: name, school });
-                }}
-              >
-                🧑‍🎨 角色设定
-              </PixelButton>
-
-              <PixelButton
-                variant="ghost"
-                disabled={!hasSave}
-                onClick={() => navigate({ to: game.finished ? "/result" : "/semester" })}
-              >
-                💾 读取进度
-              </PixelButton>
-            </div>
-            <p className="mt-3 text-xs text-muted-foreground">
-              提示：进度自动保存到浏览器本地。想重开可以点击「开始模拟」。
-            </p>
-          </PixelCard>
-
-          {/* 左下装饰行 */}
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-            <DecorCard emoji="📅" title="高考倒计时" value="T-0 天" tone="cherry" />
-            <DecorCard emoji="📖" title="志愿填报手册" value="全新未拆" tone="sunny" />
-            <DecorCard emoji="☕" title="咖啡杯" value="第 3 杯" tone="tan" />
-            <DecorCard emoji="📓" title="笔记本" value="已翻烂" tone="sage" />
-          </div>
+        <div className="absolute left-[4%] top-[16%] z-20 max-w-[62%]">
+          <TitleBlock />
         </div>
 
-        {/* 学生档案卡 */}
-        <PixelCard tone="cream" className="h-fit">
-          <div className="text-xs uppercase tracking-widest text-ink/60">🎫 学生档案</div>
-          <div className="mt-2 flex items-center gap-3">
-            <div className="pixel-border-sm bg-sky/60 flex h-16 w-16 items-center justify-center text-4xl">
-              {currentMajor ? "🧑‍🎓" : "❓"}
-            </div>
-            <div>
-              <div className="font-display text-lg leading-none">
-                {hasSave ? game.characterName : "未创建角色"}
-              </div>
-              <div className="mt-1 text-xs text-muted-foreground">
-                {hasSave ? game.school : "新生档案 · 待办理"}
-              </div>
-              <div className="mt-1 text-xs">
-                {hasSave ? (
-                  <>专业：<b>{currentMajor?.name}</b></>
-                ) : (
-                  <span className="text-muted-foreground">尚未选择专业</span>
-                )}
-              </div>
-            </div>
+        <div className="absolute right-[4%] top-[22%] z-20 w-[240px] max-w-[42%]">
+          <MainMenu {...menuHandlers} />
+        </div>
+
+        <div className="absolute left-[3%] bottom-[16%] z-20">
+          <StudentProfileCard {...profileProps} />
+        </div>
+
+        <div className="absolute inset-x-0 bottom-0 z-20 border-t-[3px] border-ink bg-cream/95">
+          <div className="px-3 py-2">
+            <PropStatusBar />
           </div>
-          <div className="mt-3 rounded border-2 border-dashed border-ink/40 bg-cream/70 p-2 text-[11px] italic">
-            {hasSave
-              ? `进度：大${["一", "二", "三", "四"][game.year - 1]}${game.semester === 1 ? "上" : "下"} · 第 ${game.week} 周`
-              : "请到窗口领取饭卡、床铺和一份四年迷茫。"}
-          </div>
-        </PixelCard>
+        </div>
       </div>
-    </GameLayout>
+
+      {/* ============ 移动端：竖向堆叠 ============ */}
+      <div className="md:hidden w-full max-w-[420px] space-y-3">
+        <div
+          className="pixel-panel relative overflow-hidden !p-0"
+          style={{ aspectRatio: "4 / 3", minHeight: 260 }}
+        >
+          <GameWindowChrome compact />
+          <HomeHeroScene />
+          <div className="absolute inset-x-0 bottom-3 z-20 flex justify-center px-3">
+            <TitleBlock compact />
+          </div>
+        </div>
+
+        <MainMenu {...menuHandlers} />
+        <StudentProfileCard {...profileProps} />
+        <PropStatusBar />
+      </div>
+    </GameShell>
   );
 }
 
-function DecorCard({
-  emoji,
-  title,
-  value,
-  tone,
-}: {
-  emoji: string;
-  title: string;
-  value: string;
-  tone: "cherry" | "sunny" | "tan" | "sage";
-}) {
+function GameWindowChrome({ compact = false }: { compact?: boolean }) {
   return (
-    <PixelCard tone={tone} className="!p-3">
+    <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between border-b-[3px] border-ink bg-ink px-3 py-1.5 text-cream">
       <div className="flex items-center gap-2">
-        <div className="text-2xl">{emoji}</div>
-        <div>
-          <div className="text-[11px] text-ink/70">{title}</div>
-          <div className="font-display text-sm">{value}</div>
-        </div>
+        <span className="h-2.5 w-2.5 bg-cherry border-[1.5px] border-cream" />
+        <span className="h-2.5 w-2.5 bg-sunny border-[1.5px] border-cream" />
+        <span className="h-2.5 w-2.5 bg-sage border-[1.5px] border-cream" />
+        <span className="ml-2 font-display text-[11px] tracking-widest text-cream/90">
+          CAMPUS · SIM · v0.1
+        </span>
       </div>
-    </PixelCard>
+      {!compact && (
+        <div className="hidden md:flex items-center gap-3 text-[10px] tracking-widest text-cream/70">
+          <span>SAVE · AUTO</span>
+          <span>▶</span>
+          <span>FULLSCREEN</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+function TitleBlock({ compact = false }: { compact?: boolean }) {
+  return (
+    <div className={compact ? "text-center" : "relative"}>
+      <div className="mb-2 inline-flex items-center gap-2 pixel-panel-sm bg-cherry !text-cream px-2 py-0.5">
+        <span className="h-1.5 w-1.5 bg-cream" />
+        <span className="font-display text-[11px] tracking-widest">
+          CAMPUS LIFE SIMULATOR
+        </span>
+      </div>
+      <h1
+        className={
+          compact
+            ? "pixel-logo text-[28px] leading-none"
+            : "pixel-logo text-[36px] leading-none md:text-[56px]"
+        }
+      >
+        这专业我
+        <br />
+        先替你读了四年
+      </h1>
+      {!compact && (
+        <p className="mt-3 pixel-panel-sm inline-block bg-cream/95 px-2.5 py-1 font-display text-[13px] md:text-[15px]">
+          选择一个专业，开启一段离谱又真实的本科人生
+        </p>
+      )}
+    </div>
+  );
+}
+
+
+interface MainMenuProps {
+  hasSave: boolean;
+  canLoad: boolean;
+  onStart: () => void;
+  onDex: () => void;
+  onCharacter: () => void;
+  onLoad: () => void;
+}
+
+function MainMenu({ onStart, onDex, onCharacter, onLoad, canLoad, hasSave }: MainMenuProps) {
+  const items: {
+    key: string;
+    label: string;
+    hint?: string;
+    onClick: () => void;
+    accent?: boolean;
+    disabled?: boolean;
+    glyph: React.ReactNode;
+  }[] = [
+    {
+      key: "start",
+      label: "开始模拟",
+      hint: hasSave ? "继续新档" : "创建新档",
+      onClick: onStart,
+      accent: true,
+      glyph: <GlyphPlay />,
+    },
+    { key: "dex", label: "专业图鉴", onClick: onDex, glyph: <GlyphBook /> },
+    { key: "char", label: "角色设定", onClick: onCharacter, glyph: <GlyphPerson /> },
+    {
+      key: "load",
+      label: "读取进度",
+      onClick: onLoad,
+      disabled: !canLoad,
+      hint: canLoad ? "上次进度" : "无存档",
+      glyph: <GlyphDisk />,
+    },
+  ];
+
+  return (
+    <div className="pixel-panel !p-3">
+      <div className="mb-2 flex items-center justify-between">
+        <span className="font-display text-[13px] tracking-widest text-ink">主菜单</span>
+        <span className="text-[10px] text-muted-foreground">按 ↵ 选择</span>
+      </div>
+      <ul className="space-y-2">
+        {items.map((it) => (
+          <li key={it.key}>
+            <button
+              disabled={it.disabled}
+              onClick={it.onClick}
+              className="menu-btn disabled:opacity-50 disabled:cursor-not-allowed"
+              style={it.accent ? { background: "var(--cherry)", color: "var(--cream)" } : undefined}
+            >
+              <span
+                className="pixel-panel-sm !shadow-none flex h-7 w-7 shrink-0 items-center justify-center bg-cream"
+              >
+                {it.glyph}
+              </span>
+              <span className="flex-1 text-left">{it.label}</span>
+              {it.hint && (
+                <span className="text-[10px] font-normal tracking-normal text-ink/60 font-[var(--font-body)]">
+                  {it.hint}
+                </span>
+              )}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/* ================= 像素 Glyphs（无 emoji） ================= */
+
+function GlyphPlay() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path
+        d="M4 3 h2 v2 h2 v2 h2 v2 h-2 v2 h-2 v2 h-2 z"
+        fill="var(--ink)"
+      />
+    </svg>
+  );
+}
+function GlyphBook() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <rect x="2" y="3" width="12" height="10" fill="var(--sky)" stroke="var(--ink)" strokeWidth="1.5" />
+      <line x1="8" y1="3" x2="8" y2="13" stroke="var(--ink)" strokeWidth="1.5" />
+      <line x1="3.5" y1="5.5" x2="7" y2="5.5" stroke="var(--ink)" />
+      <line x1="3.5" y1="7.5" x2="7" y2="7.5" stroke="var(--ink)" />
+      <line x1="9" y1="5.5" x2="12.5" y2="5.5" stroke="var(--ink)" />
+      <line x1="9" y1="7.5" x2="12.5" y2="7.5" stroke="var(--ink)" />
+    </svg>
+  );
+}
+function GlyphPerson() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <rect x="6" y="2" width="4" height="4" fill="var(--sunny)" stroke="var(--ink)" strokeWidth="1.5" />
+      <rect x="4" y="7" width="8" height="6" fill="var(--sage)" stroke="var(--ink)" strokeWidth="1.5" />
+    </svg>
+  );
+}
+function GlyphDisk() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <rect x="2" y="2" width="12" height="12" fill="var(--tan)" stroke="var(--ink)" strokeWidth="1.5" />
+      <rect x="4" y="2" width="8" height="4" fill="var(--cream)" stroke="var(--ink)" strokeWidth="1" />
+      <rect x="6" y="9" width="4" height="4" fill="var(--cream)" stroke="var(--ink)" strokeWidth="1" />
+      <rect x="9.5" y="3" width="1.5" height="2" fill="var(--ink)" />
+    </svg>
   );
 }

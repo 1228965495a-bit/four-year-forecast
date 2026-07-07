@@ -31,6 +31,7 @@
 
   /* Game palette */
   --color-cream: var(--cream);
+  --color-paper: var(--paper);
   --color-sage: var(--sage);
   --color-sky: var(--sky);
   --color-cherry: var(--cherry);
@@ -46,33 +47,35 @@
 :root {
   --radius: 0.5rem;
 
-  /* Warm cozy pixel palette */
-  --cream: oklch(0.97 0.03 90);       /* 奶油白 */
-  --sage: oklch(0.78 0.08 145);       /* 鼠尾草绿 */
-  --sky: oklch(0.85 0.08 230);        /* 天空蓝 */
-  --cherry: oklch(0.78 0.14 15);      /* 樱桃粉 */
-  --tan: oklch(0.82 0.07 70);         /* 浅棕 */
-  --ink: oklch(0.32 0.05 40);         /* 深棕描边 */
-  --sunny: oklch(0.9 0.14 90);        /* 亮黄 */
+  /* Warm cozy pixel palette — exact hex per spec */
+  --cream: #FFF4DA;        /* 奶油白 */
+  --paper: #F6EBD2;        /* 背景浅米 */
+  --ink: #3F2A1F;          /* 深棕描边 */
+  --text: #3B2418;         /* 正文深棕 */
+  --cherry: #F47C8C;       /* 樱桃粉 */
+  --sky: #8FD0F2;          /* 天空蓝 */
+  --sage: #A8CFA3;         /* 鼠尾草绿 */
+  --sunny: #FFD86B;        /* 暖黄 */
+  --tan: #E4C79A;          /* 浅棕 */
 
-  --background: var(--cream);
-  --foreground: var(--ink);
-  --card: oklch(0.99 0.02 90);
-  --card-foreground: var(--ink);
-  --popover: oklch(0.99 0.02 90);
-  --popover-foreground: var(--ink);
+  --background: var(--paper);
+  --foreground: var(--text);
+  --card: var(--cream);
+  --card-foreground: var(--text);
+  --popover: var(--cream);
+  --popover-foreground: var(--text);
   --primary: var(--sage);
   --primary-foreground: var(--ink);
   --secondary: var(--sky);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.93 0.02 85);
-  --muted-foreground: oklch(0.5 0.04 50);
+  --muted: #EFE1C1;
+  --muted-foreground: #7A5A44;
   --accent: var(--cherry);
   --accent-foreground: var(--ink);
-  --destructive: oklch(0.65 0.22 25);
-  --destructive-foreground: oklch(0.98 0.01 90);
+  --destructive: #D9534F;
+  --destructive-foreground: #FFF4DA;
   --border: var(--ink);
-  --input: oklch(0.93 0.02 85);
+  --input: #EFE1C1;
   --ring: var(--sage);
 }
 
@@ -88,11 +91,13 @@
 
   html, body {
     font-family: var(--font-body);
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--paper);
+    color: var(--text);
     background-image:
-      radial-gradient(oklch(0.32 0.05 40 / 0.06) 1px, transparent 1px);
-    background-size: 6px 6px;
+      radial-gradient(rgba(63, 42, 31, 0.10) 1px, transparent 1px),
+      radial-gradient(rgba(63, 42, 31, 0.05) 1px, transparent 1px);
+    background-size: 8px 8px, 24px 24px;
+    background-position: 0 0, 4px 4px;
   }
 
   h1, h2, h3, h4 {
@@ -188,3 +193,83 @@
 @utility animate-pixel-pop { animation: pixel-pop 260ms ease-out both; }
 @utility animate-pixel-float { animation: pixel-float 2.4s ease-in-out infinite; }
 @utility animate-toast { animation: toast-up 1.6s ease-out both; }
+
+/* ============ Homepage-specific pixel utilities ============ */
+
+@utility pixel-logo {
+  font-family: var(--font-display);
+  color: var(--cream);
+  -webkit-text-stroke: 2px var(--ink);
+  paint-order: stroke fill;
+  text-shadow:
+    0 3px 0 var(--ink),
+    0 6px 0 rgba(63, 42, 31, 0.35);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+@utility pixel-panel {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 0 var(--ink);
+  color: var(--text);
+}
+
+@utility pixel-panel-sm {
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: 3px 3px 0 0 var(--ink);
+  color: var(--text);
+}
+
+/* Menu button styled like game menu row */
+@utility menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: var(--cream);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  box-shadow: 4px 4px 0 0 var(--ink);
+  cursor: pointer;
+  transition: transform 80ms ease, box-shadow 80ms ease, background 120ms;
+  &:hover {
+    transform: translate(-1px, -2px);
+    box-shadow: 5px 6px 0 0 var(--ink);
+    background: var(--sunny);
+  }
+  &:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 0 var(--ink);
+  }
+}
+
+@utility paper-bg {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(rgba(63, 42, 31, 0.10) 1px, transparent 1px),
+    radial-gradient(rgba(63, 42, 31, 0.05) 1px, transparent 1px);
+  background-size: 8px 8px, 24px 24px;
+  background-position: 0 0, 4px 4px;
+}
+
+@utility grass-strip {
+  background:
+    linear-gradient(180deg, #B7DAB2 0%, #98C593 60%, #7FB47A 100%);
+  position: relative;
+}
+
+@utility sky-strip {
+  background: linear-gradient(180deg, #B8E4FA 0%, #8FD0F2 70%, #A9D9F0 100%);
+}
+
+@keyframes pixel-blink { 0%,90%,100% { opacity: 1;} 95% { opacity: 0.3;} }
+@utility animate-pixel-blink { animation: pixel-blink 3s ease-in-out infinite; }
