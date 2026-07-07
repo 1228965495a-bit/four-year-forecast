@@ -39,6 +39,7 @@ function SemesterPage() {
     () => pickEvents(game.step, 1)[0] ?? EVENTS[0],
     [game.step],
   );
+  const sceneAsset = useMemo(() => getSceneAsset(currentEvent.scene), [currentEvent.scene]);
 
   const onPick = (opt: EventOption) => setFeedback({ option: opt, event: currentEvent });
 
