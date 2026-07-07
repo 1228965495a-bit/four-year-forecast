@@ -1,88 +1,58 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
-import { MAJORS, type MajorConfig } from "@/data/majors";
+import { majors as ALL_MAJORS } from "@/data/script/gameData";
 import { gameStore } from "@/lib/gameStore";
 import { cn } from "@/lib/utils";
 import { PixelButton } from "@/components/ui/PixelButton";
 import { PixelPanel } from "@/components/ui/PixelPanel";
-import { StatBar } from "@/components/ui/StatBar";
 import { TagBadge, inferTagTone } from "@/components/ui/TagBadge";
+import { majorEmoji, displayCategory, categoryTint } from "@/lib/majorDisplay";
 
 export const Route = createFileRoute("/major")({ component: MajorSelectPage });
 
-// ========== 分类 Tabs（按用户口径重新聚合） ==========
-type CategoryTab = { label: string; match: (m: MajorConfig) => boolean };
-const CATEGORY_TABS: CategoryTab[] = [
-  { label: "全部", match: () => true },
-  { label: "热门", match: (m) => m.tags.includes("热门") },
-  { label: "工科", match: (m) => m.category === "工科" },
-  { label: "人文", match: (m) => m.category === "人文" || m.category === "艺术" },
-  { label: "社科", match: (m) => m.category === "社科" || m.category === "教育" },
-  { label: "经管", match: (m) => m.category === "商科" },
-  { label: "医学", match: (m) => m.category === "医学" },
-  { label: "理学", match: (m) => m.category === "理科" },
+// 分类 tabs：按展示大类聚合
+const CATEGORY_TABS: { label: string; match: (m: any) => boolean }[] = [
+  { label: "全部",  match: () => true },
+  { label: "热门",  match: (m) => m.tier === "S" },
+  { label: "工科",  match: (m) => displayCategory(m.category) === "工科" },
+  { label: "人文",  match: (m) => displayCategory(m.category) === "人文" },
+  { label: "医学",  match: (m) => displayCategory(m.category) === "医学" },
+  { label: "经管",  match: (m) => displayCategory(m.category) === "经管" },
+  { label: "教育",  match: (m) => displayCategory(m.category) === "教育" },
+  { label: "艺术",  match: (m) => displayCategory(m.category) === "艺术" },
+  { label: "文理",  match: (m) => displayCategory(m.category) === "文理" },
 ];
 
-// ========== 推荐筛选 chips ==========
-type RecFilter = { label: string; match: (m: MajorConfig) => boolean };
-const REC_FILTERS: RecFilter[] = [
-  { label: "适合我", match: (m) => m.fit >= 72 },
-  { label: "就业稳", match: (m) => m.stats.employment >= 65 && m.stats.stability >= 60 },
-  { label: "高挑战", match: (m) => m.stats.pressure >= 75 },
-  { label: "低痛苦", match: (m) => m.stats.pressure <= 55 },
-  {
-    label: "家长喜欢",
-    match: (m) =>
-      m.stats.stability >= 60 &&
-      (m.stats.employment >= 65 || m.category === "医学" || m.category === "教育"),
-  },
-  {
-    label: "慎入但香",
-    match: (m) => m.tags.includes("慎选") && (m.stats.salary >= 70 || m.fit >= 70),
-  },
+// 推荐 chips：基于初始 stats 推断
+const REC_FILTERS: { label: string; match: (m: any) => boolean }[] = [
+  { label: "适合我",    match: (m) => (m.initialStats?.obsession ?? 0) >= 60 },
+  { label: "就业稳",    match: (m) => (m.initialStats?.careerFantasy ?? 0) >= 70 },
+  { label: "高挑战",    match: (m) => m.tier === "S" },
+  { label: "低痛苦",    match: (m) => (m.initialStats?.energy ?? 100) >= 78 },
+  { label: "家长喜欢",  match: (m) => ["医学健康池","教育稳定池","商科管理池"].includes(m.category) },
+  { label: "慎入但香",  match: (m) => (m.initialStats?.filter ?? 0) >= 78 && m.tier === "S" },
 ];
 
-const STAT_LABELS: { key: keyof MajorConfig["stats"]; label: string; color: string }[] = [
-  { key: "interest", label: "兴趣", color: "var(--cherry)" },
-  { key: "pressure", label: "压力", color: "var(--danger)" },
-  { key: "employment", label: "就业", color: "var(--sage)" },
-  { key: "salary", label: "薪资", color: "var(--sunny)" },
-  { key: "growth", label: "成长", color: "var(--sky)" },
-  { key: "stability", label: "稳定", color: "var(--tan)" },
-];
+function tierOf(m: any): "S" | "A" | "B" | "C" {
+  return (m.tier ?? "B") as any;
+}
 
-const CATEGORY_TINT: Record<MajorConfig["category"], string> = {
-  人文: "var(--tan)",
-  社科: "var(--sky)",
-  理科: "var(--sage)",
-  工科: "var(--sunny)",
-  医学: "var(--cherry)",
-  商科: "#f4b860",
-  艺术: "#e59fd0",
-  教育: "#b7d8a3",
-};
-
-function rankOf(fit: number): "S" | "A" | "B" | "C" {
-  if (fit >= 78) return "S";
-  if (fit >= 68) return "A";
-  if (fit >= 58) return "B";
-  return "C";
+function fitOf(m: any): number {
+  return Math.min(99, Math.max(40, Math.round((m.initialStats?.obsession ?? 60) * 0.6 + (m.initialStats?.filter ?? 60) * 0.4)));
 }
 
 function MajorSelectPage() {
   const navigate = useNavigate();
   const [tabLabel, setTabLabel] = useState<string>("全部");
   const [recSet, setRecSet] = useState<Set<string>>(new Set());
-  
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const toggleRec = (label: string) => {
     setRecSet((prev) => {
       const next = new Set(prev);
-      if (next.has(label)) next.delete(label);
-      else next.add(label);
+      if (next.has(label)) next.delete(label); else next.add(label);
       return next;
     });
   };
@@ -90,17 +60,17 @@ function MajorSelectPage() {
   const tab = CATEGORY_TABS.find((t) => t.label === tabLabel) ?? CATEGORY_TABS[0];
 
   const list = useMemo(() => {
-    return MAJORS.filter((m) => {
+    return ALL_MAJORS.filter((m: any) => {
       if (!tab.match(m)) return false;
-      for (const r of REC_FILTERS) {
-        if (recSet.has(r.label) && !r.match(m)) return false;
-      }
+      for (const r of REC_FILTERS) if (recSet.has(r.label) && !r.match(m)) return false;
       return true;
-    }).sort((a, b) => b.fit - a.fit);
+    }).sort((a: any, b: any) => {
+      const tierRank = { S: 3, A: 2, B: 1, C: 0 } as Record<string, number>;
+      return (tierRank[b.tier] ?? 0) - (tierRank[a.tier] ?? 0);
+    });
   }, [tab, recSet]);
 
-
-  const selected = MAJORS.find((m) => m.id === selectedId) ?? null;
+  const selected = ALL_MAJORS.find((m: any) => m.id === selectedId) ?? null;
 
   const confirm = () => {
     if (!selected) return;
@@ -110,10 +80,7 @@ function MajorSelectPage() {
 
   const topBar = (
     <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-2 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2">
-      <button
-        onClick={() => navigate({ to: "/" })}
-        className="text-[11px] px-2 py-0.5 border-2 border-cream shrink-0"
-      >
+      <button onClick={() => navigate({ to: "/" })} className="text-[11px] px-2 py-0.5 border-2 border-cream shrink-0">
         ← 返回
       </button>
       <div className="min-w-0">
@@ -130,7 +97,6 @@ function MajorSelectPage() {
       <div className="flex-1 min-h-0 overflow-y-auto">
         <div className="flex flex-col gap-2.5 p-2.5 pb-4">
 
-          {/* 分类 tabs（横向滚动） */}
           <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
             <div className="flex gap-1.5 pb-1 w-max">
               {CATEGORY_TABS.map((t) => (
@@ -150,12 +116,9 @@ function MajorSelectPage() {
             </div>
           </div>
 
-          {/* 推荐筛选 chips */}
           <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
             <div className="flex items-center gap-1.5 pb-1 w-max">
-              <span className="text-[9px] font-display tracking-[0.2em] text-ink/50 shrink-0 pr-0.5">
-                推荐 ▸
-              </span>
+              <span className="text-[9px] font-display tracking-[0.2em] text-ink/50 shrink-0 pr-0.5">推荐 ▸</span>
               {REC_FILTERS.map((r) => {
                 const active = recSet.has(r.label);
                 return (
@@ -176,28 +139,23 @@ function MajorSelectPage() {
             </div>
           </div>
 
-          {/* 当前选中副本预览卡 */}
           <SelectionPreview
             major={selected}
             onOpenDetail={() => selected && setSheetOpen(true)}
             onConfirm={confirm}
           />
 
-          {/* 章节标题 */}
           <div className="flex items-center gap-2 px-1 pt-0.5">
             <span className="inline-block h-2.5 w-2.5 bg-cherry border-2 border-ink" />
             <span className="font-display text-[11px] tracking-[0.2em] text-ink/70">
               可选副本 · {list.length}
             </span>
             <span className="h-px flex-1 bg-ink/20" />
-            <span className="text-[9px] font-display tracking-wider text-ink/50">
-              按适配度排序
-            </span>
+            <span className="text-[9px] font-display tracking-wider text-ink/50">按分档排序</span>
           </div>
 
-          {/* 副本网格：2 列紧凑瓦片 */}
           <div className="grid grid-cols-2 gap-2">
-            {list.map((m) => (
+            {list.map((m: any) => (
               <QuestTile
                 key={m.id}
                 major={m}
@@ -215,14 +173,9 @@ function MajorSelectPage() {
         </div>
       </div>
 
-      {/* 详情 sheet */}
       {sheetOpen && selected && (
         <>
-          <button
-            aria-label="关闭"
-            onClick={() => setSheetOpen(false)}
-            className="absolute inset-0 z-40 bg-ink/50"
-          />
+          <button aria-label="关闭" onClick={() => setSheetOpen(false)} className="absolute inset-0 z-40 bg-ink/50" />
           <div className="sheet-panel absolute bottom-0 left-0 right-0 z-50 max-h-[85%] overflow-y-auto p-3 pb-6 animate-pop-in">
             <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-ink/40" />
             <DetailContent major={selected} onConfirm={confirm} />
@@ -233,42 +186,24 @@ function MajorSelectPage() {
   );
 }
 
-/** 当前选中副本预览卡（未选时给出占位提示） */
 function SelectionPreview({
-  major,
-  onOpenDetail,
-  onConfirm,
-}: {
-  major: MajorConfig | null;
-  onOpenDetail: () => void;
-  onConfirm: () => void;
-}) {
+  major, onOpenDetail, onConfirm,
+}: { major: any; onOpenDetail: () => void; onConfirm: () => void }) {
   if (!major) {
     return (
-      <div
-        className="border-[3px] border-dashed border-ink/40 bg-cream/60 p-3 text-center"
-      >
-        <div className="text-[10px] font-display tracking-[0.2em] text-ink/50">
-          当前选中副本
-        </div>
-        <div className="text-[12px] text-ink/60 mt-1">
-          👇 从下方点一个专业，先预览再进入
-        </div>
+      <div className="border-[3px] border-dashed border-ink/40 bg-cream/60 p-3 text-center">
+        <div className="text-[10px] font-display tracking-[0.2em] text-ink/50">当前选中副本</div>
+        <div className="text-[12px] text-ink/60 mt-1">👇 从下方点一个专业，先预览再进入</div>
       </div>
     );
   }
 
-  const rank = rankOf(major.fit);
-  const tint = CATEGORY_TINT[major.category];
-  // 3 个核心标签：优先梗标签
-  const coreTags = major.tags.filter((t) => t !== "热门").slice(0, 3);
-  const fillerTags = major.tags.slice(0, 3);
-  const shown = coreTags.length ? coreTags : fillerTags;
+  const rank = tierOf(major);
+  const tint = categoryTint(major.category);
+  const cardTags: string[] = major.card?.tags ?? major.tags?.slice(0, 3) ?? [];
 
   return (
-    <div
-      className="relative border-[3px] border-ink bg-cream shadow-[4px_4px_0_0_var(--cherry)] p-2.5"
-    >
+    <div className="relative border-[3px] border-ink bg-cream shadow-[4px_4px_0_0_var(--cherry)] p-2.5">
       <span className="absolute -top-2 left-2 text-[9px] font-display tracking-[0.2em] px-1.5 py-0.5 bg-ink text-cream">
         ▌ 当前选中副本
       </span>
@@ -278,7 +213,7 @@ function SelectionPreview({
           className="border-[3px] border-ink shadow-[2px_2px_0_0_var(--ink)] flex items-center justify-center text-[28px] shrink-0"
           style={{ width: 54, height: 54, background: tint }}
         >
-          {major.emoji}
+          {majorEmoji(major.id)}
         </div>
 
         <div className="min-w-0">
@@ -286,14 +221,14 @@ function SelectionPreview({
             <span className={cn("rank-badge shrink-0", `rank-${rank}`)}>{rank}</span>
             <span className="font-display text-[15px] truncate flex-1">{major.name}</span>
             <span className="font-display text-[11px] text-cherry tabular-nums shrink-0">
-              {major.fit}%
+              {fitOf(major)}%
             </span>
           </div>
           <div className="text-[11px] text-ink/70 mt-1 leading-snug line-clamp-2">
-            「{major.diagnosis}」
+            「{major.card?.subtitle ?? major.card?.description ?? ""}」
           </div>
           <div className="flex flex-wrap gap-1 mt-1.5">
-            {shown.map((t) => (
+            {cardTags.slice(0, 3).map((t: string) => (
               <TagBadge key={t} tone={inferTagTone(t)}>{t}</TagBadge>
             ))}
           </div>
@@ -316,18 +251,12 @@ function SelectionPreview({
 }
 
 function QuestTile({
-  major,
-  selected,
-  onClick,
-}: {
-  major: MajorConfig;
-  selected: boolean;
-  onClick: () => void;
-}) {
-  const rank = rankOf(major.fit);
-  const tint = CATEGORY_TINT[major.category];
-  const memeTag = major.tags.find((t) => t !== "热门") ?? major.tags[0];
-  const hasWarn = major.tags.includes("慎选") || major.pressureLevel === "极高";
+  major, selected, onClick,
+}: { major: any; selected: boolean; onClick: () => void }) {
+  const rank = tierOf(major);
+  const tint = categoryTint(major.category);
+  const memeTag: string | undefined = major.card?.tags?.[0] ?? major.tags?.[0];
+  const hasWarn = !!major.card?.riskWarning;
 
   return (
     <button
@@ -338,11 +267,9 @@ function QuestTile({
         selected && "-translate-y-0.5 shadow-[3px_5px_0_0_var(--cherry)] ring-2 ring-cherry",
       )}
     >
-      <span className={cn("absolute top-1 right-1 z-10 rank-badge", `rank-${rank}`)}>
-        {rank}
-      </span>
+      <span className={cn("absolute top-1 right-1 z-10 rank-badge", `rank-${rank}`)}>{rank}</span>
 
-      {major.tags.includes("热门") && (
+      {major.tier === "S" && (
         <span className="absolute top-1 left-1 z-10 text-[8.5px] font-display tracking-wider px-1 py-0.5 bg-cherry text-cream border border-ink">
           HOT
         </span>
@@ -353,7 +280,7 @@ function QuestTile({
         style={{ background: tint }}
       >
         <div className="text-[30px] leading-none select-none" aria-hidden>
-          {major.emoji}
+          {majorEmoji(major.id)}
         </div>
         <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
       </div>
@@ -362,19 +289,17 @@ function QuestTile({
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-1">
           <span className="font-display text-[13px] truncate">{major.name}</span>
           <span className="text-[9px] font-display tabular-nums text-cherry shrink-0">
-            {major.fit}%
+            {fitOf(major)}%
           </span>
         </div>
         <div className="text-[9px] text-ink/60 mt-0.5 leading-none tracking-wider truncate">
-          {major.category} · 压力 {major.pressureLevel}
+          {displayCategory(major.category)} · {major.tier}
         </div>
 
         <div className="mt-1.5 flex items-center gap-1 min-h-[16px]">
           {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
           {hasWarn && (
-            <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">
-              ⚠
-            </span>
+            <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">⚠</span>
           )}
         </div>
       </div>
@@ -382,9 +307,10 @@ function QuestTile({
   );
 }
 
-function DetailContent({ major, onConfirm }: { major: MajorConfig; onConfirm: () => void }) {
-  const rank = rankOf(major.fit);
-  const tint = CATEGORY_TINT[major.category];
+function DetailContent({ major, onConfirm }: { major: any; onConfirm: () => void }) {
+  const rank = tierOf(major);
+  const tint = categoryTint(major.category);
+  const memes: string[] = major.memes ?? [];
   return (
     <div className="space-y-3">
       <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
@@ -392,7 +318,7 @@ function DetailContent({ major, onConfirm }: { major: MajorConfig; onConfirm: ()
           className="border-[3px] border-ink shadow-[3px_3px_0_0_var(--ink)] flex items-center justify-center text-[28px] shrink-0"
           style={{ width: 62, height: 62, background: tint }}
         >
-          {major.emoji}
+          {majorEmoji(major.id)}
         </div>
         <div className="min-w-0">
           <div className="flex items-center gap-2">
@@ -400,67 +326,53 @@ function DetailContent({ major, onConfirm }: { major: MajorConfig; onConfirm: ()
             <div className="font-display text-[18px] leading-tight truncate">{major.name}</div>
           </div>
           <div className="text-[11px] text-ink/70 mt-0.5">
-            {major.category} · 压力{major.pressureLevel} · 适配 {major.fit}%
+            {displayCategory(major.category)} · 分档 {major.tier} · 适配 {fitOf(major)}%
           </div>
           <div className="flex flex-wrap gap-1 mt-1">
-            {major.tags.map((t) => (
+            {(major.card?.tags ?? []).map((t: string) => (
               <TagBadge key={t} tone={inferTagTone(t)}>{t}</TagBadge>
             ))}
           </div>
         </div>
       </div>
 
-      <PixelPanel title="综合数值 · STATS" size="sm" bodyClassName="p-2.5">
-        <div className="grid grid-cols-2 gap-x-3 gap-y-1">
-          {STAT_LABELS.map((s) => (
-            <StatBar
-              key={s.key}
-              label={s.label}
-              value={major.stats[s.key]}
-              color={s.color}
-              size="sm"
-            />
-          ))}
-        </div>
-      </PixelPanel>
-
-      <PixelPanel title="推荐理由" size="sm" tone="sage" bodyClassName="p-2.5">
-        <ul className="space-y-0.5 text-[12px]">
-          {major.reasons.map((r) => (
-            <li key={r} className="flex gap-1.5">
-              <span className="text-ink">▸</span>
-              <span>{r}</span>
-            </li>
-          ))}
-        </ul>
-      </PixelPanel>
-
-      <PixelPanel title="慎入人群" size="sm" tone="cherry" bodyClassName="p-2.5">
-        <ul className="space-y-0.5 text-[12px]">
-          {major.warnings.map((r) => (
-            <li key={r} className="flex gap-1.5">
-              <span style={{ color: "var(--danger)" }}>✕</span>
-              <span>{r}</span>
-            </li>
-          ))}
-        </ul>
-      </PixelPanel>
-
-      <div>
-        <div className="text-[10px] font-display tracking-widest text-ink/60 mb-1">可能结局方向</div>
-        <div className="flex flex-wrap gap-1.5">
-          {major.endings.map((e) => (
-            <span key={e} className="pixel-chip bg-sky/40 !text-[11px]">{e}</span>
-          ))}
-        </div>
-      </div>
-
       <div className="diag-note">
-        <div className="text-[10px] font-display tracking-widest text-ink/60 mb-0.5">
-          系统诊断
-        </div>
-        {major.diagnosis}
+        <div className="text-[10px] font-display tracking-widest text-ink/60 mb-0.5">系统诊断</div>
+        {major.card?.subtitle ?? major.card?.description}
       </div>
+
+      <PixelPanel title="推荐画像 · WHY YOU" size="sm" tone="sage" bodyClassName="p-2.5">
+        <ul className="space-y-0.5 text-[12px]">
+          {(major.fitProfile ?? []).map((r: string) => (
+            <li key={r} className="flex gap-1.5"><span>▸</span><span>{r}</span></li>
+          ))}
+        </ul>
+      </PixelPanel>
+
+      <PixelPanel title="慎入人群 · AVOID" size="sm" tone="cherry" bodyClassName="p-2.5">
+        <ul className="space-y-0.5 text-[12px]">
+          {(major.avoidProfile ?? []).map((r: string) => (
+            <li key={r} className="flex gap-1.5"><span style={{ color: "var(--danger)" }}>✕</span><span>{r}</span></li>
+          ))}
+        </ul>
+      </PixelPanel>
+
+      {memes.length > 0 && (
+        <div>
+          <div className="text-[10px] font-display tracking-widest text-ink/60 mb-1">专业梗 · MEMES</div>
+          <div className="flex flex-wrap gap-1.5">
+            {memes.map((e) => (
+              <span key={e} className="pixel-chip bg-sky/40 !text-[11px]">{e}</span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {major.card?.riskWarning && (
+        <div className="border-2 border-cherry bg-cherry/10 p-2.5 text-[12px] leading-snug text-ink">
+          ⚠ {major.card.riskWarning}
+        </div>
+      )}
 
       <PixelButton variant="accent" size="block" onClick={onConfirm}>
         ✓ 确认进入「{major.name}」副本

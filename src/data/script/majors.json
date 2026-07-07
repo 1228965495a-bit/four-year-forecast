@@ -1,0 +1,6177 @@
+[
+  {
+    "id": "law",
+    "name": "法学",
+    "tier": "S",
+    "category": "文法人文池",
+    "card": {
+      "title": "法学",
+      "subtitle": "法学副本：正义滤镜与背书地狱",
+      "description": "你以为自己会成为精英律师，实际上你先成为背书机器。",
+      "tags": [
+        "法考预备役",
+        "正义感消耗中",
+        "嘴硬型选手"
+      ],
+      "buttonText": "进入法学副本",
+      "riskWarning": "别只因为电视剧里的律师很帅就冲进来。"
+    },
+    "intro": {
+      "title": "欢迎进入法学副本",
+      "body": "你带着一点正义感、一点体面想象，以及一点“法学好像不用学高数”的侥幸心理，来到了这里。\n系统提醒：本科四年内，你将依次遭遇法理学、民法、刑法、行政法、案例分析、模拟法庭、实习落差、法考经验贴和毕业论文。\n如果你知道这些还想继续，说明你可能真的有点适合。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "高考热门",
+      "体面滤镜",
+      "考公友好",
+      "法考压力",
+      "背诵量高",
+      "就业分化",
+      "嘴硬浓度高",
+      "正义感消耗中"
+    ],
+    "fitProfile": [
+      "喜欢讲道理",
+      "愿意阅读大量文本",
+      "能接受长期背诵和逻辑训练",
+      "对规则和公平有敏感度"
+    ],
+    "avoidProfile": [
+      "只因为电视剧里的律师很帅而心动",
+      "以为法学不用学数学就等于轻松",
+      "讨厌阅读长文本",
+      "不喜欢论证、写作和被追问"
+    ],
+    "commonFilters": [
+      "精英律师",
+      "红圈律所",
+      "庭审高光",
+      "正义感",
+      "体面职业",
+      "考公万能",
+      "不用学高数",
+      "家里亲戚觉得很稳"
+    ],
+    "painPoints": [
+      "法理学开局劝退",
+      "民法、刑法、行政法轮流上强度",
+      "案例分析不是背法条就能解决",
+      "法考压力长期悬顶",
+      "实习落差明显",
+      "就业路径分化",
+      "论文和考研、法考、实习可能同时出现"
+    ],
+    "memes": [
+      "请求权基础",
+      "法考 PTSD",
+      "看到吵架先问证据",
+      "亲戚默认你以后当律师",
+      "法律依据是什么",
+      "这个要分情况讨论",
+      "背不完，真的背不完"
+    ],
+    "initialStats": {
+      "obsession": 65,
+      "energy": 76,
+      "filter": 82,
+      "gpaWill": 62,
+      "careerFantasy": 72,
+      "escapeImpulse": 18,
+      "stubbornness": 45,
+      "hairline": 92
+    },
+    "majorStats": [
+      {
+        "key": "legalCloseness",
+        "name": "法条亲密度",
+        "initialValue": 20,
+        "description": "你和法条、案例、规范文本之间的熟悉程度。高时会在生活中自动寻找法律依据。"
+      },
+      {
+        "key": "examPtsd",
+        "name": "法考 PTSD",
+        "initialValue": 0,
+        "description": "你被法考相关内容提前影响的程度。高时看到“客观题”“主观题”会产生条件反射。"
+      },
+      {
+        "key": "justiceRemaining",
+        "name": "正义感剩余量",
+        "initialValue": 80,
+        "description": "进入法学时那点朴素正义感还剩多少。低时会更频繁地说“这个要看证据和程序”。"
+      },
+      {
+        "key": "thesisPressure",
+        "name": "论文压力",
+        "initialValue": 0,
+        "description": "毕业论文相关风险值，用于大四 GG 判定。"
+      }
+    ],
+    "timeline": [
+      {
+        "key": "y1s1",
+        "label": "大一上",
+        "theme": "新手村与法学滤镜",
+        "pressureLevel": 0.6,
+        "mainEventIds": [
+          "law_y1s1_main_001",
+          "law_y1s1_main_002",
+          "law_y1s1_main_003"
+        ],
+        "randomSlots": [
+          {
+            "pool": "law_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "law_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s1"
+      },
+      {
+        "key": "y1s2",
+        "label": "大一下",
+        "theme": "第一次期末与基础课冲击",
+        "pressureLevel": 0.7,
+        "mainEventIds": [
+          "law_y1s2_main_004",
+          "law_y1s2_transfer_005",
+          "law_y1s2_main_006"
+        ],
+        "randomSlots": [
+          {
+            "pool": "law_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "law_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s2"
+      },
+      {
+        "key": "y2s1",
+        "label": "大二上",
+        "theme": "民法入门与请求权基础预警",
+        "pressureLevel": 0.85,
+        "mainEventIds": [
+          "law_y2s1_main_007",
+          "law_y2s1_main_008",
+          "law_y2s1_main_009"
+        ],
+        "randomSlots": [
+          {
+            "pool": "law_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "law_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s1"
+      },
+      {
+        "key": "y2s2",
+        "label": "大二下",
+        "theme": "核心课上强度与转专业隐藏入口",
+        "pressureLevel": 1.0,
+        "mainEventIds": [
+          "law_y2s2_main_010",
+          "law_y2s2_transfer_011",
+          "law_y2s2_main_012"
+        ],
+        "randomSlots": [
+          {
+            "pool": "law_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "law_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s2"
+      },
+      {
+        "key": "y3s1",
+        "label": "大三上",
+        "theme": "法考阴影、模拟法庭与实习预热",
+        "pressureLevel": 1.2,
+        "mainEventIds": [
+          "law_y3s1_main_013",
+          "law_y3s1_main_014",
+          "law_y3s1_route_015"
+        ],
+        "randomSlots": [
+          {
+            "pool": "law_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "law_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s1"
+      },
+      {
+        "key": "y3s2",
+        "label": "大三下",
+        "theme": "路线分化",
+        "pressureLevel": 1.35,
+        "mainEventIds": [
+          "law_y3s2_route_016",
+          "law_y3s2_route_017",
+          "law_y3s2_main_018"
+        ],
+        "randomSlots": [
+          {
+            "pool": "law_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "law_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s2"
+      },
+      {
+        "key": "y4s1",
+        "label": "大四上",
+        "theme": "秋招、考试与论文预警",
+        "pressureLevel": 1.5,
+        "mainEventIds": [
+          "law_y4s1_main_019",
+          "law_y4s1_route_020",
+          "law_y4s1_gg_021"
+        ],
+        "randomSlots": [
+          {
+            "pool": "law_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "law_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s1"
+      },
+      {
+        "key": "y4s2",
+        "label": "大四下",
+        "theme": "毕业结算",
+        "pressureLevel": 1.4,
+        "mainEventIds": [
+          "law_y4s2_main_022",
+          "law_y4s2_final_023"
+        ],
+        "randomSlots": [
+          {
+            "pool": "law_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "law_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s2"
+      }
+    ],
+    "randomEvents": [
+      "law_random_001",
+      "law_random_002",
+      "law_random_003",
+      "law_random_004",
+      "law_random_005",
+      "law_random_006",
+      "law_random_007",
+      "law_random_008",
+      "law_random_009",
+      "law_random_010"
+    ],
+    "hiddenEvents": [
+      "law_hidden_001",
+      "law_hidden_002",
+      "law_hidden_003",
+      "law_hidden_004",
+      "law_hidden_005"
+    ],
+    "routeEvents": [
+      {
+        "routeId": "route_law_exam",
+        "eventIds": [
+          "law_y3s2_route_017",
+          "law_gg_002"
+        ]
+      },
+      {
+        "routeId": "route_postgrad",
+        "eventIds": [
+          "law_y3s2_route_017",
+          "law_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "route_civil_service",
+        "eventIds": [
+          "law_y3s2_route_017",
+          "law_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "route_job",
+        "eventIds": [
+          "law_y3s1_route_015",
+          "law_y3s2_route_017",
+          "law_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "route_transfer_application",
+        "eventIds": [
+          "law_transfer_apply_001",
+          "law_transfer_apply_002",
+          "law_transfer_apply_003"
+        ]
+      },
+      {
+        "routeId": "route_cross",
+        "eventIds": [
+          "law_y3s2_main_018",
+          "law_y4s2_final_023"
+        ]
+      },
+      {
+        "routeId": "route_layflat",
+        "eventIds": [
+          "law_y3s2_main_018",
+          "law_y4s2_final_023"
+        ]
+      }
+    ],
+    "achievements": [
+      "ach_law_stubborn_revive",
+      "ach_law_experience_collector",
+      "ach_law_final_week_survivor",
+      "ach_law_found_escape_door",
+      "ach_law_halfway_restart",
+      "ach_law_failed_escape",
+      "ach_law_claim_basis_victim",
+      "ach_law_human_legal_search",
+      "ach_law_exam_ptsd",
+      "ach_law_ask_evidence",
+      "ach_law_justice_alive",
+      "ach_law_realist",
+      "ach_law_teacher_certified",
+      "ach_law_true_love_warning",
+      "ach_law_groupwork_miracle",
+      "ach_law_resume_not_sunk",
+      "ach_law_pain_reference"
+    ],
+    "endings": [
+      "ending_law_mid_gg",
+      "ending_law_transfer_success",
+      "ending_law_transfer_fail",
+      "ending_law_human_search",
+      "ending_law_overachiever",
+      "ending_law_true_love",
+      "ending_law_civil_service",
+      "ending_law_exam_edge",
+      "ending_law_survivor",
+      "ending_law_filter_broken",
+      "ending_law_layflat"
+    ],
+    "shareTexts": {
+      "hooks": [
+        "别急着报法学，先进副本活一遍。",
+        "我体验完法学本科，系统说我的嘴硬浓度超标。",
+        "转发给那个想因为律师剧报法学的人。",
+        "法学生看完沉默，高考生看完冷静。",
+        "这不是劝退，这是提前摘滤镜。"
+      ],
+      "buttons": [
+        "换个专业继续受苦",
+        "截图发给想报法学的人",
+        "不服，重开一次法学副本",
+        "看看系统会推荐我读什么专业"
+      ]
+    },
+    "majorId": "law"
+  },
+  {
+    "id": "computer_science",
+    "name": "计算机 / 软件工程",
+    "tier": "S",
+    "category": "工科信息池",
+    "card": {
+      "title": "计算机 / 软件工程",
+      "subtitle": "计算机副本：高薪滤镜与 Debug 深渊",
+      "description": "你以为自己是未来高薪工程师，后来发现第一关是让程序成功运行。",
+      "tags": [
+        "debug 人",
+        "算法阴影",
+        "实习焦虑"
+      ],
+      "buttonText": "进入计算机副本",
+      "riskWarning": "别只看大厂薪资截图，先看看你能不能和 bug 和平共处。"
+    },
+    "intro": {
+      "title": "欢迎进入计算机副本",
+      "body": "你带着一点高薪想象、一点技术崇拜，以及一点“我平时很会用电脑”的自信，来到了这里。\n系统提醒：本科四年内，你将依次遭遇高数、线代、编程入门、数据结构、算法、操作系统、数据库、计网、项目作业、实习投递、秋招和毕业设计。\n如果你知道这些还想继续，说明你可能真的有点适合；如果你只是被薪资截图骗进来，系统建议你先把滤镜调低一点。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "高薪滤镜",
+      "热门工科",
+      "算法压力",
+      "项目驱动",
+      "实习内卷",
+      "转码圣地",
+      "debug 人生",
+      "发际线危险区"
+    ],
+    "fitProfile": [
+      "愿意长期和抽象逻辑、代码、系统错误信息打交道",
+      "能接受反复调试和持续自学",
+      "数学耐受、熬夜体质、动手能力较高"
+    ],
+    "avoidProfile": [
+      "只因为计算机工资高就冲",
+      "以为写代码就是优雅敲键盘",
+      "完全不能接受挫败、报错和自学"
+    ],
+    "commonFilters": [
+      "大厂高薪",
+      "技术改变世界",
+      "远程办公自由人",
+      "转码上岸",
+      "毕业就进大厂"
+    ],
+    "painPoints": [
+      "数学开局压强",
+      "编程入门挫败",
+      "数据结构和算法摩擦",
+      "环境配置和依赖冲突",
+      "项目、实习、竞赛提前内卷"
+    ],
+    "memes": [
+      "在我电脑上是好的",
+      "看懂题解但自己写不出",
+      "环境配了一下午，项目还没开始",
+      "小组项目队友失联",
+      "debug 到天亮"
+    ],
+    "initialStats": {
+      "obsession": 68,
+      "energy": 74,
+      "filter": 86,
+      "gpaWill": 60,
+      "careerFantasy": 88,
+      "escapeImpulse": 16,
+      "stubbornness": 42,
+      "hairline": 91
+    },
+    "majorStats": [
+      {
+        "key": "bugDebt",
+        "name": "bug 债务",
+        "initialValue": 0,
+        "description": "代码、环境、项目和依赖问题中积累的未解决问题。"
+      },
+      {
+        "key": "algorithmShadow",
+        "name": "算法阴影",
+        "initialValue": 10,
+        "description": "被数据结构、算法题、笔试和刷题训练影响的程度。"
+      },
+      {
+        "key": "internshipAnxiety",
+        "name": "实习焦虑",
+        "initialValue": 15,
+        "description": "对项目经历、简历、实习、秋招和大厂门槛的焦虑程度。"
+      },
+      {
+        "key": "projectExperience",
+        "name": "项目经验",
+        "initialValue": 0,
+        "description": "可被简历和路线结算识别的真实项目积累。"
+      },
+      {
+        "key": "thesisPressure",
+        "name": "毕设压力",
+        "initialValue": 0,
+        "description": "大四毕设相关风险值。"
+      }
+    ],
+    "timeline": [
+      {
+        "key": "y1s1",
+        "label": "大一上",
+        "theme": "高薪滤镜与编程新手村",
+        "pressureLevel": 0.6,
+        "mainEventIds": [
+          "computer_science_y1s1_main_001",
+          "computer_science_y1s1_main_002",
+          "computer_science_y1s1_main_003"
+        ],
+        "randomSlots": [
+          {
+            "pool": "computer_science_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "computer_science_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s1"
+      },
+      {
+        "key": "y1s2",
+        "label": "大一下",
+        "theme": "作业、数学与第一次项目幻觉",
+        "pressureLevel": 0.7,
+        "mainEventIds": [
+          "computer_science_y1s2_main_004",
+          "computer_science_y1s2_transfer_005",
+          "computer_science_y1s2_main_006"
+        ],
+        "randomSlots": [
+          {
+            "pool": "computer_science_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "computer_science_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s2"
+      },
+      {
+        "key": "y2s1",
+        "label": "大二上",
+        "theme": "数据结构与算法阴影",
+        "pressureLevel": 0.85,
+        "mainEventIds": [
+          "computer_science_y2s1_main_007",
+          "computer_science_y2s1_main_008",
+          "computer_science_y2s1_main_009"
+        ],
+        "randomSlots": [
+          {
+            "pool": "computer_science_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "computer_science_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s1"
+      },
+      {
+        "key": "y2s2",
+        "label": "大二下",
+        "theme": "操作系统、数据库与转专业隐藏入口",
+        "pressureLevel": 1.0,
+        "mainEventIds": [
+          "computer_science_y2s2_main_010",
+          "computer_science_y2s2_transfer_011",
+          "computer_science_y2s2_main_012"
+        ],
+        "randomSlots": [
+          {
+            "pool": "computer_science_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "computer_science_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s2"
+      },
+      {
+        "key": "y3s1",
+        "label": "大三上",
+        "theme": "实习焦虑与项目包装",
+        "pressureLevel": 1.2,
+        "mainEventIds": [
+          "computer_science_y3s1_main_013",
+          "computer_science_y3s1_main_014",
+          "computer_science_y3s1_route_015"
+        ],
+        "randomSlots": [
+          {
+            "pool": "computer_science_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "computer_science_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s1"
+      },
+      {
+        "key": "y3s2",
+        "label": "大三下",
+        "theme": "路线分化",
+        "pressureLevel": 1.35,
+        "mainEventIds": [
+          "computer_science_y3s2_route_016",
+          "computer_science_y3s2_route_017",
+          "computer_science_y3s2_main_018"
+        ],
+        "randomSlots": [
+          {
+            "pool": "computer_science_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "computer_science_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s2"
+      },
+      {
+        "key": "y4s1",
+        "label": "大四上",
+        "theme": "秋招、毕设与现实结算",
+        "pressureLevel": 1.5,
+        "mainEventIds": [
+          "computer_science_y4s1_main_019",
+          "computer_science_y4s1_route_020",
+          "computer_science_y4s1_gg_021"
+        ],
+        "randomSlots": [
+          {
+            "pool": "computer_science_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "computer_science_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s1"
+      },
+      {
+        "key": "y4s2",
+        "label": "大四下",
+        "theme": "毕业结算",
+        "pressureLevel": 1.4,
+        "mainEventIds": [
+          "computer_science_y4s2_main_022",
+          "computer_science_y4s2_final_023"
+        ],
+        "randomSlots": [
+          {
+            "pool": "computer_science_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "computer_science_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s2"
+      }
+    ],
+    "randomEvents": [
+      "computer_science_random_001",
+      "computer_science_random_002",
+      "computer_science_random_003",
+      "computer_science_random_004",
+      "computer_science_random_005",
+      "computer_science_random_006",
+      "computer_science_random_007",
+      "computer_science_random_008",
+      "computer_science_random_009",
+      "computer_science_random_010"
+    ],
+    "hiddenEvents": [
+      "computer_science_hidden_001",
+      "computer_science_hidden_002",
+      "computer_science_hidden_003",
+      "computer_science_hidden_004",
+      "computer_science_hidden_005"
+    ],
+    "routeEvents": [
+      {
+        "routeId": "computer_science_route_job",
+        "eventIds": [
+          "computer_science_y3s1_route_015",
+          "computer_science_y3s2_route_017",
+          "computer_science_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "computer_science_route_postgrad",
+        "eventIds": [
+          "computer_science_y3s2_route_017",
+          "computer_science_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "computer_science_route_stable",
+        "eventIds": [
+          "computer_science_y3s2_route_017",
+          "computer_science_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "computer_science_route_product",
+        "eventIds": [
+          "computer_science_y3s2_route_017"
+        ]
+      },
+      {
+        "routeId": "computer_science_route_transfer_application",
+        "eventIds": [
+          "computer_science_transfer_apply_001",
+          "computer_science_transfer_apply_002",
+          "computer_science_transfer_apply_003"
+        ]
+      },
+      {
+        "routeId": "computer_science_route_cross",
+        "eventIds": [
+          "computer_science_y3s2_main_018",
+          "computer_science_y4s2_final_023"
+        ]
+      },
+      {
+        "routeId": "computer_science_route_layflat",
+        "eventIds": [
+          "computer_science_y3s2_main_018",
+          "computer_science_y4s2_final_023"
+        ]
+      }
+    ],
+    "achievements": [
+      "ach_computer_science_stubborn_revive",
+      "ach_computer_science_experience_collector",
+      "ach_computer_science_final_week_survivor",
+      "ach_computer_science_halfway_restart",
+      "ach_computer_science_failed_escape",
+      "ach_computer_science_config_victim",
+      "ach_computer_science_debug_night",
+      "ach_computer_science_solution_dependency",
+      "ach_computer_science_group_lone_wolf",
+      "ach_computer_science_first_run_miracle",
+      "ach_computer_science_engineering_personality",
+      "ach_computer_science_bug_solved",
+      "ach_computer_science_resume_reply",
+      "ach_computer_science_teacher_certified",
+      "ach_computer_science_groupwork_miracle",
+      "ach_computer_science_true_love_warning",
+      "ach_computer_science_escape_door"
+    ],
+    "endings": [
+      "ending_computer_science_mid_gg",
+      "ending_computer_science_transfer_success",
+      "ending_computer_science_transfer_fail",
+      "ending_computer_science_human_debugger",
+      "ending_computer_science_overachiever",
+      "ending_computer_science_true_love",
+      "ending_computer_science_algorithm_shadow",
+      "ending_computer_science_internship_anxiety",
+      "ending_computer_science_product_escape",
+      "ending_computer_science_survivor",
+      "ending_computer_science_filter_broken",
+      "ending_computer_science_layflat"
+    ],
+    "shareTexts": {
+      "hooks": [
+        "我用 5 分钟读完了计算机本科，系统给我判了这个结局。",
+        "别急着报计算机，先进副本 debug 一遍。",
+        "转发给那个只看大厂薪资截图的人。",
+        "这不是劝退，这是提前摘高薪滤镜。"
+      ],
+      "buttons": [
+        "换个专业继续受苦",
+        "截图发给想报计算机的人",
+        "不服，重开一次计算机副本",
+        "看看系统会推荐我读什么专业"
+      ]
+    },
+    "majorId": "computer_science"
+  },
+  {
+    "id": "artificial_intelligence",
+    "name": "人工智能",
+    "tier": "S",
+    "category": "工科信息池",
+    "card": {
+      "title": "人工智能",
+      "subtitle": "人工智能副本：未来感滤镜与数学地基塌方",
+      "description": "你以为自己要站上未来风口，结果第一学期先被数学地基和代码报错按在原地。",
+      "tags": [
+        "未来感滤镜",
+        "数学地基检测",
+        "调参预备役"
+      ],
+      "buttonText": "进入人工智能副本",
+      "riskWarning": "别只因为专业名字听起来像未来，就忘了未来也要先交作业。"
+    },
+    "intro": {
+      "title": "欢迎进入人工智能副本",
+      "body": "你带着一点未来感、一点高薪想象，以及一点“AI 时代我是不是也该学 AI”的命运感，进入了人工智能专业。\n系统提醒：本科四年内，你将依次遭遇高数、线代、概率统计、程序设计、数据结构、机器学习、深度学习、论文复现、项目包装、实习投递和显存焦虑。\n如果你知道这些还想继续，说明你可能不是被风口吹来的，而是真的愿意在风里调参。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "高考热门",
+      "名字很香",
+      "数学硬核",
+      "代码工程",
+      "科研竞赛",
+      "实习内卷",
+      "算力焦虑",
+      "未来感很强"
+    ],
+    "fitProfile": [
+      "数学耐受较高",
+      "愿意写代码",
+      "能接受长期自学",
+      "对技术迭代有兴趣",
+      "愿意在不确定中持续调试"
+    ],
+    "avoidProfile": [
+      "只因为人工智能四个字听起来很未来",
+      "以为 AI 专业等于每天玩 ChatGPT",
+      "不想碰高数、线代、概率统计、算法和代码"
+    ],
+    "commonFilters": [
+      "未来行业核心",
+      "高薪专业",
+      "大模型时代红利",
+      "不用传统写代码",
+      "名字比计算机更高级"
+    ],
+    "painPoints": [
+      "数学地基非常重要",
+      "课程横跨计算机、数学、算法和工程实现",
+      "论文复现像玄学",
+      "没有算力时未来感会缩水",
+      "就业容易被问项目、算法和工程能力"
+    ],
+    "memes": [
+      "名字很香，课表很硬",
+      "未来还没来，高数先来了",
+      "模型没训练好，人先被训练了",
+      "显存不够时，梦想也会变小",
+      "调参像玄学，报错像命运"
+    ],
+    "initialStats": {
+      "obsession": 76,
+      "energy": 74,
+      "filter": 88,
+      "gpaWill": 66,
+      "careerFantasy": 84,
+      "escapeImpulse": 16,
+      "stubbornness": 42,
+      "hairline": 90
+    },
+    "majorStats": [
+      {
+        "key": "mathFoundation",
+        "name": "数学地基",
+        "initialValue": 35,
+        "description": "对高数、线代、概率统计、优化等基础内容的承载能力。"
+      },
+      {
+        "key": "modelHype",
+        "name": "模型幻觉值",
+        "initialValue": 70,
+        "description": "对模型很智能、AI 很万能、未来很近的想象强度。"
+      },
+      {
+        "key": "computeHunger",
+        "name": "算力饥饿度",
+        "initialValue": 15,
+        "description": "训练模型、跑实验、做项目时对 GPU、服务器、数据资源的渴望程度。"
+      },
+      {
+        "key": "codeEngineering",
+        "name": "代码工程感",
+        "initialValue": 10,
+        "description": "把模型、代码、数据和系统真正做成闭环的能力感。"
+      },
+      {
+        "key": "projectPackaging",
+        "name": "项目包装",
+        "initialValue": 0,
+        "description": "把课程作业、模型实验和项目经历转成可展示作品的程度。"
+      },
+      {
+        "key": "thesisRisk",
+        "name": "毕设风险",
+        "initialValue": 0,
+        "description": "大四毕设和模型落地相关风险值。"
+      }
+    ],
+    "timeline": [
+      {
+        "key": "y1s1",
+        "label": "大一上",
+        "theme": "未来感入学与数学地基预警",
+        "pressureLevel": 0.6,
+        "mainEventIds": [
+          "artificial_intelligence_y1s1_main_001",
+          "artificial_intelligence_y1s1_main_002",
+          "artificial_intelligence_y1s1_main_003"
+        ],
+        "randomSlots": [
+          {
+            "pool": "artificial_intelligence_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "artificial_intelligence_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s1"
+      },
+      {
+        "key": "y1s2",
+        "label": "大一下",
+        "theme": "线代、概率与 AI 不是魔法",
+        "pressureLevel": 0.7,
+        "mainEventIds": [
+          "artificial_intelligence_y1s2_main_004",
+          "artificial_intelligence_y1s2_main_005",
+          "artificial_intelligence_y1s2_main_006"
+        ],
+        "randomSlots": [
+          {
+            "pool": "artificial_intelligence_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "artificial_intelligence_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s2"
+      },
+      {
+        "key": "y2s1",
+        "label": "大二上",
+        "theme": "数据结构、算法与基础工程",
+        "pressureLevel": 0.85,
+        "mainEventIds": [
+          "artificial_intelligence_y2s1_main_007",
+          "artificial_intelligence_y2s1_main_008",
+          "artificial_intelligence_y2s1_transfer_009"
+        ],
+        "randomSlots": [
+          {
+            "pool": "artificial_intelligence_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "artificial_intelligence_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s1"
+      },
+      {
+        "key": "y2s2",
+        "label": "大二下",
+        "theme": "机器学习入门与转专业隐藏入口",
+        "pressureLevel": 1.0,
+        "mainEventIds": [
+          "artificial_intelligence_y2s2_main_010",
+          "artificial_intelligence_y2s2_main_011",
+          "artificial_intelligence_y2s2_transfer_012"
+        ],
+        "randomSlots": [
+          {
+            "pool": "artificial_intelligence_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "artificial_intelligence_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s2"
+      },
+      {
+        "key": "y3s1",
+        "label": "大三上",
+        "theme": "深度学习、复现和项目包装",
+        "pressureLevel": 1.2,
+        "mainEventIds": [
+          "artificial_intelligence_y3s1_main_013",
+          "artificial_intelligence_y3s1_main_014",
+          "artificial_intelligence_y3s1_route_015"
+        ],
+        "randomSlots": [
+          {
+            "pool": "artificial_intelligence_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "artificial_intelligence_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s1"
+      },
+      {
+        "key": "y3s2",
+        "label": "大三下",
+        "theme": "路线分化",
+        "pressureLevel": 1.35,
+        "mainEventIds": [
+          "artificial_intelligence_y3s2_route_016",
+          "artificial_intelligence_y3s2_route_017",
+          "artificial_intelligence_y3s2_main_018"
+        ],
+        "randomSlots": [
+          {
+            "pool": "artificial_intelligence_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "artificial_intelligence_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s2"
+      },
+      {
+        "key": "y4s1",
+        "label": "大四上",
+        "theme": "秋招、毕设和大模型现实校准",
+        "pressureLevel": 1.5,
+        "mainEventIds": [
+          "artificial_intelligence_y4s1_main_019",
+          "artificial_intelligence_y4s1_route_020",
+          "artificial_intelligence_y4s1_gg_check_021"
+        ],
+        "randomSlots": [
+          {
+            "pool": "artificial_intelligence_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "artificial_intelligence_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s1"
+      },
+      {
+        "key": "y4s2",
+        "label": "大四下",
+        "theme": "毕业结算",
+        "pressureLevel": 1.4,
+        "mainEventIds": [
+          "artificial_intelligence_y4s2_main_022",
+          "artificial_intelligence_y4s2_settlement_023"
+        ],
+        "randomSlots": [
+          {
+            "pool": "artificial_intelligence_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "artificial_intelligence_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s2"
+      }
+    ],
+    "randomEvents": [
+      "artificial_intelligence_random_001",
+      "artificial_intelligence_random_002",
+      "artificial_intelligence_random_003",
+      "artificial_intelligence_random_004",
+      "artificial_intelligence_random_005",
+      "artificial_intelligence_random_006",
+      "artificial_intelligence_random_007",
+      "artificial_intelligence_random_008",
+      "artificial_intelligence_random_009",
+      "artificial_intelligence_random_010"
+    ],
+    "hiddenEvents": [
+      "artificial_intelligence_hidden_001",
+      "artificial_intelligence_hidden_002",
+      "artificial_intelligence_hidden_003",
+      "artificial_intelligence_hidden_004",
+      "artificial_intelligence_hidden_005"
+    ],
+    "routeEvents": [
+      {
+        "routeId": "artificial_intelligence_route_job",
+        "eventIds": [
+          "artificial_intelligence_y3s2_route_017",
+          "artificial_intelligence_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "artificial_intelligence_route_postgrad",
+        "eventIds": [
+          "artificial_intelligence_y3s2_route_017",
+          "artificial_intelligence_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "artificial_intelligence_route_research",
+        "eventIds": [
+          "artificial_intelligence_y3s2_route_017"
+        ]
+      },
+      {
+        "routeId": "artificial_intelligence_route_application",
+        "eventIds": [
+          "artificial_intelligence_y3s2_route_017",
+          "artificial_intelligence_y4s2_settlement_023"
+        ]
+      },
+      {
+        "routeId": "artificial_intelligence_route_transfer_application",
+        "eventIds": [
+          "artificial_intelligence_transfer_apply_001",
+          "artificial_intelligence_transfer_apply_002",
+          "artificial_intelligence_transfer_apply_003"
+        ]
+      },
+      {
+        "routeId": "artificial_intelligence_route_layflat",
+        "eventIds": [
+          "artificial_intelligence_y3s2_main_018",
+          "artificial_intelligence_y4s2_settlement_023"
+        ]
+      }
+    ],
+    "achievements": [
+      "ach_artificial_intelligence_stubborn_revive",
+      "ach_artificial_intelligence_env_victim",
+      "ach_artificial_intelligence_gpu_blessing",
+      "ach_artificial_intelligence_reproduced_paper",
+      "ach_artificial_intelligence_tuning_mystic",
+      "ach_artificial_intelligence_model_hype_crusher",
+      "ach_artificial_intelligence_closed_loop",
+      "ach_artificial_intelligence_algorithm_shadow",
+      "ach_artificial_intelligence_true_love_warning",
+      "ach_artificial_intelligence_team_converged",
+      "ach_artificial_intelligence_escape_door",
+      "ach_artificial_intelligence_halfway_restart",
+      "ach_artificial_intelligence_failed_escape"
+    ],
+    "endings": [
+      "ending_artificial_intelligence_mid_gg",
+      "ending_artificial_intelligence_transfer_success",
+      "ending_artificial_intelligence_transfer_fail",
+      "ending_artificial_intelligence_tuner",
+      "ending_artificial_intelligence_overachiever",
+      "ending_artificial_intelligence_true_love",
+      "ending_artificial_intelligence_algorithm_edge",
+      "ending_artificial_intelligence_application",
+      "ending_artificial_intelligence_survivor",
+      "ending_artificial_intelligence_filter_broken",
+      "ending_artificial_intelligence_layflat"
+    ],
+    "shareTexts": {
+      "hooks": [
+        "我用 5 分钟读完人工智能本科，系统给我判了这个结局。",
+        "别急着报人工智能，先看看未来感下面有多少数学和代码。",
+        "转发给那个因为大模型时代想报 AI 的人。",
+        "这不是劝退，这是提前摘滤镜。"
+      ],
+      "buttons": [
+        "换个专业继续受苦",
+        "截图发给想报 AI 的人",
+        "不服，重开一次 AI 副本",
+        "看看系统会推荐我读什么专业"
+      ]
+    },
+    "majorId": "artificial_intelligence"
+  },
+  {
+    "id": "clinical_medicine",
+    "name": "临床医学",
+    "tier": "S",
+    "category": "医学健康池",
+    "card": {
+      "title": "临床医学",
+      "subtitle": "白大褂滤镜与五年长线副本",
+      "description": "你以为临床医学是白大褂高光，后来发现第一关是解剖、生化、病理和长期训练。",
+      "buttonText": "进入临床医学副本",
+      "riskWarning": "别只看职业光环，先确认你能不能接受长学制和高责任。",
+      "tags": [
+        "长学制",
+        "医学基础",
+        "解剖生化"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入临床医学副本",
+      "body": "你带着白大褂滤镜、家长期待和一点救死扶伤的热血进入临床医学。系统提醒：本副本主打长学制、高压课程、见习实习、考研规培和临床责任。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "长学制",
+      "医学基础",
+      "解剖生化",
+      "临床责任",
+      "考研规培"
+    ],
+    "fitProfile": [
+      "抗压能力强",
+      "愿意长期学习",
+      "责任感高",
+      "能接受临床环境"
+    ],
+    "avoidProfile": [
+      "只看医生光环",
+      "不能接受长周期",
+      "排斥高强度背诵和考试"
+    ],
+    "commonFilters": [
+      "白大褂",
+      "医生光环",
+      "稳定体面",
+      "救死扶伤"
+    ],
+    "painPoints": [
+      "解剖生化病理压力",
+      "考试密度高",
+      "见习实习责任感",
+      "考研规培长线投入"
+    ],
+    "memes": [
+      "劝人学医天打雷劈",
+      "背书背到怀疑人生",
+      "白大褂不是自动发光",
+      "医学生没有轻松周"
+    ],
+    "initialStats": {
+      "obsession": 76,
+      "energy": 76,
+      "filter": 88,
+      "gpaWill": 72,
+      "careerFantasy": 84,
+      "escapeImpulse": 12,
+      "stubbornness": 42,
+      "hairline": 90
+    },
+    "majorStats": [
+      {
+        "key": "medicalLoad",
+        "name": "医学负荷",
+        "description": "基础医学、临床课程和考试叠加的负荷。",
+        "initialValue": 20
+      },
+      {
+        "key": "clinicalRespect",
+        "name": "临床敬畏",
+        "description": "面对患者、责任和真实临床情境时形成的敬畏。",
+        "initialValue": 0
+      },
+      {
+        "key": "examPressure",
+        "name": "考试压力",
+        "description": "期末、考研、执医和规培相关压力。",
+        "initialValue": 15
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "医学滤镜启动",
+        "coreEvents": "医学导论、解剖预热和基础课登场。",
+        "statTrend": "滤镜高位波动，医学负荷启动。",
+        "routeForeshadow": "确认医学不是白大褂拍照副本。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "基础医学上强度",
+        "coreEvents": "解剖、生理、生化开始证明存在感。",
+        "statTrend": "精神电量下降，绩点求生欲上升。",
+        "routeForeshadow": "转专业暗线可被触发。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "病理药理进场",
+        "coreEvents": "病理、药理、微生物等课程并发。",
+        "statTrend": "考试压力上升。",
+        "routeForeshadow": "医学负荷继续增加。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "系统课程展开",
+        "coreEvents": "内外妇儿等临床前课程预热。",
+        "statTrend": "专业上头值分化。",
+        "routeForeshadow": "临床责任开始靠近。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "临床课程显形",
+        "coreEvents": "诊断学、内外科基础、技能训练出现。",
+        "statTrend": "临床敬畏上升。",
+        "routeForeshadow": "考研/临床路线预热。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "见习与现实感",
+        "coreEvents": "医院见习、病历和患者沟通进入视野。",
+        "statTrend": "滤镜被现实修正。",
+        "routeForeshadow": "路线事件池开启。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "考研实习并发",
+        "coreEvents": "考研、实习、技能和毕业压力叠加。",
+        "statTrend": "精神电量高压。",
+        "routeForeshadow": "中途 GG 风险上升。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "医学长线结算",
+        "coreEvents": "毕业、升学、规培和职业路径确认。",
+        "statTrend": "医学滤镜重塑。",
+        "routeForeshadow": "生成临床医学人格鉴定书。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "clinical_medicine_random_01",
+      "clinical_medicine_random_02",
+      "clinical_medicine_random_03",
+      "clinical_medicine_random_04",
+      "clinical_medicine_random_05"
+    ],
+    "hiddenEvents": [
+      "clinical_medicine_hidden_01",
+      "clinical_medicine_hidden_02",
+      "clinical_medicine_hidden_03"
+    ],
+    "routeEvents": [
+      "clinical_medicine_route_postgrad",
+      "clinical_medicine_route_clinical",
+      "clinical_medicine_route_public_health",
+      "clinical_medicine_route_research",
+      "clinical_medicine_route_civil_service"
+    ],
+    "achievements": [
+      "ach_clinical_medicine_clinical_respect",
+      "ach_clinical_medicine_skill_pass",
+      "ach_clinical_medicine_long_track",
+      "ach_clinical_medicine_exam_survivor",
+      "ach_clinical_medicine_whitecoat_filter_broken"
+    ],
+    "endings": [
+      "ending_clinical_medicine_long_track",
+      "ending_clinical_medicine_exam_survivor",
+      "ending_clinical_medicine_clinical_respect",
+      "ending_clinical_medicine_public_health"
+    ],
+    "shareTexts": [
+      "我用 5 分钟读完这个本科副本，系统说这不是劝退，是提前摘滤镜。",
+      "转发给那个只看白大褂滤镜想报临床的人。",
+      "临床医学副本提醒我：热血重要，耐久更重要。"
+    ],
+    "majorId": "clinical_medicine"
+  },
+  {
+    "id": "finance",
+    "name": "金融学",
+    "tier": "S",
+    "category": "商科管理池",
+    "card": {
+      "title": "金融学",
+      "subtitle": "投行滤镜与数学现实",
+      "description": "你以为金融学是西装、投行和年薪神话，后来发现第一关是高数、宏微观、会计和实习门槛。",
+      "buttonText": "进入金融学副本",
+      "riskWarning": "别只看精英滤镜，先看看你能不能接受数学、证书和实习竞争。",
+      "tags": [
+        "投行滤镜",
+        "数学现实",
+        "证书焦虑"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入金融学副本",
+      "body": "你带着金融精英滤镜进入副本。系统提醒：本科四年会遇到数学、经济学、金融市场、计量、证书、实习、考研和就业分层。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "投行滤镜",
+      "数学现实",
+      "证书焦虑",
+      "实习竞争",
+      "就业分层"
+    ],
+    "fitProfile": [
+      "数学和信息处理能力较好",
+      "愿意主动实习",
+      "能接受竞争和路径分化"
+    ],
+    "avoidProfile": [
+      "只看高薪截图",
+      "不想学数学和经济学",
+      "以为金融天然体面"
+    ],
+    "commonFilters": [
+      "投行精英",
+      "年薪神话",
+      "西装白领",
+      "离钱很近"
+    ],
+    "painPoints": [
+      "数学和计量压力",
+      "证书与实习内卷",
+      "就业分层明显",
+      "家庭资源和城市差异"
+    ],
+    "memes": [
+      "金融民工",
+      "实习比课表还重要",
+      "证书先排队",
+      "精英滤镜碎得很贵"
+    ],
+    "initialStats": {
+      "obsession": 68,
+      "energy": 76,
+      "filter": 88,
+      "gpaWill": 66,
+      "careerFantasy": 90,
+      "escapeImpulse": 16,
+      "stubbornness": 44,
+      "hairline": 92
+    },
+    "majorStats": [
+      {
+        "key": "quantPressure",
+        "name": "数理压强",
+        "description": "数学、计量和模型带来的压强。",
+        "initialValue": 15
+      },
+      {
+        "key": "certificateAnxiety",
+        "name": "证书焦虑",
+        "description": "CFA、CPA、从业资格和简历门槛带来的焦虑。",
+        "initialValue": 10
+      },
+      {
+        "key": "internshipCompetition",
+        "name": "实习竞争",
+        "description": "金融实习、暑期项目和城市资源竞争强度。",
+        "initialValue": 20
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "金融精英滤镜启动",
+        "coreEvents": "高数、经济学和专业导论登场。",
+        "statTrend": "滤镜高，数理压强启动。",
+        "routeForeshadow": "投行滤镜埋点。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "宏微观与会计基础",
+        "coreEvents": "经济学、会计和统计开始搭底座。",
+        "statTrend": "绩点求生欲上升。",
+        "routeForeshadow": "专业不是只聊钱。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "金融市场与公司金融",
+        "coreEvents": "课程开始接近金融主线。",
+        "statTrend": "职业幻想波动。",
+        "routeForeshadow": "证书意识出现。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "计量和证书焦虑",
+        "coreEvents": "计量、投资学和证书经验帖并发。",
+        "statTrend": "数理压强和证书焦虑上升。",
+        "routeForeshadow": "转专业暗线出现。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "实习竞争上线",
+        "coreEvents": "券商、银行、基金、咨询等路径进入视野。",
+        "statTrend": "实习竞争成为核心数值。",
+        "routeForeshadow": "路线事件池预热。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "路线分化",
+        "coreEvents": "考研、投行、银行、基金、考公和跨行分化。",
+        "statTrend": "就业幻觉被现实校准。",
+        "routeForeshadow": "路线事件池开启。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "秋招考研并发",
+        "coreEvents": "秋招、考研、证书和论文一起上桌。",
+        "statTrend": "精神电量下降。",
+        "routeForeshadow": "中途 GG 风险上升。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "金融本科结算",
+        "coreEvents": "精英滤镜被就业分层重写。",
+        "statTrend": "根据路线与实习结算。",
+        "routeForeshadow": "生成金融人格鉴定书。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "finance_random_01",
+      "finance_random_02",
+      "finance_random_03",
+      "finance_random_04",
+      "finance_random_05"
+    ],
+    "hiddenEvents": [
+      "finance_hidden_01",
+      "finance_hidden_02",
+      "finance_hidden_03"
+    ],
+    "routeEvents": [
+      "finance_route_postgrad",
+      "finance_route_investment_banking",
+      "finance_route_banking",
+      "finance_route_fund_research",
+      "finance_route_civil_service"
+    ],
+    "achievements": [
+      "ach_finance_intern_reply",
+      "ach_finance_model_understood",
+      "ach_finance_route_clarity",
+      "ach_finance_certificate_survivor",
+      "ach_finance_filter_repriced"
+    ],
+    "endings": [
+      "ending_finance_realist",
+      "ending_finance_ib_edge",
+      "ending_finance_banking",
+      "ending_finance_quant_survivor"
+    ],
+    "shareTexts": [
+      "我用 5 分钟读完这个本科副本，系统说这不是劝退，是提前摘滤镜。",
+      "转发给那个只看投行滤镜想报金融的人。",
+      "金融学副本提醒我：离钱近，不等于离轻松近。"
+    ],
+    "majorId": "finance"
+  },
+  {
+    "id": "accounting",
+    "name": "会计学",
+    "tier": "S",
+    "category": "商科管理池",
+    "card": {
+      "title": "会计学",
+      "subtitle": "借贷平衡与 CPA 阴影",
+      "description": "你以为会计只是算账，后来发现借贷、准则、审计、税法和 CPA 都在排队。",
+      "buttonText": "进入会计学副本",
+      "riskWarning": "别只看稳定滤镜，先看看你能不能和借贷平衡长期相处。",
+      "tags": [
+        "稳定滤镜",
+        "借贷平衡",
+        "CPA阴影"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入会计学副本",
+      "body": "你带着稳定就业滤镜进入会计学。系统提醒：本科四年会遇到基础会计、中财、成本、审计、税法、实习、考证和职业分化。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "稳定滤镜",
+      "借贷平衡",
+      "CPA阴影",
+      "审计税法",
+      "就业实用"
+    ],
+    "fitProfile": [
+      "细心耐心较强",
+      "愿意学准则和数字逻辑",
+      "能接受证书和实务训练"
+    ],
+    "avoidProfile": [
+      "以为会计只是简单算账",
+      "完全不喜欢细节",
+      "不想考证"
+    ],
+    "commonFilters": [
+      "稳定",
+      "好就业",
+      "财务岗位",
+      "越老越香"
+    ],
+    "painPoints": [
+      "借贷平衡入门",
+      "中级财务会计压强",
+      "审计税法细碎",
+      "CPA长期阴影"
+    ],
+    "memes": [
+      "借贷不平",
+      "分录写到沉默",
+      "CPA在远方招手",
+      "审计底稿人生"
+    ],
+    "initialStats": {
+      "obsession": 64,
+      "energy": 78,
+      "filter": 82,
+      "gpaWill": 68,
+      "careerFantasy": 76,
+      "escapeImpulse": 14,
+      "stubbornness": 42,
+      "hairline": 93
+    },
+    "majorStats": [
+      {
+        "key": "entryBalance",
+        "name": "借贷平衡感",
+        "description": "写分录、看报表和理解准则的稳定程度。",
+        "initialValue": 25
+      },
+      {
+        "key": "cpaShadow",
+        "name": "CPA阴影",
+        "description": "证书、审计、税法和职业门槛带来的长期阴影。",
+        "initialValue": 10
+      },
+      {
+        "key": "auditPressure",
+        "name": "审计压力",
+        "description": "审计、底稿、实习和细节核对带来的压力。",
+        "initialValue": 0
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "稳定滤镜与基础会计",
+        "coreEvents": "会计导论和基础分录登场。",
+        "statTrend": "借贷平衡感启动。",
+        "routeForeshadow": "确认会计不是只按计算器。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "财管经济法预热",
+        "coreEvents": "经济学、管理学和财务基础铺开。",
+        "statTrend": "绩点求生欲上升。",
+        "routeForeshadow": "商科底座建立。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "中财上强度",
+        "coreEvents": "中级财务会计开始拉开差距。",
+        "statTrend": "借贷平衡感分化。",
+        "routeForeshadow": "专业上头或沉默。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "成本税法审计预热",
+        "coreEvents": "成本会计、税法和审计意识出现。",
+        "statTrend": "CPA阴影启动。",
+        "routeForeshadow": "证书路线埋点。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "实务和实习靠近",
+        "coreEvents": "财务软件、审计、实习投递进入视野。",
+        "statTrend": "职业幻想被现实校准。",
+        "routeForeshadow": "路线事件池预热。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "路线分化",
+        "coreEvents": "事务所、企业财务、考研、考公、CPA路线分化。",
+        "statTrend": "审计压力上升。",
+        "routeForeshadow": "路线事件池开启。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "秋招考证论文并发",
+        "coreEvents": "秋招、CPA、论文和实习经验一起上桌。",
+        "statTrend": "精神电量下降。",
+        "routeForeshadow": "中途 GG 风险上升。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "会计本科结算",
+        "coreEvents": "你带着借贷平衡和证书阴影走向出口。",
+        "statTrend": "根据路线与证书结算。",
+        "routeForeshadow": "生成会计学人格鉴定书。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "accounting_random_01",
+      "accounting_random_02",
+      "accounting_random_03",
+      "accounting_random_04",
+      "accounting_random_05"
+    ],
+    "hiddenEvents": [
+      "accounting_hidden_01",
+      "accounting_hidden_02",
+      "accounting_hidden_03"
+    ],
+    "routeEvents": [
+      "accounting_route_cpa",
+      "accounting_route_audit",
+      "accounting_route_corporate_finance",
+      "accounting_route_postgrad",
+      "accounting_route_civil_service"
+    ],
+    "achievements": [
+      "ach_accounting_entry_balanced",
+      "ach_accounting_intern_reply",
+      "ach_accounting_report_understood",
+      "ach_accounting_cpa_shadow",
+      "ach_accounting_audit_survivor"
+    ],
+    "endings": [
+      "ending_accounting_stable_realist",
+      "ending_accounting_cpa_track",
+      "ending_accounting_audit",
+      "ending_accounting_entry_master"
+    ],
+    "shareTexts": [
+      "我用 5 分钟读完这个本科副本，系统说这不是劝退，是提前摘滤镜。",
+      "转发给那个以为会计只是算账的人。",
+      "会计学副本提醒我：稳定是真的，细是真的，证书也是真的。"
+    ],
+    "majorId": "accounting"
+  },
+  {
+    "id": "journalism_communication",
+    "name": "新闻传播学",
+    "tier": "S",
+    "category": "文法人文池",
+    "card": {
+      "title": "新闻传播学",
+      "subtitle": "新闻传播学副本：表达滤镜与就业虚无感",
+      "description": "你以为自己是自由表达选手，后来发现第一关是选题、采访、剪辑和实习。",
+      "tags": [
+        "表达滤镜",
+        "热点雷达",
+        "就业虚无感"
+      ],
+      "buttonText": "进入新传副本",
+      "riskWarning": "别只因为喜欢刷热点就冲进来，先看看你能不能把热点做成选题。"
+    },
+    "intro": {
+      "title": "欢迎进入新闻传播学副本",
+      "body": "你带着一点表达欲、一点媒体理想，以及一点“这个专业应该很有趣”的滤镜，进入了新闻传播学副本。\n系统提醒：本科四年内，你将遭遇传播理论、新闻写作、采访、摄影摄像、公众号运营、剪辑、实习、就业身份迷茫和论文选题。\n如果你知道这些还想继续，说明你可能真的对内容和表达有点执念。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "表达滤镜",
+      "热点",
+      "选题",
+      "采访",
+      "剪辑",
+      "实习",
+      "就业虚无感"
+    ],
+    "fitProfile": [
+      "喜欢表达和观察社会议题",
+      "愿意持续写作、采访、剪辑和做作品",
+      "能接受内容行业的不确定性"
+    ],
+    "avoidProfile": [
+      "只觉得新传很好玩",
+      "不想改稿和做作品集",
+      "完全不能接受就业路径分化"
+    ],
+    "commonFilters": [
+      "自由表达",
+      "媒体理想",
+      "热点现场",
+      "内容创作",
+      "不用太硬核"
+    ],
+    "painPoints": [
+      "传播理论不等于刷热点",
+      "采访和外采消耗社交能量",
+      "作品集与实习提前内卷",
+      "就业身份容易虚无"
+    ],
+    "memes": [
+      "这个能不能做个选题",
+      "问题意识是什么",
+      "标题再改一版",
+      "剪辑软件崩了",
+      "新传天坑争议"
+    ],
+    "initialStats": {
+      "obsession": 72,
+      "energy": 78,
+      "filter": 84,
+      "gpaWill": 62,
+      "careerFantasy": 70,
+      "escapeImpulse": 16,
+      "stubbornness": 44,
+      "hairline": 92
+    },
+    "majorStats": [
+      {
+        "key": "topicSensitivity",
+        "name": "选题敏感度",
+        "initialValue": 24,
+        "description": "把普通信息拆成角度、受众和传播路径的能力。"
+      },
+      {
+        "key": "hotspotChase",
+        "name": "热点追逐值",
+        "initialValue": 18,
+        "description": "被热点、平台节奏和数据反馈牵引的程度。"
+      },
+      {
+        "key": "portfolioProgress",
+        "name": "作品集进度",
+        "initialValue": 8,
+        "description": "稿件、视频、账号、实习成果等可展示积累。"
+      },
+      {
+        "key": "careerNihility",
+        "name": "就业虚无感",
+        "initialValue": 12,
+        "description": "面对内容、运营、公关、媒体等方向时的身份迷茫程度。"
+      },
+      {
+        "key": "thesisPressure",
+        "name": "论文压力",
+        "initialValue": 0,
+        "description": "毕业论文选题和写作带来的风险值。"
+      }
+    ],
+    "timeline": [
+      {
+        "key": "y1s1",
+        "label": "大一上",
+        "theme": "新传滤镜与传播学新手村",
+        "pressureLevel": 0.6,
+        "mainEventIds": [
+          "journalism_communication_y1s1_main_001",
+          "journalism_communication_y1s1_main_002",
+          "journalism_communication_y1s1_main_003"
+        ],
+        "randomSlots": [
+          {
+            "pool": "journalism_communication_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "journalism_communication_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s1"
+      },
+      {
+        "key": "y1s2",
+        "label": "大一下",
+        "theme": "采访、期末作品与劝退帖",
+        "pressureLevel": 0.7,
+        "mainEventIds": [
+          "journalism_communication_y1s2_main_004",
+          "journalism_communication_y1s2_transfer_005",
+          "journalism_communication_y1s2_main_006"
+        ],
+        "randomSlots": [
+          {
+            "pool": "journalism_communication_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "journalism_communication_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s2"
+      },
+      {
+        "key": "y2s1",
+        "label": "大二上",
+        "theme": "理论上强度与作品集预警",
+        "pressureLevel": 0.85,
+        "mainEventIds": [
+          "journalism_communication_y2s1_main_007",
+          "journalism_communication_y2s1_main_008",
+          "journalism_communication_y2s1_main_009"
+        ],
+        "randomSlots": [
+          {
+            "pool": "journalism_communication_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "journalism_communication_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s1"
+      },
+      {
+        "key": "y2s2",
+        "label": "大二下",
+        "theme": "公众号运营与转专业隐藏入口",
+        "pressureLevel": 1.0,
+        "mainEventIds": [
+          "journalism_communication_y2s2_main_010",
+          "journalism_communication_y2s2_transfer_011",
+          "journalism_communication_y2s2_main_012"
+        ],
+        "randomSlots": [
+          {
+            "pool": "journalism_communication_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "journalism_communication_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s2"
+      },
+      {
+        "key": "y3s1",
+        "label": "大三上",
+        "theme": "实习、作品与现实感",
+        "pressureLevel": 1.2,
+        "mainEventIds": [
+          "journalism_communication_y3s1_main_013",
+          "journalism_communication_y3s1_main_014",
+          "journalism_communication_y3s1_route_015"
+        ],
+        "randomSlots": [
+          {
+            "pool": "journalism_communication_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "journalism_communication_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s1"
+      },
+      {
+        "key": "y3s2",
+        "label": "大三下",
+        "theme": "路线分化",
+        "pressureLevel": 1.35,
+        "mainEventIds": [
+          "journalism_communication_y3s2_route_016",
+          "journalism_communication_y3s2_route_017",
+          "journalism_communication_y3s2_main_018"
+        ],
+        "randomSlots": [
+          {
+            "pool": "journalism_communication_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "journalism_communication_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s2"
+      },
+      {
+        "key": "y4s1",
+        "label": "大四上",
+        "theme": "秋招、论文与职业身份审判",
+        "pressureLevel": 1.5,
+        "mainEventIds": [
+          "journalism_communication_y4s1_main_019",
+          "journalism_communication_y4s1_route_020",
+          "journalism_communication_y4s1_gg_check_021"
+        ],
+        "randomSlots": [
+          {
+            "pool": "journalism_communication_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "journalism_communication_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s1"
+      },
+      {
+        "key": "y4s2",
+        "label": "大四下",
+        "theme": "毕业结算",
+        "pressureLevel": 1.4,
+        "mainEventIds": [
+          "journalism_communication_y4s2_main_022",
+          "journalism_communication_y4s2_settlement_023"
+        ],
+        "randomSlots": [
+          {
+            "pool": "journalism_communication_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "journalism_communication_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s2"
+      }
+    ],
+    "randomEvents": [
+      "journalism_communication_random_001",
+      "journalism_communication_random_002",
+      "journalism_communication_random_003",
+      "journalism_communication_random_004",
+      "journalism_communication_random_005",
+      "journalism_communication_random_006",
+      "journalism_communication_random_007",
+      "journalism_communication_random_008",
+      "journalism_communication_random_009",
+      "journalism_communication_random_010"
+    ],
+    "hiddenEvents": [
+      "journalism_communication_hidden_001",
+      "journalism_communication_hidden_002",
+      "journalism_communication_hidden_003",
+      "journalism_communication_hidden_004",
+      "journalism_communication_hidden_005"
+    ],
+    "routeEvents": [
+      {
+        "routeId": "journalism_communication_route_postgrad",
+        "eventIds": [
+          "journalism_communication_y3s2_route_016",
+          "journalism_communication_y3s2_route_017",
+          "journalism_communication_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "journalism_communication_route_civil_service",
+        "eventIds": [
+          "journalism_communication_y3s2_route_016",
+          "journalism_communication_y3s2_route_017",
+          "journalism_communication_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "journalism_communication_route_job",
+        "eventIds": [
+          "journalism_communication_y3s2_route_016",
+          "journalism_communication_y3s2_route_017",
+          "journalism_communication_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "journalism_communication_route_content",
+        "eventIds": [
+          "journalism_communication_y3s2_route_016",
+          "journalism_communication_y3s2_route_017",
+          "journalism_communication_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "journalism_communication_route_transfer_application",
+        "eventIds": [
+          "journalism_communication_transfer_apply_001",
+          "journalism_communication_transfer_apply_002",
+          "journalism_communication_transfer_apply_003"
+        ]
+      },
+      {
+        "routeId": "journalism_communication_route_layflat",
+        "eventIds": [
+          "journalism_communication_y3s2_main_018",
+          "journalism_communication_y4s2_settlement_023"
+        ]
+      }
+    ],
+    "achievements": [
+      "ach_journalism_communication_stubborn_revive",
+      "ach_journalism_communication_experience_collector",
+      "ach_journalism_communication_final_week_survivor",
+      "ach_journalism_communication_escape_door",
+      "ach_journalism_communication_halfway_restart",
+      "ach_journalism_communication_failed_escape",
+      "ach_journalism_communication_realist",
+      "ach_journalism_communication_hidden_001",
+      "ach_journalism_communication_hidden_002",
+      "ach_journalism_communication_hidden_003",
+      "ach_journalism_communication_hidden_004",
+      "ach_journalism_communication_hidden_005"
+    ],
+    "endings": [
+      "ending_journalism_communication_mid_gg",
+      "ending_journalism_communication_transfer_success",
+      "ending_journalism_communication_transfer_fail",
+      "ending_journalism_communication_hidden",
+      "ending_journalism_communication_overachiever",
+      "ending_journalism_communication_true_love",
+      "ending_journalism_communication_route",
+      "ending_journalism_communication_survivor",
+      "ending_journalism_communication_filter_broken",
+      "ending_journalism_communication_layflat"
+    ],
+    "shareTexts": {
+      "hooks": [
+        "我用 5 分钟读完新传本科，系统给我判了这个结局。",
+        "别急着报新闻传播学，先进副本活一遍。",
+        "这不是劝退，这是提前摘滤镜。",
+        "转发给那个想报新闻传播学的人。"
+      ],
+      "buttons": [
+        "换个专业继续受苦",
+        "截图发给想报新闻传播学的人",
+        "不服，重开一次新闻传播学副本",
+        "看看系统会推荐我读什么专业"
+      ]
+    },
+    "majorId": "journalism_communication"
+  },
+  {
+    "id": "electrical_engineering",
+    "name": "电气工程",
+    "tier": "S",
+    "category": "工科信息池",
+    "card": {
+      "title": "电气工程",
+      "subtitle": "电气副本：国网滤镜与电路深水区",
+      "description": "你以为电气等于就业稳，后来发现稳定之前要先稳住电路、实验、绩点和精神电量。",
+      "tags": [
+        "国网滤镜",
+        "电路驯服",
+        "实验冒烟风险"
+      ],
+      "buttonText": "进入电气副本",
+      "riskWarning": "别只看国网滤镜，先看看你能不能让电路和实验报告听话。"
+    },
+    "intro": {
+      "title": "欢迎进入电气工程副本",
+      "body": "你带着一点稳定想象、一点国网滤镜，以及一点“工科不愁就业”的安全感，进入电气工程副本。\n系统提醒：本科四年内，你将遭遇高数、大物、电路、模电数电、电机、电力系统、实验报告、考研、国网和毕业设计。\n如果你知道这些还想继续，说明你可能真的愿意在电流里修炼。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "国网滤镜",
+      "电路",
+      "模电数电",
+      "电机",
+      "电力系统",
+      "实验",
+      "新能源路线"
+    ],
+    "fitProfile": [
+      "能接受硬核工科基础课",
+      "对稳定就业和电力系统有兴趣",
+      "愿意做实验、画图和长期备考"
+    ],
+    "avoidProfile": [
+      "只冲国网稳定滤镜",
+      "完全不想碰电路和实验",
+      "不能接受工科期末压强"
+    ],
+    "commonFilters": [
+      "就业稳",
+      "国网香",
+      "工科不愁工作",
+      "老牌专业可靠"
+    ],
+    "painPoints": [
+      "电路和模电数电筛精神电量",
+      "实验报告堆叠",
+      "电机和电力系统上强度",
+      "国网/考研/新能源路线分化"
+    ],
+    "memes": [
+      "波形就是不对",
+      "实验冒烟传说",
+      "电气不是修电器",
+      "系统思维成型"
+    ],
+    "initialStats": {
+      "obsession": 64,
+      "energy": 78,
+      "filter": 80,
+      "gpaWill": 64,
+      "careerFantasy": 82,
+      "escapeImpulse": 16,
+      "stubbornness": 42,
+      "hairline": 90
+    },
+    "majorStats": [
+      {
+        "key": "circuitControl",
+        "name": "电路驯服度",
+        "initialValue": 20,
+        "description": "理解电路、模电数电、电机和电力系统的稳定程度。"
+      },
+      {
+        "key": "stateGridObsession",
+        "name": "国网执念",
+        "initialValue": 28,
+        "description": "对国家电网、稳定就业和电气主线的执念程度。"
+      },
+      {
+        "key": "smokeRisk",
+        "name": "实验冒烟风险",
+        "initialValue": 8,
+        "description": "实验、接线、调参、仿真崩盘带来的风险指数。"
+      },
+      {
+        "key": "thesisPressure",
+        "name": "毕设压力",
+        "initialValue": 0,
+        "description": "大四毕设和电气系统设计相关风险值。"
+      }
+    ],
+    "timeline": [
+      {
+        "key": "y1s1",
+        "label": "大一上",
+        "theme": "国网滤镜与工科新手村",
+        "pressureLevel": 0.6,
+        "mainEventIds": [
+          "electrical_engineering_y1s1_main_001",
+          "electrical_engineering_y1s1_main_002",
+          "electrical_engineering_y1s1_main_003"
+        ],
+        "randomSlots": [
+          {
+            "pool": "electrical_engineering_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "electrical_engineering_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s1"
+      },
+      {
+        "key": "y1s2",
+        "label": "大一下",
+        "theme": "电路原理与转专业暗线",
+        "pressureLevel": 0.7,
+        "mainEventIds": [
+          "electrical_engineering_y1s2_main_004",
+          "electrical_engineering_y1s2_transfer_005",
+          "electrical_engineering_y1s2_main_006"
+        ],
+        "randomSlots": [
+          {
+            "pool": "electrical_engineering_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "electrical_engineering_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s2"
+      },
+      {
+        "key": "y2s1",
+        "label": "大二上",
+        "theme": "模电数电与方向意识",
+        "pressureLevel": 0.85,
+        "mainEventIds": [
+          "electrical_engineering_y2s1_main_007",
+          "electrical_engineering_y2s1_main_008",
+          "electrical_engineering_y2s1_main_009"
+        ],
+        "randomSlots": [
+          {
+            "pool": "electrical_engineering_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "electrical_engineering_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s1"
+      },
+      {
+        "key": "y2s2",
+        "label": "大二下",
+        "theme": "电机学与转专业窗口",
+        "pressureLevel": 1.0,
+        "mainEventIds": [
+          "electrical_engineering_y2s2_main_010",
+          "electrical_engineering_y2s2_transfer_011",
+          "electrical_engineering_y2s2_main_012"
+        ],
+        "randomSlots": [
+          {
+            "pool": "electrical_engineering_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "electrical_engineering_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s2"
+      },
+      {
+        "key": "y3s1",
+        "label": "大三上",
+        "theme": "电力系统、实验报告与实习",
+        "pressureLevel": 1.2,
+        "mainEventIds": [
+          "electrical_engineering_y3s1_main_013",
+          "electrical_engineering_y3s1_main_014",
+          "electrical_engineering_y3s1_route_015"
+        ],
+        "randomSlots": [
+          {
+            "pool": "electrical_engineering_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "electrical_engineering_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s1"
+      },
+      {
+        "key": "y3s2",
+        "label": "大三下",
+        "theme": "国网/考研/新能源路线分化",
+        "pressureLevel": 1.35,
+        "mainEventIds": [
+          "electrical_engineering_y3s2_route_016",
+          "electrical_engineering_y3s2_route_017",
+          "electrical_engineering_y3s2_main_018"
+        ],
+        "randomSlots": [
+          {
+            "pool": "electrical_engineering_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "electrical_engineering_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s2"
+      },
+      {
+        "key": "y4s1",
+        "label": "大四上",
+        "theme": "路线结算与毕设压力",
+        "pressureLevel": 1.5,
+        "mainEventIds": [
+          "electrical_engineering_y4s1_main_019",
+          "electrical_engineering_y4s1_route_020",
+          "electrical_engineering_y4s1_gg_check_021"
+        ],
+        "randomSlots": [
+          {
+            "pool": "electrical_engineering_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "electrical_engineering_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s1"
+      },
+      {
+        "key": "y4s2",
+        "label": "大四下",
+        "theme": "毕业结算",
+        "pressureLevel": 1.4,
+        "mainEventIds": [
+          "electrical_engineering_y4s2_main_022",
+          "electrical_engineering_y4s2_settlement_023"
+        ],
+        "randomSlots": [
+          {
+            "pool": "electrical_engineering_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "electrical_engineering_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s2"
+      }
+    ],
+    "randomEvents": [
+      "electrical_engineering_random_001",
+      "electrical_engineering_random_002",
+      "electrical_engineering_random_003",
+      "electrical_engineering_random_004",
+      "electrical_engineering_random_005",
+      "electrical_engineering_random_006",
+      "electrical_engineering_random_007",
+      "electrical_engineering_random_008",
+      "electrical_engineering_random_009",
+      "electrical_engineering_random_010"
+    ],
+    "hiddenEvents": [
+      "electrical_engineering_hidden_001",
+      "electrical_engineering_hidden_002",
+      "electrical_engineering_hidden_003",
+      "electrical_engineering_hidden_004",
+      "electrical_engineering_hidden_005"
+    ],
+    "routeEvents": [
+      {
+        "routeId": "electrical_engineering_route_state_grid",
+        "eventIds": [
+          "electrical_engineering_y3s2_route_016",
+          "electrical_engineering_y3s2_route_017",
+          "electrical_engineering_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "electrical_engineering_route_postgrad",
+        "eventIds": [
+          "electrical_engineering_y3s2_route_016",
+          "electrical_engineering_y3s2_route_017",
+          "electrical_engineering_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "electrical_engineering_route_new_energy",
+        "eventIds": [
+          "electrical_engineering_y3s2_route_016",
+          "electrical_engineering_y3s2_route_017",
+          "electrical_engineering_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "electrical_engineering_route_cross",
+        "eventIds": [
+          "electrical_engineering_y3s2_route_016",
+          "electrical_engineering_y3s2_route_017",
+          "electrical_engineering_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "electrical_engineering_route_transfer_application",
+        "eventIds": [
+          "electrical_engineering_transfer_apply_001",
+          "electrical_engineering_transfer_apply_002",
+          "electrical_engineering_transfer_apply_003"
+        ]
+      },
+      {
+        "routeId": "electrical_engineering_route_layflat",
+        "eventIds": [
+          "electrical_engineering_y3s2_main_018",
+          "electrical_engineering_y4s2_settlement_023"
+        ]
+      }
+    ],
+    "achievements": [
+      "ach_electrical_engineering_stubborn_revive",
+      "ach_electrical_engineering_experience_collector",
+      "ach_electrical_engineering_final_week_survivor",
+      "ach_electrical_engineering_escape_door",
+      "ach_electrical_engineering_halfway_restart",
+      "ach_electrical_engineering_failed_escape",
+      "ach_electrical_engineering_realist",
+      "ach_electrical_engineering_hidden_001",
+      "ach_electrical_engineering_hidden_002",
+      "ach_electrical_engineering_hidden_003",
+      "ach_electrical_engineering_hidden_004",
+      "ach_electrical_engineering_hidden_005"
+    ],
+    "endings": [
+      "ending_electrical_engineering_mid_gg",
+      "ending_electrical_engineering_transfer_success",
+      "ending_electrical_engineering_transfer_fail",
+      "ending_electrical_engineering_hidden",
+      "ending_electrical_engineering_overachiever",
+      "ending_electrical_engineering_true_love",
+      "ending_electrical_engineering_route",
+      "ending_electrical_engineering_survivor",
+      "ending_electrical_engineering_filter_broken",
+      "ending_electrical_engineering_layflat"
+    ],
+    "shareTexts": {
+      "hooks": [
+        "我用 5 分钟读完电气本科，系统说我进入国网滤镜幸存结局。",
+        "别急着报电气工程，先进副本活一遍。",
+        "这不是劝退，这是提前摘滤镜。",
+        "转发给那个想报电气工程的人。"
+      ],
+      "buttons": [
+        "换个专业继续受苦",
+        "截图发给想报电气工程的人",
+        "不服，重开一次电气工程副本",
+        "看看系统会推荐我读什么专业"
+      ]
+    },
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "english",
+    "name": "英语",
+    "tier": "S",
+    "category": "文法人文池",
+    "card": {
+      "title": "英语",
+      "subtitle": "英语副本：语言滤镜与工具化现实",
+      "description": "你以为自己只是英语好，后来发现精读、语言学、文学、翻译和专四专八都在等你。",
+      "tags": [
+        "语言滤镜",
+        "专八阴影",
+        "就业工具化"
+      ],
+      "buttonText": "进入英语副本",
+      "riskWarning": "别只因为英语成绩不错就冲进来，先看看你能不能和语言细节长期相处。"
+    },
+    "intro": {
+      "title": "欢迎进入英语副本",
+      "body": "你带着一点语言自信、一点外语滤镜，以及一点“我英语还不错”的安全感，进入英语专业副本。\n系统提醒：本科四年内，你将遭遇精读、语音、口语展示、语言学、文学、翻译、专四专八、实习、就业工具化和毕业论文。\n如果你知道这些还想继续，说明你可能真的对语言有点敏感。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "语言滤镜",
+      "精读",
+      "语言学",
+      "文学",
+      "翻译",
+      "专四专八",
+      "就业工具化"
+    ],
+    "fitProfile": [
+      "对语言细节和跨文化表达敏感",
+      "愿意长期阅读、写作、翻译和练口语",
+      "能把英语接到教育、商科、外贸或跨界能力中"
+    ],
+    "avoidProfile": [
+      "只因为英语成绩不错",
+      "不想大量阅读和精读",
+      "以为英语专业天然等于体面外企"
+    ],
+    "commonFilters": [
+      "口语流利",
+      "外企体面",
+      "翻译高光",
+      "轻松文科"
+    ],
+    "painPoints": [
+      "精读和语言学重新定义会英语",
+      "文学阅读量上涨",
+      "翻译纠结",
+      "专四专八压力",
+      "就业工具化追问"
+    ],
+    "memes": [
+      "一个词纠结十分钟",
+      "TEM-8 阴影",
+      "语言学树形图",
+      "英语到底还能不能算核心竞争力"
+    ],
+    "initialStats": {
+      "obsession": 68,
+      "energy": 78,
+      "filter": 80,
+      "gpaWill": 62,
+      "careerFantasy": 70,
+      "escapeImpulse": 18,
+      "stubbornness": 43,
+      "hairline": 94
+    },
+    "majorStats": [
+      {
+        "key": "languageSensitivity",
+        "name": "语言细节敏感度",
+        "initialValue": 25,
+        "description": "对语境、语体、发音、句法和文本细节的敏感程度。"
+      },
+      {
+        "key": "oralCourage",
+        "name": "口语胆量",
+        "initialValue": 22,
+        "description": "面对口语展示、试讲和真实交流时的胆量。"
+      },
+      {
+        "key": "translationTangle",
+        "name": "翻译纠结值",
+        "initialValue": 10,
+        "description": "为一个词、一个语气、一个文化负载纠结的程度。"
+      },
+      {
+        "key": "tem8Shadow",
+        "name": "专八阴影面积",
+        "initialValue": 8,
+        "description": "专四专八、证书和语言能力认证对精神状态的影响。"
+      },
+      {
+        "key": "teachingFit",
+        "name": "教学适配度",
+        "initialValue": 10,
+        "description": "进入教资考编或教育路线时的适配程度。"
+      },
+      {
+        "key": "thesisPressure",
+        "name": "论文压力",
+        "initialValue": 0,
+        "description": "大四论文压力。"
+      }
+    ],
+    "timeline": [
+      {
+        "key": "y1s1",
+        "label": "大一上",
+        "theme": "语言滤镜与精读新手村",
+        "pressureLevel": 0.6,
+        "mainEventIds": [
+          "english_y1s1_main_001",
+          "english_y1s1_main_002",
+          "english_y1s1_main_003"
+        ],
+        "randomSlots": [
+          {
+            "pool": "english_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "english_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s1"
+      },
+      {
+        "key": "y1s2",
+        "label": "大一下",
+        "theme": "语音、天坑帖与期末",
+        "pressureLevel": 0.7,
+        "mainEventIds": [
+          "english_y1s2_main_004",
+          "english_y1s2_transfer_005",
+          "english_y1s2_main_006"
+        ],
+        "randomSlots": [
+          {
+            "pool": "english_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "english_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s2"
+      },
+      {
+        "key": "y2s1",
+        "label": "大二上",
+        "theme": "语言学、文学与证书意识",
+        "pressureLevel": 0.85,
+        "mainEventIds": [
+          "english_y2s1_main_007",
+          "english_y2s1_main_008",
+          "english_y2s1_main_009"
+        ],
+        "randomSlots": [
+          {
+            "pool": "english_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "english_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s1"
+      },
+      {
+        "key": "y2s2",
+        "label": "大二下",
+        "theme": "翻译作业、转专业与专四阴影",
+        "pressureLevel": 1.0,
+        "mainEventIds": [
+          "english_y2s2_main_010",
+          "english_y2s2_transfer_011",
+          "english_y2s2_main_012"
+        ],
+        "randomSlots": [
+          {
+            "pool": "english_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "english_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s2"
+      },
+      {
+        "key": "y3s1",
+        "label": "大三上",
+        "theme": "专四、实习与工具化预警",
+        "pressureLevel": 1.2,
+        "mainEventIds": [
+          "english_y3s1_main_013",
+          "english_y3s1_main_014",
+          "english_y3s1_route_015"
+        ],
+        "randomSlots": [
+          {
+            "pool": "english_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "english_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s1"
+      },
+      {
+        "key": "y3s2",
+        "label": "大三下",
+        "theme": "考研/教资/就业路线分化",
+        "pressureLevel": 1.35,
+        "mainEventIds": [
+          "english_y3s2_route_016",
+          "english_y3s2_route_017",
+          "english_y3s2_main_018"
+        ],
+        "randomSlots": [
+          {
+            "pool": "english_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "english_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s2"
+      },
+      {
+        "key": "y4s1",
+        "label": "大四上",
+        "theme": "专八、论文与就业现实",
+        "pressureLevel": 1.5,
+        "mainEventIds": [
+          "english_y4s1_main_019",
+          "english_y4s1_route_020",
+          "english_y4s1_gg_check_021"
+        ],
+        "randomSlots": [
+          {
+            "pool": "english_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "english_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s1"
+      },
+      {
+        "key": "y4s2",
+        "label": "大四下",
+        "theme": "毕业结算",
+        "pressureLevel": 1.4,
+        "mainEventIds": [
+          "english_y4s2_main_022",
+          "english_y4s2_settlement_023"
+        ],
+        "randomSlots": [
+          {
+            "pool": "english_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "english_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s2"
+      }
+    ],
+    "randomEvents": [
+      "english_random_001",
+      "english_random_002",
+      "english_random_003",
+      "english_random_004",
+      "english_random_005",
+      "english_random_006",
+      "english_random_007",
+      "english_random_008",
+      "english_random_009",
+      "english_random_010"
+    ],
+    "hiddenEvents": [
+      "english_hidden_001",
+      "english_hidden_002",
+      "english_hidden_003",
+      "english_hidden_004",
+      "english_hidden_005"
+    ],
+    "routeEvents": [
+      {
+        "routeId": "english_route_postgrad",
+        "eventIds": [
+          "english_y3s2_route_016",
+          "english_y3s2_route_017",
+          "english_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "english_route_teaching",
+        "eventIds": [
+          "english_y3s2_route_016",
+          "english_y3s2_route_017",
+          "english_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "english_route_job",
+        "eventIds": [
+          "english_y3s2_route_016",
+          "english_y3s2_route_017",
+          "english_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "english_route_cross",
+        "eventIds": [
+          "english_y3s2_route_016",
+          "english_y3s2_route_017",
+          "english_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "english_route_transfer_application",
+        "eventIds": [
+          "english_transfer_apply_001",
+          "english_transfer_apply_002",
+          "english_transfer_apply_003"
+        ]
+      },
+      {
+        "routeId": "english_route_layflat",
+        "eventIds": [
+          "english_y3s2_main_018",
+          "english_y4s2_settlement_023"
+        ]
+      }
+    ],
+    "achievements": [
+      "ach_english_stubborn_revive",
+      "ach_english_experience_collector",
+      "ach_english_final_week_survivor",
+      "ach_english_escape_door",
+      "ach_english_halfway_restart",
+      "ach_english_failed_escape",
+      "ach_english_realist",
+      "ach_english_hidden_001",
+      "ach_english_hidden_002",
+      "ach_english_hidden_003",
+      "ach_english_hidden_004",
+      "ach_english_hidden_005"
+    ],
+    "endings": [
+      "ending_english_mid_gg",
+      "ending_english_transfer_success",
+      "ending_english_transfer_fail",
+      "ending_english_hidden",
+      "ending_english_overachiever",
+      "ending_english_true_love",
+      "ending_english_route",
+      "ending_english_survivor",
+      "ending_english_filter_broken",
+      "ending_english_layflat"
+    ],
+    "shareTexts": {
+      "hooks": [
+        "我用 5 分钟读完英语本科，系统给我判了这个结局。",
+        "别急着报英语，先进副本活一遍。",
+        "这不是劝退，这是提前摘滤镜。",
+        "转发给那个想报英语的人。"
+      ],
+      "buttons": [
+        "换个专业继续受苦",
+        "截图发给想报英语的人",
+        "不服，重开一次英语副本",
+        "看看系统会推荐我读什么专业"
+      ]
+    },
+    "majorId": "english"
+  },
+  {
+    "id": "teacher_education",
+    "name": "师范类",
+    "tier": "S",
+    "category": "教育稳定池",
+    "card": {
+      "title": "师范类",
+      "subtitle": "师范副本：稳定滤镜与讲台耐久战",
+      "description": "你以为师范等于稳定，后来发现稳定之前要先过普通话、教资、试讲、实习带班和考编。",
+      "tags": [
+        "稳定滤镜",
+        "教资压力",
+        "讲台熟练度"
+      ],
+      "buttonText": "进入师范副本",
+      "riskWarning": "别只因为“当老师稳定”就冲进来，先看看你能不能站上讲台还保住嗓子。"
+    },
+    "intro": {
+      "title": "欢迎进入师范类副本",
+      "body": "你带着一点稳定想象、一点教师滤镜，以及一点“以后有寒暑假”的朴素期待，进入师范类副本。\n系统提醒：本科四年内，你将遭遇教育学、普通话、教资、微格教学、试讲、实习带班、考编、论文和嗓子耐久度测试。\n如果你知道这些还想继续，说明你可能真的愿意面对讲台和人类幼崽。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "稳定滤镜",
+      "普通话",
+      "教资",
+      "试讲",
+      "实习带班",
+      "考编",
+      "嗓子耐久度"
+    ],
+    "fitProfile": [
+      "喜欢解释和陪伴他人成长",
+      "能接受备课、试讲、反馈和班级管理",
+      "对稳定路线有偏好但不只看稳定"
+    ],
+    "avoidProfile": [
+      "只因为稳定和寒暑假",
+      "不愿面对课堂和学生反馈",
+      "完全不能接受考编竞争"
+    ],
+    "commonFilters": [
+      "教师稳定",
+      "寒暑假",
+      "工作体面",
+      "教书很有意义"
+    ],
+    "painPoints": [
+      "普通话和教资流程",
+      "试讲公开处刑",
+      "实习带班刷新想象",
+      "考编竞争现实",
+      "嗓子耐久度下降"
+    ],
+    "memes": [
+      "站上讲台就懂了",
+      "第一次被学生叫老师",
+      "嗓子哑了",
+      "人形课堂稳定器"
+    ],
+    "initialStats": {
+      "obsession": 68,
+      "energy": 78,
+      "filter": 84,
+      "gpaWill": 64,
+      "careerFantasy": 80,
+      "escapeImpulse": 16,
+      "stubbornness": 42,
+      "hairline": 93
+    },
+    "majorStats": [
+      {
+        "key": "teachingSkill",
+        "name": "讲台熟练度",
+        "initialValue": 18,
+        "description": "站上讲台、设计课堂、处理反馈和组织表达的熟练程度。"
+      },
+      {
+        "key": "certPressure",
+        "name": "教资压力值",
+        "initialValue": 12,
+        "description": "普通话、教资、笔面试和证书带来的压力。"
+      },
+      {
+        "key": "voiceDurability",
+        "name": "嗓子耐久度",
+        "initialValue": 80,
+        "description": "一天多节课、答疑和班会后还能不能保持人类声音。"
+      },
+      {
+        "key": "examPressure",
+        "name": "考编压力",
+        "initialValue": 0,
+        "description": "大三大四考编和岗位选择压力。"
+      },
+      {
+        "key": "thesisPressure",
+        "name": "论文压力",
+        "initialValue": 0,
+        "description": "大四论文压力。"
+      }
+    ],
+    "timeline": [
+      {
+        "key": "y1s1",
+        "label": "大一上",
+        "theme": "稳定滤镜与教育学入门",
+        "pressureLevel": 0.6,
+        "mainEventIds": [
+          "teacher_education_y1s1_main_001",
+          "teacher_education_y1s1_main_002",
+          "teacher_education_y1s1_main_003"
+        ],
+        "randomSlots": [
+          {
+            "pool": "teacher_education_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "teacher_education_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s1"
+      },
+      {
+        "key": "y1s2",
+        "label": "大一下",
+        "theme": "教育心理、教资流程与模拟讲课",
+        "pressureLevel": 0.7,
+        "mainEventIds": [
+          "teacher_education_y1s2_main_004",
+          "teacher_education_y1s2_transfer_005",
+          "teacher_education_y1s2_main_006"
+        ],
+        "randomSlots": [
+          {
+            "pool": "teacher_education_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "teacher_education_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大一下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y1s2"
+      },
+      {
+        "key": "y2s1",
+        "label": "大二上",
+        "theme": "教学法、板书与证书意识",
+        "pressureLevel": 0.85,
+        "mainEventIds": [
+          "teacher_education_y2s1_main_007",
+          "teacher_education_y2s1_main_008",
+          "teacher_education_y2s1_main_009"
+        ],
+        "randomSlots": [
+          {
+            "pool": "teacher_education_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "teacher_education_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s1"
+      },
+      {
+        "key": "y2s2",
+        "label": "大二下",
+        "theme": "微格教学与转专业窗口",
+        "pressureLevel": 1.0,
+        "mainEventIds": [
+          "teacher_education_y2s2_main_010",
+          "teacher_education_y2s2_transfer_011",
+          "teacher_education_y2s2_main_012"
+        ],
+        "randomSlots": [
+          {
+            "pool": "teacher_education_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "teacher_education_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大二下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y2s2"
+      },
+      {
+        "key": "y3s1",
+        "label": "大三上",
+        "theme": "教资与实习预警",
+        "pressureLevel": 1.2,
+        "mainEventIds": [
+          "teacher_education_y3s1_main_013",
+          "teacher_education_y3s1_main_014",
+          "teacher_education_y3s1_route_015"
+        ],
+        "randomSlots": [
+          {
+            "pool": "teacher_education_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "teacher_education_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s1"
+      },
+      {
+        "key": "y3s2",
+        "label": "大三下",
+        "theme": "教育实习与路线分化",
+        "pressureLevel": 1.35,
+        "mainEventIds": [
+          "teacher_education_y3s2_route_016",
+          "teacher_education_y3s2_route_017",
+          "teacher_education_y3s2_main_018"
+        ],
+        "randomSlots": [
+          {
+            "pool": "teacher_education_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "teacher_education_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大三下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y3s2"
+      },
+      {
+        "key": "y4s1",
+        "label": "大四上",
+        "theme": "考编、论文与上岸焦虑",
+        "pressureLevel": 1.5,
+        "mainEventIds": [
+          "teacher_education_y4s1_main_019",
+          "teacher_education_y4s1_route_020",
+          "teacher_education_y4s1_gg_check_021"
+        ],
+        "randomSlots": [
+          {
+            "pool": "teacher_education_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "teacher_education_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四上结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s1"
+      },
+      {
+        "key": "y4s2",
+        "label": "大四下",
+        "theme": "毕业结算",
+        "pressureLevel": 1.4,
+        "mainEventIds": [
+          "teacher_education_y4s2_main_022",
+          "teacher_education_y4s2_settlement_023"
+        ],
+        "randomSlots": [
+          {
+            "pool": "teacher_education_random",
+            "count": 1,
+            "weight": "medium"
+          },
+          {
+            "pool": "teacher_education_hidden",
+            "count": 0.25,
+            "weight": "low"
+          }
+        ],
+        "settlement": {
+          "enabled": true,
+          "summaryTemplate": "大四下结算：输出关键词、主要数值变化、成就提示与一句系统评语。"
+        },
+        "semester": "y4s2"
+      }
+    ],
+    "randomEvents": [
+      "teacher_education_random_001",
+      "teacher_education_random_002",
+      "teacher_education_random_003",
+      "teacher_education_random_004",
+      "teacher_education_random_005",
+      "teacher_education_random_006",
+      "teacher_education_random_007",
+      "teacher_education_random_008",
+      "teacher_education_random_009",
+      "teacher_education_random_010"
+    ],
+    "hiddenEvents": [
+      "teacher_education_hidden_001",
+      "teacher_education_hidden_002",
+      "teacher_education_hidden_003",
+      "teacher_education_hidden_004",
+      "teacher_education_hidden_005"
+    ],
+    "routeEvents": [
+      {
+        "routeId": "teacher_education_route_exam",
+        "eventIds": [
+          "teacher_education_y3s2_route_016",
+          "teacher_education_y3s2_route_017",
+          "teacher_education_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "teacher_education_route_postgrad",
+        "eventIds": [
+          "teacher_education_y3s2_route_016",
+          "teacher_education_y3s2_route_017",
+          "teacher_education_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "teacher_education_route_job",
+        "eventIds": [
+          "teacher_education_y3s2_route_016",
+          "teacher_education_y3s2_route_017",
+          "teacher_education_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "teacher_education_route_cross",
+        "eventIds": [
+          "teacher_education_y3s2_route_016",
+          "teacher_education_y3s2_route_017",
+          "teacher_education_y4s1_route_020"
+        ]
+      },
+      {
+        "routeId": "teacher_education_route_transfer_application",
+        "eventIds": [
+          "teacher_education_transfer_apply_001",
+          "teacher_education_transfer_apply_002",
+          "teacher_education_transfer_apply_003"
+        ]
+      },
+      {
+        "routeId": "teacher_education_route_layflat",
+        "eventIds": [
+          "teacher_education_y3s2_main_018",
+          "teacher_education_y4s2_settlement_023"
+        ]
+      }
+    ],
+    "achievements": [
+      "ach_teacher_education_stubborn_revive",
+      "ach_teacher_education_experience_collector",
+      "ach_teacher_education_final_week_survivor",
+      "ach_teacher_education_escape_door",
+      "ach_teacher_education_halfway_restart",
+      "ach_teacher_education_failed_escape",
+      "ach_teacher_education_realist",
+      "ach_teacher_education_hidden_001",
+      "ach_teacher_education_hidden_002",
+      "ach_teacher_education_hidden_003",
+      "ach_teacher_education_hidden_004",
+      "ach_teacher_education_hidden_005"
+    ],
+    "endings": [
+      "ending_teacher_education_mid_gg",
+      "ending_teacher_education_transfer_success",
+      "ending_teacher_education_transfer_fail",
+      "ending_teacher_education_hidden",
+      "ending_teacher_education_overachiever",
+      "ending_teacher_education_true_love",
+      "ending_teacher_education_route",
+      "ending_teacher_education_survivor",
+      "ending_teacher_education_filter_broken",
+      "ending_teacher_education_layflat"
+    ],
+    "shareTexts": {
+      "hooks": [
+        "我用 5 分钟读完师范本科，系统给我判了这个结局。",
+        "别急着报师范类，先进副本活一遍。",
+        "这不是劝退，这是提前摘滤镜。",
+        "转发给那个想报师范类的人。"
+      ],
+      "buttons": [
+        "换个专业继续受苦",
+        "截图发给想报师范类的人",
+        "不服，重开一次师范类副本",
+        "看看系统会推荐我读什么专业"
+      ]
+    },
+    "majorId": "teacher_education"
+  },
+  {
+    "id": "chinese_language_literature",
+    "name": "汉语言文学",
+    "tier": "A",
+    "category": "文法人文池",
+    "card": {
+      "title": "汉语言文学",
+      "subtitle": "浪漫滤镜与古汉语伤害",
+      "description": "你以为自己会在大学里读诗、看月亮、写小说，后来发现文学史、古代汉语和论文提纲也会把人写沉默。",
+      "buttonText": "进入汉语言文学副本",
+      "riskWarning": "别只看专业滤镜，先进副本活一遍。",
+      "tags": [
+        "文学滤镜",
+        "古代汉语伤害",
+        "论文浓度"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入汉语言文学副本",
+      "body": "你带着一点文学理想、一点“我语文还不错”的自信，以及一点“不想被数学追杀”的庆幸进入中文系。系统提醒：诗和远方会来，但它们通常会和文学史、古代汉语、论文选题一起出现。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "文学滤镜",
+      "古代汉语伤害",
+      "论文浓度",
+      "考编考公预备役"
+    ],
+    "fitProfile": [
+      "阅读耐受高",
+      "写作耐受高",
+      "能接受长期文本训练",
+      "对表达和文化有持续兴趣",
+      "不把“喜欢看小说”直接等同于“适合中文系”"
+    ],
+    "avoidProfile": [
+      "只想逃避数学但讨厌阅读的人",
+      "以为汉语言本科就是自由写作的人",
+      "不想写论文、不想背文学史的人"
+    ],
+    "commonFilters": [
+      "浪漫",
+      "自由",
+      "书香气",
+      "写作",
+      "文化人滤镜",
+      "以后当语文老师/编辑很稳"
+    ],
+    "painPoints": [
+      "文学史背诵量",
+      "古代汉语和现代汉语的语言学压力",
+      "论文写作",
+      "就业方向泛化",
+      "考研考编分流",
+      "“中文系到底能干什么”的亲戚提问"
+    ],
+    "memes": [
+      "这个选题太大了",
+      "每个字都认识，不代表认识这句话",
+      "读书报告极限选手",
+      "文学滤镜未完全死亡"
+    ],
+    "initialStats": {
+      "obsession": 72,
+      "energy": 78,
+      "filter": 86,
+      "gpaWill": 58,
+      "careerFantasy": 55,
+      "escapeImpulse": 16,
+      "stubbornness": 42,
+      "hairline": 95
+    },
+    "majorStats": [
+      {
+        "key": "literaryFilter",
+        "name": "文学滤镜",
+        "description": "看到诗、小说、作家就上头的程度。高了很浪漫，低了会开始问“这能就业吗”。",
+        "initialValue": 86
+      },
+      {
+        "key": "classicalChineseDamage",
+        "name": "古汉语伤害",
+        "description": "被音韵、训诂、句读和文言语法击中的程度。",
+        "initialValue": 0
+      },
+      {
+        "key": "thesisDensity",
+        "name": "论文浓度",
+        "description": "选题、文献、提纲、注释和“这个题太大了”积累的压力。",
+        "initialValue": 0
+      },
+      {
+        "key": "stabilityPreference",
+        "name": "稳定偏好",
+        "description": "被教资、考编、考公吸过去的程度。",
+        "initialValue": 0
+      },
+      {
+        "key": "portfolioProgress",
+        "name": "作品集进度",
+        "description": "文字作品、内容案例、实习成果等可展示积累。",
+        "initialValue": 0
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "文学滤镜启动",
+        "coreEvents": "现代文学导论、第一次中文系课堂、读书报告初体验",
+        "statTrend": "滤镜厚度先升后降；专业上头值波动；论文浓度启动",
+        "routeForeshadow": "埋下“中文系不等于自由写作”的认知。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "文学史和古代汉语初见",
+        "coreEvents": "古代文学史、现代汉语、第一次被句法分析打断浪漫",
+        "statTrend": "文学滤镜下降；绩点求生欲上升；古汉语伤害出现",
+        "routeForeshadow": "可出现转专业经验帖/隔壁专业突然很实用。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "语言学开始重塑大脑",
+        "coreEvents": "古代汉语、语言学概论、文学理论入门",
+        "statTrend": "精神电量下降；论文浓度上升；专业上头值分化",
+        "routeForeshadow": "喜欢理论者真香，不喜欢抽象者开始怀疑。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "专业分化和逃生门",
+        "coreEvents": "文学理论、写作训练、考研/考编/编辑出版初听闻",
+        "statTrend": "就业幻觉值下降；跑路冲动上升；绩点筹码可积累",
+        "routeForeshadow": "大二下若条件满足可触发转专业隐藏入口。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "论文意识和就业问题靠近",
+        "coreEvents": "专题论文、经典重读、实习/教师资格证/新媒体方向出现",
+        "statTrend": "论文浓度上升；就业幻觉值波动；路线标签出现",
+        "routeForeshadow": "开始选择考研、教资、编辑、新媒体、考公等路线。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "路线分化",
+        "coreEvents": "考研专业课、教资、编辑实习、新媒体内容实习",
+        "statTrend": "精神电量下降；文学滤镜被现实重写",
+        "routeForeshadow": "路线事件池开启，坏结局风险提高。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "论文与未来并发",
+        "coreEvents": "毕业论文选题、秋招/考研/考编倒计时",
+        "statTrend": "论文浓度高压；就业幻觉值大幅波动",
+        "routeForeshadow": "可能触发“选题太大事故”“就业问题沉默”。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "毕业结算",
+        "coreEvents": "论文定稿、答辩、路径确认",
+        "statTrend": "专业上头值回望；论文浓度归零或爆炸",
+        "routeForeshadow": "生成“中文系人格鉴定书”。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "chinese_language_literature_random_01",
+      "chinese_language_literature_random_02",
+      "chinese_language_literature_random_03",
+      "chinese_language_literature_random_04",
+      "chinese_language_literature_random_05",
+      "chinese_language_literature_random_06",
+      "chinese_language_literature_random_07",
+      "chinese_language_literature_random_08",
+      "chinese_language_literature_random_09",
+      "chinese_language_literature_random_10"
+    ],
+    "hiddenEvents": [
+      "chinese_language_literature_hidden_01",
+      "chinese_language_literature_hidden_02",
+      "chinese_language_literature_hidden_03",
+      "chinese_language_literature_hidden_04"
+    ],
+    "routeEvents": [
+      "chinese_language_literature_route_postgrad",
+      "chinese_language_literature_route_teaching",
+      "chinese_language_literature_route_editing",
+      "chinese_language_literature_route_content",
+      "chinese_language_literature_route_civil_service"
+    ],
+    "achievements": [
+      "ach_chinese_language_literature_close_reading",
+      "ach_chinese_language_literature_classical_survivor",
+      "ach_chinese_language_literature_thesis_shrinker",
+      "ach_chinese_language_literature_filter_alive",
+      "ach_chinese_language_literature_exam_track",
+      "ach_chinese_language_literature_reading_report"
+    ],
+    "endings": [
+      "ending_chinese_language_literature_filter_alive",
+      "ending_chinese_language_literature_classical_damage",
+      "ending_chinese_language_literature_teaching_exam",
+      "ending_chinese_language_literature_content_worker",
+      "ending_chinese_language_literature_thesis_overload"
+    ],
+    "shareTexts": [
+      "我体验完中文系，系统说我的文学滤镜还没死。",
+      "转发给那个以为汉语言就是读小说的人。",
+      "中文系不是逃避数学，是换一种方式被文字拷打。"
+    ],
+    "majorId": "chinese_language_literature"
+  },
+  {
+    "id": "architecture",
+    "name": "建筑学",
+    "tier": "A",
+    "category": "设计建造池",
+    "card": {
+      "title": "建筑学",
+      "subtitle": "审美滤镜与通宵画图",
+      "description": "你以为建筑学是审美、空间和大师梦，后来发现模型、图纸、改方案和通宵也有自己的审美。",
+      "buttonText": "进入建筑学副本",
+      "riskWarning": "别只看专业滤镜，先进副本活一遍。",
+      "tags": [
+        "五年制预警",
+        "熬夜画图",
+        "方案被毙"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入建筑学副本",
+      "body": "你带着建筑师滤镜进入副本，以为自己马上就要设计城市。系统提醒：在此之前，你需要先学会画线、切模型、熬夜、改方案，以及听懂老师说的“感觉还差一点”。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "五年制预警",
+      "熬夜画图",
+      "方案被毙",
+      "审美消耗"
+    ],
+    "fitProfile": [
+      "空间想象强",
+      "审美敏感",
+      "能接受长期项目制训练",
+      "动手能力和抗压能力较好",
+      "愿意在反复修改中打磨作品"
+    ],
+    "avoidProfile": [
+      "只因为建筑看起来浪漫",
+      "讨厌熬夜和手工模型",
+      "不能接受作品被反复否定",
+      "以为画图就是画画的人"
+    ],
+    "commonFilters": [
+      "建筑师光环",
+      "设计感",
+      "城市空间",
+      "作品集",
+      "审美职业",
+      "自由创造"
+    ],
+    "painPoints": [
+      "五年制学习周期",
+      "制图和模型工作量",
+      "方案反复推翻",
+      "老师反馈抽象",
+      "软件学习压力",
+      "就业和行业周期波动"
+    ],
+    "memes": [
+      "感觉不太对",
+      "软件没有保存，你也没有",
+      "不是在画图，是在续命",
+      "方案会被毙，但你最好别先毙了"
+    ],
+    "initialStats": {
+      "obsession": 76,
+      "energy": 78,
+      "filter": 88,
+      "gpaWill": 60,
+      "careerFantasy": 62,
+      "escapeImpulse": 15,
+      "stubbornness": 46,
+      "hairline": 92
+    },
+    "majorStats": [
+      {
+        "key": "overnightDrawing",
+        "name": "熬夜画图值",
+        "description": "为图纸、模型和方案消耗睡眠的程度。",
+        "initialValue": 0
+      },
+      {
+        "key": "revisionRate",
+        "name": "方案返工率",
+        "description": "作品被推翻、重画、重做的频率。",
+        "initialValue": 0
+      },
+      {
+        "key": "aestheticBurnout",
+        "name": "审美消耗",
+        "description": "你对空间、比例、材质和老师一句“感觉不对”的耐受度。",
+        "initialValue": 0
+      },
+      {
+        "key": "portfolioProgress",
+        "name": "作品集进度",
+        "description": "作品集、竞赛和项目叙事的成型程度。",
+        "initialValue": 0
+      },
+      {
+        "key": "industryReality",
+        "name": "行业现实感",
+        "description": "设计院、地产、甲方、周期和预算带来的现实修正。",
+        "initialValue": 0
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "审美滤镜和制图新手村",
+        "coreEvents": "建筑导论、素描/制图、第一次手工模型",
+        "statTrend": "滤镜厚度高位波动；熬夜画图值启动",
+        "routeForeshadow": "建立“建筑不是单纯画画”的认知。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "图纸和模型开始追人",
+        "coreEvents": "制图规范、空间基础、模型作业",
+        "statTrend": "精神电量下降；方案返工率出现",
+        "routeForeshadow": "转专业暗线可从“熬夜不适”开始埋。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "设计课上强度",
+        "coreEvents": "小型空间设计、老师评图、软件入门",
+        "statTrend": "方案返工率上升；审美消耗上升",
+        "routeForeshadow": "第一次体验“被毙方案”。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "项目制分化",
+        "coreEvents": "设计任务并发、模型/图纸/汇报",
+        "statTrend": "熬夜画图值显著上升；绩点求生欲波动",
+        "routeForeshadow": "大二下可触发转专业隐藏入口。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "软件、规范和真实尺度",
+        "coreEvents": "建筑设计、结构基础、城市/住宅/公共建筑训练",
+        "statTrend": "滤镜下降；专业上头值分化",
+        "routeForeshadow": "路线开始出现：考研、设计院、地产、转设计。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "作品集意识启动",
+        "coreEvents": "更复杂的设计任务、竞赛、作品集预备",
+        "statTrend": "审美消耗高；就业幻觉值波动",
+        "routeForeshadow": "可触发作品集卷王/通宵 GG 风险。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "实习和行业现实",
+        "coreEvents": "设计院/事务所实习、方案深化、行业周期",
+        "statTrend": "就业幻觉值下降；跑路冲动上升",
+        "routeForeshadow": "路线结算：考研/就业/转行/作品集。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "毕业设计审判",
+        "coreEvents": "毕业设计、展板、模型、答辩",
+        "statTrend": "熬夜画图值高压；方案返工率冲刺",
+        "routeForeshadow": "生成建筑学人格鉴定书。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "architecture_random_01",
+      "architecture_random_02",
+      "architecture_random_03",
+      "architecture_random_04",
+      "architecture_random_05",
+      "architecture_random_06",
+      "architecture_random_07",
+      "architecture_random_08",
+      "architecture_random_09",
+      "architecture_random_10"
+    ],
+    "hiddenEvents": [
+      "architecture_hidden_01",
+      "architecture_hidden_02",
+      "architecture_hidden_03",
+      "architecture_hidden_04"
+    ],
+    "routeEvents": [
+      "architecture_route_postgrad",
+      "architecture_route_studio",
+      "architecture_route_real_estate",
+      "architecture_route_design_transfer",
+      "architecture_route_portfolio_abroad"
+    ],
+    "achievements": [
+      "ach_architecture_scheme_stood",
+      "ach_architecture_model_miracle",
+      "ach_architecture_overnight_survivor",
+      "ach_architecture_software_victim",
+      "ach_architecture_aesthetic_overload",
+      "ach_architecture_portfolio_ready"
+    ],
+    "endings": [
+      "ending_architecture_overnight_survivor",
+      "ending_architecture_scheme_true_love",
+      "ending_architecture_filter_broken",
+      "ending_architecture_portfolio_king",
+      "ending_architecture_design_transfer"
+    ],
+    "shareTexts": [
+      "我体验完建筑学，系统说我已经不是在画图，是在续命。",
+      "转发给那个以为建筑学只是审美的人。",
+      "建筑学副本提醒：方案会被毙，但你最好别先毙了。"
+    ],
+    "majorId": "architecture"
+  },
+  {
+    "id": "stomatology",
+    "name": "口腔医学",
+    "tier": "A",
+    "category": "医学健康池",
+    "card": {
+      "title": "口腔医学",
+      "subtitle": "高分滤镜与手稳修行",
+      "description": "你以为口腔医学是医学里最体面、最自由、最香的路线，后来发现牙也很小，要求很细，手还必须稳。",
+      "buttonText": "进入口腔医学副本",
+      "riskWarning": "别只看专业滤镜，先进副本活一遍。",
+      "tags": [
+        "热门高分",
+        "牙科滤镜",
+        "手稳修行"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入口腔医学副本",
+      "body": "你带着高分专业的光环、家长满意的眼神，以及一点“口腔是不是医学里比较香”的期待进入副本。系统提醒：香不香另说，牙是真的小，要求是真的细，医学基础课也不会因为你学口腔就放过你。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "热门高分",
+      "牙科滤镜",
+      "手稳修行",
+      "实操压力"
+    ],
+    "fitProfile": [
+      "抗压能力强",
+      "责任感高",
+      "动手能力好",
+      "能接受医学基础课和长期训练",
+      "对临床操作有敬畏感"
+    ],
+    "avoidProfile": [
+      "只因为“口腔很赚钱”报考",
+      "排斥医学基础课",
+      "动手耐心差",
+      "以为口腔比临床轻松很多的人"
+    ],
+    "commonFilters": [
+      "高分热门",
+      "收入想象",
+      "开诊所自由",
+      "比临床轻松",
+      "体面稳定",
+      "家长非常满意"
+    ],
+    "painPoints": [
+      "医学基础课不少",
+      "牙体牙髓/口腔解剖/材料学细致",
+      "实操训练压力",
+      "考研和规培/住培路径",
+      "临床沟通和责任",
+      "热门带来的竞争"
+    ],
+    "memes": [
+      "牙很小但副本不小",
+      "不是医学甜品区",
+      "手和脑子需要协商",
+      "热门专业下一关仍然热门"
+    ],
+    "initialStats": {
+      "obsession": 78,
+      "energy": 76,
+      "filter": 88,
+      "gpaWill": 70,
+      "careerFantasy": 82,
+      "escapeImpulse": 12,
+      "stubbornness": 40,
+      "hairline": 92
+    },
+    "majorStats": [
+      {
+        "key": "dentalFilter",
+        "name": "牙科滤镜",
+        "description": "对“口腔很香”的想象厚度。",
+        "initialValue": 88
+      },
+      {
+        "key": "handStability",
+        "name": "手稳指数",
+        "description": "面对实操、模型、临床操作时的手部和心态稳定程度。",
+        "initialValue": 45
+      },
+      {
+        "key": "clinicalPressure",
+        "name": "临床操作压力",
+        "description": "从模型到真实患者时积累的压力。",
+        "initialValue": 0
+      },
+      {
+        "key": "competitionAnxiety",
+        "name": "竞争焦虑",
+        "description": "热门高分和考研竞争带来的压力。",
+        "initialValue": 0
+      },
+      {
+        "key": "clinicalRespect",
+        "name": "临床敬畏",
+        "description": "对患者、责任和细节底线的敬畏。",
+        "initialValue": 0
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "医学新手村",
+        "coreEvents": "医学导论、解剖/生物基础、口腔滤镜启动",
+        "statTrend": "牙科滤镜高；绩点求生欲上升",
+        "routeForeshadow": "建立“口腔也是医学”的现实。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "基础课开始证明存在感",
+        "coreEvents": "解剖、生理、生化等基础压力",
+        "statTrend": "精神电量下降；滤镜厚度下降",
+        "routeForeshadow": "转专业暗线从医学强度不适开始。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "口腔专业课入场",
+        "coreEvents": "口腔解剖生理、材料学、牙体基础",
+        "statTrend": "手稳指数启动；专业上头值分化",
+        "routeForeshadow": "第一次意识到牙齿世界非常细。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "实操训练和高分竞争",
+        "coreEvents": "模型训练、操作课、同学卷度",
+        "statTrend": "临床操作压力上升；绩点求生欲高",
+        "routeForeshadow": "大二下可触发转专业隐藏入口。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "牙体牙髓和临床意识",
+        "coreEvents": "牙体牙髓、修复、牙周等课程",
+        "statTrend": "专业上头值上升或崩；精神电量下降",
+        "routeForeshadow": "路线预热：考研、医院、专科方向。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "见习与责任感",
+        "coreEvents": "见习、患者沟通、病例意识",
+        "statTrend": "临床敬畏上升；就业幻觉被现实修正",
+        "routeForeshadow": "路线分化开启。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "考研/规培/实习并发",
+        "coreEvents": "考研备考、临床技能、毕业压力",
+        "statTrend": "精神电量高压；就业幻觉波动",
+        "routeForeshadow": "可能触发实操崩盘或真香。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "毕业与路径确认",
+        "coreEvents": "毕业考核、实习总结、未来路径",
+        "statTrend": "临床操作压力结算；牙科滤镜重塑",
+        "routeForeshadow": "生成口腔人格鉴定书。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "stomatology_random_01",
+      "stomatology_random_02",
+      "stomatology_random_03",
+      "stomatology_random_04",
+      "stomatology_random_05",
+      "stomatology_random_06",
+      "stomatology_random_07",
+      "stomatology_random_08",
+      "stomatology_random_09",
+      "stomatology_random_10"
+    ],
+    "hiddenEvents": [
+      "stomatology_hidden_01",
+      "stomatology_hidden_02",
+      "stomatology_hidden_03",
+      "stomatology_hidden_04"
+    ],
+    "routeEvents": [
+      "stomatology_route_postgrad",
+      "stomatology_route_hospital",
+      "stomatology_route_specialty",
+      "stomatology_route_private_clinic",
+      "stomatology_route_medical_related"
+    ],
+    "achievements": [
+      "ach_stomatology_hand_certified",
+      "ach_stomatology_model_obeyed",
+      "ach_stomatology_filter_corrected",
+      "ach_stomatology_clinical_respect",
+      "ach_stomatology_hot_major_survivor",
+      "ach_stomatology_experience_post_reader"
+    ],
+    "endings": [
+      "ending_stomatology_hand_training",
+      "ending_stomatology_filter_broken",
+      "ending_stomatology_postgrad_training",
+      "ending_stomatology_clinical_respect",
+      "ending_stomatology_medical_related"
+    ],
+    "shareTexts": [
+      "我体验完口腔医学，系统说牙很小但副本不小。",
+      "转发给那个只因为“口腔很香”就想报的人。",
+      "口腔医学不是医学甜品区，是精细操作修行区。"
+    ],
+    "majorId": "stomatology"
+  },
+  {
+    "id": "psychology",
+    "name": "心理学",
+    "tier": "A",
+    "category": "文理交叉池",
+    "card": {
+      "title": "心理学",
+      "subtitle": "读心术滤镜与统计阴影",
+      "description": "你以为心理学能读心、治愈自己、顺便开导别人，后来发现统计、实验、测量和就业路径会先开导你。",
+      "buttonText": "进入心理学副本",
+      "riskWarning": "别只看专业滤镜，先进副本活一遍。",
+      "tags": [
+        "读心术滤镜",
+        "统计阴影",
+        "实验测量"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入心理学副本",
+      "body": "你带着一点读心术幻想、一点治愈滤镜，以及一点“我很会共情”的自信进入心理学。系统提醒：共情很重要，但统计学、实验设计、测量量表和职业伦理也会准时到场。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "读心术滤镜",
+      "统计阴影",
+      "实验测量",
+      "就业迷雾"
+    ],
+    "fitProfile": [
+      "对人和行为真的好奇",
+      "能接受统计和研究方法",
+      "愿意长期训练专业边界",
+      "不把心理学当作自我疗愈捷径"
+    ],
+    "avoidProfile": [
+      "只想读心",
+      "只想治愈自己",
+      "排斥数学统计",
+      "以为本科毕业就能直接当心理咨询师的人"
+    ],
+    "commonFilters": [
+      "读心术",
+      "治愈",
+      "咨询师",
+      "温柔专业",
+      "理解别人",
+      "顺便理解自己"
+    ],
+    "painPoints": [
+      "统计学和研究方法",
+      "实验设计",
+      "心理测量",
+      "咨询职业路径长",
+      "就业方向不够直观",
+      "考研深造需求高",
+      "大众误解严重"
+    ],
+    "memes": [
+      "先理解统计显著性",
+      "p 值赐福",
+      "心理学不是读心术",
+      "求你填问卷"
+    ],
+    "initialStats": {
+      "obsession": 74,
+      "energy": 78,
+      "filter": 84,
+      "gpaWill": 60,
+      "careerFantasy": 58,
+      "escapeImpulse": 18,
+      "stubbornness": 42,
+      "hairline": 94
+    },
+    "majorStats": [
+      {
+        "key": "mindReadingFilter",
+        "name": "读心术滤镜",
+        "description": "对“学心理就能看穿别人”的幻想程度。",
+        "initialValue": 84
+      },
+      {
+        "key": "statisticsShadow",
+        "name": "统计阴影",
+        "description": "被统计、实验方法和数据分析追击的程度。",
+        "initialValue": 0
+      },
+      {
+        "key": "counselingFantasy",
+        "name": "咨询幻觉值",
+        "description": "以为本科毕业就能丝滑成为咨询师的程度。",
+        "initialValue": 70
+      },
+      {
+        "key": "boundarySense",
+        "name": "边界感",
+        "description": "面对朋友求免费咨询和自我疗愈滤镜时的专业边界。",
+        "initialValue": 0
+      },
+      {
+        "key": "employmentFog",
+        "name": "就业迷雾",
+        "description": "本科出口不直观带来的路径迷茫。",
+        "initialValue": 0
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "读心术滤镜启动",
+        "coreEvents": "普通心理学、心理学导论、第一次被问“你能不能看出我在想什么”",
+        "statTrend": "滤镜厚度高；专业上头值上升",
+        "routeForeshadow": "建立心理学不是读心术的第一层认知。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "统计学出现",
+        "coreEvents": "心理统计、实验入门、SPSS/R 初见",
+        "statTrend": "统计阴影启动；精神电量下降",
+        "routeForeshadow": "转专业暗线可从统计不适开始。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "实验和测量上强度",
+        "coreEvents": "实验心理学、心理测量、研究方法",
+        "statTrend": "读心术滤镜下降；绩点求生欲上升",
+        "routeForeshadow": "专业分化：研究型 vs 咨询想象型。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "咨询滤镜被边界教育",
+        "coreEvents": "发展/社会/人格心理，咨询伦理初识",
+        "statTrend": "咨询幻觉值下降；专业上头值分化",
+        "routeForeshadow": "大二下可触发转专业隐藏入口。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "方向分化",
+        "coreEvents": "临床与咨询、教育、人力、用户研究、脑认知方向",
+        "statTrend": "就业幻觉值波动；路线标签出现",
+        "routeForeshadow": "考研、HR、用户研究、教育心理等路线预热。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "研究方法和实习现实",
+        "coreEvents": "论文项目、实验数据、实习投递",
+        "statTrend": "统计阴影加深；就业迷雾上升",
+        "routeForeshadow": "路线事件池开启。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "考研/就业/论文并发",
+        "coreEvents": "毕业论文、考研、HR/用户研究/教育实习",
+        "statTrend": "精神电量高压；就业幻觉值波动",
+        "routeForeshadow": "可能触发就业迷雾 GG。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "毕业结算",
+        "coreEvents": "论文答辩、路径确认、专业边界形成",
+        "statTrend": "滤镜被重塑；咨询幻觉归零或修正",
+        "routeForeshadow": "生成心理学人格鉴定书。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "psychology_random_01",
+      "psychology_random_02",
+      "psychology_random_03",
+      "psychology_random_04",
+      "psychology_random_05",
+      "psychology_random_06",
+      "psychology_random_07",
+      "psychology_random_08",
+      "psychology_random_09",
+      "psychology_random_10"
+    ],
+    "hiddenEvents": [
+      "psychology_hidden_01",
+      "psychology_hidden_02",
+      "psychology_hidden_03",
+      "psychology_hidden_04"
+    ],
+    "routeEvents": [
+      "psychology_route_postgrad",
+      "psychology_route_hr",
+      "psychology_route_user_research",
+      "psychology_route_education",
+      "psychology_route_counseling_long"
+    ],
+    "achievements": [
+      "ach_psychology_p_value_blessing",
+      "ach_psychology_boundary_formed",
+      "ach_psychology_mind_reading_destroyer",
+      "ach_psychology_questionnaire_survivor",
+      "ach_psychology_method_true_love",
+      "ach_psychology_counseling_corrected"
+    ],
+    "endings": [
+      "ending_psychology_mind_reading_broken",
+      "ending_psychology_statistics_survivor",
+      "ending_psychology_counseling_long",
+      "ending_psychology_user_research",
+      "ending_psychology_employment_fog"
+    ],
+    "shareTexts": [
+      "我体验完心理学，系统先打碎了我的读心术滤镜。",
+      "转发给那个以为心理学本科毕业就能当咨询师的人。",
+      "心理学副本提醒：理解人类之前，先理解统计。"
+    ],
+    "majorId": "psychology"
+  },
+  {
+    "id": "civil_engineering",
+    "name": "土木工程",
+    "tier": "A",
+    "category": "工科建造池",
+    "card": {
+      "title": "土木工程",
+      "subtitle": "工地滤镜与结构力学拷打",
+      "description": "你以为自己在修桥铺路改变世界，后来发现第一座要修的桥，是你和力学之间断掉的桥。",
+      "buttonText": "进入土木工程副本",
+      "riskWarning": "别只看“大国基建”滤镜，先体验真实本科四年。",
+      "tags": [
+        "传统工科",
+        "天坑争议",
+        "结构力学"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入土木工程副本",
+      "body": "系统检测到：你的稳定滤镜不低，吃苦想象暂时乐观。请注意，土木副本的主要机制是：前期力学拷打，中期图纸规范，后期就业现实。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "传统工科",
+      "天坑争议",
+      "结构力学",
+      "工地现实",
+      "考研/设计院/施工单位分化"
+    ],
+    "fitProfile": [
+      "能接受硬核工科基础",
+      "愿意和图纸/规范/现场打交道",
+      "对工程实体有兴趣",
+      "抗压和动手能力较强"
+    ],
+    "avoidProfile": [
+      "只因为“国家基建很重要”就冲",
+      "以为不用写代码不用背书就轻松",
+      "完全不能接受现场环境和工科课程的人"
+    ],
+    "commonFilters": [
+      "大国基建",
+      "桥梁隧道",
+      "工程师",
+      "稳定就业",
+      "家里人觉得老牌专业靠谱"
+    ],
+    "painPoints": [
+      "高数",
+      "力学",
+      "测量",
+      "结构",
+      "画图",
+      "规范",
+      "实习现场",
+      "行业周期",
+      "施工与设计路径分化"
+    ],
+    "memes": [
+      "结构力学劝退",
+      "图纸看到眼花",
+      "工地太阳",
+      "测量跑断腿",
+      "天坑讨论区常驻嘉宾"
+    ],
+    "initialStats": {
+      "obsession": 62,
+      "energy": 76,
+      "filter": 80,
+      "gpaWill": 60,
+      "careerFantasy": 70,
+      "escapeImpulse": 20,
+      "stubbornness": 42,
+      "hairline": 90
+    },
+    "majorStats": [
+      {
+        "key": "structureBearing",
+        "name": "结构承重值",
+        "description": "面对力学、结构计算和工程图纸时的承重能力。",
+        "initialValue": 35
+      },
+      {
+        "key": "siteAdaptability",
+        "name": "工地适应度",
+        "description": "对测量实习、施工现场、户外环境和工程现场的适应程度。",
+        "initialValue": 20
+      },
+      {
+        "key": "pitImmunity",
+        "name": "天坑免疫力",
+        "description": "刷到劝退帖、行业周期和就业落差后仍能理性判断的能力。",
+        "initialValue": 18
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "工科新手村与基建滤镜",
+        "coreEvents": "高数、工程制图、专业导论登场。用户第一次意识到“土木”不是只看大桥纪录片。",
+        "statTrend": "滤镜厚度略降，绩点求生欲上升；可埋“想转到计算机/电气”的轻微念头。",
+        "routeForeshadow": "为“老牌工科稳定”滤镜埋下第一道裂缝。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "测量实习与第一次户外暴击",
+        "coreEvents": "测量课、画图、基础力学开始出现，用户体验“太阳下面拿仪器”的现实。",
+        "statTrend": "精神电量下降，工地适应度开始分化。",
+        "routeForeshadow": "适合的人会觉得工程有实体感；不适合的人开始观察逃生门。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "材料力学和结构力学预警",
+        "coreEvents": "力学类课程上强度，公式、受力分析和画图同时出现。",
+        "statTrend": "结构承重值上升或崩盘，绩点求生欲明显波动。",
+        "routeForeshadow": "结构力学成为专业人格分水岭。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "专业分流与天坑讨论入侵",
+        "coreEvents": "钢结构、混凝土、土力学等专业课出现，用户刷到土木劝退帖。",
+        "statTrend": "天坑免疫力开始发挥作用；转专业隐藏入口可被触发。",
+        "routeForeshadow": "决定继续深挖工程，还是寻找跨考/转专业/考公路线。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "课程设计与图纸地狱",
+        "coreEvents": "课程设计、结构计算、图纸、规范开始打包出现。",
+        "statTrend": "精神电量大幅消耗，结构承重值高者会真香。",
+        "routeForeshadow": "铺垫设计院、施工单位、考研、考公路线。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "实习现场与职业现实",
+        "coreEvents": "认识施工现场、设计院、甲方、监理等不同路径。用户发现工程行业不是一个出口。",
+        "statTrend": "就业幻觉值按路线剧烈波动；工地适应度关键影响结局。",
+        "routeForeshadow": "选择考研、施工、设计院、地产/甲方、考公或跨行业。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "秋招/考研/毕业设计并发",
+        "coreEvents": "毕业设计、找工作、考研或考公同时推进。",
+        "statTrend": "高压系数升高，软GG和路线失败概率上升。",
+        "routeForeshadow": "行业周期与个人选择进行集中结算。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "毕业设计与工程人格定型",
+        "coreEvents": "用户完成毕业设计，回望从力学到图纸再到现场的四年。",
+        "statTrend": "生成土木人格：工地硬扛、结构真香、跨考跑路或天坑免疫。",
+        "routeForeshadow": "结果页强调：土木不是无用，只是不能只靠宏大叙事报考。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "civil_engineering_random_01",
+      "civil_engineering_random_02",
+      "civil_engineering_random_03",
+      "civil_engineering_random_04",
+      "civil_engineering_random_05",
+      "civil_engineering_random_06"
+    ],
+    "hiddenEvents": [
+      "civil_engineering_hidden_01",
+      "civil_engineering_hidden_02",
+      "civil_engineering_hidden_03"
+    ],
+    "routeEvents": [
+      "civil_engineering_route_postgrad",
+      "civil_engineering_route_construction",
+      "civil_engineering_route_design_institute",
+      "civil_engineering_route_public_sector",
+      "civil_engineering_route_cross_industry"
+    ],
+    "achievements": [
+      "ach_civil_engineering_structure_survivor",
+      "ach_civil_engineering_cad_layer_master",
+      "ach_civil_engineering_site_sun",
+      "ach_civil_engineering_pit_immunity",
+      "ach_civil_engineering_graduation_lift"
+    ],
+    "endings": [
+      "ending_civil_engineering_structure_survivor",
+      "ending_civil_engineering_pit_realist",
+      "ending_civil_engineering_site_clear",
+      "ending_civil_engineering_cross_runner"
+    ],
+    "shareTexts": [
+      "我体验完土木本科，系统说我的精神支座出现位移。",
+      "转发给那个只看大国基建滤镜想报土木的人。",
+      "土木副本提醒我：稳定不是无痛，工程也不是纪录片。"
+    ],
+    "majorId": "civil_engineering"
+  },
+  {
+    "id": "electronic_information",
+    "name": "电子信息",
+    "tier": "A",
+    "category": "工科信息池",
+    "card": {
+      "title": "电子信息",
+      "subtitle": "电路迷宫与信号焦虑",
+      "description": "你以为电子信息是计算机的近亲，进来才发现它更像电路、信号、代码和硬件一起开的混合副本。",
+      "buttonText": "进入电子信息副本",
+      "riskWarning": "别只看“热门工科”滤镜，先体验真实本科四年。",
+      "tags": [
+        "热门工科",
+        "考研大户",
+        "电路信号"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入电子信息副本",
+      "body": "系统检测到：你对热门工科有明显好感，并可能默认它“像计算机一样好就业”。请注意，电子信息副本的特色是软硬都来，逃不掉实验，也绕不开信号。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "热门工科",
+      "考研大户",
+      "电路信号",
+      "嵌入式/通信/芯片分流",
+      "就业想象强"
+    ],
+    "fitProfile": [
+      "数学基础不错",
+      "能接受硬件和软件同时出现",
+      "愿意折腾实验板和代码",
+      "对技术路径有耐心"
+    ],
+    "avoidProfile": [
+      "只想学纯软件高薪",
+      "不想碰电路",
+      "不想做实验",
+      "对抽象信号和硬件调试极度排斥的人"
+    ],
+    "commonFilters": [
+      "热门工科",
+      "就业不错",
+      "半个计算机",
+      "芯片/通信/智能硬件",
+      "技术前景"
+    ],
+    "painPoints": [
+      "电路",
+      "模电",
+      "数电",
+      "信号与系统",
+      "通信原理",
+      "实验调试",
+      "焊板",
+      "考研方向选择"
+    ],
+    "memes": [
+      "波形不对",
+      "板子不亮",
+      "信号变玄学",
+      "示波器凝视",
+      "模电听不懂但考试要会"
+    ],
+    "initialStats": {
+      "obsession": 62,
+      "energy": 76,
+      "filter": 80,
+      "gpaWill": 60,
+      "careerFantasy": 70,
+      "escapeImpulse": 20,
+      "stubbornness": 42,
+      "hairline": 90
+    },
+    "majorStats": [
+      {
+        "key": "circuitUnderstanding",
+        "name": "电路理解度",
+        "description": "理解电路、模电、数电和实验现象的稳定程度。",
+        "initialValue": 30
+      },
+      {
+        "key": "boardLightingRate",
+        "name": "板子点亮率",
+        "description": "实验板、项目板和毕设硬件能否亮起来的玄学指数。",
+        "initialValue": 15
+      },
+      {
+        "key": "signalClarity",
+        "name": "信号清晰度",
+        "description": "面对信号与系统、通信原理和频域世界时的清晰程度。",
+        "initialValue": 20
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "热门工科滤镜与高数开局",
+        "coreEvents": "专业导论、高数、C语言基础出现，用户觉得自己离技术行业很近。",
+        "statTrend": "滤镜厚度高，就业幻觉值高；数学耐受开始影响后续。",
+        "routeForeshadow": "为“半个计算机”误解埋雷。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "电路基础与第一次实验",
+        "coreEvents": "电路理论、实验箱、万用表登场。用户第一次发现“电”不是概念，是会不亮的现实。",
+        "statTrend": "电路理解度上升或精神电量下降；板子点亮率开始记录。",
+        "routeForeshadow": "适合埋转计算机/自动化/电气兴趣。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "模电数电双重夹击",
+        "coreEvents": "模拟电路、数字电路、信号基础出现，课程抽象度提高。",
+        "statTrend": "信号清晰度成为关键；滤镜厚度下降。",
+        "routeForeshadow": "形成电子信息第一波分化。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "信号与系统让世界变成频域",
+        "coreEvents": "傅里叶、系统响应、通信基础让用户重新认识“听懂”。",
+        "statTrend": "精神电量下降；数学耐受高者专业上头值提升。",
+        "routeForeshadow": "转专业隐藏入口和方向分流同时出现。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "通信/嵌入式/芯片方向试探",
+        "coreEvents": "用户开始接触嵌入式、通信原理、微机原理、FPGA或相关课程。",
+        "statTrend": "就业幻觉值受方向影响；板子点亮率决定成就。",
+        "routeForeshadow": "开始思考考研、就业、转码或硬件路线。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "项目实验与实习焦虑",
+        "coreEvents": "课程设计、项目、竞赛、实验报告、实习投递并发。",
+        "statTrend": "高压上升，信号清晰度和板子点亮率影响结果。",
+        "routeForeshadow": "选择考研、嵌入式、通信、芯片、转码或考公国企。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "秋招/考研/毕设同频干扰",
+        "coreEvents": "用户在简历、项目、考研、毕设和方向选择之间拉扯。",
+        "statTrend": "就业幻觉值波动大；GG风险上升。",
+        "routeForeshadow": "技术路径和稳定路线开始结算。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "毕设调试与工程人格成型",
+        "coreEvents": "毕设可能涉及硬件调试、代码、论文和演示。用户终于理解“能跑起来”三个字的价值。",
+        "statTrend": "生成电子信息人格：硬件真香、转码成功、考研深造或板子不亮型幸存。",
+        "routeForeshadow": "结果页强调：电子信息不是计算机替代品，而是软硬结合的真实工科。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "electronic_information_random_01",
+      "electronic_information_random_02",
+      "electronic_information_random_03",
+      "electronic_information_random_04",
+      "electronic_information_random_05",
+      "electronic_information_random_06"
+    ],
+    "hiddenEvents": [
+      "electronic_information_hidden_01",
+      "electronic_information_hidden_02",
+      "electronic_information_hidden_03"
+    ],
+    "routeEvents": [
+      "electronic_information_route_postgrad",
+      "electronic_information_route_embedded",
+      "electronic_information_route_communication_chip",
+      "electronic_information_route_software_transfer",
+      "electronic_information_route_state_owned_operator"
+    ],
+    "achievements": [
+      "ach_electronic_information_board_miracle",
+      "ach_electronic_information_oscilloscope_gazer",
+      "ach_electronic_information_analog_survivor",
+      "ach_electronic_information_frequency_crossing",
+      "ach_electronic_information_hardware_software_beginner"
+    ],
+    "endings": [
+      "ending_electronic_information_board_survivor",
+      "ending_electronic_information_hybrid_realist",
+      "ending_electronic_information_software_transfer",
+      "ending_electronic_information_frequency_lost"
+    ],
+    "shareTexts": [
+      "我玩完电子信息副本，系统说我的板子点亮率很玄学。",
+      "转发给那个以为电子信息就是计算机平替的人。",
+      "电子信息提醒我：热门工科也会让人看着波形沉默。"
+    ],
+    "majorId": "electronic_information"
+  },
+  {
+    "id": "design",
+    "name": "设计类",
+    "tier": "A",
+    "category": "设计建造池",
+    "card": {
+      "title": "设计类",
+      "subtitle": "审美滤镜与改稿地狱",
+      "description": "你以为设计是审美自由，后来发现真正自由的是甲方的修改意见。",
+      "buttonText": "进入设计类副本",
+      "riskWarning": "别只看“自由”滤镜，先体验真实本科四年。",
+      "tags": [
+        "作品集",
+        "改稿",
+        "审美"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入设计类副本",
+      "body": "系统检测到：你对“自由创作”有明显幻想。请注意，设计副本的核心机制不是自由，而是带着审美在修改意见里活下去。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "作品集",
+      "改稿",
+      "审美",
+      "甲方",
+      "熬夜",
+      "软件技能",
+      "就业分化"
+    ],
+    "fitProfile": [
+      "审美敏感",
+      "表达欲强",
+      "能接受反复修改",
+      "愿意长期做作品集和项目积累"
+    ],
+    "avoidProfile": [
+      "只因为喜欢画画/拍照/好看就报",
+      "不能接受被评价",
+      "讨厌反复改稿",
+      "以为设计等于自由创作的人"
+    ],
+    "commonFilters": [
+      "自由",
+      "好看",
+      "有创造力",
+      "作品集",
+      "高级审美",
+      "可以把兴趣变职业"
+    ],
+    "painPoints": [
+      "软件学习",
+      "构成基础",
+      "方案被否",
+      "作品集焦虑",
+      "熬夜改稿",
+      "审美评价",
+      "就业岗位差异",
+      "甲方/老师意见"
+    ],
+    "memes": [
+      "再改一版",
+      "感觉不对",
+      "作品集还没开始",
+      "审美被按在地上摩擦",
+      "甲方说要高级但说不出高级在哪"
+    ],
+    "initialStats": {
+      "obsession": 62,
+      "energy": 76,
+      "filter": 80,
+      "gpaWill": 60,
+      "careerFantasy": 70,
+      "escapeImpulse": 20,
+      "stubbornness": 42,
+      "hairline": 90
+    },
+    "majorStats": [
+      {
+        "key": "aestheticBattery",
+        "name": "审美电量",
+        "description": "被评价、比较和反复修改后仍能保持审美判断的电量。",
+        "initialValue": 55
+      },
+      {
+        "key": "revisionTolerance",
+        "name": "改稿耐受",
+        "description": "听到再改一版时还能继续工作的耐受程度。",
+        "initialValue": 25
+      },
+      {
+        "key": "portfolioThickness",
+        "name": "作品集厚度",
+        "description": "作业、项目、实习和个人作品累积成作品集的程度。",
+        "initialValue": 0
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "审美滤镜与基础训练",
+        "coreEvents": "构成、素描、色彩、设计史或软件基础出现。用户发现“喜欢好看”和“能做出好看”之间有距离。",
+        "statTrend": "审美电量开始记录，滤镜厚度小幅下降。",
+        "routeForeshadow": "为作品集长期线埋点。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "第一次作业被评价",
+        "coreEvents": "老师说“感觉不对”，同学作品看起来像另一个物种。",
+        "statTrend": "精神电量下降，改稿耐受开始分化。",
+        "routeForeshadow": "适合的人会开始调整表达，不适合的人开始怀疑兴趣。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "软件与方案并发",
+        "coreEvents": "PS/AI/CAD/建模/剪辑等技能与设计概念同时推进。",
+        "statTrend": "作品集厚度缓慢增加；发际线余额下降。",
+        "routeForeshadow": "转专业暗线和跨方向兴趣出现。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "第一次大型课程项目",
+        "coreEvents": "用户经历选题、草图、方案、汇报、改稿、再汇报。",
+        "statTrend": "改稿耐受成为核心数值。",
+        "routeForeshadow": "隐藏转专业入口可触发；也可开启视觉/产品/室内/交互等方向兴趣。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "作品集焦虑正式上线",
+        "coreEvents": "身边有人开始实习、接单、做作品集，用户意识到作品不是作业，而是简历本体。",
+        "statTrend": "就业幻觉值波动，作品集厚度影响路线。",
+        "routeForeshadow": "准备实习、考研、留学、自由职业或转行。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "实习与甲方预演",
+        "coreEvents": "用户第一次经历真实需求、真实 deadline 和真实修改意见。",
+        "statTrend": "改稿耐受暴涨或崩盘；滤镜厚度大幅下降。",
+        "routeForeshadow": "路线分化：品牌、UI/UX、空间、视觉、考研、转运营。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "毕业设计与作品集冲刺",
+        "coreEvents": "毕设、作品集、求职、考研同时推进。",
+        "statTrend": "精神电量大幅消耗，作品集厚度决定结局上限。",
+        "routeForeshadow": "中途GG概率上升。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "毕业展与设计人格定型",
+        "coreEvents": "用户带着毕设和作品集完成结算。",
+        "statTrend": "生成设计人格：改稿幸存、作品集卷王、审美真香、甲方PTSD或转行。",
+        "routeForeshadow": "结果页强调：设计可以热爱，但热爱必须经得起修改。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "design_random_01",
+      "design_random_02",
+      "design_random_03",
+      "design_random_04",
+      "design_random_05",
+      "design_random_06"
+    ],
+    "hiddenEvents": [
+      "design_hidden_01",
+      "design_hidden_02",
+      "design_hidden_03"
+    ],
+    "routeEvents": [
+      "design_route_portfolio_internship",
+      "design_route_postgrad_abroad",
+      "design_route_ui_ux_product",
+      "design_route_brand_visual_space",
+      "design_route_operation_media"
+    ],
+    "achievements": [
+      "ach_design_revision_survivor",
+      "ach_design_portfolio_has_content",
+      "ach_design_client_translator",
+      "ach_design_aesthetic_flashback",
+      "ach_design_final_version_master"
+    ],
+    "endings": [
+      "ending_design_revision_survivor",
+      "ending_design_portfolio_king",
+      "ending_design_aesthetic_true_love",
+      "ending_design_career_transfer"
+    ],
+    "shareTexts": [
+      "我玩完设计副本，系统说我已经掌握“再改一版”生存术。",
+      "转发给那个以为设计就是自由创作的人。",
+      "设计类提醒我：审美很重要，能熬过修改更重要。"
+    ],
+    "majorId": "design"
+  },
+  {
+    "id": "nursing",
+    "name": "护理学",
+    "tier": "A",
+    "category": "医学健康池",
+    "card": {
+      "title": "护理学",
+      "subtitle": "稳定滤镜与临床体力条",
+      "description": "你以为护理是稳定好就业，后来发现稳定是真的，累也是真的。",
+      "buttonText": "进入护理学副本",
+      "riskWarning": "别只看“稳定”滤镜，先体验真实本科四年。",
+      "tags": [
+        "就业稳定",
+        "临床实践",
+        "体力消耗"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入护理学副本",
+      "body": "系统检测到：你对稳定就业有一定期待，也可能带着白衣滤镜进入副本。请注意，护理不是“轻松稳定”，而是责任、体力、沟通和专业技术一起出现。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "就业稳定",
+      "临床实践",
+      "体力消耗",
+      "责任压力",
+      "家长期待",
+      "职业落差"
+    ],
+    "fitProfile": [
+      "责任感强",
+      "能接受临床环境",
+      "沟通能力较好",
+      "动手能力和抗压能力都在线"
+    ],
+    "avoidProfile": [
+      "只因为好就业就报",
+      "完全不能接受夜班/临床压力",
+      "不喜欢和人高频沟通",
+      "对职业现实缺乏准备的人"
+    ],
+    "commonFilters": [
+      "稳定",
+      "好就业",
+      "白衣天使",
+      "医院工作",
+      "家里人觉得靠谱"
+    ],
+    "painPoints": [
+      "基础医学课程",
+      "护理操作",
+      "实训考核",
+      "临床见习",
+      "夜班想象",
+      "情绪劳动",
+      "职业尊严和现实落差"
+    ],
+    "memes": [
+      "操作考核手抖",
+      "铺床铺到怀疑人生",
+      "病历和沟通并发",
+      "白衣滤镜被夜班预警击穿"
+    ],
+    "initialStats": {
+      "obsession": 62,
+      "energy": 76,
+      "filter": 80,
+      "gpaWill": 60,
+      "careerFantasy": 70,
+      "escapeImpulse": 20,
+      "stubbornness": 42,
+      "hairline": 90
+    },
+    "majorStats": [
+      {
+        "key": "operationSkill",
+        "name": "操作熟练度",
+        "description": "护理操作、实训考核和临床技能的熟练程度。",
+        "initialValue": 25
+      },
+      {
+        "key": "clinicalStamina",
+        "name": "临床体力条",
+        "description": "面对见习、实习、夜班想象和临床节奏时的体力储备。",
+        "initialValue": 70
+      },
+      {
+        "key": "emotionalLabor",
+        "name": "情绪劳动值",
+        "description": "沟通、解释、安抚和压力事件累积的精神消耗。",
+        "initialValue": 0
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "白衣滤镜与基础医学开局",
+        "coreEvents": "解剖、生理、护理导论出现，用户发现护理也要学很多医学基础。",
+        "statTrend": "滤镜厚度下降，专业上头值按兴趣分化。",
+        "routeForeshadow": "建立稳定就业滤镜和职业敬畏。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "第一次护理操作训练",
+        "coreEvents": "铺床、无菌操作、生命体征测量等训练出现。",
+        "statTrend": "操作熟练度成为关键，精神电量波动。",
+        "routeForeshadow": "为“操作考核手抖”埋梗。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "药理病理与操作考核并发",
+        "coreEvents": "课程和实训同时上强度。用户发现背诵和动手都不能少。",
+        "statTrend": "临床体力条开始下降；绩点求生欲提升。",
+        "routeForeshadow": "转专业暗线可埋：好就业滤镜破裂。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "沟通、伦理与临床预警",
+        "coreEvents": "用户接触护理伦理、沟通、专科护理基础。发现工作不只是技术，还有人。",
+        "statTrend": "情绪劳动值上升，正向适配者专业上头值提升。",
+        "routeForeshadow": "大二下可触发转专业隐藏入口。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "见习实训与职业现实靠近",
+        "coreEvents": "用户进入更真实的临床环境或模拟临床，开始理解责任压力。",
+        "statTrend": "白衣滤镜下降，临床敬畏上升。",
+        "routeForeshadow": "路线分化：医院、考研、考编、转公卫/护理管理。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "实习前夜与体力条预警",
+        "coreEvents": "实习安排、技能复习、科室想象、夜班预警出现。",
+        "statTrend": "临床体力条和情绪劳动值决定体验。",
+        "routeForeshadow": "选择临床、考研、考编、转向健康管理/公卫等路线。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "临床实习与毕业压力",
+        "coreEvents": "实习、毕业要求、就业或升学并发。",
+        "statTrend": "精神电量消耗大，职业认同感分化明显。",
+        "routeForeshadow": "中途GG和坏结局概率上升。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "资格/就业/毕业结算",
+        "coreEvents": "用户面对就业、规培/医院选择、继续深造或转向。",
+        "statTrend": "生成护理人格：临床真香、稳定清醒、情绪劳动过载、转向健康行业。",
+        "routeForeshadow": "结果页强调：护理值得尊重，但绝不是轻松稳定的代名词。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "nursing_random_01",
+      "nursing_random_02",
+      "nursing_random_03",
+      "nursing_random_04",
+      "nursing_random_05",
+      "nursing_random_06"
+    ],
+    "hiddenEvents": [
+      "nursing_hidden_01",
+      "nursing_hidden_02",
+      "nursing_hidden_03"
+    ],
+    "routeEvents": [
+      "nursing_route_clinical",
+      "nursing_route_postgrad",
+      "nursing_route_hospital_stable",
+      "nursing_route_health_public",
+      "nursing_route_career_transfer"
+    ],
+    "achievements": [
+      "ach_nursing_operation_survivor",
+      "ach_nursing_hand_not_shaking",
+      "ach_nursing_stamina_alarm",
+      "ach_nursing_white_filter_opened",
+      "ach_nursing_emotional_labor_beginner"
+    ],
+    "endings": [
+      "ending_nursing_clinical_survivor",
+      "ending_nursing_stable_clear",
+      "ending_nursing_emotional_overload",
+      "ending_nursing_health_transfer"
+    ],
+    "shareTexts": [
+      "我体验完护理本科，系统说我的临床体力条告急。",
+      "转发给那个以为护理只是稳定好就业的人。",
+      "护理副本提醒我：稳定是真的，累也是真的。"
+    ],
+    "majorId": "nursing"
+  },
+  {
+    "id": "mechanical_engineering",
+    "name": "机械工程",
+    "tier": "B",
+    "category": "工科制造池",
+    "card": {
+      "title": "机械工程",
+      "subtitle": "图纸、材料与老牌工科耐久战",
+      "description": "你以为机械是造机器人，结果先和制图、力学、材料、加工工艺打了四年持久战。",
+      "buttonText": "进入机械工程副本",
+      "riskWarning": "别只看专业名字的滤镜，先进副本看一眼真实本科生活。",
+      "tags": [
+        "老牌工科",
+        "制图入门",
+        "力学耐力"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入机械工程副本",
+      "body": "欢迎进入机械工程副本。你带着专业滤镜和一点点对未来的想象来到这里。系统提醒：本副本不会自动发放体面人生，只会逐步解锁课程、作业、实习、路线分化和毕业结算。如果你知道这些还想继续，说明你可能真的有点适合。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "老牌工科",
+      "制图入门",
+      "力学耐力",
+      "工厂滤镜",
+      "制造业现实",
+      "转码传说"
+    ],
+    "fitProfile": [
+      "动手能力强",
+      "能接受工科基础课",
+      "对结构、机器、制造和工程现实有兴趣"
+    ],
+    "avoidProfile": [
+      "只因为“工程师听起来很硬核”就进来",
+      "完全不想画图",
+      "不想做实验",
+      "不想和公式和零件长期相处的人"
+    ],
+    "commonFilters": [
+      "机器人",
+      "硬核工程师",
+      "大国重器",
+      "动手造东西",
+      "工科稳定",
+      "制造业情怀"
+    ],
+    "painPoints": [
+      "工程制图",
+      "理论力学",
+      "材料力学",
+      "机械原理",
+      "机械设计",
+      "金工实习",
+      "实验报告",
+      "制造业薪资落差",
+      "考研转方向焦虑"
+    ],
+    "memes": [
+      "图纸画不完",
+      "线型错了",
+      "受力分析重开",
+      "零件会沉默",
+      "机械人都在问要不要转码"
+    ],
+    "initialStats": {
+      "obsession": 58,
+      "energy": 78,
+      "filter": 70,
+      "gpaWill": 62,
+      "careerFantasy": 58,
+      "escapeImpulse": 24,
+      "stubbornness": 45,
+      "hairline": 92
+    },
+    "majorStats": [
+      {
+        "key": "drawingDebt",
+        "name": "图纸债务",
+        "description": "工程制图、课程设计、CAD 和毕设图纸积累的债务。",
+        "initialValue": 0
+      },
+      {
+        "key": "mechanicsShadow",
+        "name": "力学阴影",
+        "description": "理论力学、材料力学、受力分析带来的心理阴影。",
+        "initialValue": 0
+      },
+      {
+        "key": "codingHallucination",
+        "name": "转码幻听",
+        "description": "刷到转码帖后脑内循环“要不转码”的强度。",
+        "initialValue": 0
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "硬核工科滤镜启动",
+        "coreEvents": "第一次接触工程制图，意识到线条、标注和投影都不是随便画。",
+        "statTrend": "滤镜厚度略降，图纸债务开始生成，绩点求生欲上升。",
+        "routeForeshadow": "建立机械不是自动造机器人的现实。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "基础课按住动手想象",
+        "coreEvents": "高数、大学物理和工程基础同时上线。",
+        "statTrend": "精神电量下降，力学阴影预热，专业上头值开始分化。",
+        "routeForeshadow": "筛出工科耐受。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "理论力学与材料力学登场",
+        "coreEvents": "受力分析和变形计算让你明白“机器动起来”之前人先卡住。",
+        "statTrend": "力学阴影明显上升，绩点求生欲决定后续是否能稳住。",
+        "routeForeshadow": "力学成为机械人格分水岭。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "机械原理与转码传说",
+        "coreEvents": "机械原理、机械设计和课程设计出现。",
+        "statTrend": "滤镜厚度降低，跑路冲动可能上升，转专业念头与转码幻听累积。",
+        "routeForeshadow": "转专业/转码暗线出现。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "图纸落到现实",
+        "coreEvents": "金工实习、实验、CAD/建模和项目开始增加。",
+        "statTrend": "专业上头值可能回升，图纸债务和实验报告压力并发。",
+        "routeForeshadow": "制造业现实开始有实体感。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "路线分化",
+        "coreEvents": "考研、就业、转码、制造业、车企/装备/新能源路线分化。",
+        "statTrend": "就业幻觉值重新校准，路线标签开始决定结局。",
+        "routeForeshadow": "路线事件池开启。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "毕设秋招考研并行",
+        "coreEvents": "毕业设计、秋招和考研冲刺并行，制造业现实与工科情怀正面相遇。",
+        "statTrend": "精神电量大幅消耗，稳定路线和转向路线分化。",
+        "routeForeshadow": "中途 GG 风险上升。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "本科结算",
+        "coreEvents": "毕设答辩与本科结算。",
+        "statTrend": "根据专业上头值、就业幻觉值、转码幻听结算人格。",
+        "routeForeshadow": "机械副本告诉你：老牌工科不一定光鲜，但确实能训练耐久。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "mechanical_engineering_random_01",
+      "mechanical_engineering_random_02",
+      "mechanical_engineering_random_03",
+      "mechanical_engineering_random_04",
+      "mechanical_engineering_random_05"
+    ],
+    "hiddenEvents": [
+      "mechanical_engineering_hidden_01",
+      "mechanical_engineering_hidden_02",
+      "mechanical_engineering_hidden_03"
+    ],
+    "routeEvents": [
+      "mechanical_engineering_route_postgrad",
+      "mechanical_engineering_route_manufacturing",
+      "mechanical_engineering_route_vehicle_new_energy",
+      "mechanical_engineering_route_state_owned_equipment",
+      "mechanical_engineering_route_coding_product",
+      "mechanical_engineering_route_public_sector"
+    ],
+    "achievements": [
+      "ach_mechanical_engineering_drawing_debtor",
+      "ach_mechanical_engineering_mechanics_shadow",
+      "ach_mechanical_engineering_metalworking_survivor",
+      "ach_mechanical_engineering_coding_hallucination",
+      "ach_mechanical_engineering_drawing_deified"
+    ],
+    "endings": [
+      "ending_mechanical_engineering_old_engineering_survivor",
+      "ending_mechanical_engineering_coding_edge",
+      "ending_mechanical_engineering_manufacturing_realist",
+      "ending_mechanical_engineering_drawing_debt_overload"
+    ],
+    "shareTexts": [
+      "我用 5 分钟读完了机械工程本科，系统说这不是劝退，是提前摘滤镜。",
+      "转发给那个想报机械工程的人，让他先体验一下副本强度。",
+      "我的机械工程结局出来了，专业滤镜当场重算。"
+    ],
+    "majorId": "mechanical_engineering"
+  },
+  {
+    "id": "business_administration",
+    "name": "工商管理",
+    "tier": "B",
+    "category": "商科管理池",
+    "card": {
+      "title": "工商管理",
+      "subtitle": "高级名字与本科迷雾",
+      "description": "你以为自己学的是管理公司，后来发现本科阶段最先要管理的是自己的迷茫。",
+      "buttonText": "进入工商管理副本",
+      "riskWarning": "别只看专业名字的滤镜，先进副本看一眼真实本科生活。",
+      "tags": [
+        "名字高级",
+        "课程很散",
+        "就业身份模糊"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入工商管理副本",
+      "body": "欢迎进入工商管理副本。你带着专业滤镜和一点点对未来的想象来到这里。系统提醒：本副本不会自动发放体面人生，只会逐步解锁课程、作业、实习、路线分化和毕业结算。如果你知道这些还想继续，说明你可能真的有点适合。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "名字高级",
+      "课程很散",
+      "就业身份模糊",
+      "管理滤镜",
+      "考研考公转向",
+      "万金油争议"
+    ],
+    "fitProfile": [
+      "对商业运作、组织、营销、人力、战略感兴趣",
+      "愿意主动实习和补技能的人"
+    ],
+    "avoidProfile": [
+      "以为本科毕业就能直接管理别人",
+      "讨厌主动规划",
+      "不想实习",
+      "不想补技能的人"
+    ],
+    "commonFilters": [
+      "商业精英",
+      "管理层预备役",
+      "什么都能干",
+      "专业面宽",
+      "公司运营核心"
+    ],
+    "painPoints": [
+      "课程覆盖广但不够深",
+      "专业身份不清",
+      "实习决定含金量",
+      "同学分化早",
+      "考研/考公/运营/人力/市场路线混杂"
+    ],
+    "memes": [
+      "学管理但先管理自己",
+      "万金油也可能是万金难就业",
+      "PPT浓度",
+      "案例分析像职场剧但作业先到"
+    ],
+    "initialStats": {
+      "obsession": 55,
+      "energy": 80,
+      "filter": 76,
+      "gpaWill": 58,
+      "careerFantasy": 65,
+      "escapeImpulse": 22,
+      "stubbornness": 48,
+      "hairline": 95
+    },
+    "majorStats": [
+      {
+        "key": "managementFilter",
+        "name": "管理滤镜",
+        "description": "对商业精英、管理层和公司运营的想象厚度。",
+        "initialValue": 76
+      },
+      {
+        "key": "pptDensity",
+        "name": "PPT浓度",
+        "description": "小组展示、案例分析和汇报排版积累的浓度。",
+        "initialValue": 0
+      },
+      {
+        "key": "careerFog",
+        "name": "职业迷雾",
+        "description": "宽口径专业带来的就业定位迷雾。",
+        "initialValue": 20
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "管理学原理开局",
+        "coreEvents": "听起来都懂，考试时发现“会听”和“会答”不是一回事。",
+        "statTrend": "管理滤镜微降，PPT浓度开始发育。",
+        "routeForeshadow": "先管理自己的迷茫。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "宽口径开始变宽",
+        "coreEvents": "经济学、会计学、市场营销轮流出现，专业边界开始变得很宽。",
+        "statTrend": "职业迷雾上升，就业幻觉值波动。",
+        "routeForeshadow": "万金油争议预热。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "管理不是喊口号",
+        "coreEvents": "组织行为、人力资源、运营管理进入主线。",
+        "statTrend": "专业上头值分化，绩点求生欲上升。",
+        "routeForeshadow": "喜欢商业的人开始找方向。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "案例分析和小组展示",
+        "coreEvents": "案例分析、小组展示和实习焦虑出现。",
+        "statTrend": "PPT浓度上升，跑路冲动可能增加。",
+        "routeForeshadow": "转专业/转方向暗线开始埋。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "同学开始分化",
+        "coreEvents": "有人实习、有人考研、有人做运营、有人准备考公。",
+        "statTrend": "职业迷雾决定路线选择。",
+        "routeForeshadow": "路线意识启动。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "岗位路线分化",
+        "coreEvents": "市场、人力、运营、咨询、考研、考公路线分化。",
+        "statTrend": "就业幻觉值被实习和招聘要求校准。",
+        "routeForeshadow": "路线事件池开启。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "秋招考研考公并行",
+        "coreEvents": "毕业论文和工商管理的“万金油”属性开始接受现实检验。",
+        "statTrend": "精神电量下降，路线成败显著影响结局。",
+        "routeForeshadow": "中途 GG 风险上升。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "本科结算",
+        "coreEvents": "你要么把宽口径变成主动选择，要么被宽口径变成迷茫。",
+        "statTrend": "根据职业迷雾、PPT浓度、路线标签结算。",
+        "routeForeshadow": "生成工商管理人格鉴定书。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "business_administration_random_01",
+      "business_administration_random_02",
+      "business_administration_random_03",
+      "business_administration_random_04",
+      "business_administration_random_05"
+    ],
+    "hiddenEvents": [
+      "business_administration_hidden_01",
+      "business_administration_hidden_02",
+      "business_administration_hidden_03"
+    ],
+    "routeEvents": [
+      "business_administration_route_operation_market",
+      "business_administration_route_hr",
+      "business_administration_route_management_trainee",
+      "business_administration_route_postgrad",
+      "business_administration_route_civil_service",
+      "business_administration_route_consulting_edge",
+      "business_administration_route_cross_major"
+    ],
+    "achievements": [
+      "ach_business_administration_management_filter",
+      "ach_business_administration_ppt_labor",
+      "ach_business_administration_group_ceo",
+      "ach_business_administration_career_fog_explorer",
+      "ach_business_administration_generalist_survivor"
+    ],
+    "endings": [
+      "ending_business_administration_group_ceo",
+      "ending_business_administration_generalist_survivor",
+      "ending_business_administration_career_fog",
+      "ending_business_administration_civil_service"
+    ],
+    "shareTexts": [
+      "我用 5 分钟读完了工商管理本科，系统说这不是劝退，是提前摘滤镜。",
+      "转发给那个想报工商管理的人，让他先体验一下副本强度。",
+      "我的工商管理结局出来了，专业滤镜当场重算。"
+    ],
+    "majorId": "business_administration"
+  },
+  {
+    "id": "pharmacy",
+    "name": "药学",
+    "tier": "B",
+    "category": "医学健康池",
+    "card": {
+      "title": "药学",
+      "subtitle": "药瓶、实验与背诵耐力",
+      "description": "你以为药学是认识药，后来发现它是化学、生物、实验、背诵和职业路径一起上线。",
+      "buttonText": "进入药学副本",
+      "riskWarning": "别只看专业名字的滤镜，先进副本看一眼真实本科生活。",
+      "tags": [
+        "医学相关",
+        "化学浓度高",
+        "实验多"
+      ]
+    },
+    "intro": {
+      "title": "欢迎进入药学副本",
+      "body": "欢迎进入药学副本。你带着专业滤镜和一点点对未来的想象来到这里。系统提醒：本副本不会自动发放体面人生，只会逐步解锁课程、作业、实习、路线分化和毕业结算。如果你知道这些还想继续，说明你可能真的有点适合。",
+      "startButton": "开始本科四年"
+    },
+    "tags": [
+      "医学相关",
+      "化学浓度高",
+      "实验多",
+      "背诵多",
+      "药企/医院/考研分化",
+      "稳定滤镜"
+    ],
+    "fitProfile": [
+      "化学和生物基础较好",
+      "能接受实验和背诵",
+      "对药物研发、用药安全或医药行业感兴趣"
+    ],
+    "avoidProfile": [
+      "只因为“医学相关但不用当医生”就进来",
+      "讨厌化学实验",
+      "讨厌背诵",
+      "以为就业路径自动稳定的人"
+    ],
+    "commonFilters": [
+      "医学边缘稳定",
+      "药企研发",
+      "医院药房",
+      "懂药很专业",
+      "不用面对临床高压"
+    ],
+    "painPoints": [
+      "有机化学",
+      "分析化学",
+      "药物化学",
+      "药理学",
+      "药剂学",
+      "实验报告",
+      "考研压力",
+      "医院/药企/销售/研发路径分化"
+    ],
+    "memes": [
+      "药名背不完",
+      "有机反应绕不出",
+      "实验报告写到怀疑药效",
+      "药学人看说明书比别人认真"
+    ],
+    "initialStats": {
+      "obsession": 60,
+      "energy": 78,
+      "filter": 74,
+      "gpaWill": 63,
+      "careerFantasy": 60,
+      "escapeImpulse": 20,
+      "stubbornness": 42,
+      "hairline": 93
+    },
+    "majorStats": [
+      {
+        "key": "drugNameLoad",
+        "name": "药名负荷",
+        "description": "药名、分类、机制、副作用一起带来的记忆负荷。",
+        "initialValue": 0
+      },
+      {
+        "key": "labReportDebt",
+        "name": "实验报告债",
+        "description": "实验完成后仍然追着你的报告债务。",
+        "initialValue": 0
+      },
+      {
+        "key": "pharmacologyDizziness",
+        "name": "药理眩晕",
+        "description": "药理机制、适应症和副作用混在一起的眩晕程度。",
+        "initialValue": 0
+      }
+    ],
+    "timeline": [
+      {
+        "semester": "y1s1",
+        "label": "大一上",
+        "theme": "医学健康滤镜启动",
+        "coreEvents": "基础化学和生物课程提醒你：药学不是简单认药名。",
+        "statTrend": "滤镜厚度下降，药名负荷预热。",
+        "routeForeshadow": "拆掉轻松滤镜。",
+        "key": "y1s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y1s2",
+        "label": "大一下",
+        "theme": "有机化学和实验上线",
+        "coreEvents": "玻璃仪器、反应式和实验报告开始占领生活。",
+        "statTrend": "实验报告债增加，精神电量下降。",
+        "routeForeshadow": "实验报告主线启动。",
+        "key": "y1s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s1",
+        "label": "大二上",
+        "theme": "多学科混战",
+        "coreEvents": "分析化学、生化、微生物等课程推进。",
+        "statTrend": "绩点求生欲上升，药理眩晕预热。",
+        "routeForeshadow": "药学基础开始上强度。",
+        "key": "y2s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y2s2",
+        "label": "大二下",
+        "theme": "药化药理显形",
+        "coreEvents": "药物化学、药理学开始显形，转专业/考研暗线出现。",
+        "statTrend": "药名负荷上升，专业上头值分化。",
+        "routeForeshadow": "路线分化前奏。",
+        "key": "y2s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s1",
+        "label": "大三上",
+        "theme": "药剂实验加密",
+        "coreEvents": "药剂学、药物分析、实验课程加密，开始思考医院、药企、研发、销售等路径。",
+        "statTrend": "就业幻觉值被现实校准。",
+        "routeForeshadow": "出口多但都不简单。",
+        "key": "y3s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y3s2",
+        "label": "大三下",
+        "theme": "药学路线分化",
+        "coreEvents": "考研、药企实习、医院药房、执业药师远期路线分化。",
+        "statTrend": "路线标签决定后续事件池。",
+        "routeForeshadow": "路线事件池开启。",
+        "key": "y3s2",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s1",
+        "label": "大四上",
+        "theme": "实验论文与就业并行",
+        "coreEvents": "毕业实验/论文、实习、考研/就业并行。",
+        "statTrend": "实验报告债和就业幻觉值集中结算。",
+        "routeForeshadow": "中途 GG 风险上升。",
+        "key": "y4s1",
+        "mainEventIds": []
+      },
+      {
+        "semester": "y4s2",
+        "label": "大四下",
+        "theme": "本科结算",
+        "coreEvents": "药学不是临床医学的轻量版，也不是稳定的自动门。",
+        "statTrend": "根据药名负荷、实验报告债、路线标签生成结局。",
+        "routeForeshadow": "生成药学人格鉴定书。",
+        "key": "y4s2",
+        "mainEventIds": []
+      }
+    ],
+    "randomEvents": [
+      "pharmacy_random_01",
+      "pharmacy_random_02",
+      "pharmacy_random_03",
+      "pharmacy_random_04",
+      "pharmacy_random_05"
+    ],
+    "hiddenEvents": [
+      "pharmacy_hidden_01",
+      "pharmacy_hidden_02",
+      "pharmacy_hidden_03"
+    ],
+    "routeEvents": [
+      "pharmacy_route_postgrad_research",
+      "pharmacy_route_pharma_company",
+      "pharmacy_route_hospital_pharmacy",
+      "pharmacy_route_medical_sales",
+      "pharmacy_route_public_sector",
+      "pharmacy_route_public_health_biomed"
+    ],
+    "achievements": [
+      "ach_pharmacy_drug_name_memorizer",
+      "ach_pharmacy_lab_report_debtor",
+      "ach_pharmacy_instruction_awake",
+      "ach_pharmacy_pharmacology_dizzy",
+      "ach_pharmacy_lab_success"
+    ],
+    "endings": [
+      "ending_pharmacy_drug_name_survivor",
+      "ending_pharmacy_lab_report_debtor",
+      "ending_pharmacy_research_postgrad",
+      "ending_pharmacy_career_fog"
+    ],
+    "shareTexts": [
+      "我用 5 分钟读完了药学本科，系统说这不是劝退，是提前摘滤镜。",
+      "转发给那个想报药学的人，让他先体验一下副本强度。",
+      "我的药学结局出来了，专业滤镜当场重算。"
+    ],
+    "majorId": "pharmacy"
+  }
+]

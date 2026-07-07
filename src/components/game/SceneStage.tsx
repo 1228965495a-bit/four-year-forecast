@@ -1,19 +1,16 @@
-import type { SceneKey } from "@/data/events";
-import type { SceneAssetConfig } from "@/data/sceneAssets";
+import type { SceneKey, SceneAssetConfig } from "@/data/sceneAssets";
 
 /**
- * 场景舞台：根据事件的 sceneKey 渲染一个像素风校园场景。
- * 默认使用 CSS 像素块拼接作为占位；后续只需在 sceneAssets.ts 中配置对应
- * 场景的素材（image/gif/sprite/lottie），即可无缝替换为真实素材。
+ * 场景舞台：根据 scene 渲染像素风校园场景。scene 可选，默认 corridor。
  */
 export function SceneStage({
-  scene,
+  scene = "corridor",
   badge,
   title,
   caption,
   asset,
 }: {
-  scene: SceneKey;
+  scene?: SceneKey | string;
   badge?: string;
   title?: string;
   caption?: string;
@@ -23,7 +20,7 @@ export function SceneStage({
   return (
     <div className="scene-stage">
       <div className="absolute inset-0">
-        {asset ? <SceneAsset config={asset} /> : renderScene(scene)}
+        {asset ? <SceneAsset config={asset} /> : renderScene(scene as SceneKey)}
       </div>
       {title && <div className="scene-title-banner">{title}</div>}
       {caption && <div className="scene-speech">{shortenCaption(caption)}</div>}

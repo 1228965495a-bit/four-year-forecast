@@ -2,16 +2,15 @@ import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { SceneStage } from "@/components/game/SceneStage";
-import { pickEventsForMajor, type EventOption, type GameEvent, EVENTS } from "@/data/events";
-import { getMajorById } from "@/data/majors";
-import { getSceneAsset } from "@/data/sceneAssets";
 import {
   gameStore,
-  phaseLabel,
   useGameState,
-  VISIBLE_STATS,
-  TOTAL_STEPS,
+  currentEventOf,
+  currentSemesterLabel,
 } from "@/lib/gameStore";
+import { HUD_STATS } from "@/lib/statsMeta";
+import { totalSemesters } from "@/lib/scriptEngine";
+import { majorById } from "@/data/script/gameData";
 import { EventCard } from "@/components/ui/EventCard";
 import { CharacterPanel } from "@/components/ui/CharacterPanel";
 import { PixelButton } from "@/components/ui/PixelButton";
@@ -23,9 +22,9 @@ const LAYOUT_HEIGHT = "calc(100dvh - 98px)";
 function SemesterPage() {
   const game = useGameState();
   const navigate = useNavigate();
-  const major = game.majorId ? getMajorById(game.majorId) : null;
+  const major = game.majorId ? majorById[game.majorId] : null;
 
-  const [feedback, setFeedback] = useState<{ option: EventOption; event: GameEvent } | null>(null);
+  const [feedback, setFeedback] = useState<{ event: any; choice: any } | null>(null);
   const [drawer, setDrawer] = useState<"none" | "profile" | "log">("none");
 
   useEffect(() => {
@@ -35,32 +34,23 @@ function SemesterPage() {
     if (game.finished) navigate({ to: "/result" });
   }, [game.finished, navigate]);
 
-  const currentEvent = useMemo<GameEvent>(
-    () => pickEventsForMajor(game.majorId, game.step, 1)[0] ?? EVENTS[0],
-    [game.majorId, game.step],
-  );
-  const sceneAsset = useMemo(() => getSceneAsset(currentEvent.scene), [currentEvent.scene]);
+  const currentEvent = useMemo(() => currentEventOf(game), [game]);
+  const sceneKey = currentEvent?.scene ?? undefined;
 
-  const onPick = (opt: EventOption) => setFeedback({ option: opt, event: currentEvent });
+  const onPick = (choice: any) => {
+    if (!currentEvent) return;
+    setFeedback({ event: currentEvent, choice });
+  };
 
   const confirmNext = () => {
     if (!feedback) return;
-    gameStore.applyEffects(feedback.option.effects);
-    gameStore.logEvent({
-      step: game.step + 1,
-      phase: phaseLabel(game),
-      title: feedback.event.title,
-      choice: feedback.option.label,
-    });
-    const mhDelta = feedback.option.effects.find((e) => e.key === "mouthHard")?.delta ?? 0;
-    if (game.stats.mouthHard + mhDelta >= 80) {
-      gameStore.addAchievement({ id: "mouth_iron", label: "嘴硬续命" });
-    }
+    gameStore.applyChoice(feedback.choice);
     setFeedback(null);
-    gameStore.advanceStep();
   };
 
-  if (!major) return null;
+  if (!major || !currentEvent) return null;
+
+  const total = totalSemesters();
 
   const topBar = (
     <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-3 min-h-[58px] flex items-center gap-2">
@@ -71,14 +61,14 @@ function SemesterPage() {
         ⌂
       </button>
       <div className="min-w-0 flex-1">
-        <div className="font-display text-[14px] leading-none truncate">{phaseLabel(game)}</div>
+        <div className="font-display text-[14px] leading-none truncate">{currentSemesterLabel(game)}</div>
         <div className="text-[11px] text-cream/70 leading-none mt-1 truncate">
           {major.name} · {game.school}
         </div>
       </div>
       <div className="flex items-center gap-2 shrink-0">
         <span className="font-display text-[12px] tabular-nums">
-          {Math.min(game.step + 1, TOTAL_STEPS)} / {TOTAL_STEPS}
+          {game.semesterIdx + 1} / {total}
         </span>
         <button
           onClick={() => {
@@ -110,8 +100,8 @@ function SemesterPage() {
         {/* HUD：6 项明面数值 */}
         <div className="semester-hud">
           <div className="grid grid-cols-3 gap-3">
-            {VISIBLE_STATS.map((s) => (
-              <HudCell key={s.key} short={s.short} value={game.stats[s.key]} color={s.color} />
+            {HUD_STATS.map((s) => (
+              <HudCell key={s.key} short={s.short} value={game.stats[s.key] ?? 0} color={s.color} />
             ))}
           </div>
         </div>
@@ -119,15 +109,14 @@ function SemesterPage() {
         {/* 主场景 */}
         <div className="semester-scene-wrap">
           <SceneStage
-            scene={currentEvent.scene}
-            badge={currentEvent.category}
+            scene={sceneKey}
+            badge={currentEvent.tags?.[0]}
             title={currentEvent.title}
             caption={currentEvent.description}
-            asset={sceneAsset}
           />
         </div>
 
-        {/* 事件卡（不显示属性变化） */}
+        {/* 事件卡 */}
         <div className="semester-event-wrap">
           <EventCard event={currentEvent} onPick={onPick} />
         </div>
@@ -135,8 +124,8 @@ function SemesterPage() {
 
       {feedback && (
         <FeedbackModal
-          option={feedback.option}
           event={feedback.event}
+          choice={feedback.choice}
           onNext={confirmNext}
         />
       )}
@@ -164,14 +153,13 @@ function HudCell({ short, value, color }: { short: string; value: number; color:
   );
 }
 
-
 function FeedbackModal({
-  option,
   event,
+  choice,
   onNext,
 }: {
-  option: EventOption;
-  event: GameEvent;
+  event: any;
+  choice: any;
   onNext: () => void;
 }) {
   return (
@@ -182,16 +170,16 @@ function FeedbackModal({
              style={{ boxShadow: "2px 2px 0 0 var(--ink)" }}>
           系统记录
         </div>
-        <div className="mt-2.5 font-display text-[16px] leading-tight">{event.title}</div>
-        <p className="mt-1.5 text-[12.5px] leading-snug text-ink/85">{option.label}。</p>
+        <div className="mt-2.5 font-display text-[16px] leading-tight">{event?.title}</div>
+        <p className="mt-1.5 text-[12.5px] leading-snug text-ink/85">{choice?.text}。</p>
         <div className="diag-note mt-3">
           <div className="text-[10px] font-display tracking-widest text-ink/60 mb-0.5">
             系统提示
           </div>
-          {option.feedback}
+          {choice?.feedback || choice?.resultText || "……"}
         </div>
         <PixelButton variant="primary" size="block" className="mt-3.5" onClick={onNext}>
-          进入下一周 →
+          继续 →
         </PixelButton>
       </div>
     </div>
@@ -226,8 +214,8 @@ function LogDrawer() {
         {game.history.map((h, i) => (
           <li key={i} className="pixel-border-sm !shadow-none bg-cream p-2 text-[12px]">
             <div className="flex justify-between text-[10px] text-ink/60">
-              <span>{h.phase}</span>
-              <span>#{h.step}</span>
+              <span>{h.semester}</span>
+              <span>#{game.history.length - i}</span>
             </div>
             <div className="font-display text-[13px] mt-0.5">{h.title}</div>
             <div className="text-[11px] text-ink/80">→ {h.choice}</div>
@@ -237,4 +225,3 @@ function LogDrawer() {
     </div>
   );
 }
-
