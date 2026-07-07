@@ -26,11 +26,11 @@ function HomePage() {
 
   return (
     <PhoneFrame>
-      <div className="flex flex-col gap-2.5 p-2.5 pb-4">
-        {/* ============ 顶部游戏栏 ============ */}
-        <div className="pixel-panel-sm !p-1.5 bg-ink !text-cream flex items-center gap-2">
-          <div className="h-4 w-4 bg-cherry border-2 border-cream" />
-          <span className="font-display text-[10px] tracking-widest text-cream">
+      <div className="flex flex-col gap-2 p-2.5 pb-4">
+        {/* ============ 顶部游戏栏（压缩高度）============ */}
+        <div className="pixel-panel-sm !p-1 bg-ink !text-cream flex items-center gap-2 leading-none">
+          <div className="h-3 w-3 bg-cherry border border-cream" />
+          <span className="font-display text-[9px] tracking-widest text-cream">
             CAMPUS · SIM · v0.3
           </span>
           <span className="ml-auto flex items-center gap-1 text-[9px] text-cream/80">
@@ -42,17 +42,18 @@ function HomePage() {
         {/* ============ 游戏画面（校园场景 + 大标题）============ */}
         <div className="pixel-panel !p-0 overflow-hidden">
           <div className="relative">
-            <CampusScene height={190} />
-            <div className="absolute inset-0 pixel-scanlines pointer-events-none opacity-30" />
-            {/* Logo 悬浮 */}
+            <CampusScene height={170} />
+            <div className="absolute inset-0 pixel-scanlines pointer-events-none opacity-40" />
+            {/* 中文角标 */}
             <div className="absolute inset-x-0 bottom-2 flex justify-center">
               <div className="inline-block pixel-panel-sm bg-cherry !text-cream !shadow-[3px_3px_0_0_var(--ink)] px-2.5 py-0.5">
                 <span className="font-display text-[10px] tracking-[0.2em] text-cream">
-                  ENTER · UNIVERSITY · DUNGEON
+                  ▶ 进入本科副本
                 </span>
               </div>
             </div>
           </div>
+
           <div className="border-t-[3px] border-ink bg-cream text-center px-3 py-3">
             <h1 className="pixel-logo text-[24px] leading-[1.05]">
               这专业我
@@ -111,7 +112,7 @@ function HomePage() {
 
           {/* 便签 */}
           <div
-            className="col-span-2 relative border-[3px] border-ink shadow-[3px_3px_0_0_var(--ink)] p-2 -rotate-2"
+            className="col-span-2 relative border-[3px] border-ink shadow-[3px_3px_0_0_var(--ink)] p-2 -rotate-[1deg]"
             style={{ background: "var(--parchment)" }}
           >
             <div className="absolute -top-2 left-1/2 -translate-x-1/2 h-3 w-8 bg-cherry border-2 border-ink" />
@@ -180,7 +181,7 @@ function MiniMenuBtn({
   accent: "cherry" | "sky" | "sage" | "sunny";
   disabled?: boolean;
 }) {
-  const bg =
+  const accentColor =
     accent === "cherry" ? "var(--cherry)" :
     accent === "sky" ? "var(--sky)" :
     accent === "sage" ? "var(--sage)" : "var(--sunny)";
@@ -188,16 +189,20 @@ function MiniMenuBtn({
     <button
       onClick={onClick}
       disabled={disabled}
-      className="pixel-btn flex flex-col items-center gap-1 py-1.5"
-      style={{ background: bg }}
+      className="pixel-btn flex flex-col items-center gap-1 py-1.5 bg-cream border-t-[3px]"
+      style={{ borderTopColor: accentColor }}
     >
-      <span className="inline-flex h-5 w-5 items-center justify-center bg-cream border-2 border-ink">
+      <span
+        className="inline-flex h-5 w-5 items-center justify-center bg-cream border-2 border-ink"
+        style={{ color: accentColor }}
+      >
         {glyph}
       </span>
-      <span className="font-display text-[11px] leading-none">{label}</span>
+      <span className="font-display text-[10.5px] leading-none text-ink">{label}</span>
     </button>
   );
 }
+
 
 // silence unused
 void PixelButton;

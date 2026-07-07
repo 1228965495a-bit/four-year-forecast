@@ -85,14 +85,14 @@ function MajorSelectPage() {
   };
 
   const topBar = (
-    <div className="relative border-b-[3px] border-ink bg-ink px-2 pt-2 pb-2">
+    <div className="relative border-b-[3px] border-ink bg-ink px-2 py-1">
       <button
         onClick={() => navigate({ to: "/" })}
-        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 text-cream text-[11px] px-2 py-0.5 border-2 border-cream"
+        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 text-cream text-[10px] px-1.5 py-0.5 border border-cream leading-none"
       >
-        ← 返回
+        ←
       </button>
-      <PixelHeader variant="majorSelect" className="!max-w-[280px]" />
+      <PixelHeader variant="majorSelect" className="!max-w-[220px]" />
     </div>
   );
 
@@ -100,7 +100,7 @@ function MajorSelectPage() {
   return (
     <PhoneFrame topBar={topBar}>
       <div className="flex-1 min-h-0 overflow-y-auto">
-        <div className="flex flex-col gap-2.5 p-2.5 pb-4">
+        <div className="flex flex-col gap-2 p-2.5 pb-4">
 
           <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
             <div className="flex gap-1 pb-1 w-max items-end">
@@ -109,14 +109,15 @@ function MajorSelectPage() {
                   key={t.label}
                   active={tabLabel === t.label}
                   onClick={() => setTabLabel(t.label)}
-                  className="!text-[11px]"
-                  style={{ minWidth: 56, padding: "10px 12px 14px" }}
+                  className="!text-[10px]"
+                  style={{ minWidth: 42, padding: "4px 8px 8px" }}
                 >
                   {t.label}
                 </PixelChip>
               ))}
             </div>
           </div>
+
 
 
           <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
@@ -206,31 +207,37 @@ function SelectionPreview({
   const cardTags: string[] = major.card?.tags ?? major.tags?.slice(0, 3) ?? [];
 
   return (
-    <div className="relative border-[3px] border-ink bg-cream shadow-[4px_4px_0_0_var(--cherry)] p-2.5">
+    <div className="relative border-[3px] border-ink bg-cream shadow-[3px_3px_0_0_var(--cherry)] p-2">
       <span className="absolute -top-2 left-2 text-[9px] font-display tracking-[0.2em] px-1.5 py-0.5 bg-ink text-cream">
         ▌ 当前选中副本
       </span>
+      <button
+        onClick={onOpenDetail}
+        className="absolute -top-2 right-2 text-[9px] font-display tracking-wider px-1.5 py-0.5 bg-cream border-2 border-ink"
+      >
+        详情 ›
+      </button>
 
-      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2.5 items-start pt-0.5">
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 items-start pt-1">
         <div
-          className="border-[3px] border-ink shadow-[2px_2px_0_0_var(--ink)] flex items-center justify-center text-[28px] shrink-0"
-          style={{ width: 54, height: 54, background: tint }}
+          className="border-2 border-ink shadow-[2px_2px_0_0_var(--ink)] flex items-center justify-center text-[22px] shrink-0"
+          style={{ width: 42, height: 42, background: tint }}
         >
           {majorEmoji(major.id)}
         </div>
 
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
-            <PixelTierBadge tier={rank} size={26} className="shrink-0 -my-2" />
-            <span className="font-display text-[15px] truncate flex-1">{major.name}</span>
+            <PixelTierBadge tier={rank} size={22} className="shrink-0 -my-1" />
+            <span className="font-display text-[14px] truncate flex-1">{major.name}</span>
             <span className="font-display text-[11px] text-cherry tabular-nums shrink-0">
               {fitOf(major)}%
             </span>
           </div>
-          <div className="text-[11px] text-ink/70 mt-1 leading-snug line-clamp-2">
+          <div className="text-[11px] text-ink/70 mt-0.5 leading-snug line-clamp-2">
             「{major.card?.subtitle ?? major.card?.description ?? ""}」
           </div>
-          <div className="flex flex-wrap gap-1 mt-1.5">
+          <div className="flex flex-wrap gap-1 mt-1">
             {cardTags.slice(0, 3).map((t: string) => (
               <TagBadge key={t} tone={inferTagTone(t)}>{t}</TagBadge>
             ))}
@@ -238,20 +245,15 @@ function SelectionPreview({
         </div>
       </div>
 
-      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 mt-2.5 items-center">
-        <button
-          onClick={onOpenDetail}
-          className="text-[11px] font-display px-2.5 py-1.5 border-2 border-ink bg-cream shadow-[2px_2px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
-        >
-          详情
-        </button>
-        <PixelImgButton variant="primary" onClick={onConfirm} className="!text-[13px]">
+      <div className="mt-2">
+        <PixelImgButton variant="primary" compact onClick={onConfirm}>
           ✓ 进入「{major.name}」副本
         </PixelImgButton>
       </div>
     </div>
   );
 }
+
 
 
 function QuestTile({
@@ -266,24 +268,24 @@ function QuestTile({
     <button
       onClick={onClick}
       className={cn(
-        "relative text-left border-[3px] border-ink bg-cream overflow-hidden transition-all",
-        "shadow-[3px_3px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0_0_var(--ink)]",
-        selected && "-translate-y-0.5 shadow-[3px_5px_0_0_var(--cherry)] ring-2 ring-cherry",
+        "relative text-left border-2 border-ink bg-cream overflow-hidden transition-all",
+        "shadow-[2px_2px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
+        selected && "-translate-y-0.5 shadow-[2px_4px_0_0_var(--cherry)] ring-2 ring-cherry",
       )}
     >
-      <PixelTierBadge tier={rank} size={30} className="absolute top-1 right-1 z-10" />
+      <PixelTierBadge tier={rank} size={22} className="absolute top-0.5 right-0.5 z-10" />
 
       {major.tier === "S" && (
-        <span className="absolute top-1 left-1 z-10 text-[8.5px] font-display tracking-wider px-1 py-0.5 bg-cherry text-cream border border-ink">
+        <span className="absolute top-0.5 left-0.5 z-10 text-[8px] font-display tracking-wider px-1 bg-cherry text-cream border border-ink">
           HOT
         </span>
       )}
 
       <div
-        className="h-[60px] flex items-center justify-center border-b-[3px] border-ink relative"
+        className="h-[42px] flex items-center justify-center border-b-2 border-ink relative"
         style={{ background: tint }}
       >
-        <div className="text-[30px] leading-none select-none" aria-hidden>
+        <div className="text-[22px] leading-none select-none" aria-hidden>
           {majorEmoji(major.id)}
         </div>
         <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
@@ -291,25 +293,23 @@ function QuestTile({
 
       <div className="p-1.5">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-1">
-          <span className="font-display text-[13px] truncate">{major.name}</span>
+          <span className="font-display text-[12.5px] truncate">{major.name}</span>
           <span className="text-[9px] font-display tabular-nums text-cherry shrink-0">
             {fitOf(major)}%
           </span>
         </div>
         <div className="text-[9px] text-ink/60 mt-0.5 leading-none tracking-wider truncate">
-          {displayCategory(major.category)} · {major.tier}
+          {displayCategory(major.category)}
         </div>
 
-        <div className="mt-1.5 flex items-center gap-1 min-h-[16px]">
+        <div className="mt-1 flex items-center gap-1 min-h-[16px]">
           {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
-          {hasWarn && (
-            <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">⚠</span>
-          )}
         </div>
       </div>
     </button>
   );
 }
+
 
 function DetailContent({ major, onConfirm }: { major: any; onConfirm: () => void }) {
   const rank = tierOf(major);
