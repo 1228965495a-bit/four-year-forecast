@@ -149,17 +149,18 @@ function SemesterPage() {
 
 function HudCell({ short, value, color }: { short: string; value: number; color: string }) {
   return (
-    <div className="flex flex-col items-center gap-0.5">
-      <div className="w-full bar-track !h-2">
+    <div className="flex flex-col items-center gap-1">
+      <div className="w-full bar-track !h-3">
         <div className="bar-fill" style={{ width: `${value}%`, background: color }} />
       </div>
       <div className="flex items-baseline gap-0.5 leading-none">
-        <span className="text-[9px] text-ink/70">{short}</span>
-        <span className="font-display text-[10px] tabular-nums">{Math.round(value)}</span>
+        <span className="text-[10.5px] text-ink/70">{short}</span>
+        <span className="font-display text-[12px] tabular-nums">{Math.round(value)}</span>
       </div>
     </div>
   );
 }
+
 
 function FeedbackModal({
   option,
