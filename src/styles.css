@@ -384,7 +384,7 @@
   height: calc(100dvh - 98px);
   min-height: 0;
   display: grid;
-  grid-template-rows: 38px minmax(0, 1fr) auto;
+  grid-template-rows: auto 220px minmax(0, 1fr);
   gap: 8px;
   padding-bottom: 8px;
   overflow: hidden;
@@ -393,7 +393,7 @@
 @utility semester-hud {
   background: var(--cream);
   border-bottom: 2px solid rgba(63, 42, 31, 0.16);
-  padding: 8px 10px 7px;
+  padding: 10px 10px 9px;
   min-height: 0;
 }
 
@@ -410,17 +410,19 @@
 
 @media (max-height: 740px) {
   .semester-screen {
-    grid-template-rows: 38px minmax(0, 1fr) auto;
+    grid-template-rows: auto 200px minmax(0, 1fr);
     gap: 7px;
     padding-bottom: 7px;
   }
+  .semester-hud { padding: 8px 10px 7px; }
 }
 
 @media (min-height: 800px) {
   .semester-screen {
-    grid-template-rows: 38px minmax(0, 1fr) auto;
+    grid-template-rows: auto 240px minmax(0, 1fr);
   }
 }
+
 
 @utility scene-badge {
   position: absolute;
