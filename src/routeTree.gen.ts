@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SemesterRouteImport } from './routes/semester'
 import { Route as ResultRouteImport } from './routes/result'
 import { Route as MajorRouteImport } from './routes/major'
+import { Route as IntroRouteImport } from './routes/intro'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SemesterRoute = SemesterRouteImport.update({
@@ -29,6 +30,11 @@ const MajorRoute = MajorRouteImport.update({
   path: '/major',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IntroRoute = IntroRouteImport.update({
+  id: '/intro',
+  path: '/intro',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +43,14 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/intro': typeof IntroRoute
   '/major': typeof MajorRoute
   '/result': typeof ResultRoute
   '/semester': typeof SemesterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/intro': typeof IntroRoute
   '/major': typeof MajorRoute
   '/result': typeof ResultRoute
   '/semester': typeof SemesterRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/intro': typeof IntroRoute
   '/major': typeof MajorRoute
   '/result': typeof ResultRoute
   '/semester': typeof SemesterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/major' | '/result' | '/semester'
+  fullPaths: '/' | '/intro' | '/major' | '/result' | '/semester'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/major' | '/result' | '/semester'
-  id: '__root__' | '/' | '/major' | '/result' | '/semester'
+  to: '/' | '/intro' | '/major' | '/result' | '/semester'
+  id: '__root__' | '/' | '/intro' | '/major' | '/result' | '/semester'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  IntroRoute: typeof IntroRoute
   MajorRoute: typeof MajorRoute
   ResultRoute: typeof ResultRoute
   SemesterRoute: typeof SemesterRoute
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MajorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/intro': {
+      id: '/intro'
+      path: '/intro'
+      fullPath: '/intro'
+      preLoaderRoute: typeof IntroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  IntroRoute: IntroRoute,
   MajorRoute: MajorRoute,
   ResultRoute: ResultRoute,
   SemesterRoute: SemesterRoute,
@@ -111,13 +129,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

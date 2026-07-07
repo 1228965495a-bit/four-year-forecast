@@ -81,7 +81,7 @@ function MajorSelectPage() {
   const confirm = () => {
     if (!selected) return;
     gameStore.selectMajor(selected.id);
-    navigate({ to: "/semester" });
+    navigate({ to: "/intro" });
   };
 
   const topBar = (
