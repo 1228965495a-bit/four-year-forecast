@@ -268,24 +268,24 @@ function QuestTile({
     <button
       onClick={onClick}
       className={cn(
-        "relative text-left border-[3px] border-ink bg-cream overflow-hidden transition-all",
-        "shadow-[3px_3px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0_0_var(--ink)]",
-        selected && "-translate-y-0.5 shadow-[3px_5px_0_0_var(--cherry)] ring-2 ring-cherry",
+        "relative text-left border-2 border-ink bg-cream overflow-hidden transition-all",
+        "shadow-[2px_2px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
+        selected && "-translate-y-0.5 shadow-[2px_4px_0_0_var(--cherry)] ring-2 ring-cherry",
       )}
     >
-      <PixelTierBadge tier={rank} size={30} className="absolute top-1 right-1 z-10" />
+      <PixelTierBadge tier={rank} size={22} className="absolute top-0.5 right-0.5 z-10" />
 
       {major.tier === "S" && (
-        <span className="absolute top-1 left-1 z-10 text-[8.5px] font-display tracking-wider px-1 py-0.5 bg-cherry text-cream border border-ink">
+        <span className="absolute top-0.5 left-0.5 z-10 text-[8px] font-display tracking-wider px-1 bg-cherry text-cream border border-ink">
           HOT
         </span>
       )}
 
       <div
-        className="h-[60px] flex items-center justify-center border-b-[3px] border-ink relative"
+        className="h-[42px] flex items-center justify-center border-b-2 border-ink relative"
         style={{ background: tint }}
       >
-        <div className="text-[30px] leading-none select-none" aria-hidden>
+        <div className="text-[22px] leading-none select-none" aria-hidden>
           {majorEmoji(major.id)}
         </div>
         <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
@@ -293,25 +293,23 @@ function QuestTile({
 
       <div className="p-1.5">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-1">
-          <span className="font-display text-[13px] truncate">{major.name}</span>
+          <span className="font-display text-[12.5px] truncate">{major.name}</span>
           <span className="text-[9px] font-display tabular-nums text-cherry shrink-0">
             {fitOf(major)}%
           </span>
         </div>
         <div className="text-[9px] text-ink/60 mt-0.5 leading-none tracking-wider truncate">
-          {displayCategory(major.category)} · {major.tier}
+          {displayCategory(major.category)}
         </div>
 
-        <div className="mt-1.5 flex items-center gap-1 min-h-[16px]">
+        <div className="mt-1 flex items-center gap-1 min-h-[16px]">
           {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
-          {hasWarn && (
-            <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">⚠</span>
-          )}
         </div>
       </div>
     </button>
   );
 }
+
 
 function DetailContent({ major, onConfirm }: { major: any; onConfirm: () => void }) {
   const rank = tierOf(major);
