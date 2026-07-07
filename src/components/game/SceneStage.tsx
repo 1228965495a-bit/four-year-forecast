@@ -110,20 +110,31 @@ function SpriteSheet({
   backgroundColor: string;
 }) {
   const duration = Math.max(0.3, frameCount / fps);
+  const animName = `sprite-${frameCount}`;
+
   return (
-    <div
-      className="absolute inset-0 h-full w-full"
-      style={{
-        backgroundColor,
-        backgroundImage: `url(${src})`,
-        backgroundRepeat: "repeat-x",
-        backgroundSize: "auto 100%",
-        imageRendering: "pixelated",
-        animation: `sprite-steps-${frameCount} ${duration}s steps(${frameCount - 1}) infinite`,
-      }}
-    />
+    <>
+      <style>{`
+        @keyframes ${animName} {
+          0% { background-position: 0% 0; }
+          100% { background-position: -100% 0; }
+        }
+      `}</style>
+      <div
+        className="absolute inset-0 h-full w-full"
+        style={{
+          backgroundColor,
+          backgroundImage: `url(${src})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: `${frameCount * 100}% 100%`,
+          imageRendering: "pixelated",
+          animation: `${animName} ${duration}s steps(${frameCount - 1}) infinite`,
+        }}
+      />
+    </>
   );
 }
+
 
 
 function shortenCaption(text: string) {
