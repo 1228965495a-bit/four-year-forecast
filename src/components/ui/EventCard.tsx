@@ -1,4 +1,6 @@
 // 事件卡：接脚本引擎的新 event/choice 结构。
+import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
+
 type Choice = {
   id?: string;
   text: string;
@@ -37,23 +39,21 @@ export function EventCard({
   const opts = event.options ?? event.choices ?? [];
   const badge = TYPE_LABEL[event.type ?? "main"] ?? event.type ?? "";
   return (
-    <div className="quest-card event-dialog">
-      <div className="panel-title-strip">
+    <PixelPanel9 variant="event" padding="px-3 pt-2 pb-3">
+      <div className="flex items-center gap-2 mb-2">
         <span className="rank-badge rank-B" aria-hidden>
           {badge.slice(0, 1) || "?"}
         </span>
-        <span className="flex-1 truncate">{event.title}</span>
-        <span className="text-[10px] opacity-70">{badge}</span>
+        <span className="flex-1 truncate font-display text-[14px]">{event.title}</span>
+        <span className="text-[10px] font-display tracking-wider text-ink/60">{badge}</span>
       </div>
-      <div className="event-dialog-body">
-        <p className="event-dialog-text">{event.description}</p>
-        <div className="event-options">
-          {opts.map((opt, i) => (
-            <OptionRow key={opt.id ?? i} option={opt} onPick={onPick} index={i} />
-          ))}
-        </div>
+      <p className="event-dialog-text mb-2">{event.description}</p>
+      <div className="event-options">
+        {opts.map((opt, i) => (
+          <OptionRow key={opt.id ?? i} option={opt} onPick={onPick} index={i} />
+        ))}
       </div>
-    </div>
+    </PixelPanel9>
   );
 }
 
