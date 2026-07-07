@@ -103,23 +103,21 @@ function MajorSelectPage() {
         <div className="flex flex-col gap-2.5 p-2.5 pb-4">
 
           <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
-            <div className="flex gap-1.5 pb-1 w-max">
+            <div className="flex gap-1 pb-1 w-max items-end">
               {CATEGORY_TABS.map((t) => (
-                <button
+                <PixelChip
                   key={t.label}
+                  active={tabLabel === t.label}
                   onClick={() => setTabLabel(t.label)}
-                  className={cn(
-                    "shrink-0 font-display text-[11px] tracking-wider px-2.5 py-1 border-2 border-ink transition-colors",
-                    tabLabel === t.label
-                      ? "bg-ink text-cream shadow-[2px_2px_0_0_var(--ink)]"
-                      : "bg-cream text-ink/70 hover:text-ink",
-                  )}
+                  className="!text-[11px]"
+                  style={{ minWidth: 56, padding: "10px 12px 14px" }}
                 >
                   {t.label}
-                </button>
+                </PixelChip>
               ))}
             </div>
           </div>
+
 
           <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
             <div className="flex items-center gap-1.5 pb-1 w-max">
