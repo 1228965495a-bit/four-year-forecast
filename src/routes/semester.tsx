@@ -123,6 +123,7 @@ function SemesterPage() {
             badge={currentEvent.category}
             title={currentEvent.title}
             caption={currentEvent.description}
+            asset={sceneAsset}
           />
         </div>
 
