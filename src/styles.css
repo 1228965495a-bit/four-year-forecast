@@ -354,6 +354,26 @@
   border-right: 2px solid var(--ink);
   transition: width 300ms ease-out;
 }
+@utility hud-bar {
+  height: 18px;
+  border: 2px solid var(--ink);
+  background: #EFE1C1;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 2px 2px 0 0 rgba(63, 42, 31, 0.08);
+}
+@utility hud-bar-fill {
+  height: 100%;
+  border-right: 2px solid var(--ink);
+  transition: width 300ms ease-out;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.22) 0 2px,
+    transparent 2px 6px
+  );
+  image-rendering: pixelated;
+}
 
 @utility sheet-panel {
   background: var(--cream);
@@ -393,8 +413,8 @@
 @utility semester-hud {
   background: var(--cream);
   border-bottom: 2px solid rgba(63, 42, 31, 0.16);
-  padding: 10px 10px 9px;
-  min-height: 0;
+  padding: 12px 10px 11px;
+  min-height: 86px;
 }
 
 @utility semester-scene-wrap {

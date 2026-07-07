@@ -61,21 +61,21 @@ function SemesterPage() {
   if (!major) return null;
 
   const topBar = (
-    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-2 flex items-center gap-2">
+    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-3 min-h-[58px] flex items-center gap-2">
       <button
         onClick={() => navigate({ to: "/" })}
-        className="text-[11px] px-2 py-0.5 border-2 border-cream"
+        className="text-[12px] px-2 py-1 border-2 border-cream leading-none"
       >
         ⌂
       </button>
       <div className="min-w-0 flex-1">
-        <div className="font-display text-[13px] leading-none truncate">{phaseLabel(game)}</div>
-        <div className="text-[9.5px] text-cream/70 leading-none mt-1 truncate">
+        <div className="font-display text-[14px] leading-none truncate">{phaseLabel(game)}</div>
+        <div className="text-[11px] text-cream/70 leading-none mt-1 truncate">
           {major.name} · {game.school}
         </div>
       </div>
-      <div className="flex items-center gap-1.5 shrink-0">
-        <span className="font-display text-[11px] tabular-nums">
+      <div className="flex items-center gap-2 shrink-0">
+        <span className="font-display text-[12px] tabular-nums">
           {Math.min(game.step + 1, TOTAL_STEPS)} / {TOTAL_STEPS}
         </span>
         <button
@@ -83,7 +83,7 @@ function SemesterPage() {
             gameStore.set({ finished: true });
             navigate({ to: "/result" });
           }}
-          className="text-[10px] px-2 py-0.5 border-2 border-cream bg-cherry text-cream"
+          className="text-[11px] px-2.5 py-1 border-2 border-cream bg-cherry text-cream leading-none"
         >
           结
         </button>
@@ -107,7 +107,7 @@ function SemesterPage() {
       <div className="semester-screen" style={{ height: LAYOUT_HEIGHT }}>
         {/* HUD：6 项明面数值 */}
         <div className="semester-hud">
-          <div className="grid grid-cols-6 gap-1">
+          <div className="grid grid-cols-6 gap-2">
             {VISIBLE_STATS.map((s) => (
               <HudCell key={s.key} short={s.short} value={game.stats[s.key]} color={s.color} />
             ))}
@@ -149,13 +149,13 @@ function SemesterPage() {
 
 function HudCell({ short, value, color }: { short: string; value: number; color: string }) {
   return (
-    <div className="flex flex-col items-center gap-1">
-      <div className="w-full bar-track !h-3">
-        <div className="bar-fill" style={{ width: `${value}%`, background: color }} />
+    <div className="flex flex-col items-center gap-1.5">
+      <div className="w-full hud-bar">
+        <div className="hud-bar-fill" style={{ width: `${value}%`, backgroundColor: color }} />
       </div>
       <div className="flex items-baseline gap-0.5 leading-none">
-        <span className="text-[10.5px] text-ink/70">{short}</span>
-        <span className="font-display text-[12px] tabular-nums">{Math.round(value)}</span>
+        <span className="font-display text-[12px] text-ink/70">{short}</span>
+        <span className="font-display text-[14px] tabular-nums">{Math.round(value)}</span>
       </div>
     </div>
   );
