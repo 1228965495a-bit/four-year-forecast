@@ -384,7 +384,7 @@
   height: 100%;
   min-height: 0;
   display: grid;
-  grid-template-rows: 38px minmax(230px, 46%) minmax(250px, 1fr);
+  grid-template-rows: 38px minmax(0, 1fr) auto;
   gap: 8px;
   padding-bottom: 8px;
   overflow: hidden;
@@ -411,7 +411,7 @@
 
 @media (max-height: 740px) {
   .semester-screen {
-    grid-template-rows: 38px minmax(186px, 38%) minmax(278px, 1fr);
+    grid-template-rows: 38px minmax(0, 1fr) auto;
     gap: 7px;
     padding-bottom: 7px;
   }
@@ -419,7 +419,7 @@
 
 @media (min-height: 800px) {
   .semester-screen {
-    grid-template-rows: 38px 320px minmax(292px, 1fr);
+    grid-template-rows: 38px minmax(0, 1fr) auto;
   }
 }
 
@@ -507,10 +507,6 @@
 }
 
 @utility event-dialog-body {
-  min-height: 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   padding: 10px 12px 12px;
 }
 
@@ -522,7 +518,6 @@
 }
 
 @utility event-options {
-  margin-top: auto;
   display: grid;
   gap: 7px;
 }

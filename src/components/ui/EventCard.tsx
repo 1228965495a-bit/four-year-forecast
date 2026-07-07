@@ -12,7 +12,7 @@ export function EventCard({
   onPick: (opt: EventOption) => void;
 }) {
   return (
-    <div className="quest-card event-dialog flex flex-col h-full min-h-0">
+    <div className="quest-card event-dialog">
       <div className="panel-title-strip">
         <span className="rank-badge rank-B" aria-hidden>
           {event.category.slice(0, 1)}
