@@ -1,20 +1,34 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
-import {
-  MAJORS,
-  MAJOR_CATEGORIES,
-  type MajorConfig,
-} from "@/data/majors";
+import { MAJORS, MAJOR_CATEGORIES, type MajorConfig } from "@/data/majors";
 import { gameStore } from "@/lib/gameStore";
 import { cn } from "@/lib/utils";
+import { PixelButton } from "@/components/ui/PixelButton";
+import { PixelPanel } from "@/components/ui/PixelPanel";
+import { StatBar } from "@/components/ui/StatBar";
+import { TagBadge, inferTagTone } from "@/components/ui/TagBadge";
 
-export const Route = createFileRoute("/major")({
-  component: MajorSelectPage,
-});
+export const Route = createFileRoute("/major")({ component: MajorSelectPage });
 
 const TABS = ["全部", "热门", ...MAJOR_CATEGORIES] as const;
 type Tab = (typeof TABS)[number];
+
+const STAT_LABELS: { key: keyof MajorConfig["stats"]; label: string; color: string }[] = [
+  { key: "interest", label: "兴趣", color: "var(--cherry)" },
+  { key: "pressure", label: "压力", color: "var(--danger)" },
+  { key: "employment", label: "就业", color: "var(--sage)" },
+  { key: "salary", label: "薪资", color: "var(--sunny)" },
+  { key: "growth", label: "成长", color: "var(--sky)" },
+  { key: "stability", label: "稳定", color: "var(--tan)" },
+];
+
+function rankOf(fit: number): "S" | "A" | "B" | "C" {
+  if (fit >= 78) return "S";
+  if (fit >= 68) return "A";
+  if (fit >= 58) return "B";
+  return "C";
+}
 
 function MajorSelectPage() {
   const navigate = useNavigate();
@@ -29,7 +43,7 @@ function MajorSelectPage() {
       if (tab !== "全部" && tab !== "热门" && m.category !== tab) return false;
       if (kw && !m.name.includes(kw) && !m.tags.some((t) => t.includes(kw))) return false;
       return true;
-    });
+    }).sort((a, b) => b.fit - a.fit);
   }, [tab, kw]);
 
   const selected = MAJORS.find((m) => m.id === selectedId) ?? null;
@@ -41,25 +55,26 @@ function MajorSelectPage() {
   };
 
   const topBar = (
-    <div className="border-b-[3px] border-ink bg-cream px-3 py-2 flex items-center gap-2">
+    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-1.5 flex items-center gap-2">
       <button
         onClick={() => navigate({ to: "/" })}
-        className="pixel-tab !py-1"
-        aria-label="返回"
+        className="text-[11px] px-2 py-0.5 border-2 border-cream"
       >
         ← 返回
       </button>
-      <h2 className="font-display text-[16px]">专业选择</h2>
-      <span className="ml-auto text-[10px] text-ink/60">
-        {list.length}/{MAJORS.length}
-      </span>
+      <div className="min-w-0">
+        <div className="font-display text-[13px] leading-none">专业排行 · 选择副本</div>
+        <div className="text-[9px] opacity-70 leading-none mt-0.5">
+          筛选出 {list.length} / {MAJORS.length}
+        </div>
+      </div>
     </div>
   );
 
   return (
     <PhoneFrame topBar={topBar}>
-      <div className="flex flex-col gap-3 p-3">
-        {/* 搜索框 */}
+      <div className="flex flex-col gap-2.5 p-2.5">
+        {/* 搜索 */}
         <div className="pixel-border-sm bg-cream flex items-center px-2 py-1.5">
           <svg width="14" height="14" viewBox="0 0 16 16" className="shrink-0">
             <circle cx="7" cy="7" r="4.5" fill="none" stroke="var(--ink)" strokeWidth="1.5" />
@@ -73,8 +88,8 @@ function MajorSelectPage() {
           />
         </div>
 
-        {/* 分类标签横向滚动 */}
-        <div className="-mx-3 px-3 overflow-x-auto scrollbar-none">
+        {/* 分类 tab */}
+        <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
           <div className="flex gap-1.5 pb-1">
             {TABS.map((t) => (
               <button
@@ -88,12 +103,22 @@ function MajorSelectPage() {
           </div>
         </div>
 
-        {/* 专业卡片列表 */}
+        {/* 排行榜标题 */}
+        <div className="flex items-center gap-2 px-1">
+          <span className="h-1 w-1 bg-ink" />
+          <span className="font-display text-[11px] tracking-widest text-ink/70">
+            专业排行榜 · TOP {list.length}
+          </span>
+          <span className="h-px flex-1 bg-ink/20" />
+        </div>
+
+        {/* 专业列表 */}
         <div className="flex flex-col gap-2.5 pb-4">
-          {list.map((m) => (
-            <MajorRow
+          {list.map((m, i) => (
+            <MajorQuestCard
               key={m.id}
               major={m}
+              rankNo={i + 1}
               selected={m.id === selectedId}
               onClick={() => {
                 setSelectedId(m.id);
@@ -109,15 +134,15 @@ function MajorSelectPage() {
         </div>
       </div>
 
-      {/* 底部弹出详情面板 */}
+      {/* 详情 sheet */}
       {sheetOpen && selected && (
         <>
           <button
             aria-label="关闭"
             onClick={() => setSheetOpen(false)}
-            className="fixed inset-0 z-40 bg-ink/40 sm:absolute"
+            className="absolute inset-0 z-40 bg-ink/50"
           />
-          <div className="sheet-panel absolute bottom-0 left-0 right-0 z-50 max-h-[75%] overflow-y-auto p-3 pb-6 animate-pop-in">
+          <div className="sheet-panel absolute bottom-0 left-0 right-0 z-50 max-h-[82%] overflow-y-auto p-3 pb-6 animate-pop-in">
             <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-ink/40" />
             <DetailContent major={selected} onConfirm={confirm} />
           </div>
@@ -127,74 +152,69 @@ function MajorSelectPage() {
   );
 }
 
-const STAT_LABELS: { key: keyof MajorConfig["stats"]; label: string; color: string }[] = [
-  { key: "interest", label: "兴趣", color: "var(--cherry)" },
-  { key: "pressure", label: "压力", color: "#D9534F" },
-  { key: "employment", label: "就业", color: "var(--sage)" },
-  { key: "salary", label: "薪资", color: "var(--sunny)" },
-  { key: "growth", label: "成长", color: "var(--sky)" },
-  { key: "stability", label: "稳定", color: "var(--tan)" },
-];
-
-function MajorRow({
-  major,
-  selected,
-  onClick,
+function MajorQuestCard({
+  major, rankNo, selected, onClick,
 }: {
   major: MajorConfig;
+  rankNo: number;
   selected: boolean;
   onClick: () => void;
 }) {
+  const rank = rankOf(major.fit);
+  const rankClass = `rank-${rank}`;
   return (
     <button
       onClick={onClick}
       className={cn(
-        "pixel-panel !p-2.5 text-left flex gap-2.5 transition-transform active:translate-y-[2px]",
-        selected && "!bg-sky/50 outline outline-[3px] outline-offset-[2px] outline-cherry"
+        "quest-card quest-card-hover text-left overflow-hidden",
+        selected && "quest-card-selected",
       )}
-      style={{ background: selected ? "#BFE0F5" : undefined }}
     >
-      {/* icon 占位 */}
-      <div
-        className="pixel-border-sm !shadow-none shrink-0 flex items-center justify-center font-display text-[18px]"
-        style={{
-          width: 44,
-          height: 44,
-          background: "var(--sunny)",
-        }}
-        aria-hidden
-      >
-        {major.name.slice(0, 1)}
+      {/* 标题条：#排名 + 名称 + 分档 */}
+      <div className="panel-title-strip">
+        <span className="text-ink/60 tabular-nums text-[11px]">#{rankNo}</span>
+        <span className="flex-1 truncate font-display text-[13px]">{major.name}</span>
+        <span className={cn("rank-badge", rankClass)}>{rank}</span>
       </div>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-1.5">
-          <span className="font-display text-[15px] truncate">{major.name}</span>
-          <span className="ml-auto text-[10px] text-ink/60">适配</span>
-          <span className="font-display text-[13px] text-cherry">{major.fit}%</span>
+
+      {/* 主体 */}
+      <div className="p-2.5 flex gap-2.5">
+        {/* 左：图标块 */}
+        <div
+          className="pixel-border-sm !shadow-none shrink-0 flex flex-col items-center justify-center"
+          style={{ width: 46, background: "var(--sunny)" }}
+        >
+          <div className="font-display text-[18px] leading-none pt-1">{major.name.slice(0, 1)}</div>
+          <div className="text-[8px] text-ink/70 mt-0.5 leading-none pb-1">{major.category}</div>
         </div>
-        <div className="mt-1 flex flex-wrap gap-1">
-          {major.tags.slice(0, 3).map((t) => (
-            <span
-              key={t}
-              className="text-[9px] px-1.5 py-0.5 border-2 border-ink bg-cream leading-none"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-        {/* 6 项迷你 bar */}
-        <div className="mt-1.5 grid grid-cols-6 gap-1">
-          {STAT_LABELS.map((s) => (
-            <div key={s.key} className="flex flex-col items-center gap-0.5">
-              <div className="bar-track w-full !h-1.5">
-                <div
-                  className="bar-fill"
-                  style={{ width: `${major.stats[s.key]}%`, background: s.color }}
-                />
-              </div>
-              <span className="text-[8px] text-ink/60 leading-none">{s.label}</span>
-            </div>
-          ))}
+
+        {/* 右：数值 + 标签 */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-[10px] text-ink/60">适配度</span>
+            <span className="font-display text-[13px] text-cherry tabular-nums">{major.fit}%</span>
+            <span className="ml-auto text-[10px] text-ink/60">压力 {major.pressureLevel}</span>
+          </div>
+
+          {/* 6 项 mini stat bar */}
+          <div className="grid grid-cols-2 gap-x-2 gap-y-0.5">
+            {STAT_LABELS.map((s) => (
+              <StatBar
+                key={s.key}
+                label={s.label}
+                value={major.stats[s.key]}
+                color={s.color}
+                size="xs"
+                showValue={false}
+              />
+            ))}
+          </div>
+
+          <div className="mt-1.5 flex flex-wrap gap-1">
+            {major.tags.slice(0, 4).map((t) => (
+              <TagBadge key={t} tone={inferTagTone(t)}>{t}</TagBadge>
+            ))}
+          </div>
         </div>
       </div>
     </button>
@@ -202,73 +222,93 @@ function MajorRow({
 }
 
 function DetailContent({ major, onConfirm }: { major: MajorConfig; onConfirm: () => void }) {
+  const rank = rankOf(major.fit);
   return (
     <div className="space-y-3">
+      {/* 头部 */}
       <div className="flex items-center gap-3">
         <div
           className="pixel-border-sm !shadow-none flex items-center justify-center font-display text-[22px]"
-          style={{ width: 52, height: 52, background: "var(--sunny)" }}
+          style={{ width: 56, height: 56, background: "var(--sunny)" }}
         >
           {major.name.slice(0, 1)}
         </div>
-        <div className="flex-1">
-          <div className="font-display text-[20px] leading-tight">{major.name}</div>
-          <div className="flex gap-1 mt-1 flex-wrap">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className={cn("rank-badge", `rank-${rank}`)}>{rank}</span>
+            <div className="font-display text-[18px] leading-tight truncate">{major.name}</div>
+          </div>
+          <div className="text-[11px] text-ink/70 mt-0.5">
+            {major.category} · 压力{major.pressureLevel} · 适配 {major.fit}%
+          </div>
+          <div className="flex flex-wrap gap-1 mt-1">
             {major.tags.map((t) => (
-              <span key={t} className="text-[10px] px-1.5 py-0.5 border-2 border-ink bg-cream leading-none">
-                {t}
-              </span>
+              <TagBadge key={t} tone={inferTagTone(t)}>{t}</TagBadge>
             ))}
           </div>
         </div>
-        <div className="text-center">
-          <div className="text-[10px] text-ink/60">适配度</div>
-          <div className="font-display text-[22px] text-cherry leading-none">{major.fit}%</div>
-        </div>
       </div>
 
-      <div className="pixel-panel-sm !p-2">
-        <div className="text-[11px] text-ink/60 mb-1 font-display tracking-widest">推荐理由</div>
+      {/* 适配度雷达（用条代替） */}
+      <PixelPanel title="综合数值 · STATS" size="sm" bodyClassName="p-2.5">
+        <div className="grid grid-cols-2 gap-x-3 gap-y-1">
+          {STAT_LABELS.map((s) => (
+            <StatBar
+              key={s.key}
+              label={s.label}
+              value={major.stats[s.key]}
+              color={s.color}
+              size="sm"
+            />
+          ))}
+        </div>
+      </PixelPanel>
+
+      {/* 推荐理由 */}
+      <PixelPanel title="推荐理由" size="sm" tone="sage" bodyClassName="p-2.5">
         <ul className="space-y-0.5 text-[12px]">
           {major.reasons.map((r) => (
             <li key={r} className="flex gap-1.5">
-              <span className="text-sage">▸</span>
+              <span className="text-ink">▸</span>
               <span>{r}</span>
             </li>
           ))}
         </ul>
-      </div>
+      </PixelPanel>
 
-      <div className="pixel-panel-sm !p-2 bg-cherry/15">
-        <div className="text-[11px] text-ink/60 mb-1 font-display tracking-widest">慎入人群</div>
+      {/* 慎入 */}
+      <PixelPanel title="慎入人群" size="sm" tone="cherry" bodyClassName="p-2.5">
         <ul className="space-y-0.5 text-[12px]">
           {major.warnings.map((r) => (
             <li key={r} className="flex gap-1.5">
-              <span className="text-cherry">✕</span>
+              <span className="text-danger" style={{ color: "var(--danger)" }}>✕</span>
               <span>{r}</span>
             </li>
           ))}
         </ul>
-      </div>
+      </PixelPanel>
 
+      {/* 结局方向 */}
       <div>
-        <div className="text-[11px] text-ink/60 mb-1 font-display tracking-widest">可能结局方向</div>
+        <div className="text-[10px] font-display tracking-widest text-ink/60 mb-1">可能结局方向</div>
         <div className="flex flex-wrap gap-1.5">
           {major.endings.map((e) => (
-            <span key={e} className="pixel-chip bg-sky/40 !text-[11px]">
-              {e}
-            </span>
+            <span key={e} className="pixel-chip bg-sky/40 !text-[11px]">{e}</span>
           ))}
         </div>
       </div>
 
-      <button
-        onClick={onConfirm}
-        className="pixel-btn w-full py-3 font-display text-[15px]"
-        style={{ background: "var(--cherry)", color: "var(--cream)" }}
-      >
-        ✓ 确认选择「{major.name}」
-      </button>
+      {/* 系统诊断 */}
+      <div className="diag-note">
+        <div className="text-[10px] font-display tracking-widest text-ink/60 mb-0.5">
+          系统诊断
+        </div>
+        {major.diagnosis}
+      </div>
+
+      <PixelButton variant="accent" size="block" onClick={onConfirm}>
+        ✓ 进入「{major.name}」副本
+      </PixelButton>
     </div>
   );
 }
