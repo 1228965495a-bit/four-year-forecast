@@ -349,6 +349,15 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "说出来那一刻你反而轻松了。这是难得的坦白时刻。",
       },
+      {
+        label: "把话题带偏到八卦",
+        effects: [
+          { key: "battery", delta: 5 },
+          { key: "filter", delta: 2 },
+          { key: "obsession", delta: -2 },
+        ],
+        feedback: "宿舍气氛回到轻松，你成功躲过一次灵魂拷问。",
+      },
     ],
   },
   {
