@@ -1,0 +1,345 @@
+{
+  "source": "batch-02-panels-sheet",
+  "sourceImage": "ChatGPT Image 2026年7月7日 18_35_14.png",
+  "type": "panels-9slice",
+  "backgroundTreatment": "源图为 RGB 棋盘格底，已通过边缘连通棋盘格识别转为透明背景。",
+  "assetCount": 10,
+  "assets": [
+    {
+      "id": "panel-report",
+      "file": "panel-report-source.png",
+      "path": "/pixel-ui/panels-9slice/panel-report-source.png",
+      "nameZh": "结果页报告面板",
+      "role": "report panel",
+      "useCases": [
+        "结果页主报告卡",
+        "最终结算卡"
+      ],
+      "recommendedComponents": [
+        "ResultReportCard",
+        "EndingPage"
+      ],
+      "slice": {
+        "type": "9-slice",
+        "inset": 32,
+        "cssHint": "border-image-slice: 32 fill; border-image-repeat: stretch;"
+      },
+      "sourceOrder": 1,
+      "sourceBox": {
+        "x": 17,
+        "y": 156,
+        "width": 284,
+        "height": 407
+      },
+      "exportSize": {
+        "width": 304,
+        "height": 427
+      },
+      "safePaddingPx": 10,
+      "notes": "适合大面积报告卡，不要作为固定整图拉伸。"
+    },
+    {
+      "id": "panel-event",
+      "file": "panel-event-source.png",
+      "path": "/pixel-ui/panels-9slice/panel-event-source.png",
+      "nameZh": "通用事件面板",
+      "role": "event panel",
+      "useCases": [
+        "事件正文卡",
+        "主剧情卡"
+      ],
+      "recommendedComponents": [
+        "EventCard"
+      ],
+      "slice": {
+        "type": "9-slice",
+        "inset": 32,
+        "cssHint": "border-image-slice: 32 fill; border-image-repeat: stretch;"
+      },
+      "sourceOrder": 2,
+      "sourceBox": {
+        "x": 327,
+        "y": 164,
+        "width": 310,
+        "height": 399
+      },
+      "exportSize": {
+        "width": 330,
+        "height": 419
+      },
+      "safePaddingPx": 10,
+      "notes": "适合承载事件标题、正文和选项反馈。"
+    },
+    {
+      "id": "panel-card",
+      "file": "panel-card-source.png",
+      "path": "/pixel-ui/panels-9slice/panel-card-source.png",
+      "nameZh": "小卡片面板",
+      "role": "small card panel",
+      "useCases": [
+        "专业卡",
+        "信息小卡",
+        "普通副本卡"
+      ],
+      "recommendedComponents": [
+        "MajorCard",
+        "PixelCard"
+      ],
+      "slice": {
+        "type": "9-slice",
+        "inset": 32,
+        "cssHint": "border-image-slice: 32 fill; border-image-repeat: stretch;"
+      },
+      "sourceOrder": 3,
+      "sourceBox": {
+        "x": 658,
+        "y": 184,
+        "width": 183,
+        "height": 364
+      },
+      "exportSize": {
+        "width": 203,
+        "height": 384
+      },
+      "safePaddingPx": 10,
+      "notes": "适合中小尺寸卡片，可作为选择副本卡底。"
+    },
+    {
+      "id": "panel-profile",
+      "file": "panel-profile-source.png",
+      "path": "/pixel-ui/panels-9slice/panel-profile-source.png",
+      "nameZh": "角色档案面板",
+      "role": "profile panel",
+      "useCases": [
+        "专业开场页",
+        "角色档案",
+        "建档卡"
+      ],
+      "recommendedComponents": [
+        "MajorIntroPage",
+        "CharacterPanel"
+      ],
+      "slice": {
+        "type": "9-slice",
+        "inset": 32,
+        "cssHint": "border-image-slice: 32 fill; border-image-repeat: stretch;"
+      },
+      "sourceOrder": 4,
+      "sourceBox": {
+        "x": 868,
+        "y": 174,
+        "width": 239,
+        "height": 386
+      },
+      "exportSize": {
+        "width": 259,
+        "height": 406
+      },
+      "safePaddingPx": 10,
+      "notes": "适合专业开场和角色建档信息展示。"
+    },
+    {
+      "id": "panel-note-yellow",
+      "file": "panel-note-yellow-source.png",
+      "path": "/pixel-ui/panels-9slice/panel-note-yellow-source.png",
+      "nameZh": "黄色便签面板",
+      "role": "yellow note panel",
+      "useCases": [
+        "系统建议",
+        "分享文案",
+        "今日提示",
+        "轻提示"
+      ],
+      "recommendedComponents": [
+        "NotePanel",
+        "ShareCopyPanel"
+      ],
+      "slice": {
+        "type": "9-slice",
+        "inset": 32,
+        "cssHint": "border-image-slice: 32 fill; border-image-repeat: stretch;"
+      },
+      "sourceOrder": 5,
+      "sourceBox": {
+        "x": 1131,
+        "y": 161,
+        "width": 255,
+        "height": 396
+      },
+      "exportSize": {
+        "width": 275,
+        "height": 416
+      },
+      "safePaddingPx": 10,
+      "notes": "便签视觉强，适合短文本提示，不建议承载长正文。"
+    },
+    {
+      "id": "panel-note-blue",
+      "file": "panel-note-blue-source.png",
+      "path": "/pixel-ui/panels-9slice/panel-note-blue-source.png",
+      "nameZh": "蓝色便签面板",
+      "role": "blue note panel",
+      "useCases": [
+        "冷静提示",
+        "补充说明",
+        "数据说明"
+      ],
+      "recommendedComponents": [
+        "InfoNotePanel"
+      ],
+      "slice": {
+        "type": "9-slice",
+        "inset": 32,
+        "cssHint": "border-image-slice: 32 fill; border-image-repeat: stretch;"
+      },
+      "sourceOrder": 6,
+      "sourceBox": {
+        "x": 17,
+        "y": 600,
+        "width": 262,
+        "height": 349
+      },
+      "exportSize": {
+        "width": 282,
+        "height": 369
+      },
+      "safePaddingPx": 10,
+      "notes": "适合偏说明、补充、冷静提示类信息。"
+    },
+    {
+      "id": "panel-diagnosis",
+      "file": "panel-diagnosis-source.png",
+      "path": "/pixel-ui/panels-9slice/panel-diagnosis-source.png",
+      "nameZh": "系统诊断面板",
+      "role": "diagnosis panel",
+      "useCases": [
+        "系统诊断",
+        "辅导员批注",
+        "状态建议"
+      ],
+      "recommendedComponents": [
+        "DiagnosisPanel"
+      ],
+      "slice": {
+        "type": "9-slice",
+        "inset": 32,
+        "cssHint": "border-image-slice: 32 fill; border-image-repeat: stretch;"
+      },
+      "sourceOrder": 7,
+      "sourceBox": {
+        "x": 291,
+        "y": 613,
+        "width": 228,
+        "height": 331
+      },
+      "exportSize": {
+        "width": 248,
+        "height": 351
+      },
+      "safePaddingPx": 10,
+      "notes": "适合结算页中的诊断、建议或批注区域。"
+    },
+    {
+      "id": "panel-sheet",
+      "file": "panel-sheet-source.png",
+      "path": "/pixel-ui/panels-9slice/panel-sheet-source.png",
+      "nameZh": "底部 sheet 面板",
+      "role": "bottom sheet panel",
+      "useCases": [
+        "当前选中副本预览",
+        "底部弹层",
+        "确认面板"
+      ],
+      "recommendedComponents": [
+        "SelectedMajorPreview",
+        "BottomSheet"
+      ],
+      "slice": {
+        "type": "9-slice",
+        "inset": 32,
+        "cssHint": "border-image-slice: 32 fill; border-image-repeat: stretch;"
+      },
+      "sourceOrder": 8,
+      "sourceBox": {
+        "x": 534,
+        "y": 631,
+        "width": 410,
+        "height": 315
+      },
+      "exportSize": {
+        "width": 430,
+        "height": 335
+      },
+      "safePaddingPx": 10,
+      "notes": "横向面板，适合底部确认栏或当前选择预览。"
+    },
+    {
+      "id": "panel-small",
+      "file": "panel-small-source.png",
+      "path": "/pixel-ui/panels-9slice/panel-small-source.png",
+      "nameZh": "小信息面板",
+      "role": "small info panel",
+      "useCases": [
+        "小状态框",
+        "小提示",
+        "小计数卡"
+      ],
+      "recommendedComponents": [
+        "SmallInfoPanel"
+      ],
+      "slice": {
+        "type": "9-slice",
+        "inset": 32,
+        "cssHint": "border-image-slice: 32 fill; border-image-repeat: stretch;"
+      },
+      "sourceOrder": 9,
+      "sourceBox": {
+        "x": 966,
+        "y": 668,
+        "width": 174,
+        "height": 247
+      },
+      "exportSize": {
+        "width": 194,
+        "height": 267
+      },
+      "safePaddingPx": 10,
+      "notes": "适合短标签、计数、小状态，不适合长文本。"
+    },
+    {
+      "id": "panel-warning",
+      "file": "panel-warning-source.png",
+      "path": "/pixel-ui/panels-9slice/panel-warning-source.png",
+      "nameZh": "警告面板",
+      "role": "warning panel",
+      "useCases": [
+        "高风险事件",
+        "GG 提示",
+        "危险选择",
+        "警告弹窗"
+      ],
+      "recommendedComponents": [
+        "WarningPanel",
+        "GameOverWarning"
+      ],
+      "slice": {
+        "type": "9-slice",
+        "inset": 32,
+        "cssHint": "border-image-slice: 32 fill; border-image-repeat: stretch;"
+      },
+      "sourceOrder": 10,
+      "sourceBox": {
+        "x": 1158,
+        "y": 620,
+        "width": 227,
+        "height": 326
+      },
+      "exportSize": {
+        "width": 247,
+        "height": 346
+      },
+      "safePaddingPx": 10,
+      "notes": "视觉警告感强，建议用于危险分支和中途 GG。"
+    }
+  ]
+}

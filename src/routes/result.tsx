@@ -11,9 +11,9 @@ import {
   PixelDebuffBadge,
   PixelAchievementBadge,
   PixelStatBar,
-  PixelBgPanel,
   PixelImgButton,
 } from "@/components/pixel/PixelSkin";
+import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 
 export const Route = createFileRoute("/result")({ component: ResultPage });
 
@@ -126,9 +126,9 @@ function ResultPage() {
 
           <section className="px-3 pt-2 pb-2">
             <SectionLabel>系统诊断 · DIAGNOSIS</SectionLabel>
-            <PixelBgPanel variant="note" className="mt-1.5" padding="px-4 py-4">
+            <PixelPanel9 variant="diagnosis" className="mt-1.5" padding="px-4 py-3">
               <p className="text-[12.5px] leading-[1.55] text-ink">{advice}</p>
-            </PixelBgPanel>
+            </PixelPanel9>
           </section>
 
           <section className="px-3 pt-2 pb-2">
