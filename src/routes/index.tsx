@@ -16,89 +16,110 @@ function HomePage() {
   const currentMajor = game.majorId ? getMajorById(game.majorId) : null;
   const hasSave = !!currentMajor;
 
+  const menuHandlers = {
+    hasSave,
+    canLoad: hasSave,
+    onStart: () => {
+      if (!hasSave) gameStore.reset();
+      navigate({ to: "/major" });
+    },
+    onDex: () => navigate({ to: "/major" }),
+    onCharacter: () => {
+      const name =
+        window.prompt("给你的角色起个名字：", game.characterName) ||
+        game.characterName;
+      const school =
+        window.prompt("学校叫什么？", game.school) || game.school;
+      gameStore.set({ characterName: name, school });
+    },
+    onLoad: () =>
+      navigate({ to: game.finished ? "/result" : "/semester" }),
+  };
+
+  const profileProps = {
+    name: hasSave ? game.characterName : "未创建角色",
+    status: hasSave
+      ? `进度：大${["一", "二", "三", "四"][game.year - 1]}${
+          game.semester === 1 ? "上" : "下"
+        } · 第 ${game.week} 周`
+      : "新生档案 · 待办理",
+    major: currentMajor?.name,
+    school: hasSave ? game.school : undefined,
+    hasCharacter: hasSave,
+  };
+
   return (
     <GameShell>
-      {/* 游戏窗口：像掌机屏幕。桌面 16:9，移动端自适应 */}
+      {/* ============ 桌面端：16:9 游戏窗口，绝对定位 ============ */}
       <div
-        className="pixel-panel relative w-full max-w-[1160px] overflow-hidden !p-0"
+        className="pixel-panel relative hidden md:block w-full max-w-[1160px] overflow-hidden !p-0"
         style={{ aspectRatio: "16 / 9", minHeight: 520 }}
       >
-        {/* 顶部游戏窗口条 */}
-        <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between border-b-[3px] border-ink bg-ink px-3 py-1.5 text-cream">
-          <div className="flex items-center gap-2">
-            <span className="h-2.5 w-2.5 bg-cherry border-[1.5px] border-cream" />
-            <span className="h-2.5 w-2.5 bg-sunny border-[1.5px] border-cream" />
-            <span className="h-2.5 w-2.5 bg-sage border-[1.5px] border-cream" />
-            <span className="ml-2 font-display text-[11px] tracking-widest text-cream/90">
-              CAMPUS · SIM · v0.1
-            </span>
-          </div>
-          <div className="hidden md:flex items-center gap-3 text-[10px] tracking-widest text-cream/70">
-            <span>SAVE · AUTO</span>
-            <span>▶</span>
-            <span>FULLSCREEN</span>
-          </div>
-        </div>
-
-        {/* 场景层 */}
+        <GameWindowChrome />
         <HomeHeroScene />
 
-        {/* 标题层（左上方） */}
         <div className="absolute left-[4%] top-[16%] z-20 max-w-[62%]">
           <TitleBlock />
         </div>
 
-        {/* 主菜单（右侧） */}
         <div className="absolute right-[4%] top-[22%] z-20 w-[240px] max-w-[42%]">
-          <MainMenu
-            hasSave={hasSave}
-            onStart={() => {
-              if (!hasSave) gameStore.reset();
-              navigate({ to: "/major" });
-            }}
-            onDex={() => navigate({ to: "/major" })}
-            onCharacter={() => {
-              const name =
-                window.prompt("给你的角色起个名字：", game.characterName) ||
-                game.characterName;
-              const school =
-                window.prompt("学校叫什么？", game.school) || game.school;
-              gameStore.set({ characterName: name, school });
-            }}
-            onLoad={() =>
-              navigate({ to: game.finished ? "/result" : "/semester" })
-            }
-            canLoad={hasSave}
-          />
+          <MainMenu {...menuHandlers} />
         </div>
 
-        {/* 学生档案 - 左下 */}
         <div className="absolute left-[3%] bottom-[16%] z-20">
-          <StudentProfileCard
-            name={hasSave ? game.characterName : "未创建角色"}
-            status={
-              hasSave
-                ? `进度：大${["一", "二", "三", "四"][game.year - 1]}${
-                    game.semester === 1 ? "上" : "下"
-                  } · 第 ${game.week} 周`
-                : "新生档案 · 待办理"
-            }
-            major={currentMajor?.name}
-            school={hasSave ? game.school : undefined}
-            hasCharacter={hasSave}
-          />
+          <StudentProfileCard {...profileProps} />
         </div>
 
-        {/* 底部道具栏 */}
-        <div className="absolute inset-x-0 bottom-0 z-20 border-t-[3px] border-ink bg-cream/95 backdrop-blur-[1px]">
+        <div className="absolute inset-x-0 bottom-0 z-20 border-t-[3px] border-ink bg-cream/95">
           <div className="px-3 py-2">
             <PropStatusBar />
           </div>
         </div>
       </div>
+
+      {/* ============ 移动端：竖向堆叠 ============ */}
+      <div className="md:hidden w-full max-w-[420px] space-y-3">
+        <div
+          className="pixel-panel relative overflow-hidden !p-0"
+          style={{ aspectRatio: "4 / 3", minHeight: 260 }}
+        >
+          <GameWindowChrome compact />
+          <HomeHeroScene />
+          <div className="absolute inset-x-0 bottom-3 z-20 flex justify-center px-3">
+            <TitleBlock compact />
+          </div>
+        </div>
+
+        <MainMenu {...menuHandlers} />
+        <StudentProfileCard {...profileProps} />
+        <PropStatusBar />
+      </div>
     </GameShell>
   );
 }
+
+function GameWindowChrome({ compact = false }: { compact?: boolean }) {
+  return (
+    <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between border-b-[3px] border-ink bg-ink px-3 py-1.5 text-cream">
+      <div className="flex items-center gap-2">
+        <span className="h-2.5 w-2.5 bg-cherry border-[1.5px] border-cream" />
+        <span className="h-2.5 w-2.5 bg-sunny border-[1.5px] border-cream" />
+        <span className="h-2.5 w-2.5 bg-sage border-[1.5px] border-cream" />
+        <span className="ml-2 font-display text-[11px] tracking-widest text-cream/90">
+          CAMPUS · SIM · v0.1
+        </span>
+      </div>
+      {!compact && (
+        <div className="hidden md:flex items-center gap-3 text-[10px] tracking-widest text-cream/70">
+          <span>SAVE · AUTO</span>
+          <span>▶</span>
+          <span>FULLSCREEN</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 
 function TitleBlock() {
   return (
