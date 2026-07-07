@@ -74,7 +74,7 @@ function MajorSelectPage() {
   const navigate = useNavigate();
   const [tabLabel, setTabLabel] = useState<string>("全部");
   const [recSet, setRecSet] = useState<Set<string>>(new Set());
-  const [kw, setKw] = useState("");
+  
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
 
@@ -95,10 +95,10 @@ function MajorSelectPage() {
       for (const r of REC_FILTERS) {
         if (recSet.has(r.label) && !r.match(m)) return false;
       }
-      if (kw && !m.name.includes(kw) && !m.tags.some((t) => t.includes(kw))) return false;
       return true;
     }).sort((a, b) => b.fit - a.fit);
-  }, [tab, recSet, kw]);
+  }, [tab, recSet]);
+
 
   const selected = MAJORS.find((m) => m.id === selectedId) ?? null;
 
@@ -129,19 +129,6 @@ function MajorSelectPage() {
     <PhoneFrame topBar={topBar}>
       <div className="flex-1 min-h-0 overflow-y-auto">
         <div className="flex flex-col gap-2.5 p-2.5 pb-4">
-          {/* 搜索 */}
-          <div className="pixel-border-sm bg-cream flex items-center px-2 py-1.5">
-            <svg width="14" height="14" viewBox="0 0 16 16" className="shrink-0">
-              <circle cx="7" cy="7" r="4.5" fill="none" stroke="var(--ink)" strokeWidth="1.5" />
-              <line x1="10.5" y1="10.5" x2="14" y2="14" stroke="var(--ink)" strokeWidth="2" />
-            </svg>
-            <input
-              value={kw}
-              onChange={(e) => setKw(e.target.value)}
-              placeholder="搜索专业 / 标签"
-              className="w-full bg-transparent px-2 text-[13px] outline-none placeholder:text-ink/40"
-            />
-          </div>
 
           {/* 分类 tabs（横向滚动） */}
           <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
