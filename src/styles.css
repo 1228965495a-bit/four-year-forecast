@@ -46,33 +46,35 @@
 :root {
   --radius: 0.5rem;
 
-  /* Warm cozy pixel palette */
-  --cream: oklch(0.97 0.03 90);       /* 奶油白 */
-  --sage: oklch(0.78 0.08 145);       /* 鼠尾草绿 */
-  --sky: oklch(0.85 0.08 230);        /* 天空蓝 */
-  --cherry: oklch(0.78 0.14 15);      /* 樱桃粉 */
-  --tan: oklch(0.82 0.07 70);         /* 浅棕 */
-  --ink: oklch(0.32 0.05 40);         /* 深棕描边 */
-  --sunny: oklch(0.9 0.14 90);        /* 亮黄 */
+  /* Warm cozy pixel palette — exact hex per spec */
+  --cream: #FFF4DA;        /* 奶油白 */
+  --paper: #F6EBD2;        /* 背景浅米 */
+  --ink: #3F2A1F;          /* 深棕描边 */
+  --text: #3B2418;         /* 正文深棕 */
+  --cherry: #F47C8C;       /* 樱桃粉 */
+  --sky: #8FD0F2;          /* 天空蓝 */
+  --sage: #A8CFA3;         /* 鼠尾草绿 */
+  --sunny: #FFD86B;        /* 暖黄 */
+  --tan: #E4C79A;          /* 浅棕 */
 
-  --background: var(--cream);
-  --foreground: var(--ink);
-  --card: oklch(0.99 0.02 90);
-  --card-foreground: var(--ink);
-  --popover: oklch(0.99 0.02 90);
-  --popover-foreground: var(--ink);
+  --background: var(--paper);
+  --foreground: var(--text);
+  --card: var(--cream);
+  --card-foreground: var(--text);
+  --popover: var(--cream);
+  --popover-foreground: var(--text);
   --primary: var(--sage);
   --primary-foreground: var(--ink);
   --secondary: var(--sky);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.93 0.02 85);
-  --muted-foreground: oklch(0.5 0.04 50);
+  --muted: #EFE1C1;
+  --muted-foreground: #7A5A44;
   --accent: var(--cherry);
   --accent-foreground: var(--ink);
-  --destructive: oklch(0.65 0.22 25);
-  --destructive-foreground: oklch(0.98 0.01 90);
+  --destructive: #D9534F;
+  --destructive-foreground: #FFF4DA;
   --border: var(--ink);
-  --input: oklch(0.93 0.02 85);
+  --input: #EFE1C1;
   --ring: var(--sage);
 }
 
