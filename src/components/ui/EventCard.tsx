@@ -15,7 +15,7 @@ export function EventCard({
   onPick: (opt: EventOption) => void;
 }) {
   return (
-    <div className="quest-card">
+    <div className="quest-card flex flex-col h-full">
       <div className="panel-title-strip">
         <span className="rank-badge rank-B" aria-hidden>
           {event.category.slice(0, 1)}
@@ -23,13 +23,12 @@ export function EventCard({
         <span className="flex-1 truncate">{event.title}</span>
         <span className="text-[10px] opacity-70">{event.category}</span>
       </div>
-      <div className="p-3">
+      <div className="p-3 flex flex-col flex-1 min-h-0">
         <p className="text-[12.5px] leading-snug text-ink/85 mb-2.5">{event.description}</p>
-        <div className="space-y-1.5">
+        <div className="space-y-1.5 mt-auto">
           {event.options.map((opt, i) => (
             <OptionRow key={i} option={opt} onPick={onPick} index={i} />
           ))}
-
         </div>
       </div>
     </div>
