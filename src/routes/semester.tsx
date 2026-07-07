@@ -56,29 +56,29 @@ function SemesterPage() {
   const total = totalSemesters();
 
   const topBar = (
-    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-3 min-h-[58px] flex items-center gap-2">
+    <div className="border-b-[3px] border-ink bg-ink text-cream px-2.5 py-2 min-h-[46px] flex items-center gap-2">
       <button
         onClick={() => navigate({ to: "/" })}
-        className="text-[12px] px-2 py-1 border-2 border-cream leading-none"
+        className="text-[11px] px-1.5 py-0.5 border border-cream leading-none"
       >
         ⌂
       </button>
       <div className="min-w-0 flex-1">
-        <div className="font-display text-[14px] leading-none truncate">{currentSemesterLabel(game)}</div>
-        <div className="text-[11px] text-cream/70 leading-none mt-1 truncate">
+        <div className="font-display text-[12.5px] leading-none truncate">{currentSemesterLabel(game)}</div>
+        <div className="text-[10px] text-cream/70 leading-none mt-0.5 truncate">
           {major.name} · {game.school}
         </div>
       </div>
-      <div className="flex items-center gap-2 shrink-0">
-        <span className="font-display text-[12px] tabular-nums">
-          {game.semesterIdx + 1} / {total}
+      <div className="flex items-center gap-1.5 shrink-0">
+        <span className="font-display text-[11px] tabular-nums">
+          {game.semesterIdx + 1}/{total}
         </span>
         <button
           onClick={() => {
             gameStore.set({ finished: true });
             navigate({ to: "/result" });
           }}
-          className="text-[11px] px-2.5 py-1 border-2 border-cream bg-cherry text-cream leading-none"
+          className="text-[10px] px-1.5 py-0.5 border border-cream bg-cherry text-cream leading-none"
         >
           结
         </button>
@@ -87,11 +87,11 @@ function SemesterPage() {
   );
 
   const bottomBar = (
-    <div className="border-t-[3px] border-ink bg-cream px-2.5 py-2 grid grid-cols-2 gap-2">
-      <button onClick={() => setDrawer("profile")} className="pixel-tab !justify-center py-1.5">
+    <div className="border-t-[3px] border-ink bg-cream px-2.5 py-1.5 grid grid-cols-2 gap-2">
+      <button onClick={() => setDrawer("profile")} className="pixel-tab !justify-center py-1">
         档案
       </button>
-      <button onClick={() => setDrawer("log")} className="pixel-tab !justify-center py-1.5">
+      <button onClick={() => setDrawer("log")} className="pixel-tab !justify-center py-1">
         事件记录
       </button>
     </div>
@@ -100,14 +100,15 @@ function SemesterPage() {
   return (
     <PhoneFrame topBar={topBar} bottomBar={bottomBar}>
       <div className="semester-screen" style={{ height: LAYOUT_HEIGHT }}>
-        {/* HUD：6 项明面数值 */}
+        {/* HUD：3 项核心数值 */}
         <div className="semester-hud">
           <div className="grid grid-cols-3 gap-3">
-            {HUD_STATS.map((s) => (
+            {CORE_HUD_STATS.map((s) => (
               <HudCell key={s.key} short={s.short} value={game.stats[s.key] ?? 0} color={s.color} />
             ))}
           </div>
         </div>
+
 
         {/* 主场景 */}
         <div className="semester-scene-wrap">
