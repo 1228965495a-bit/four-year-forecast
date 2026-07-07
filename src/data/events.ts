@@ -386,6 +386,15 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "你告诉自己「以后履历上会写上这一笔」。周末就这么没了。",
       },
+      {
+        label: "反问一句「有加分吗」",
+        effects: [
+          { key: "escape", delta: 3 },
+          { key: "obsession", delta: -2 },
+          { key: "illusion", delta: 3 },
+        ],
+        feedback: "辅导员愣了两秒，然后说：你去问上一届。",
+      },
     ],
   },
   {
