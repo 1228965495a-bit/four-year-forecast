@@ -269,7 +269,7 @@ export function PixelButton3({
           ...PX_BG,
         }}
       >
-        <span className="relative truncate px-1">{children}</span>
+        <span className="relative block w-full text-center px-3 leading-tight">{children}</span>
       </span>
       <img
         src={right}
