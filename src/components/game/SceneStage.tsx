@@ -1,27 +1,33 @@
 import type { SceneKey } from "@/data/events";
+import type { SceneAssetConfig } from "@/data/sceneAssets";
 
 /**
  * 场景舞台：根据事件的 sceneKey 渲染一个像素风校园场景。
- * 全部使用 CSS 像素块拼接，不使用 emoji / canvas / 图片。
- * 后续可将背景替换为 /assets/backgrounds/{scene}.png。
+ * 默认使用 CSS 像素块拼接作为占位；后续只需在 sceneAssets.ts 中配置对应
+ * 场景的素材（image/gif/sprite/lottie），即可无缝替换为真实素材。
  */
 export function SceneStage({
   scene,
   badge,
   title,
   caption,
+  asset,
 }: {
   scene: SceneKey;
   badge?: string;
   title?: string;
   caption?: string;
+  asset?: SceneAssetConfig;
 }) {
+  const hideCharacter = asset?.hideCharacter ?? false;
   return (
     <div className="scene-stage">
-      <div className="absolute inset-0">{renderScene(scene)}</div>
+      <div className="absolute inset-0">
+        {asset ? <SceneAsset config={asset} /> : renderScene(scene)}
+      </div>
       {title && <div className="scene-title-banner">{title}</div>}
       {caption && <div className="scene-speech">{shortenCaption(caption)}</div>}
-      <PixelStudent />
+      {!hideCharacter && <PixelStudent />}
       {badge && (
         <div className="scene-badge">
           <span className="h-1.5 w-1.5 bg-cherry" />
@@ -33,6 +39,92 @@ export function SceneStage({
     </div>
   );
 }
+
+function SceneAsset({ config }: { config: SceneAssetConfig }) {
+  const { type, src, alt = "", objectFit = "cover", backgroundColor = "var(--cream)" } = config;
+
+  switch (type) {
+    case "image":
+    case "gif": {
+      return (
+        <img
+          src={src}
+          alt={alt}
+          className="absolute inset-0 h-full w-full"
+          style={{ objectFit, backgroundColor, imageRendering: "pixelated" }}
+        />
+      );
+    }
+    case "sprite": {
+      // 有精灵图参数时启用 CSS steps 动画；暂时无素材时直接展示第一帧占位
+      if (config.frameWidth && config.frameCount && config.frameHeight) {
+        return (
+          <SpriteSheet
+            src={src}
+            frameWidth={config.frameWidth}
+            frameHeight={config.frameHeight}
+            frameCount={config.frameCount}
+            fps={config.fps ?? 8}
+            backgroundColor={backgroundColor}
+          />
+        );
+      }
+      return (
+        <img
+          src={src}
+          alt={alt}
+          className="absolute inset-0 h-full w-full"
+          style={{ objectFit, backgroundColor, imageRendering: "pixelated" }}
+        />
+      );
+    }
+    case "lottie": {
+      // Lottie 素材由外部库渲染，此处预留容器，接入时替换为 Lottie 播放器
+      return (
+        <div
+          className="absolute inset-0 grid place-items-center text-[10px] text-ink/60"
+          style={{ backgroundColor }}
+        >
+          <span className="font-display">Lottie 素材占位：{alt}</span>
+        </div>
+      );
+    }
+    default:
+      return null;
+  }
+}
+
+function SpriteSheet({
+  src,
+  frameWidth,
+  frameHeight,
+  frameCount,
+  fps,
+  backgroundColor,
+}: {
+  src: string;
+  frameWidth: number;
+  frameHeight: number;
+  frameCount: number;
+  fps: number;
+  backgroundColor: string;
+}) {
+  const duration = Math.max(0.3, frameCount / fps);
+  return (
+    <div
+      className="absolute inset-0 h-full w-full"
+      style={{
+        backgroundColor,
+        backgroundImage: `url(${src})`,
+        backgroundRepeat: "repeat-x",
+        backgroundSize: "auto 100%",
+        imageRendering: "pixelated",
+        animation: `sprite-steps-${frameCount} ${duration}s steps(${frameCount - 1}) infinite`,
+      }}
+    />
+  );
+}
+
 
 function shortenCaption(text: string) {
   return text.length > 18 ? `${text.slice(0, 18)}…` : text;
