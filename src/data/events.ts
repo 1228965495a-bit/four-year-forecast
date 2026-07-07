@@ -134,6 +134,15 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "系统提示：你把复习变成了拖延艺术。",
       },
+      {
+        label: "组队去开黑，考完再说",
+        effects: [
+          { key: "battery", delta: 10 },
+          { key: "escape", delta: 6 },
+          { key: "gpa", delta: -10 },
+        ],
+        feedback: "你笑得最大声，但心里已经开始盘算补考日程。",
+      },
     ],
   },
   {
