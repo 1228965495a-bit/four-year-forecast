@@ -121,27 +121,35 @@ function GameWindowChrome({ compact = false }: { compact?: boolean }) {
 }
 
 
-function TitleBlock() {
+function TitleBlock({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="relative">
-      {/* 副 tag */}
+    <div className={compact ? "text-center" : "relative"}>
       <div className="mb-2 inline-flex items-center gap-2 pixel-panel-sm bg-cherry !text-cream px-2 py-0.5">
         <span className="h-1.5 w-1.5 bg-cream" />
         <span className="font-display text-[11px] tracking-widest">
           CAMPUS LIFE SIMULATOR
         </span>
       </div>
-      <h1 className="pixel-logo text-[36px] leading-none md:text-[56px]">
+      <h1
+        className={
+          compact
+            ? "pixel-logo text-[28px] leading-none"
+            : "pixel-logo text-[36px] leading-none md:text-[56px]"
+        }
+      >
         这专业我
         <br />
         先替你读了四年
       </h1>
-      <p className="mt-3 pixel-panel-sm inline-block bg-cream/95 px-2.5 py-1 font-display text-[13px] md:text-[15px]">
-        选择一个专业，开启一段离谱又真实的本科人生
-      </p>
+      {!compact && (
+        <p className="mt-3 pixel-panel-sm inline-block bg-cream/95 px-2.5 py-1 font-display text-[13px] md:text-[15px]">
+          选择一个专业，开启一段离谱又真实的本科人生
+        </p>
+      )}
     </div>
   );
 }
+
 
 interface MainMenuProps {
   hasSave: boolean;
