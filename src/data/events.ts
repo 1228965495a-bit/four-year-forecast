@@ -459,6 +459,15 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "你告诉自己「明天再开始」。明天没有开始。",
       },
+      {
+        label: "只选一门认真啃",
+        effects: [
+          { key: "gpa", delta: 8 },
+          { key: "obsession", delta: 6 },
+          { key: "battery", delta: -6 },
+        ],
+        feedback: "考完那天你在朋友圈发了张证书照，配文只写了「一」。",
+      },
     ],
   },
 ];
