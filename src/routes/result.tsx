@@ -48,35 +48,39 @@ function ResultPage() {
               ▌ FINAL · REPORT
             </div>
             <div className="relative text-[10px] font-display tracking-widest opacity-80">
-              NO.{String(major.id).slice(0, 6).toUpperCase()}
+              REPORT ID：{String(major.id).slice(0, 6).toUpperCase()}-001
             </div>
           </div>
 
           {/* 主视觉：结局身份 */}
           <header
-            className="px-4 pt-4 pb-4 text-center relative border-b-[3px] border-dashed border-ink/50"
+            className="px-4 pt-5 pb-5 text-center relative border-b-[3px] border-dashed border-ink/50"
             style={{ background: "var(--parchment)" }}
           >
             <div className="text-[10px] font-display tracking-[0.3em] text-ink/60">
               你的本科人生结局
             </div>
-            <div className="mt-1 inline-block px-2 py-0.5 border-2 border-ink bg-cream font-display text-[12px]">
-              {major.name}
+            <div className="mt-1.5 inline-flex items-center gap-1 px-2.5 py-0.5 border-2 border-ink bg-cream font-display text-[11px]">
+              <span className="text-ink/50">MAJOR</span>
+              <span>{major.name}</span>
             </div>
             <h1
-              className="pixel-logo mt-2.5 leading-[1]"
-              style={{ fontSize: 30 }}
+              className="pixel-logo mt-3 leading-[1.1]"
+              style={{ fontSize: 28 }}
             >
               {result.title}
             </h1>
 
             {/* 评级 stamp */}
-            <div className="mt-3 flex justify-center">
-              <div className="relative inline-flex items-center gap-1.5 px-3 py-1 border-[3px] border-cherry bg-cream -rotate-2 shadow-[2px_2px_0_0_var(--ink)]">
-                <span className="text-cherry font-display text-[10px] tracking-widest">
+            <div className="mt-3.5 flex justify-center">
+              <div className="relative -rotate-3 flex flex-col items-center gap-0.5 px-2.5 py-1.5 border-[2.5px] border-cherry bg-cream shadow-[2px_2px_0_0_var(--ink)]">
+                <span className="text-cherry font-display text-[9px] tracking-[0.2em]">
                   ★ 评级
                 </span>
-                <span className="font-display text-[12px] text-ink">{rating}</span>
+                <span className="font-display text-[11px] text-ink leading-tight">
+                  {rating}
+                </span>
+                <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ background: "radial-gradient(circle at 30% 30%, var(--cherry), transparent 70%)" }} />
               </div>
             </div>
 
