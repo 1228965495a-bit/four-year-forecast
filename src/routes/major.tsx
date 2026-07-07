@@ -14,6 +14,7 @@ import {
   PixelTierBadge,
   PixelImgButton,
 } from "@/components/pixel/PixelSkin";
+import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 
 export const Route = createFileRoute("/major")({ component: MajorSelectPage });
 
@@ -169,9 +170,9 @@ function MajorSelectPage() {
           </div>
 
           {list.length === 0 && (
-            <div className="pixel-panel-sm p-6 text-center text-[12px] text-ink/60">
-              没有匹配的副本，换个筛选试试
-            </div>
+            <PixelPanel9 variant="small" padding="p-5" className="text-center">
+              <div className="text-[12px] text-ink/60">没有匹配的副本，换个筛选试试</div>
+            </PixelPanel9>
           )}
         </div>
       </div>
@@ -194,10 +195,10 @@ function SelectionPreview({
 }: { major: any; onOpenDetail: () => void; onConfirm: () => void }) {
   if (!major) {
     return (
-      <div className="border-[3px] border-dashed border-ink/40 bg-cream/60 p-3 text-center">
+      <PixelPanel9 variant="small" padding="px-4 py-3" className="text-center">
         <div className="text-[10px] font-display tracking-[0.2em] text-ink/50">当前选中副本</div>
         <div className="text-[12px] text-ink/60 mt-1">👇 从下方点一个专业，先预览再进入</div>
-      </div>
+      </PixelPanel9>
     );
   }
 
@@ -206,8 +207,8 @@ function SelectionPreview({
   const cardTags: string[] = major.card?.tags ?? major.tags?.slice(0, 3) ?? [];
 
   return (
-    <div className="relative border-[3px] border-ink bg-cream shadow-[4px_4px_0_0_var(--cherry)] p-2.5">
-      <span className="absolute -top-2 left-2 text-[9px] font-display tracking-[0.2em] px-1.5 py-0.5 bg-ink text-cream">
+    <PixelPanel9 variant="sheet" padding="p-2.5" className="relative">
+      <span className="absolute -top-2 left-3 z-10 text-[9px] font-display tracking-[0.2em] px-1.5 py-0.5 bg-ink text-cream">
         ▌ 当前选中副本
       </span>
 
@@ -249,7 +250,7 @@ function SelectionPreview({
           ✓ 进入「{major.name}」副本
         </PixelImgButton>
       </div>
-    </div>
+    </PixelPanel9>
   );
 }
 
@@ -373,9 +374,9 @@ function DetailContent({ major, onConfirm }: { major: any; onConfirm: () => void
       )}
 
       {major.card?.riskWarning && (
-        <div className="border-2 border-cherry bg-cherry/10 p-2.5 text-[12px] leading-snug text-ink">
-          ⚠ {major.card.riskWarning}
-        </div>
+        <PixelPanel9 variant="warning" padding="px-3 py-2.5">
+          <div className="text-[12px] leading-snug text-ink">⚠ {major.card.riskWarning}</div>
+        </PixelPanel9>
       )}
 
       <PixelImgButton variant="primary" onClick={onConfirm}>

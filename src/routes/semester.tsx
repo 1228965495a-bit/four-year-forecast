@@ -14,6 +14,7 @@ import { majorById } from "@/data/script/gameData";
 import { EventCard } from "@/components/ui/EventCard";
 import { CharacterPanel } from "@/components/ui/CharacterPanel";
 import { PixelButton } from "@/components/ui/PixelButton";
+import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 
 export const Route = createFileRoute("/semester")({ component: SemesterPage });
 
@@ -165,23 +166,23 @@ function FeedbackModal({
   return (
     <div className="absolute inset-0 z-50 flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-ink/55" />
-      <div className="modal-card relative z-10 w-full max-w-[320px] animate-pop-in">
+      <PixelPanel9 variant="noteYellow" className="relative z-10 w-full max-w-[320px] animate-pop-in" padding="p-3">
         <div className="inline-flex items-center border-2 border-ink bg-cream px-2 py-0.5 text-[10px] font-display tracking-wider"
              style={{ boxShadow: "2px 2px 0 0 var(--ink)" }}>
           系统记录
         </div>
         <div className="mt-2.5 font-display text-[16px] leading-tight">{event?.title}</div>
         <p className="mt-1.5 text-[12.5px] leading-snug text-ink/85">{choice?.text}。</p>
-        <div className="diag-note mt-3">
+        <PixelPanel9 variant="diagnosis" className="mt-3" padding="px-3 py-2">
           <div className="text-[10px] font-display tracking-widest text-ink/60 mb-0.5">
             系统提示
           </div>
-          {choice?.feedback || choice?.resultText || "……"}
-        </div>
+          <div className="text-[12.5px] leading-snug">{choice?.feedback || choice?.resultText || "……"}</div>
+        </PixelPanel9>
         <PixelButton variant="primary" size="block" className="mt-3.5" onClick={onNext}>
           继续 →
         </PixelButton>
-      </div>
+      </PixelPanel9>
     </div>
   );
 }
