@@ -106,13 +106,13 @@ export function PixelTierBadge({
 export function PixelDebuffBadge({ children }: { children: ReactNode }) {
   return (
     <span
-      className="relative inline-flex items-center justify-center font-display text-cream text-[11.5px] tracking-wider select-none"
+      className="relative inline-flex items-center justify-center font-display text-cream text-[10.5px] tracking-wider select-none whitespace-nowrap"
       style={{
         backgroundImage: `url(${pixelAssets.badges.debuff})`,
         backgroundSize: "100% 100%",
         backgroundRepeat: "no-repeat",
-        padding: "10px 18px 14px",
-        minWidth: 92,
+        padding: "6px 12px 10px",
+        minWidth: 68,
         textShadow: "1px 1px 0 rgba(0,0,0,0.4)",
         ...PX_BG,
       }}
@@ -125,14 +125,15 @@ export function PixelDebuffBadge({ children }: { children: ReactNode }) {
 export function PixelAchievementBadge({ children }: { children: ReactNode }) {
   return (
     <span
-      className="relative inline-flex items-center justify-center font-display text-ink text-[11.5px] tracking-wider select-none"
+      className="relative inline-flex items-center justify-center font-display text-ink text-[10.5px] tracking-wider select-none whitespace-nowrap"
       style={{
         backgroundImage: `url(${pixelAssets.badges.achievement})`,
         backgroundSize: "100% 100%",
         backgroundRepeat: "no-repeat",
-        padding: "12px 16px 14px",
-        minWidth: 92,
+        padding: "8px 12px 12px",
+        minWidth: 68,
         ...PX_BG,
+
       }}
     >
       <span className="relative">★ {children}</span>
