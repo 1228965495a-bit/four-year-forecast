@@ -193,3 +193,83 @@
 @utility animate-pixel-pop { animation: pixel-pop 260ms ease-out both; }
 @utility animate-pixel-float { animation: pixel-float 2.4s ease-in-out infinite; }
 @utility animate-toast { animation: toast-up 1.6s ease-out both; }
+
+/* ============ Homepage-specific pixel utilities ============ */
+
+@utility pixel-logo {
+  font-family: var(--font-display);
+  color: var(--cream);
+  -webkit-text-stroke: 2px var(--ink);
+  paint-order: stroke fill;
+  text-shadow:
+    0 3px 0 var(--ink),
+    0 6px 0 rgba(63, 42, 31, 0.35);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+@utility pixel-panel {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 0 var(--ink);
+  color: var(--text);
+}
+
+@utility pixel-panel-sm {
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: 3px 3px 0 0 var(--ink);
+  color: var(--text);
+}
+
+/* Menu button styled like game menu row */
+@utility menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 8px;
+  background: var(--cream);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  box-shadow: 4px 4px 0 0 var(--ink);
+  cursor: pointer;
+  transition: transform 80ms ease, box-shadow 80ms ease, background 120ms;
+  &:hover {
+    transform: translate(-1px, -2px);
+    box-shadow: 5px 6px 0 0 var(--ink);
+    background: var(--sunny);
+  }
+  &:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 0 var(--ink);
+  }
+}
+
+@utility paper-bg {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(rgba(63, 42, 31, 0.10) 1px, transparent 1px),
+    radial-gradient(rgba(63, 42, 31, 0.05) 1px, transparent 1px);
+  background-size: 8px 8px, 24px 24px;
+  background-position: 0 0, 4px 4px;
+}
+
+@utility grass-strip {
+  background:
+    linear-gradient(180deg, #B7DAB2 0%, #98C593 60%, #7FB47A 100%);
+  position: relative;
+}
+
+@utility sky-strip {
+  background: linear-gradient(180deg, #B8E4FA 0%, #8FD0F2 70%, #A9D9F0 100%);
+}
+
+@keyframes pixel-blink { 0%,90%,100% { opacity: 1;} 95% { opacity: 0.3;} }
+@utility animate-pixel-blink { animation: pixel-blink 3s ease-in-out infinite; }
