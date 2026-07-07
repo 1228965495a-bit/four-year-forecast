@@ -99,7 +99,7 @@ function ResultPage() {
 
           {/* ===== 高亮：专业后遗症 / 永久 Debuff ===== */}
           <section className="px-3 pt-3 pb-2">
-            <SectionLabel accent="cherry">专业后遗症 / 永久 DEBUFF</SectionLabel>
+            <SectionLabel accent="cherry">专业后遗症 · 永久 DEBUFF</SectionLabel>
             <div className="mt-1.5 flex flex-wrap gap-1.5">
               {major.aftereffects.map((a) => (
                 <span
