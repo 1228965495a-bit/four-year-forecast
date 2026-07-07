@@ -181,7 +181,7 @@ function MiniMenuBtn({
   accent: "cherry" | "sky" | "sage" | "sunny";
   disabled?: boolean;
 }) {
-  const bg =
+  const accentColor =
     accent === "cherry" ? "var(--cherry)" :
     accent === "sky" ? "var(--sky)" :
     accent === "sage" ? "var(--sage)" : "var(--sunny)";
@@ -189,16 +189,20 @@ function MiniMenuBtn({
     <button
       onClick={onClick}
       disabled={disabled}
-      className="pixel-btn flex flex-col items-center gap-1 py-1.5"
-      style={{ background: bg }}
+      className="pixel-btn flex flex-col items-center gap-1 py-1.5 bg-cream border-t-[3px]"
+      style={{ borderTopColor: accentColor }}
     >
-      <span className="inline-flex h-5 w-5 items-center justify-center bg-cream border-2 border-ink">
+      <span
+        className="inline-flex h-5 w-5 items-center justify-center bg-cream border-2 border-ink"
+        style={{ color: accentColor }}
+      >
         {glyph}
       </span>
-      <span className="font-display text-[11px] leading-none">{label}</span>
+      <span className="font-display text-[10.5px] leading-none text-ink">{label}</span>
     </button>
   );
 }
+
 
 // silence unused
 void PixelButton;
