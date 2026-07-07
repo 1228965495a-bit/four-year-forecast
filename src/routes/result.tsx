@@ -81,8 +81,22 @@ function ResultPage() {
             </div>
           </div>
 
+          <div className="relative bg-ink text-cream px-3 py-2 flex items-center justify-between">
+            <div className="absolute inset-0 pixel-scanlines opacity-25" />
+            <div className="relative text-[10px] font-display tracking-widest opacity-80">
+              FILE：{String(major.id).slice(0, 6).toUpperCase()}
+            </div>
+            <div className="relative text-[10px] font-display tracking-widest opacity-80">
+              {major.name}
+            </div>
+          </div>
+
+          <div className="px-4 pt-3 -mb-1" style={{ background: "var(--parchment)" }}>
+            <PixelHeader variant="finalReport" className="!max-w-[280px]" />
+          </div>
+
           <header
-            className="px-4 pt-5 pb-5 text-center relative border-b-[3px] border-dashed border-ink/50"
+            className="px-4 pt-2 pb-5 text-center relative border-b-[3px] border-dashed border-ink/50"
             style={{ background: "var(--parchment)" }}
           >
             <div className="text-[10px] font-display tracking-[0.3em] text-ink/60">
