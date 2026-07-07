@@ -1,49 +1,39 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
+import { SceneStage } from "@/components/game/SceneStage";
+import { PixelAvatar } from "@/components/game/PixelIcon";
 import {
-  IconStudy,
-  IconMoney,
-  IconMental,
-  IconSocial,
-  IconIntern,
-  IconEnergy,
-  PixelAvatar,
-} from "@/components/game/PixelIcon";
-import { EVENTS, type GameEvent } from "@/data/events";
+  EVENTS,
+  pickEvents,
+  type EventEffect,
+  type GameEvent,
+  type EventOption,
+} from "@/data/events";
 import { getMajorById } from "@/data/majors";
 import {
   gameStore,
   phaseLabel,
   useGameState,
+  VISIBLE_STATS,
+  TOTAL_STEPS,
+  STAT_META,
   type CharStats,
 } from "@/lib/gameStore";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/semester")({
-  component: SemesterPage,
-});
-
-const TIMELINE: { w: number; label: string }[] = [
-  { w: 1, label: "W1" },
-  { w: 4, label: "W4" },
-  { w: 8, label: "W8" },
-  { w: 12, label: "W12" },
-  { w: 16, label: "W16" },
-  { w: 17, label: "期末" },
-];
-
-interface Toast {
-  id: number;
-  text: string;
-}
+export const Route = createFileRoute("/semester")({ component: SemesterPage });
 
 function SemesterPage() {
   const game = useGameState();
   const navigate = useNavigate();
   const major = game.majorId ? getMajorById(game.majorId) : null;
-  const [toasts, setToasts] = useState<Toast[]>([]);
-  const [charOpen, setCharOpen] = useState(false);
+
+  const [feedback, setFeedback] = useState<{
+    option: EventOption;
+    eventTitle: string;
+  } | null>(null);
+  const [drawer, setDrawer] = useState<"none" | "profile" | "log">("none");
 
   useEffect(() => {
     if (!game.majorId) navigate({ to: "/major" });
@@ -52,303 +42,345 @@ function SemesterPage() {
     if (game.finished) navigate({ to: "/result" });
   }, [game.finished, navigate]);
 
-  const eventPool = useMemo<GameEvent[]>(() => {
-    const arr = [...EVENTS];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr.slice(0, 2);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [game.year, game.semester, game.week]);
+  const currentEvent = useMemo<GameEvent>(() => {
+    return pickEvents(game.step, 1)[0] ?? EVENTS[0];
+  }, [game.step]);
 
-  const totalWeeks =
-    ((game.year - 1) * 2 + (game.semester - 1)) * 16 + game.week;
-  const totalTarget = 4 * 2 * 16;
-  const progressPct = Math.min(100, (totalWeeks / totalTarget) * 100);
-
-  const pushToast = (text: string) => {
-    const id = Date.now() + Math.random();
-    setToasts((t) => [...t, { id, text }]);
-    setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 1700);
+  const onPick = (opt: EventOption) => {
+    setFeedback({ option: opt, eventTitle: currentEvent.title });
   };
 
-  const pickEvent = (ev: GameEvent) => {
-    gameStore.applyEffects(ev.effects);
+  const confirmNext = () => {
+    if (!feedback) return;
+    gameStore.applyEffects(feedback.option.effects);
     gameStore.logEvent({
-      week: game.week,
+      step: game.step + 1,
       phase: phaseLabel(game),
-      title: ev.title,
-      emoji: ev.emoji,
+      title: feedback.eventTitle,
+      choice: feedback.option.label,
     });
-    if (ev.id === "study_final")
-      gameStore.addAchievement({ id: "no_fail", label: "0 挂科", emoji: "🎯" });
-    if (ev.id === "intern")
-      gameStore.addAchievement({ id: "first_intern", label: "第一份实习", emoji: "💼" });
-    if (ev.id === "trip")
-      gameStore.addAchievement({ id: "wanderer", label: "校外漫游者", emoji: "🎒" });
-    pushToast(`✦ ${ev.title}｜${ev.gainLabel ?? ""}`);
-    gameStore.advanceWeek(4);
+    // 挂成就示例
+    if (game.stats.mouthHard + (feedback.option.effects.find(e=>e.key==="mouthHard")?.delta ?? 0) >= 80) {
+      gameStore.addAchievement({ id: "mouth_iron", label: "嘴硬续命" });
+    }
+    setFeedback(null);
+    gameStore.advanceStep();
   };
-
-  const diagnosis = useMemo(() => {
-    const s = game.stats;
-    if (s.mental < 35) return "精神状态告急，建议休学一周看海。";
-    if (s.study > 75 && s.internship > 60) return "两开花选手，前途光明。";
-    if (s.money < 25) return "已进入吃土模式。";
-    if (s.social < 30) return "社交电量偏低。";
-    return "稳中有进，注意别卷坏了。";
-  }, [game.stats]);
 
   if (!major) return null;
-  const currentIdx = TIMELINE.findIndex((t) => game.week <= t.w);
 
   const topBar = (
     <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-1.5 flex items-center gap-2">
       <button
         onClick={() => navigate({ to: "/" })}
-        className="text-[11px] px-2 py-0.5 border-2 border-cream bg-transparent"
+        className="text-[11px] px-2 py-0.5 border-2 border-cream"
+        aria-label="返回主页"
       >
         ⌂
       </button>
-      <div>
-        <div className="font-display text-[13px] leading-none">
+      <div className="min-w-0">
+        <div className="font-display text-[13px] leading-none truncate">
           {phaseLabel(game)}
         </div>
-        <div className="text-[9px] text-cream/70 leading-none mt-0.5">
+        <div className="text-[9px] text-cream/70 leading-none mt-0.5 truncate">
           {major.name} · {game.school}
         </div>
       </div>
-      <button
-        onClick={() => {
-          gameStore.set({ finished: true });
-          navigate({ to: "/result" });
-        }}
-        className="ml-auto text-[10px] px-2 py-1 border-2 border-cream bg-cherry text-cream"
-      >
-        结束模拟 →
-      </button>
+      <div className="ml-auto flex items-center gap-1">
+        <span className="font-display text-[11px] tabular-nums">
+          {Math.min(game.step + 1, TOTAL_STEPS)} / {TOTAL_STEPS}
+        </span>
+        <button
+          onClick={() => {
+            gameStore.set({ finished: true });
+            navigate({ to: "/result" });
+          }}
+          className="text-[10px] px-2 py-1 border-2 border-cream bg-cherry text-cream ml-1"
+        >
+          结束
+        </button>
+      </div>
     </div>
   );
 
   return (
     <PhoneFrame topBar={topBar}>
-      <div className="p-3 space-y-3 pb-6">
-        {/* HUD 两行 */}
-        <div className="pixel-panel !p-2">
-          <div className="grid grid-cols-3 gap-2">
-            <HudStat label="学业" val={game.stats.study} icon={<IconStudy />} color="var(--sky)" />
-            <HudStat label="金钱" val={game.stats.money} icon={<IconMoney />} color="var(--sunny)" />
-            <HudStat label="精神" val={game.stats.mental} icon={<IconMental />} color="var(--cherry)" />
-            <HudStat label="社交" val={game.stats.social} icon={<IconSocial />} color="var(--sage)" />
-            <HudStat label="实习" val={game.stats.internship} icon={<IconIntern />} color="var(--tan)" />
-            <HudStat label="体力" val={game.stats.energy} icon={<IconEnergy />} color="#D9534F" />
-          </div>
-        </div>
-
-        {/* 时间线 */}
-        <div className="pixel-panel !p-2.5 bg-sky/30">
-          <div className="flex items-center justify-between mb-2">
-            <span className="font-display text-[12px]">本学期时间线</span>
-            <span className="text-[10px] text-ink/70">总进度 {Math.round(progressPct)}%</span>
-          </div>
-          <div className="flex items-center gap-0.5">
-            {TIMELINE.map((t, i) => (
-              <div key={t.w} className="flex flex-1 items-center">
-                <div
-                  className={cn(
-                    "pixel-border-sm !shadow-none flex h-7 flex-1 items-center justify-center text-[9px] font-bold",
-                    i <= currentIdx ? "bg-cherry text-cream" : "bg-cream"
-                  )}
-                >
-                  {t.label}
-                </div>
-                {i < TIMELINE.length - 1 && (
-                  <div className={cn("h-1 w-1.5", i < currentIdx ? "bg-cherry" : "bg-ink/20")} />
-                )}
-              </div>
+      <div className="flex flex-col h-full">
+        {/* ============ 顶部轻 HUD ============ */}
+        <div className="px-2.5 pt-2 pb-1.5 border-b-2 border-ink/20 bg-cream">
+          <div className="grid grid-cols-6 gap-1">
+            {VISIBLE_STATS.map((s) => (
+              <HudCell key={s.key} short={s.short} value={game.stats[s.key]} color={s.color} />
             ))}
           </div>
         </div>
 
-        {/* 事件卡 */}
-        <div>
-          <div className="flex items-center justify-between mb-1.5">
-            <span className="font-display text-[13px] flex items-center gap-1">
-              <span className="h-1.5 w-1.5 bg-cherry" />
-              本周可选事件
-            </span>
-            <button
-              onClick={() => gameStore.advanceWeek(4)}
-              className="pixel-tab !py-0.5"
-            >
-              ⏭ 跳过 4 周
-            </button>
-          </div>
-          <div className="space-y-2">
-            {eventPool.map((ev) => (
-              <EventCard key={ev.id + game.week} event={ev} onPick={pickEvent} />
-            ))}
-          </div>
+        {/* ============ 中间主场景 ============ */}
+        <div className="px-2.5 pt-2">
+          <SceneStage scene={currentEvent.scene} badge={currentEvent.category} />
         </div>
 
-        {/* 角色状态折叠 */}
-        <div className="pixel-panel !p-0 overflow-hidden">
-          <button
-            onClick={() => setCharOpen((v) => !v)}
-            className="w-full flex items-center gap-2 p-2 bg-cream border-b-[3px] border-ink"
-          >
-            <div className="pixel-border-sm !shadow-none overflow-hidden" style={{ width: 36, height: 36 }}>
-              <PixelAvatar size={36} />
+        {/* ============ 底部事件面板 ============ */}
+        <div className="flex-1 min-h-0 px-2.5 pt-2 pb-2 flex flex-col">
+          <div className="event-panel flex-1 flex flex-col">
+            <div className="flex items-start gap-2 mb-1.5">
+              <span className="pixel-chip !text-[10px] !py-0 bg-cream shrink-0">
+                {currentEvent.category}
+              </span>
+              <h3 className="font-display text-[15px] leading-tight flex-1">
+                {currentEvent.title}
+              </h3>
             </div>
-            <div className="min-w-0 text-left flex-1">
-              <div className="font-display text-[13px] truncate">{game.characterName}</div>
-              <div className="text-[10px] text-ink/70 truncate">{major.name} · 大{["一","二","三","四"][game.year-1]}</div>
-            </div>
-            <span className="text-[12px]">{charOpen ? "▲" : "▼"}</span>
-          </button>
-          {charOpen && (
-            <div className="p-2.5 space-y-2 text-[12px]">
-              <div className="grid grid-cols-2 gap-2">
-                <InfoCell label="姓名" value={game.characterName} />
-                <InfoCell label="学校" value={game.school} />
-                <InfoCell label="专业" value={major.name} />
-                <InfoCell label="年级" value={`大${["一","二","三","四"][game.year-1]}`} />
-              </div>
-              <div>
-                <div className="text-[11px] text-ink/60 mb-1 font-display tracking-widest">专业后遗症</div>
-                <div className="flex flex-wrap gap-1">
-                  {major.aftereffects.map((a) => (
-                    <span key={a} className="pixel-chip bg-cherry/20 !text-[10px]">{a}</span>
-                  ))}
-                </div>
-              </div>
-              <div className="pixel-border-sm !shadow-none bg-sage/25 p-2">
-                <div className="text-[10px] text-ink/60 mb-0.5">系统诊断</div>
-                <div className="text-[12px]">{diagnosis}</div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* 底部快捷区 */}
-        <div className="grid grid-cols-2 gap-2">
-          <div className="pixel-panel-sm !p-2 bg-sunny/40">
-            <div className="text-[11px] font-display tracking-widest mb-1">本学期目标</div>
-            <ul className="space-y-0.5 text-[11px]">
-              <li>· 学业 ≥ 60</li>
-              <li>· 完成 1 段实习</li>
-              <li>· 精神 &gt; 30</li>
-            </ul>
-          </div>
-          <div className="pixel-panel-sm !p-2 bg-sky/30">
-            <div className="text-[11px] font-display tracking-widest mb-1">你可能成为…</div>
-            <div className="flex flex-wrap gap-1">
-              {major.endings.slice(0, 4).map((e) => (
-                <span key={e} className="pixel-chip !text-[10px] bg-cream">{e}</span>
+            <p className="text-[12px] leading-snug text-ink/85 mb-2">
+              {currentEvent.description}
+            </p>
+            <div className="flex-1" />
+            <div className="space-y-1.5">
+              {currentEvent.options.map((opt, i) => (
+                <OptionButton key={i} option={opt} onPick={onPick} />
               ))}
             </div>
           </div>
-        </div>
 
-        <div className="pixel-panel-sm !p-2">
-          <div className="text-[11px] font-display tracking-widest mb-1 flex items-center gap-1">
-            <span className="h-1.5 w-1.5 bg-sunny" />
-            阶段性成就
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {game.achievements.length === 0 && (
-              <span className="text-[11px] text-ink/60">还没成就，去做点事情。</span>
-            )}
-            {game.achievements.map((a) => (
-              <span key={a.id} className="pixel-chip bg-sunny/60 !text-[11px]">
-                ★ {a.label}
-              </span>
-            ))}
+          {/* 底部次级抽屉入口 */}
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            <button
+              onClick={() => setDrawer("profile")}
+              className="pixel-tab !justify-center py-1"
+            >
+              档案
+            </button>
+            <button
+              onClick={() => setDrawer("log")}
+              className="pixel-tab !justify-center py-1"
+            >
+              事件记录 · {game.history.length}
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Toast */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-16 z-50 flex flex-col items-center gap-1.5 px-4">
-        {toasts.map((t) => (
-          <div
-            key={t.id}
-            className="pixel-panel-sm bg-ink text-cream px-3 py-1.5 text-[12px] animate-toast"
-          >
-            {t.text}
-          </div>
-        ))}
-      </div>
+      {/* ============ 反馈面板 ============ */}
+      {feedback && (
+        <FeedbackSheet
+          option={feedback.option}
+          eventTitle={feedback.eventTitle}
+          onNext={confirmNext}
+        />
+      )}
+
+      {/* ============ 次级抽屉 ============ */}
+      {drawer !== "none" && (
+        <DrawerSheet onClose={() => setDrawer("none")}>
+          {drawer === "profile" ? (
+            <ProfileDrawer />
+          ) : (
+            <LogDrawer />
+          )}
+        </DrawerSheet>
+      )}
     </PhoneFrame>
   );
 }
 
-function HudStat({
-  label,
-  val,
-  icon,
-  color,
+/* ============ 子组件 ============ */
+
+function HudCell({ short, value, color }: { short: string; value: number; color: string }) {
+  return (
+    <div className="flex flex-col items-center gap-0.5">
+      <div className="w-full bar-track !h-2">
+        <div className="bar-fill" style={{ width: `${value}%`, background: color }} />
+      </div>
+      <div className="flex items-center gap-0.5 leading-none">
+        <span className="text-[9px] text-ink/70">{short}</span>
+        <span className="font-display text-[10px] tabular-nums">{Math.round(value)}</span>
+      </div>
+    </div>
+  );
+}
+
+function OptionButton({ option, onPick }: { option: EventOption; onPick: (o: EventOption) => void }) {
+  return (
+    <button onClick={() => onPick(option)} className="option-btn group">
+      <div className="flex-1 text-left">
+        <div className="font-display text-[13px] leading-snug">{option.label}</div>
+        <div className="mt-1 flex flex-wrap gap-1">
+          {option.effects.map((e, i) => (
+            <EffectChip key={i} effect={e} />
+          ))}
+        </div>
+      </div>
+      <span className="option-arrow">▶</span>
+    </button>
+  );
+}
+
+function EffectChip({ effect }: { effect: EventEffect }) {
+  const meta = STAT_META.find((m) => m.key === effect.key)!;
+  const pos = effect.delta >= 0;
+  return (
+    <span
+      className="inline-flex items-center gap-1 border-2 border-ink px-1 py-[1px] text-[10px] leading-none bg-cream"
+      style={{ boxShadow: "1px 1px 0 0 var(--ink)" }}
+    >
+      <span
+        className="inline-block h-1.5 w-1.5"
+        style={{ background: meta.color }}
+      />
+      <span>{meta.short}</span>
+      <span className={cn("font-display tabular-nums", pos ? "text-[#2E7A3A]" : "text-[#C1443C]")}>
+        {pos ? "+" : ""}{effect.delta}
+      </span>
+    </span>
+  );
+}
+
+function FeedbackSheet({
+  option,
+  eventTitle,
+  onNext,
 }: {
-  label: string;
-  val: number;
-  icon: React.ReactNode;
-  color: string;
+  option: EventOption;
+  eventTitle: string;
+  onNext: () => void;
 }) {
   return (
-    <div className="flex items-center gap-1.5">
-      <div className="pixel-border-sm !shadow-none bg-cream shrink-0 flex items-center justify-center" style={{ width: 22, height: 22 }}>
-        {icon}
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-baseline gap-1">
-          <span className="text-[10px] text-ink/70">{label}</span>
-          <span className="font-display text-[11px] ml-auto">{val}</span>
+    <>
+      <div className="absolute inset-0 z-40 bg-ink/50" />
+      <div className="absolute inset-x-0 bottom-0 z-50 sheet-panel p-3 pb-5 animate-pop-in max-h-[80%] overflow-y-auto">
+        <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-ink/40" />
+        <div className="text-[10px] font-display tracking-widest text-ink/60">系统记录</div>
+        <div className="mt-1 font-display text-[15px] leading-tight">
+          {eventTitle} · {option.label}
         </div>
-        <div className="bar-track !h-1.5 mt-0.5">
-          <div className="bar-fill" style={{ width: `${val}%`, background: color }} />
+        <div className="mt-2 pixel-border-sm !shadow-none bg-cream p-2">
+          <div className="text-[10px] text-ink/60 mb-1">数值变化</div>
+          <div className="flex flex-wrap gap-1.5">
+            {option.effects.map((e, i) => (
+              <EffectChip key={i} effect={e} />
+            ))}
+          </div>
         </div>
-      </div>
-    </div>
-  );
-}
-
-function EventCard({ event, onPick }: { event: GameEvent; onPick: (e: GameEvent) => void }) {
-  const iconLetter = event.title.slice(0, 1);
-  return (
-    <div className="pixel-panel !p-2.5 flex gap-2.5">
-      <div
-        className="pixel-border-sm !shadow-none flex items-center justify-center font-display text-[16px] shrink-0"
-        style={{ width: 42, height: 42, background: "var(--sage)" }}
-      >
-        {iconLetter}
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2">
-          <span className="font-display text-[14px]">{event.title}</span>
-          <span className="pixel-chip !text-[9px] !py-0 bg-cream">{event.category}</span>
+        <div className="mt-2 pixel-border-sm !shadow-none bg-sunny/40 p-2 text-[12px] leading-snug">
+          <div className="text-[10px] text-ink/60 mb-1 font-display tracking-widest">系统提示</div>
+          {option.feedback}
         </div>
-        <div className="text-[11px] text-ink/70 mt-0.5 leading-snug">{event.description}</div>
-        {event.gainLabel && (
-          <div className="mt-1 text-[11px] font-display text-ink/80">{event.gainLabel}</div>
-        )}
         <button
-          onClick={() => onPick(event)}
-          className="pixel-btn mt-1.5 px-3 py-1 text-[12px]"
-          style={{ background: "var(--sky)" }}
+          onClick={onNext}
+          className="pixel-btn w-full mt-3 py-2.5 text-[14px]"
+          style={{ background: "var(--sage)" }}
         >
-          去做 →
+          进入下一周 →
         </button>
       </div>
+    </>
+  );
+}
+
+function DrawerSheet({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
+  return (
+    <>
+      <button
+        aria-label="关闭"
+        onClick={onClose}
+        className="absolute inset-0 z-40 bg-ink/40"
+      />
+      <div className="absolute inset-x-0 bottom-0 z-50 sheet-panel p-3 pb-5 animate-pop-in max-h-[75%] overflow-y-auto">
+        <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-ink/40" />
+        {children}
+      </div>
+    </>
+  );
+}
+
+function ProfileDrawer() {
+  const game = useGameState();
+  const major = game.majorId ? getMajorById(game.majorId) : null;
+  if (!major) return null;
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-3">
+        <div className="pixel-border-sm !shadow-none overflow-hidden" style={{ width: 48, height: 48 }}>
+          <PixelAvatar size={48} />
+        </div>
+        <div>
+          <div className="font-display text-[16px]">{game.characterName}</div>
+          <div className="text-[11px] text-ink/70">{major.name} · {game.school}</div>
+        </div>
+      </div>
+      <div>
+        <div className="text-[10px] font-display tracking-widest text-ink/60 mb-1">明面属性</div>
+        <div className="grid grid-cols-2 gap-2">
+          {VISIBLE_STATS.map((s) => (
+            <div key={s.key} className="pixel-border-sm !shadow-none bg-cream p-1.5">
+              <div className="flex justify-between text-[11px]">
+                <span>{s.label}</span>
+                <span className="font-display tabular-nums">{Math.round(game.stats[s.key])}</span>
+              </div>
+              <div className="bar-track !h-2 mt-1">
+                <div className="bar-fill" style={{ width: `${game.stats[s.key]}%`, background: s.color }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div>
+        <div className="text-[10px] font-display tracking-widest text-ink/60 mb-1">
+          本学期目标（示意）
+        </div>
+        <ul className="text-[12px] space-y-0.5">
+          <li>· 绩点求生欲 ≥ 60</li>
+          <li>· 精神电量 &gt; 30</li>
+          <li>· 完成 1 段实习</li>
+        </ul>
+      </div>
+      <div>
+        <div className="text-[10px] font-display tracking-widest text-ink/60 mb-1">
+          可能成为…
+        </div>
+        <div className="flex flex-wrap gap-1">
+          {major.endings.slice(0, 4).map((e) => (
+            <span key={e} className="pixel-chip !text-[10px] bg-cream">{e}</span>
+          ))}
+        </div>
+      </div>
+      <div>
+        <div className="text-[10px] font-display tracking-widest text-ink/60 mb-1">
+          成就 · {game.achievements.length}
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {game.achievements.length === 0 && (
+            <span className="text-[11px] text-ink/60">还没成就，去做点事。</span>
+          )}
+          {game.achievements.map((a) => (
+            <span key={a.id} className="pixel-chip bg-sunny/60 !text-[11px]">★ {a.label}</span>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
 
-function InfoCell({ label, value }: { label: string; value: string }) {
+function LogDrawer() {
+  const game = useGameState();
   return (
-    <div className="pixel-border-sm !shadow-none bg-cream p-1.5">
-      <div className="text-[9px] text-ink/60 leading-none">{label}</div>
-      <div className="font-display text-[12px] leading-tight mt-0.5 truncate">{value}</div>
+    <div>
+      <div className="font-display text-[15px] mb-2">事件记录</div>
+      {game.history.length === 0 && (
+        <div className="text-[12px] text-ink/60">还没有记录。</div>
+      )}
+      <ul className="space-y-1.5">
+        {game.history.map((h, i) => (
+          <li key={i} className="pixel-border-sm !shadow-none bg-cream p-2 text-[12px]">
+            <div className="flex justify-between text-[10px] text-ink/60">
+              <span>{h.phase}</span>
+              <span>#{h.step}</span>
+            </div>
+            <div className="font-display text-[13px] mt-0.5">{h.title}</div>
+            <div className="text-[11px] text-ink/80">→ {h.choice}</div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
