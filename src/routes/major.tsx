@@ -85,14 +85,14 @@ function MajorSelectPage() {
   };
 
   const topBar = (
-    <div className="relative border-b-[3px] border-ink bg-ink px-2 pt-2 pb-2">
+    <div className="relative border-b-[3px] border-ink bg-ink px-2 py-1">
       <button
         onClick={() => navigate({ to: "/" })}
-        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 text-cream text-[11px] px-2 py-0.5 border-2 border-cream"
+        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 text-cream text-[10px] px-1.5 py-0.5 border border-cream leading-none"
       >
-        ← 返回
+        ←
       </button>
-      <PixelHeader variant="majorSelect" className="!max-w-[280px]" />
+      <PixelHeader variant="majorSelect" className="!max-w-[220px]" />
     </div>
   );
 
@@ -100,7 +100,7 @@ function MajorSelectPage() {
   return (
     <PhoneFrame topBar={topBar}>
       <div className="flex-1 min-h-0 overflow-y-auto">
-        <div className="flex flex-col gap-2.5 p-2.5 pb-4">
+        <div className="flex flex-col gap-2 p-2.5 pb-4">
 
           <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
             <div className="flex gap-1 pb-1 w-max items-end">
@@ -109,14 +109,15 @@ function MajorSelectPage() {
                   key={t.label}
                   active={tabLabel === t.label}
                   onClick={() => setTabLabel(t.label)}
-                  className="!text-[11px]"
-                  style={{ minWidth: 56, padding: "10px 12px 14px" }}
+                  className="!text-[10px]"
+                  style={{ minWidth: 42, padding: "4px 8px 8px" }}
                 >
                   {t.label}
                 </PixelChip>
               ))}
             </div>
           </div>
+
 
 
           <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
