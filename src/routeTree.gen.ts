@@ -9,8 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SemesterRouteImport } from './routes/semester'
+import { Route as ResultRouteImport } from './routes/result'
+import { Route as MajorRouteImport } from './routes/major'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SemesterRoute = SemesterRouteImport.update({
+  id: '/semester',
+  path: '/semester',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResultRoute = ResultRouteImport.update({
+  id: '/result',
+  path: '/result',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MajorRoute = MajorRouteImport.update({
+  id: '/major',
+  path: '/major',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +37,61 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/major': typeof MajorRoute
+  '/result': typeof ResultRoute
+  '/semester': typeof SemesterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/major': typeof MajorRoute
+  '/result': typeof ResultRoute
+  '/semester': typeof SemesterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/major': typeof MajorRoute
+  '/result': typeof ResultRoute
+  '/semester': typeof SemesterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/major' | '/result' | '/semester'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/major' | '/result' | '/semester'
+  id: '__root__' | '/' | '/major' | '/result' | '/semester'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MajorRoute: typeof MajorRoute
+  ResultRoute: typeof ResultRoute
+  SemesterRoute: typeof SemesterRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/semester': {
+      id: '/semester'
+      path: '/semester'
+      fullPath: '/semester'
+      preLoaderRoute: typeof SemesterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/result': {
+      id: '/result'
+      path: '/result'
+      fullPath: '/result'
+      preLoaderRoute: typeof ResultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/major': {
+      id: '/major'
+      path: '/major'
+      fullPath: '/major'
+      preLoaderRoute: typeof MajorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +104,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MajorRoute: MajorRoute,
+  ResultRoute: ResultRoute,
+  SemesterRoute: SemesterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
