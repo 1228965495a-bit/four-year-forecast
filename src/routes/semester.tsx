@@ -4,6 +4,7 @@ import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { SceneStage } from "@/components/game/SceneStage";
 import { pickEvents, type EventOption, type GameEvent, EVENTS } from "@/data/events";
 import { getMajorById } from "@/data/majors";
+import { getSceneAsset } from "@/data/sceneAssets";
 import {
   gameStore,
   phaseLabel,
@@ -38,6 +39,7 @@ function SemesterPage() {
     () => pickEvents(game.step, 1)[0] ?? EVENTS[0],
     [game.step],
   );
+  const sceneAsset = useMemo(() => getSceneAsset(currentEvent.scene), [currentEvent.scene]);
 
   const onPick = (opt: EventOption) => setFeedback({ option: opt, event: currentEvent });
 
@@ -121,6 +123,7 @@ function SemesterPage() {
             badge={currentEvent.category}
             title={currentEvent.title}
             caption={currentEvent.description}
+            asset={sceneAsset}
           />
         </div>
 
