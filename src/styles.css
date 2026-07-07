@@ -413,8 +413,8 @@
 @utility semester-hud {
   background: var(--cream);
   border-bottom: 2px solid rgba(63, 42, 31, 0.16);
-  padding: 12px 10px 11px;
-  min-height: 86px;
+  padding: 14px 12px 13px;
+  min-height: 130px;
 }
 
 @utility semester-scene-wrap {
