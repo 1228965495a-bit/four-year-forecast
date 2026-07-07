@@ -93,9 +93,9 @@ function ResultPage() {
             </blockquote>
           </header>
 
-          {/* ===== 高亮：专业后遗症 ===== */}
+          {/* ===== 高亮：专业后遗症 / 永久 Debuff ===== */}
           <section className="px-3 pt-3 pb-2">
-            <SectionLabel accent="cherry">专业后遗症 · SIDE EFFECTS</SectionLabel>
+            <SectionLabel accent="cherry">专业后遗症 / 永久 DEBUFF</SectionLabel>
             <div className="mt-1.5 flex flex-wrap gap-1.5">
               {major.aftereffects.map((a) => (
                 <span
@@ -109,24 +109,22 @@ function ResultPage() {
             </div>
           </section>
 
-          {/* ===== 高亮：代表成就 ===== */}
+          {/* ===== 系统诊断 ===== */}
           <section className="px-3 pt-2 pb-2">
-            <SectionLabel accent="sunny">代表成就 · ACHIEVEMENTS</SectionLabel>
-            <div className="mt-1.5 flex flex-wrap gap-1.5">
-              {result.achievements.slice(0, 3).map((a) => (
-                <span
-                  key={a}
-                  className="inline-flex items-center gap-1 border-2 border-ink bg-sunny text-ink font-display text-[12px] px-2 py-0.5 shadow-[2px_2px_0_0_var(--ink)]"
-                >
-                  ★ {a}
-                </span>
-              ))}
+            <SectionLabel>系统诊断 · DIAGNOSIS</SectionLabel>
+            <div
+              className="relative mt-1.5 border-2 border-dashed border-ink/60 p-2.5"
+              style={{ background: "var(--parchment)" }}
+            >
+              <p className="text-[12.5px] leading-[1.55] text-ink">
+                {result.advice}
+              </p>
             </div>
           </section>
 
-          {/* ===== 六项数值：紧凑 2 列，标签完整 ===== */}
+          {/* ===== 最终属性面板 ===== */}
           <section className="px-3 pt-2 pb-2">
-            <SectionLabel>六项明面数值 · STATS</SectionLabel>
+            <SectionLabel>最终属性面板 · STATS</SectionLabel>
             <div className="mt-1.5 grid grid-cols-2 gap-x-3 gap-y-1.5">
               {VISIBLE_STATS.map((s) => {
                 const v = Math.max(0, Math.min(100, Math.round(game.stats[s.key])));
@@ -152,20 +150,22 @@ function ResultPage() {
             </div>
           </section>
 
-          {/* ===== 系统吐槽 ===== */}
+          {/* ===== 高亮：代表成就 ===== */}
           <section className="px-3 pt-2 pb-3">
-            <div
-              className="relative border-2 border-dashed border-ink/60 p-2.5"
-              style={{ background: "var(--parchment)" }}
-            >
-              <div className="absolute -top-2 left-2 bg-cream px-1.5 text-[10px] font-display tracking-widest text-ink/70">
-                系统吐槽
-              </div>
-              <p className="text-[12.5px] leading-[1.55] text-ink pt-0.5">
-                {result.advice}
-              </p>
+            <SectionLabel accent="sunny">代表成就 · ACHIEVEMENTS</SectionLabel>
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {result.achievements.slice(0, 3).map((a) => (
+                <span
+                  key={a}
+                  className="inline-flex items-center gap-1 border-2 border-ink bg-sunny text-ink font-display text-[12px] px-2 py-0.5 shadow-[2px_2px_0_0_var(--ink)]"
+                >
+                  ★ {a}
+                </span>
+              ))}
             </div>
           </section>
+
+
 
           {/* ===== 分享文案 stamp ===== */}
           <section className="px-3 pb-3">
