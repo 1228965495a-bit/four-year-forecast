@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { CampusScene, GlyphPlay, GlyphBook, GlyphPerson, GlyphDisk } from "@/components/game/PixelIcon";
 import { useGameState, gameStore } from "@/lib/gameStore";
-import { getMajorById } from "@/data/majors";
+import { majorById } from "@/data/script/gameData";
 import { PixelButton } from "@/components/ui/PixelButton";
 import { PixelPanel } from "@/components/ui/PixelPanel";
 
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/")({ component: HomePage });
 function HomePage() {
   const game = useGameState();
   const navigate = useNavigate();
-  const currentMajor = game.majorId ? getMajorById(game.majorId) : null;
+  const currentMajor = game.majorId ? majorById[game.majorId] : null;
   const hasSave = !!currentMajor;
 
   const onStart = () => {

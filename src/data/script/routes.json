@@ -1,0 +1,2914 @@
+[
+  {
+    "id": "route_law_exam",
+    "name": "法考路线",
+    "description": "法学经典高压路线，触发刷题、主观题、复盘逃避和法考 PTSD 结局。",
+    "availableMajors": [
+      "law"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "law_y3s2_route_017",
+      "law_gg_002"
+    ],
+    "endingBias": [
+      "ending_law_exam_edge",
+      "ending_law_overachiever"
+    ],
+    "routeId": "route_law_exam",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "law"
+  },
+  {
+    "id": "route_postgrad",
+    "name": "考研路线",
+    "description": "把焦虑延长到研究生阶段，核心变量是绩点求生欲、精神电量和专业课背诵循环。",
+    "availableMajors": [
+      "law"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "law_y3s2_route_017",
+      "law_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_law_overachiever",
+      "ending_law_survivor"
+    ],
+    "routeId": "route_postgrad",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "law"
+  },
+  {
+    "id": "route_civil_service",
+    "name": "考公路线",
+    "description": "稳定路线发出微弱但持续的光，适合稳定偏好较高且精神电量未崩的法学生。",
+    "availableMajors": [
+      "law"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "law_y3s2_route_017",
+      "law_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_law_civil_service"
+    ],
+    "routeId": "route_civil_service",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "law"
+  },
+  {
+    "id": "route_job",
+    "name": "实习就业路线",
+    "description": "律所、法院、检察院、法务等现实入口，主要修正就业幻觉值。",
+    "availableMajors": [
+      "law"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s1"
+        }
+      ]
+    },
+    "eventIds": [
+      "law_y3s1_route_015",
+      "law_y3s2_route_017",
+      "law_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_law_survivor",
+      "ending_law_realist"
+    ],
+    "routeId": "route_job",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "law"
+  },
+  {
+    "id": "route_transfer_application",
+    "name": "转专业申请副本",
+    "description": "大二下隐藏路线，由跑路冲动、滤镜下降、绩点求生欲和转专业暗线变量共同触发。",
+    "availableMajors": [
+      "law"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "escapeImpulse",
+          "op": ">=",
+          "value": 55
+        },
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 45
+        },
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 55
+        },
+        {
+          "type": "hiddenStat",
+          "key": "transferThought",
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "eventIds": [
+      "law_transfer_apply_001",
+      "law_transfer_apply_002",
+      "law_transfer_apply_003"
+    ],
+    "endingBias": [
+      "ending_law_transfer_success",
+      "ending_law_transfer_fail"
+    ],
+    "routeId": "route_transfer_application",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "law"
+  },
+  {
+    "id": "route_cross",
+    "name": "跨考/转行路线",
+    "description": "把法学训练带离法学主线，不是彻底失败，而是把工具箱搬到别处。",
+    "availableMajors": [
+      "law"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "escapeImpulse",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "eventIds": [
+      "law_y3s2_main_018",
+      "law_y4s2_final_023"
+    ],
+    "endingBias": [
+      "ending_law_filter_broken",
+      "ending_law_survivor"
+    ],
+    "routeId": "route_cross",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "law"
+  },
+  {
+    "id": "route_layflat",
+    "name": "摆烂毕业路线",
+    "description": "降低目标保住毕业底线，风险是 GG 概率上升。",
+    "availableMajors": [
+      "law"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": "<=",
+          "value": 40
+        }
+      ]
+    },
+    "eventIds": [
+      "law_y3s2_main_018",
+      "law_y4s2_final_023"
+    ],
+    "endingBias": [
+      "ending_law_layflat"
+    ],
+    "routeId": "route_layflat",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "law"
+  },
+  {
+    "id": "computer_science_route_job",
+    "name": "实习就业路线",
+    "description": "直面市场，刷算法、补项目、投简历。",
+    "availableMajors": [
+      "computer_science"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "computer_science_y3s1_route_015",
+      "computer_science_y3s2_route_017",
+      "computer_science_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_computer_science_internship_anxiety",
+      "ending_computer_science_algorithm_shadow"
+    ],
+    "routeId": "computer_science_route_job",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "computer_science"
+  },
+  {
+    "id": "computer_science_route_postgrad",
+    "name": "考研路线",
+    "description": "把就业焦虑转移到 408、机试和复试。",
+    "availableMajors": [
+      "computer_science"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "computer_science_y3s2_route_017",
+      "computer_science_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_computer_science_overachiever"
+    ],
+    "routeId": "computer_science_route_postgrad",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "computer_science"
+  },
+  {
+    "id": "computer_science_route_stable",
+    "name": "考公/国企稳定路线",
+    "description": "技术之外的稳定路线，也有自己的门槛。",
+    "availableMajors": [
+      "computer_science"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "computer_science_y3s2_route_017",
+      "computer_science_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_computer_science_survivor"
+    ],
+    "routeId": "computer_science_route_stable",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "computer_science"
+  },
+  {
+    "id": "computer_science_route_product",
+    "name": "转产品/测试/运营路线",
+    "description": "离开纯写代码地狱，在技术和人类需求之间找位置。",
+    "availableMajors": [
+      "computer_science"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "computer_science_y3s2_route_017"
+    ],
+    "endingBias": [
+      "ending_computer_science_product_escape"
+    ],
+    "routeId": "computer_science_route_product",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "computer_science"
+  },
+  {
+    "id": "computer_science_route_transfer_application",
+    "name": "转专业申请副本",
+    "description": "大二下隐藏路线，由逃生变量和绩点共同触发。",
+    "availableMajors": [
+      "computer_science"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "computer_science_transfer_apply_001",
+      "computer_science_transfer_apply_002",
+      "computer_science_transfer_apply_003"
+    ],
+    "endingBias": [
+      "ending_computer_science_transfer_success"
+    ],
+    "routeId": "computer_science_route_transfer_application",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "computer_science"
+  },
+  {
+    "id": "computer_science_route_cross",
+    "name": "跨考/转行路线",
+    "description": "带着技术背景离开纯代码主线。",
+    "availableMajors": [
+      "computer_science"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "computer_science_y3s2_main_018",
+      "computer_science_y4s2_final_023"
+    ],
+    "endingBias": [
+      "ending_computer_science_filter_broken"
+    ],
+    "routeId": "computer_science_route_cross",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "computer_science"
+  },
+  {
+    "id": "computer_science_route_layflat",
+    "name": "摆烂毕业路线",
+    "description": "能跑就行，低烈度幸存。",
+    "availableMajors": [
+      "computer_science"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "computer_science_y3s2_main_018",
+      "computer_science_y4s2_final_023"
+    ],
+    "endingBias": [
+      "ending_computer_science_layflat"
+    ],
+    "routeId": "computer_science_route_layflat",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "computer_science"
+  },
+  {
+    "id": "artificial_intelligence_route_job",
+    "name": "实习就业路线",
+    "description": "算法岗、开发、数据和项目能力共同校准就业幻觉。",
+    "availableMajors": [
+      "artificial_intelligence"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "artificial_intelligence_y3s2_route_017",
+      "artificial_intelligence_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_artificial_intelligence_algorithm_edge"
+    ],
+    "routeId": "artificial_intelligence_route_job",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "artificial_intelligence"
+  },
+  {
+    "id": "artificial_intelligence_route_postgrad",
+    "name": "考研路线",
+    "description": "数学、算法和专业课焦虑延长到研究生阶段。",
+    "availableMajors": [
+      "artificial_intelligence"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "artificial_intelligence_y3s2_route_017",
+      "artificial_intelligence_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_artificial_intelligence_overachiever"
+    ],
+    "routeId": "artificial_intelligence_route_postgrad",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "artificial_intelligence"
+  },
+  {
+    "id": "artificial_intelligence_route_research",
+    "name": "科研竞赛路线",
+    "description": "论文、比赛、导师项目和算力焦虑共同出现。",
+    "availableMajors": [
+      "artificial_intelligence"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "artificial_intelligence_y3s2_route_017"
+    ],
+    "endingBias": [
+      "ending_artificial_intelligence_overachiever",
+      "ending_artificial_intelligence_tuner"
+    ],
+    "routeId": "artificial_intelligence_route_research",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "artificial_intelligence"
+  },
+  {
+    "id": "artificial_intelligence_route_application",
+    "name": "应用转向路线",
+    "description": "把模型、数据和工程能力转向产品、数据分析、应用开发或业务场景。",
+    "availableMajors": [
+      "artificial_intelligence"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "artificial_intelligence_y3s2_route_017",
+      "artificial_intelligence_y4s2_settlement_023"
+    ],
+    "endingBias": [
+      "ending_artificial_intelligence_application"
+    ],
+    "routeId": "artificial_intelligence_route_application",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "artificial_intelligence"
+  },
+  {
+    "id": "artificial_intelligence_route_transfer_application",
+    "name": "转专业申请副本",
+    "description": "大二下隐藏路线，补齐发现规则、准备材料和结果公布。",
+    "availableMajors": [
+      "artificial_intelligence"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "artificial_intelligence_transfer_apply_001",
+      "artificial_intelligence_transfer_apply_002",
+      "artificial_intelligence_transfer_apply_003"
+    ],
+    "endingBias": [
+      "ending_artificial_intelligence_transfer_success"
+    ],
+    "routeId": "artificial_intelligence_route_transfer_application",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "artificial_intelligence"
+  },
+  {
+    "id": "artificial_intelligence_route_layflat",
+    "name": "摆烂毕业路线",
+    "description": "低烈度幸存，不光荣但有效。",
+    "availableMajors": [
+      "artificial_intelligence"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "artificial_intelligence_y3s2_main_018",
+      "artificial_intelligence_y4s2_settlement_023"
+    ],
+    "endingBias": [
+      "ending_artificial_intelligence_layflat"
+    ],
+    "routeId": "artificial_intelligence_route_layflat",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "artificial_intelligence"
+  },
+  {
+    "id": "clinical_medicine_route_postgrad",
+    "routeId": "clinical_medicine_route_postgrad",
+    "majorId": "clinical_medicine",
+    "name": "考研路线",
+    "description": "院校、专硕/学硕、专业方向和长期训练同时上桌。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "长学制",
+      "医学基础"
+    ]
+  },
+  {
+    "id": "clinical_medicine_route_clinical",
+    "routeId": "clinical_medicine_route_clinical",
+    "majorId": "clinical_medicine",
+    "name": "临床路线",
+    "description": "见习实习、科室选择和规培现实逐步出现。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "长学制",
+      "医学基础"
+    ]
+  },
+  {
+    "id": "clinical_medicine_route_public_health",
+    "routeId": "clinical_medicine_route_public_health",
+    "majorId": "clinical_medicine",
+    "name": "公卫/医管转向",
+    "description": "保留医学背景，转向公共卫生、医管或相关领域。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "长学制",
+      "医学基础"
+    ]
+  },
+  {
+    "id": "clinical_medicine_route_research",
+    "routeId": "clinical_medicine_route_research",
+    "majorId": "clinical_medicine",
+    "name": "科研路线",
+    "description": "实验室、论文和科研训练提高权重。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "长学制",
+      "医学基础"
+    ]
+  },
+  {
+    "id": "clinical_medicine_route_civil_service",
+    "routeId": "clinical_medicine_route_civil_service",
+    "majorId": "clinical_medicine",
+    "name": "考公事业单位",
+    "description": "医学背景接入稳定路线。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "长学制",
+      "医学基础"
+    ]
+  },
+  {
+    "id": "finance_route_postgrad",
+    "routeId": "finance_route_postgrad",
+    "majorId": "finance",
+    "name": "考研路线",
+    "description": "用升学对冲就业分层和城市门槛。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "投行滤镜",
+      "数学现实"
+    ]
+  },
+  {
+    "id": "finance_route_investment_banking",
+    "routeId": "finance_route_investment_banking",
+    "majorId": "finance",
+    "name": "投行/券商路线",
+    "description": "实习、学校、城市和抗压同时上桌。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "投行滤镜",
+      "数学现实"
+    ]
+  },
+  {
+    "id": "finance_route_banking",
+    "routeId": "finance_route_banking",
+    "majorId": "finance",
+    "name": "银行路线",
+    "description": "稳定滤镜上升，但岗位差异明显。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "投行滤镜",
+      "数学现实"
+    ]
+  },
+  {
+    "id": "finance_route_fund_research",
+    "routeId": "finance_route_fund_research",
+    "majorId": "finance",
+    "name": "基金/研究路线",
+    "description": "数理、研究和信息处理能力提高权重。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "投行滤镜",
+      "数学现实"
+    ]
+  },
+  {
+    "id": "finance_route_civil_service",
+    "routeId": "finance_route_civil_service",
+    "majorId": "finance",
+    "name": "考公路线",
+    "description": "金融背景接入稳定路线。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "投行滤镜",
+      "数学现实"
+    ]
+  },
+  {
+    "id": "accounting_route_cpa",
+    "routeId": "accounting_route_cpa",
+    "majorId": "accounting",
+    "name": "CPA路线",
+    "description": "长期证书路线，回报和消耗都很明确。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "稳定滤镜",
+      "借贷平衡"
+    ]
+  },
+  {
+    "id": "accounting_route_audit",
+    "routeId": "accounting_route_audit",
+    "majorId": "accounting",
+    "name": "事务所/审计路线",
+    "description": "底稿、项目和忙季现实同时出现。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "稳定滤镜",
+      "借贷平衡"
+    ]
+  },
+  {
+    "id": "accounting_route_corporate_finance",
+    "routeId": "accounting_route_corporate_finance",
+    "majorId": "accounting",
+    "name": "企业财务路线",
+    "description": "把会计训练接到企业经营和财务岗位。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "稳定滤镜",
+      "借贷平衡"
+    ]
+  },
+  {
+    "id": "accounting_route_postgrad",
+    "routeId": "accounting_route_postgrad",
+    "majorId": "accounting",
+    "name": "考研路线",
+    "description": "用升学提升平台和方向。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "稳定滤镜",
+      "借贷平衡"
+    ]
+  },
+  {
+    "id": "accounting_route_civil_service",
+    "routeId": "accounting_route_civil_service",
+    "majorId": "accounting",
+    "name": "考公路线",
+    "description": "会计背景接入稳定岗位。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "稳定滤镜",
+      "借贷平衡"
+    ]
+  },
+  {
+    "id": "journalism_communication_route_postgrad",
+    "name": "考研路线",
+    "description": "新闻传播学的考研路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "journalism_communication"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "journalism_communication_y3s2_route_016",
+      "journalism_communication_y3s2_route_017",
+      "journalism_communication_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_journalism_communication_postgrad"
+    ],
+    "routeId": "journalism_communication_route_postgrad",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "journalism_communication"
+  },
+  {
+    "id": "journalism_communication_route_civil_service",
+    "name": "考公路线",
+    "description": "新闻传播学的考公路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "journalism_communication"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "journalism_communication_y3s2_route_016",
+      "journalism_communication_y3s2_route_017",
+      "journalism_communication_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_journalism_communication_civil_service"
+    ],
+    "routeId": "journalism_communication_route_civil_service",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "journalism_communication"
+  },
+  {
+    "id": "journalism_communication_route_job",
+    "name": "实习就业路线",
+    "description": "新闻传播学的实习就业路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "journalism_communication"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "journalism_communication_y3s2_route_016",
+      "journalism_communication_y3s2_route_017",
+      "journalism_communication_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_journalism_communication_job"
+    ],
+    "routeId": "journalism_communication_route_job",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "journalism_communication"
+  },
+  {
+    "id": "journalism_communication_route_content",
+    "name": "内容创作路线",
+    "description": "新闻传播学的内容创作路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "journalism_communication"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "journalism_communication_y3s2_route_016",
+      "journalism_communication_y3s2_route_017",
+      "journalism_communication_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_journalism_communication_content"
+    ],
+    "routeId": "journalism_communication_route_content",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "journalism_communication"
+  },
+  {
+    "id": "journalism_communication_route_transfer_application",
+    "name": "转专业申请副本",
+    "description": "大二下隐藏路线，由滤镜下降、跑路冲动和转专业暗线变量共同触发。",
+    "availableMajors": [
+      "journalism_communication"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "escapeImpulse",
+          "op": ">=",
+          "value": 55
+        },
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 45
+        },
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 55
+        },
+        {
+          "type": "hiddenStat",
+          "key": "transferThought",
+          "op": ">=",
+          "value": 1
+        },
+        {
+          "type": "hiddenStat",
+          "key": "escapeAwareness",
+          "op": ">=",
+          "value": 1
+        }
+      ]
+    },
+    "eventIds": [
+      "journalism_communication_transfer_apply_001",
+      "journalism_communication_transfer_apply_002",
+      "journalism_communication_transfer_apply_003"
+    ],
+    "endingBias": [
+      "ending_journalism_communication_transfer_success",
+      "ending_journalism_communication_transfer_fail"
+    ],
+    "routeId": "journalism_communication_route_transfer_application",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "journalism_communication"
+  },
+  {
+    "id": "journalism_communication_route_layflat",
+    "name": "摆烂毕业路线",
+    "description": "降低目标保住毕业底线，风险是 GG 概率上升。",
+    "availableMajors": [
+      "journalism_communication"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": "<=",
+          "value": 45
+        }
+      ]
+    },
+    "eventIds": [
+      "journalism_communication_y3s2_main_018",
+      "journalism_communication_y4s2_settlement_023"
+    ],
+    "endingBias": [
+      "ending_journalism_communication_layflat"
+    ],
+    "routeId": "journalism_communication_route_layflat",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "journalism_communication"
+  },
+  {
+    "id": "electrical_engineering_route_state_grid",
+    "name": "国网路线",
+    "description": "电气工程的国网路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "electrical_engineering"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "electrical_engineering_y3s2_route_016",
+      "electrical_engineering_y3s2_route_017",
+      "electrical_engineering_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_electrical_engineering_state_grid"
+    ],
+    "routeId": "electrical_engineering_route_state_grid",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "electrical_engineering_route_postgrad",
+    "name": "考研路线",
+    "description": "电气工程的考研路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "electrical_engineering"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "electrical_engineering_y3s2_route_016",
+      "electrical_engineering_y3s2_route_017",
+      "electrical_engineering_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_electrical_engineering_postgrad"
+    ],
+    "routeId": "electrical_engineering_route_postgrad",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "electrical_engineering_route_new_energy",
+    "name": "新能源/自动化就业路线",
+    "description": "电气工程的新能源/自动化就业路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "electrical_engineering"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "electrical_engineering_y3s2_route_016",
+      "electrical_engineering_y3s2_route_017",
+      "electrical_engineering_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_electrical_engineering_new_energy"
+    ],
+    "routeId": "electrical_engineering_route_new_energy",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "electrical_engineering_route_cross",
+    "name": "跨方向路线",
+    "description": "电气工程的跨方向路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "electrical_engineering"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "electrical_engineering_y3s2_route_016",
+      "electrical_engineering_y3s2_route_017",
+      "electrical_engineering_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_electrical_engineering_cross"
+    ],
+    "routeId": "electrical_engineering_route_cross",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "electrical_engineering_route_transfer_application",
+    "name": "转专业申请副本",
+    "description": "大二下隐藏路线，由滤镜下降、跑路冲动和转专业暗线变量共同触发。",
+    "availableMajors": [
+      "electrical_engineering"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "escapeImpulse",
+          "op": ">=",
+          "value": 55
+        },
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 45
+        },
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 55
+        },
+        {
+          "type": "hiddenStat",
+          "key": "transferThought",
+          "op": ">=",
+          "value": 1
+        },
+        {
+          "type": "hiddenStat",
+          "key": "escapeAwareness",
+          "op": ">=",
+          "value": 1
+        }
+      ]
+    },
+    "eventIds": [
+      "electrical_engineering_transfer_apply_001",
+      "electrical_engineering_transfer_apply_002",
+      "electrical_engineering_transfer_apply_003"
+    ],
+    "endingBias": [
+      "ending_electrical_engineering_transfer_success",
+      "ending_electrical_engineering_transfer_fail"
+    ],
+    "routeId": "electrical_engineering_route_transfer_application",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "electrical_engineering_route_layflat",
+    "name": "摆烂毕业路线",
+    "description": "降低目标保住毕业底线，风险是 GG 概率上升。",
+    "availableMajors": [
+      "electrical_engineering"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": "<=",
+          "value": 45
+        }
+      ]
+    },
+    "eventIds": [
+      "electrical_engineering_y3s2_main_018",
+      "electrical_engineering_y4s2_settlement_023"
+    ],
+    "endingBias": [
+      "ending_electrical_engineering_layflat"
+    ],
+    "routeId": "electrical_engineering_route_layflat",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "english_route_postgrad",
+    "name": "考研路线",
+    "description": "英语的考研路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "english"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "english_y3s2_route_016",
+      "english_y3s2_route_017",
+      "english_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_english_postgrad"
+    ],
+    "routeId": "english_route_postgrad",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "english"
+  },
+  {
+    "id": "english_route_teaching",
+    "name": "教资考编路线",
+    "description": "英语的教资考编路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "english"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "english_y3s2_route_016",
+      "english_y3s2_route_017",
+      "english_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_english_teaching"
+    ],
+    "routeId": "english_route_teaching",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "english"
+  },
+  {
+    "id": "english_route_job",
+    "name": "实习就业路线",
+    "description": "英语的实习就业路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "english"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "english_y3s2_route_016",
+      "english_y3s2_route_017",
+      "english_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_english_job"
+    ],
+    "routeId": "english_route_job",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "english"
+  },
+  {
+    "id": "english_route_cross",
+    "name": "跨界转向路线",
+    "description": "英语的跨界转向路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "english"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "english_y3s2_route_016",
+      "english_y3s2_route_017",
+      "english_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_english_cross"
+    ],
+    "routeId": "english_route_cross",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "english"
+  },
+  {
+    "id": "english_route_transfer_application",
+    "name": "转专业申请副本",
+    "description": "大二下隐藏路线，由滤镜下降、跑路冲动和转专业暗线变量共同触发。",
+    "availableMajors": [
+      "english"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "escapeImpulse",
+          "op": ">=",
+          "value": 55
+        },
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 45
+        },
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 55
+        },
+        {
+          "type": "hiddenStat",
+          "key": "transferThought",
+          "op": ">=",
+          "value": 1
+        },
+        {
+          "type": "hiddenStat",
+          "key": "escapeAwareness",
+          "op": ">=",
+          "value": 1
+        }
+      ]
+    },
+    "eventIds": [
+      "english_transfer_apply_001",
+      "english_transfer_apply_002",
+      "english_transfer_apply_003"
+    ],
+    "endingBias": [
+      "ending_english_transfer_success",
+      "ending_english_transfer_fail"
+    ],
+    "routeId": "english_route_transfer_application",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "english"
+  },
+  {
+    "id": "english_route_layflat",
+    "name": "摆烂毕业路线",
+    "description": "降低目标保住毕业底线，风险是 GG 概率上升。",
+    "availableMajors": [
+      "english"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": "<=",
+          "value": 45
+        }
+      ]
+    },
+    "eventIds": [
+      "english_y3s2_main_018",
+      "english_y4s2_settlement_023"
+    ],
+    "endingBias": [
+      "ending_english_layflat"
+    ],
+    "routeId": "english_route_layflat",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "english"
+  },
+  {
+    "id": "teacher_education_route_exam",
+    "name": "考编路线",
+    "description": "师范类的考编路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "teacher_education"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "teacher_education_y3s2_route_016",
+      "teacher_education_y3s2_route_017",
+      "teacher_education_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_teacher_education_exam"
+    ],
+    "routeId": "teacher_education_route_exam",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "teacher_education"
+  },
+  {
+    "id": "teacher_education_route_postgrad",
+    "name": "考研路线",
+    "description": "师范类的考研路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "teacher_education"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "teacher_education_y3s2_route_016",
+      "teacher_education_y3s2_route_017",
+      "teacher_education_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_teacher_education_postgrad"
+    ],
+    "routeId": "teacher_education_route_postgrad",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "teacher_education"
+  },
+  {
+    "id": "teacher_education_route_job",
+    "name": "非编就业路线",
+    "description": "师范类的非编就业路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "teacher_education"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "teacher_education_y3s2_route_016",
+      "teacher_education_y3s2_route_017",
+      "teacher_education_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_teacher_education_job"
+    ],
+    "routeId": "teacher_education_route_job",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "teacher_education"
+  },
+  {
+    "id": "teacher_education_route_cross",
+    "name": "转向路线",
+    "description": "师范类的转向路线，决定后续事件池和结局倾向。",
+    "availableMajors": [
+      "teacher_education"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "semester",
+          "key": "y3s2"
+        }
+      ]
+    },
+    "eventIds": [
+      "teacher_education_y3s2_route_016",
+      "teacher_education_y3s2_route_017",
+      "teacher_education_y4s1_route_020"
+    ],
+    "endingBias": [
+      "ending_teacher_education_cross"
+    ],
+    "routeId": "teacher_education_route_cross",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "teacher_education"
+  },
+  {
+    "id": "teacher_education_route_transfer_application",
+    "name": "转专业申请副本",
+    "description": "大二下隐藏路线，由滤镜下降、跑路冲动和转专业暗线变量共同触发。",
+    "availableMajors": [
+      "teacher_education"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "escapeImpulse",
+          "op": ">=",
+          "value": 55
+        },
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 45
+        },
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 55
+        },
+        {
+          "type": "hiddenStat",
+          "key": "transferThought",
+          "op": ">=",
+          "value": 1
+        },
+        {
+          "type": "hiddenStat",
+          "key": "escapeAwareness",
+          "op": ">=",
+          "value": 1
+        }
+      ]
+    },
+    "eventIds": [
+      "teacher_education_transfer_apply_001",
+      "teacher_education_transfer_apply_002",
+      "teacher_education_transfer_apply_003"
+    ],
+    "endingBias": [
+      "ending_teacher_education_transfer_success",
+      "ending_teacher_education_transfer_fail"
+    ],
+    "routeId": "teacher_education_route_transfer_application",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "teacher_education"
+  },
+  {
+    "id": "teacher_education_route_layflat",
+    "name": "摆烂毕业路线",
+    "description": "降低目标保住毕业底线，风险是 GG 概率上升。",
+    "availableMajors": [
+      "teacher_education"
+    ],
+    "unlockConditions": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": "<=",
+          "value": 45
+        }
+      ]
+    },
+    "eventIds": [
+      "teacher_education_y3s2_main_018",
+      "teacher_education_y4s2_settlement_023"
+    ],
+    "endingBias": [
+      "ending_teacher_education_layflat"
+    ],
+    "routeId": "teacher_education_route_layflat",
+    "triggerCondition": {},
+    "tags": [],
+    "majorId": "teacher_education"
+  },
+  {
+    "id": "chinese_language_literature_route_postgrad",
+    "routeId": "chinese_language_literature_route_postgrad",
+    "majorId": "chinese_language_literature",
+    "name": "考研路线",
+    "description": "文学史、语言学、古代文学方向选择；择校和专业课背诵并发。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "文学滤镜",
+      "古代汉语伤害"
+    ]
+  },
+  {
+    "id": "chinese_language_literature_route_teaching",
+    "routeId": "chinese_language_literature_route_teaching",
+    "majorId": "chinese_language_literature",
+    "name": "教资/考编路线",
+    "description": "普通话、教资笔试、试讲、教育实习和编制竞争。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "文学滤镜",
+      "古代汉语伤害"
+    ]
+  },
+  {
+    "id": "chinese_language_literature_route_editing",
+    "routeId": "chinese_language_literature_route_editing",
+    "majorId": "chinese_language_literature",
+    "name": "编辑出版路线",
+    "description": "校对、选题、书稿、内容判断和低调但细碎的文字劳动。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "文学滤镜",
+      "古代汉语伤害"
+    ]
+  },
+  {
+    "id": "chinese_language_literature_route_content",
+    "routeId": "chinese_language_literature_route_content",
+    "majorId": "chinese_language_literature",
+    "name": "新媒体/内容路线",
+    "description": "标题、选题、热点、数据反馈和“文字变流量”的现实。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "文学滤镜",
+      "古代汉语伤害"
+    ]
+  },
+  {
+    "id": "chinese_language_literature_route_civil_service",
+    "routeId": "chinese_language_literature_route_civil_service",
+    "majorId": "chinese_language_literature",
+    "name": "考公路线",
+    "description": "中文表达能力有用，但行测申论不会因为你中文系就自动放水。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "文学滤镜",
+      "古代汉语伤害"
+    ]
+  },
+  {
+    "id": "architecture_route_postgrad",
+    "routeId": "architecture_route_postgrad",
+    "majorId": "architecture",
+    "name": "考研路线",
+    "description": "建筑历史、理论、快题、作品集和择校并发。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "五年制预警",
+      "熬夜画图"
+    ]
+  },
+  {
+    "id": "architecture_route_studio",
+    "routeId": "architecture_route_studio",
+    "majorId": "architecture",
+    "name": "设计院/事务所路线",
+    "description": "实习、画图、改图、加班和职业想象落差。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "五年制预警",
+      "熬夜画图"
+    ]
+  },
+  {
+    "id": "architecture_route_real_estate",
+    "routeId": "architecture_route_real_estate",
+    "majorId": "architecture",
+    "name": "地产/工程管理路线",
+    "description": "从设计理想到项目流程、成本和沟通现实。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "五年制预警",
+      "熬夜画图"
+    ]
+  },
+  {
+    "id": "architecture_route_design_transfer",
+    "routeId": "architecture_route_design_transfer",
+    "majorId": "architecture",
+    "name": "转设计路线",
+    "description": "转向视觉、交互、空间展示等更广义设计。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "五年制预警",
+      "熬夜画图"
+    ]
+  },
+  {
+    "id": "architecture_route_portfolio_abroad",
+    "routeId": "architecture_route_portfolio_abroad",
+    "majorId": "architecture",
+    "name": "出国/作品集路线",
+    "description": "语言、作品集、项目叙事和家庭预算一起上桌。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "五年制预警",
+      "熬夜画图"
+    ]
+  },
+  {
+    "id": "stomatology_route_postgrad",
+    "routeId": "stomatology_route_postgrad",
+    "majorId": "stomatology",
+    "name": "考研路线",
+    "description": "口腔热门竞争、专硕/学硕选择、院校资源和专业方向。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "热门高分",
+      "牙科滤镜"
+    ]
+  },
+  {
+    "id": "stomatology_route_hospital",
+    "routeId": "stomatology_route_hospital",
+    "majorId": "stomatology",
+    "name": "医院路线",
+    "description": "实习、规培/住培、科室体验和临床基本功。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "热门高分",
+      "牙科滤镜"
+    ]
+  },
+  {
+    "id": "stomatology_route_specialty",
+    "routeId": "stomatology_route_specialty",
+    "majorId": "stomatology",
+    "name": "专科方向路线",
+    "description": "正畸、修复、牙体牙髓、牙周等方向初步分化。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "热门高分",
+      "牙科滤镜"
+    ]
+  },
+  {
+    "id": "stomatology_route_private_clinic",
+    "routeId": "stomatology_route_private_clinic",
+    "majorId": "stomatology",
+    "name": "基层/民营口腔路线",
+    "description": "技术、沟通、服务和商业现实同时出现。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "热门高分",
+      "牙科滤镜"
+    ]
+  },
+  {
+    "id": "stomatology_route_medical_related",
+    "routeId": "stomatology_route_medical_related",
+    "majorId": "stomatology",
+    "name": "转向公共卫生/医学相关路线",
+    "description": "医学基础保留，远离直接临床操作压力。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "热门高分",
+      "牙科滤镜"
+    ]
+  },
+  {
+    "id": "psychology_route_postgrad",
+    "routeId": "psychology_route_postgrad",
+    "majorId": "psychology",
+    "name": "考研路线",
+    "description": "临床与咨询、发展教育、社会人格、认知神经等方向选择。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "读心术滤镜",
+      "统计阴影"
+    ]
+  },
+  {
+    "id": "psychology_route_hr",
+    "routeId": "psychology_route_hr",
+    "majorId": "psychology",
+    "name": "HR/组织心理路线",
+    "description": "测评、招聘、组织行为和商业语境。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "读心术滤镜",
+      "统计阴影"
+    ]
+  },
+  {
+    "id": "psychology_route_user_research",
+    "routeId": "psychology_route_user_research",
+    "majorId": "psychology",
+    "name": "用户研究路线",
+    "description": "访谈、问卷、数据分析、产品理解和互联网岗位竞争。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "读心术滤镜",
+      "统计阴影"
+    ]
+  },
+  {
+    "id": "psychology_route_education",
+    "routeId": "psychology_route_education",
+    "majorId": "psychology",
+    "name": "教育心理路线",
+    "description": "学校、儿童发展、教资/教育方向。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "读心术滤镜",
+      "统计阴影"
+    ]
+  },
+  {
+    "id": "psychology_route_counseling_long",
+    "routeId": "psychology_route_counseling_long",
+    "majorId": "psychology",
+    "name": "咨询长线路线",
+    "description": "伦理、督导、训练、资质和长期投入。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "读心术滤镜",
+      "统计阴影"
+    ]
+  },
+  {
+    "id": "civil_engineering_route_postgrad",
+    "routeId": "civil_engineering_route_postgrad",
+    "majorId": "civil_engineering",
+    "name": "考研路线",
+    "description": "结构/岩土/桥隧/市政方向继续深造，用更高学历对冲行业波动。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "传统工科",
+      "天坑争议"
+    ]
+  },
+  {
+    "id": "civil_engineering_route_construction",
+    "routeId": "civil_engineering_route_construction",
+    "majorId": "civil_engineering",
+    "name": "施工路线",
+    "description": "现场强度高，工地适应度和精神电量决定体验。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "传统工科",
+      "天坑争议"
+    ]
+  },
+  {
+    "id": "civil_engineering_route_design_institute",
+    "routeId": "civil_engineering_route_design_institute",
+    "majorId": "civil_engineering",
+    "name": "设计院路线",
+    "description": "图纸、规范和加班密度提高，结构承重值重要。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "传统工科",
+      "天坑争议"
+    ]
+  },
+  {
+    "id": "civil_engineering_route_public_sector",
+    "routeId": "civil_engineering_route_public_sector",
+    "majorId": "civil_engineering",
+    "name": "考公/事业单位路线",
+    "description": "稳定滤镜回升，但竞争和岗位限制仍在。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "传统工科",
+      "天坑争议"
+    ]
+  },
+  {
+    "id": "civil_engineering_route_cross_industry",
+    "routeId": "civil_engineering_route_cross_industry",
+    "majorId": "civil_engineering",
+    "name": "跨行业路线",
+    "description": "转产品、转数据、转运营或考研换方向，结局保留土木PTSD。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "传统工科",
+      "天坑争议"
+    ]
+  },
+  {
+    "id": "electronic_information_route_postgrad",
+    "routeId": "electronic_information_route_postgrad",
+    "majorId": "electronic_information",
+    "name": "考研路线",
+    "description": "通信、集成电路、电子科学、控制、计算机交叉方向。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "热门工科",
+      "考研大户"
+    ]
+  },
+  {
+    "id": "electronic_information_route_embedded",
+    "routeId": "electronic_information_route_embedded",
+    "majorId": "electronic_information",
+    "name": "嵌入式路线",
+    "description": "项目和调试密度上升，板子点亮率非常关键。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "热门工科",
+      "考研大户"
+    ]
+  },
+  {
+    "id": "electronic_information_route_communication_chip",
+    "routeId": "electronic_information_route_communication_chip",
+    "majorId": "electronic_information",
+    "name": "通信/芯片路线",
+    "description": "专业壁垒高，学历和项目共同影响结局。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "热门工科",
+      "考研大户"
+    ]
+  },
+  {
+    "id": "electronic_information_route_software_transfer",
+    "routeId": "electronic_information_route_software_transfer",
+    "majorId": "electronic_information",
+    "name": "转码路线",
+    "description": "补算法和项目，原专业硬件背景会变成差异化标签。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "热门工科",
+      "考研大户"
+    ]
+  },
+  {
+    "id": "electronic_information_route_state_owned_operator",
+    "routeId": "electronic_information_route_state_owned_operator",
+    "majorId": "electronic_information",
+    "name": "国企/运营商路线",
+    "description": "稳定滤镜上升，但岗位和地区差异明显。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "热门工科",
+      "考研大户"
+    ]
+  },
+  {
+    "id": "design_route_portfolio_internship",
+    "routeId": "design_route_portfolio_internship",
+    "majorId": "design",
+    "name": "作品集实习路线",
+    "description": "作品集厚度和改稿耐受决定求职体验。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "作品集",
+      "改稿"
+    ]
+  },
+  {
+    "id": "design_route_postgrad_abroad",
+    "routeId": "design_route_postgrad_abroad",
+    "majorId": "design",
+    "name": "考研/留学路线",
+    "description": "理论、作品集和表达能力共同作用。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "作品集",
+      "改稿"
+    ]
+  },
+  {
+    "id": "design_route_ui_ux_product",
+    "routeId": "design_route_ui_ux_product",
+    "majorId": "design",
+    "name": "UI/UX/产品路线",
+    "description": "设计转向互联网语境，逻辑和协作提高权重。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "作品集",
+      "改稿"
+    ]
+  },
+  {
+    "id": "design_route_brand_visual_space",
+    "routeId": "design_route_brand_visual_space",
+    "majorId": "design",
+    "name": "品牌/视觉/空间路线",
+    "description": "审美、执行和行业理解决定结局。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "作品集",
+      "改稿"
+    ]
+  },
+  {
+    "id": "design_route_operation_media",
+    "routeId": "design_route_operation_media",
+    "majorId": "design",
+    "name": "转运营/新媒体路线",
+    "description": "表达能力保留，设计技能变成加分项。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "作品集",
+      "改稿"
+    ]
+  },
+  {
+    "id": "nursing_route_clinical",
+    "routeId": "nursing_route_clinical",
+    "majorId": "nursing",
+    "name": "临床就业路线",
+    "description": "操作熟练度、体力条和情绪劳动值共同决定结局。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "就业稳定",
+      "临床实践"
+    ]
+  },
+  {
+    "id": "nursing_route_postgrad",
+    "routeId": "nursing_route_postgrad",
+    "majorId": "nursing",
+    "name": "考研路线",
+    "description": "向护理科研、护理管理、公卫或相关方向延伸。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "就业稳定",
+      "临床实践"
+    ]
+  },
+  {
+    "id": "nursing_route_hospital_stable",
+    "routeId": "nursing_route_hospital_stable",
+    "majorId": "nursing",
+    "name": "考编/医院稳定路线",
+    "description": "稳定滤镜回升，但竞争和岗位现实仍在。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "就业稳定",
+      "临床实践"
+    ]
+  },
+  {
+    "id": "nursing_route_health_public",
+    "routeId": "nursing_route_health_public",
+    "majorId": "nursing",
+    "name": "健康管理/公卫转向",
+    "description": "保留医学护理背景，减少临床强度。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "就业稳定",
+      "临床实践"
+    ]
+  },
+  {
+    "id": "nursing_route_career_transfer",
+    "routeId": "nursing_route_career_transfer",
+    "majorId": "nursing",
+    "name": "转行路线",
+    "description": "沟通能力和责任感转化为其他职业优势。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "就业稳定",
+      "临床实践"
+    ]
+  },
+  {
+    "id": "mechanical_engineering_route_postgrad",
+    "routeId": "mechanical_engineering_route_postgrad",
+    "majorId": "mechanical_engineering",
+    "name": "考研深造",
+    "description": "继续机械、车辆、装备、新能源或控制相关方向深造。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "老牌工科",
+      "制图入门"
+    ]
+  },
+  {
+    "id": "mechanical_engineering_route_manufacturing",
+    "routeId": "mechanical_engineering_route_manufacturing",
+    "majorId": "mechanical_engineering",
+    "name": "制造业就业",
+    "description": "进入制造、工艺、质量、设备或生产相关岗位。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "老牌工科",
+      "制图入门"
+    ]
+  },
+  {
+    "id": "mechanical_engineering_route_vehicle_new_energy",
+    "routeId": "mechanical_engineering_route_vehicle_new_energy",
+    "majorId": "mechanical_engineering",
+    "name": "车企/新能源路线",
+    "description": "把机械训练接到车企、装备和新能源行业。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "老牌工科",
+      "制图入门"
+    ]
+  },
+  {
+    "id": "mechanical_engineering_route_state_owned_equipment",
+    "routeId": "mechanical_engineering_route_state_owned_equipment",
+    "majorId": "mechanical_engineering",
+    "name": "国企设备岗",
+    "description": "稳定滤镜回升，但工程现场与岗位现实仍在。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "老牌工科",
+      "制图入门"
+    ]
+  },
+  {
+    "id": "mechanical_engineering_route_coding_product",
+    "routeId": "mechanical_engineering_route_coding_product",
+    "majorId": "mechanical_engineering",
+    "name": "转码/转产品",
+    "description": "补软件、项目或产品能力，保留机械前世。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "老牌工科",
+      "制图入门"
+    ]
+  },
+  {
+    "id": "mechanical_engineering_route_public_sector",
+    "routeId": "mechanical_engineering_route_public_sector",
+    "majorId": "mechanical_engineering",
+    "name": "考公事业单位",
+    "description": "用稳定路线收束工程副本。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "老牌工科",
+      "制图入门"
+    ]
+  },
+  {
+    "id": "business_administration_route_operation_market",
+    "routeId": "business_administration_route_operation_market",
+    "majorId": "business_administration",
+    "name": "运营/市场",
+    "description": "把商业兴趣落到内容、增长、市场和运营实践。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "名字高级",
+      "课程很散"
+    ]
+  },
+  {
+    "id": "business_administration_route_hr",
+    "routeId": "business_administration_route_hr",
+    "majorId": "business_administration",
+    "name": "人力资源",
+    "description": "组织、招聘、培训和人力方向逐渐成型。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "名字高级",
+      "课程很散"
+    ]
+  },
+  {
+    "id": "business_administration_route_management_trainee",
+    "routeId": "business_administration_route_management_trainee",
+    "majorId": "business_administration",
+    "name": "管培路线",
+    "description": "宽口径专业与实习经历一起接受筛选。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "名字高级",
+      "课程很散"
+    ]
+  },
+  {
+    "id": "business_administration_route_postgrad",
+    "routeId": "business_administration_route_postgrad",
+    "majorId": "business_administration",
+    "name": "考研路线",
+    "description": "用深造补专业深度和方向感。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "名字高级",
+      "课程很散"
+    ]
+  },
+  {
+    "id": "business_administration_route_civil_service",
+    "routeId": "business_administration_route_civil_service",
+    "majorId": "business_administration",
+    "name": "考公路线",
+    "description": "稳定路线收束专业迷雾。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "名字高级",
+      "课程很散"
+    ]
+  },
+  {
+    "id": "business_administration_route_consulting_edge",
+    "routeId": "business_administration_route_consulting_edge",
+    "majorId": "business_administration",
+    "name": "咨询边缘尝试",
+    "description": "案例、表达、实习和信息差一起上桌。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "名字高级",
+      "课程很散"
+    ]
+  },
+  {
+    "id": "business_administration_route_cross_major",
+    "routeId": "business_administration_route_cross_major",
+    "majorId": "business_administration",
+    "name": "转专业/跨考",
+    "description": "用主动规划把宽口径切到更具体方向。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "名字高级",
+      "课程很散"
+    ]
+  },
+  {
+    "id": "pharmacy_route_postgrad_research",
+    "routeId": "pharmacy_route_postgrad_research",
+    "majorId": "pharmacy",
+    "name": "考研研发",
+    "description": "向药物研发、药理、药剂或药物分析方向继续深造。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "医学相关",
+      "化学浓度高"
+    ]
+  },
+  {
+    "id": "pharmacy_route_pharma_company",
+    "routeId": "pharmacy_route_pharma_company",
+    "majorId": "pharmacy",
+    "name": "药企注册/CRA/质量/生产",
+    "description": "在药企岗位之间寻找更具体的职业定位。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "医学相关",
+      "化学浓度高"
+    ]
+  },
+  {
+    "id": "pharmacy_route_hospital_pharmacy",
+    "routeId": "pharmacy_route_hospital_pharmacy",
+    "majorId": "pharmacy",
+    "name": "医院药房",
+    "description": "进入医院药房或相关药事服务路径。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "医学相关",
+      "化学浓度高"
+    ]
+  },
+  {
+    "id": "pharmacy_route_medical_sales",
+    "routeId": "pharmacy_route_medical_sales",
+    "majorId": "pharmacy",
+    "name": "医药销售",
+    "description": "把药学背景接到市场、销售和沟通场景。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "医学相关",
+      "化学浓度高"
+    ]
+  },
+  {
+    "id": "pharmacy_route_public_sector",
+    "routeId": "pharmacy_route_public_sector",
+    "majorId": "pharmacy",
+    "name": "考公事业单位",
+    "description": "用稳定路线收束药学副本。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "医学相关",
+      "化学浓度高"
+    ]
+  },
+  {
+    "id": "pharmacy_route_public_health_biomed",
+    "routeId": "pharmacy_route_public_health_biomed",
+    "majorId": "pharmacy",
+    "name": "跨考公共卫生/生物医药",
+    "description": "保留药学基础，转向更适合自己的相关方向。",
+    "triggerCondition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "tags": [
+      "医学相关",
+      "化学浓度高"
+    ]
+  }
+]
