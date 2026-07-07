@@ -107,7 +107,7 @@ function SemesterPage() {
       <div className="semester-screen" style={{ height: LAYOUT_HEIGHT }}>
         {/* HUD：6 项明面数值 */}
         <div className="semester-hud">
-          <div className="grid grid-cols-6 gap-2">
+          <div className="grid grid-cols-3 gap-3">
             {VISIBLE_STATS.map((s) => (
               <HudCell key={s.key} short={s.short} value={game.stats[s.key]} color={s.color} />
             ))}
@@ -149,13 +149,13 @@ function SemesterPage() {
 
 function HudCell({ short, value, color }: { short: string; value: number; color: string }) {
   return (
-    <div className="flex flex-col items-center gap-1.5">
+    <div className="flex flex-col items-center gap-2">
       <div className="w-full hud-bar">
         <div className="hud-bar-fill" style={{ width: `${value}%`, backgroundColor: color }} />
       </div>
-      <div className="flex items-baseline gap-0.5 leading-none">
-        <span className="font-display text-[12px] text-ink/70">{short}</span>
-        <span className="font-display text-[14px] tabular-nums">{Math.round(value)}</span>
+      <div className="flex items-baseline justify-center gap-1 leading-none whitespace-nowrap">
+        <span className="font-display text-[13px] text-ink/70">{short}</span>
+        <span className="font-display text-[16px] tabular-nums">{Math.round(value)}</span>
       </div>
     </div>
   );
