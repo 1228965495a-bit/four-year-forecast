@@ -62,6 +62,15 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "老师看了你一眼，你假装在查 PPT 补充资料。嘴硬 +1。",
       },
+      {
+        label: "边听边偷偷开小差记灵感",
+        effects: [
+          { key: "obsession", delta: 3 },
+          { key: "filter", delta: 2 },
+          { key: "gpa", delta: -1 },
+        ],
+        feedback: "你觉得自己找到了这门课的浪漫版本。（老师并不觉得）",
+      },
     ],
   },
   {
