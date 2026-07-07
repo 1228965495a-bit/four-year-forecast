@@ -80,10 +80,6 @@ function ResultPage() {
             <div className="text-[10px] font-display tracking-[0.3em] text-ink/60">
               你的本科人生结局
             </div>
-            <div className="mt-1.5 inline-flex items-center gap-1 px-2.5 py-0.5 border-2 border-ink bg-cream font-display text-[11px]">
-              <span className="text-ink/50">MAJOR</span>
-              <span>{major.name}</span>
-            </div>
             <h1 className="pixel-logo mt-3 leading-[1.1]" style={{ fontSize: 26 }}>
               {title}
             </h1>
