@@ -11,9 +11,9 @@ import {
   PixelDebuffBadge,
   PixelAchievementBadge,
   PixelStatBar,
-  PixelBgPanel,
   PixelImgButton,
 } from "@/components/pixel/PixelSkin";
+import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 
 export const Route = createFileRoute("/result")({ component: ResultPage });
 
