@@ -2,6 +2,7 @@
 // 数值使用新的属性体系（obsession/battery/filter/gpa/illusion/escape + 隐藏 mouthHard/hairline）。
 
 import type { CharStats } from "@/lib/gameStore";
+import { getMajorScript } from "./scripts";
 
 export type EventCategory = "学业" | "社交" | "休闲" | "实习" | "健康" | "劝退" | "特殊";
 
@@ -485,9 +486,6 @@ export function pickEventsForMajor(
   step: number,
   n = 1,
 ): GameEvent[] {
-  // 惰性 require 避免循环依赖
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { getMajorScript } = require("./scripts") as typeof import("./scripts");
   const script = getMajorScript(majorId);
   if (!script?.events?.length) return pickEvents(step, n);
 

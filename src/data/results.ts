@@ -3,6 +3,7 @@
 
 import type { CharStats } from "@/lib/gameStore";
 import type { MajorConfig } from "./majors";
+import { getMajorScript } from "./scripts";
 
 export type SurvivalRating =
   | "非常适合，但会掉电"
@@ -113,8 +114,6 @@ export const RESULT_TEMPLATES: ResultTemplate[] = [
 
 export function matchResult(stats: CharStats, major: MajorConfig) {
   // 优先用专业脚本里的 endings；没有就用通用池
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { getMajorScript } = require("./scripts") as typeof import("./scripts");
   const script = getMajorScript(major.id);
   const pool: ResultTemplate[] =
     script?.endings?.length ? script.endings : RESULT_TEMPLATES;
