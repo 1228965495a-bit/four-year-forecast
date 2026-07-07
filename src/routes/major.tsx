@@ -271,7 +271,7 @@ function QuestTile({
         selected && "-translate-y-0.5 shadow-[3px_5px_0_0_var(--cherry)] ring-2 ring-cherry",
       )}
     >
-      <span className={cn("absolute top-1 right-1 z-10 rank-badge", `rank-${rank}`)}>{rank}</span>
+      <PixelTierBadge tier={rank} size={30} className="absolute top-1 right-1 z-10" />
 
       {major.tier === "S" && (
         <span className="absolute top-1 left-1 z-10 text-[8.5px] font-display tracking-wider px-1 py-0.5 bg-cherry text-cream border border-ink">
