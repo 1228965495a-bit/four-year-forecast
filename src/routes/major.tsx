@@ -374,9 +374,9 @@ function DetailContent({ major, onConfirm }: { major: any; onConfirm: () => void
       )}
 
       {major.card?.riskWarning && (
-        <div className="border-2 border-cherry bg-cherry/10 p-2.5 text-[12px] leading-snug text-ink">
-          ⚠ {major.card.riskWarning}
-        </div>
+        <PixelPanel9 variant="warning" padding="px-3 py-2.5">
+          <div className="text-[12px] leading-snug text-ink">⚠ {major.card.riskWarning}</div>
+        </PixelPanel9>
       )}
 
       <PixelImgButton variant="primary" onClick={onConfirm}>
