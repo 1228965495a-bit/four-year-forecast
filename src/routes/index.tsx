@@ -5,6 +5,7 @@ import { useGameState, gameStore } from "@/lib/gameStore";
 import { majorById } from "@/data/script/gameData";
 import { PixelButton } from "@/components/ui/PixelButton";
 import { PixelPanel } from "@/components/ui/PixelPanel";
+import { PixelButton3 } from "@/components/pixel/PixelSkin";
 
 export const Route = createFileRoute("/")({ component: HomePage });
 
