@@ -1,8 +1,17 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { GameShell } from "@/components/game/GameShell";
-import { HomeHeroScene } from "@/components/game/HomeHeroScene";
-import { StudentProfileCard } from "@/components/game/StudentProfileCard";
-import { PropStatusBar } from "@/components/game/PropStatusBar";
+import { PhoneFrame } from "@/components/game/PhoneFrame";
+import {
+  CampusScene,
+  PixelAvatar,
+  PixelCalendar,
+  PixelCoffee,
+  PixelBook,
+  PixelNotebook,
+  GlyphPlay,
+  GlyphBook,
+  GlyphPerson,
+  GlyphDisk,
+} from "@/components/game/PixelIcon";
 import { useGameState, gameStore } from "@/lib/gameStore";
 import { getMajorById } from "@/data/majors";
 
@@ -16,253 +25,212 @@ function HomePage() {
   const currentMajor = game.majorId ? getMajorById(game.majorId) : null;
   const hasSave = !!currentMajor;
 
-  const menuHandlers = {
-    hasSave,
-    canLoad: hasSave,
-    onStart: () => {
-      if (!hasSave) gameStore.reset();
-      navigate({ to: "/major" });
-    },
-    onDex: () => navigate({ to: "/major" }),
-    onCharacter: () => {
-      const name =
-        window.prompt("给你的角色起个名字：", game.characterName) ||
-        game.characterName;
-      const school =
-        window.prompt("学校叫什么？", game.school) || game.school;
-      gameStore.set({ characterName: name, school });
-    },
-    onLoad: () =>
-      navigate({ to: game.finished ? "/result" : "/semester" }),
+  const onStart = () => {
+    if (!hasSave) gameStore.reset();
+    navigate({ to: "/major" });
   };
-
-  const profileProps = {
-    name: hasSave ? game.characterName : "未创建角色",
-    status: hasSave
-      ? `进度：大${["一", "二", "三", "四"][game.year - 1]}${
-          game.semester === 1 ? "上" : "下"
-        } · 第 ${game.week} 周`
-      : "新生档案 · 待办理",
-    major: currentMajor?.name,
-    school: hasSave ? game.school : undefined,
-    hasCharacter: hasSave,
+  const onCharacter = () => {
+    const name =
+      window.prompt("给你的角色起个名字：", game.characterName) ||
+      game.characterName;
+    const school = window.prompt("学校叫什么？", game.school) || game.school;
+    gameStore.set({ characterName: name, school });
   };
 
   return (
-    <GameShell>
-      {/* ============ 桌面端：16:9 游戏窗口，绝对定位 ============ */}
-      <div
-        className="pixel-panel relative hidden md:block w-full max-w-[1160px] overflow-hidden !p-0"
-        style={{ aspectRatio: "16 / 9", minHeight: 520 }}
-      >
-        <GameWindowChrome />
-        <HomeHeroScene />
-
-        <div className="absolute left-[4%] top-[16%] z-20 max-w-[62%]">
-          <TitleBlock />
+    <PhoneFrame>
+      <div className="flex flex-col gap-3 p-3 pb-6">
+        {/* 顶部游戏标题栏 */}
+        <div className="flex items-center gap-2 pixel-panel-sm !p-1.5 bg-ink !text-cream">
+          <div className="h-5 w-5 bg-cherry border-2 border-cream" />
+          <span className="font-display text-[11px] tracking-widest text-cream">
+            CAMPUS · SIM · v0.2
+          </span>
+          <span className="ml-auto flex items-center gap-1 text-[10px] text-cream/80">
+            <span className="h-1.5 w-1.5 bg-sage animate-pixel-blink" />
+            LIVE
+          </span>
         </div>
 
-        <div className="absolute right-[4%] top-[22%] z-20 w-[240px] max-w-[42%]">
-          <MainMenu {...menuHandlers} />
+        {/* 中间校园主视觉 */}
+        <div className="pixel-panel !p-0 overflow-hidden">
+          <CampusScene height={170} />
         </div>
 
-        <div className="absolute left-[3%] bottom-[16%] z-20">
-          <StudentProfileCard {...profileProps} />
+        {/* 主 Logo */}
+        <div className="text-center pt-1">
+          <div className="inline-block pixel-panel-sm bg-cherry !text-cream px-2 py-0.5 mb-2">
+            <span className="font-display text-[10px] tracking-widest">
+              CAMPUS LIFE SIMULATOR
+            </span>
+          </div>
+          <h1 className="pixel-logo text-[30px] leading-[1.05]">
+            这专业我
+            <br />
+            先替你读了四年
+          </h1>
+          <p className="mt-2 text-[12px] text-ink/80 leading-snug px-2">
+            选择一个专业，开启一段离谱又真实的本科人生
+          </p>
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 z-20 border-t-[3px] border-ink bg-cream/95">
-          <div className="px-3 py-2">
-            <PropStatusBar />
+        {/* 主菜单按钮区 */}
+        <div className="pixel-panel !p-2.5">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="font-display text-[12px] tracking-widest text-ink">
+              主菜单
+            </span>
+            <span className="text-[10px] text-ink/50">按 ↵ 选择</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <MenuBtn label="开始模拟" hint={hasSave ? "继续" : "新档"} glyph={<GlyphPlay />} onClick={onStart} accent="cherry" primary />
+            <MenuBtn label="专业图鉴" glyph={<GlyphBook />} onClick={() => navigate({ to: "/major" })} accent="sky" />
+            <MenuBtn label="角色设定" glyph={<GlyphPerson />} onClick={onCharacter} accent="sage" />
+            <MenuBtn
+              label="读取进度"
+              hint={hasSave ? "有存档" : "无存档"}
+              glyph={<GlyphDisk />}
+              onClick={() => navigate({ to: game.finished ? "/result" : "/semester" })}
+              accent="sunny"
+              disabled={!hasSave}
+            />
           </div>
         </div>
-      </div>
 
-      {/* ============ 移动端：竖向堆叠 ============ */}
-      <div className="md:hidden w-full max-w-[420px] space-y-3">
-        <div
-          className="pixel-panel relative overflow-hidden !p-0"
-          style={{ aspectRatio: "4 / 3", minHeight: 260 }}
-        >
-          <GameWindowChrome compact />
-          <HomeHeroScene />
-          <div className="absolute inset-x-0 bottom-3 z-20 flex justify-center px-3">
-            <TitleBlock compact />
+        {/* 学生档案 */}
+        <div className="pixel-panel !p-2.5 flex items-center gap-3">
+          <div className="pixel-border-sm !shadow-none overflow-hidden shrink-0" style={{ width: 52, height: 52 }}>
+            <PixelAvatar size={52} />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 mb-0.5">
+              <span className="pixel-chip !py-0 !text-[10px] bg-sunny">新生档案</span>
+              {hasSave && <span className="pixel-chip !py-0 !text-[10px] bg-sage">已入学</span>}
+            </div>
+            <div className="font-display text-[15px] leading-tight truncate">
+              {hasSave ? game.characterName : "未创建角色"}
+            </div>
+            <div className="text-[11px] text-ink/70 truncate">
+              {hasSave
+                ? `${currentMajor?.name} · ${game.school}`
+                : "点击「角色设定」创建你的角色"}
+            </div>
           </div>
         </div>
 
-        <MainMenu {...menuHandlers} />
-        <StudentProfileCard {...profileProps} />
-        <PropStatusBar />
-      </div>
-    </GameShell>
-  );
-}
-
-function GameWindowChrome({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between border-b-[3px] border-ink bg-ink px-3 py-1.5 text-cream">
-      <div className="flex items-center gap-2">
-        <span className="h-2.5 w-2.5 bg-cherry border-[1.5px] border-cream" />
-        <span className="h-2.5 w-2.5 bg-sunny border-[1.5px] border-cream" />
-        <span className="h-2.5 w-2.5 bg-sage border-[1.5px] border-cream" />
-        <span className="ml-2 font-display text-[11px] tracking-widest text-cream/90">
-          CAMPUS · SIM · v0.1
-        </span>
-      </div>
-      {!compact && (
-        <div className="hidden md:flex items-center gap-3 text-[10px] tracking-widest text-cream/70">
-          <span>SAVE · AUTO</span>
-          <span>▶</span>
-          <span>FULLSCREEN</span>
+        {/* 底部道具状态区 */}
+        <div>
+          <div className="mb-1.5 flex items-center gap-2">
+            <span className="h-1 w-1 bg-ink" />
+            <span className="font-display text-[11px] tracking-widest text-ink/70">道具栏 · INVENTORY</span>
+            <span className="h-px flex-1 bg-ink/20" />
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <PropItem
+              icon={<PixelCalendar size={30} />}
+              title="高考倒计时"
+              value="12 天"
+              tone="cherry"
+            />
+            <PropItem
+              icon={<PixelBook size={30} />}
+              title="志愿手册"
+              value="未拆封"
+              tone="sage"
+            />
+            <PropItem
+              icon={<PixelCoffee size={30} />}
+              title="今日咖啡"
+              value="第 3 杯"
+              tone="tan"
+            />
+            <PropItem
+              icon={<PixelNotebook size={30} />}
+              title="错题笔记"
+              value="已翻烂"
+              tone="sky"
+            />
+          </div>
         </div>
-      )}
-    </div>
+
+        <div className="text-center text-[10px] text-ink/50 pt-1">
+          © Pixel Future · 每一次选择都会导向不同的人生
+        </div>
+      </div>
+    </PhoneFrame>
   );
 }
 
-
-function TitleBlock({ compact = false }: { compact?: boolean }) {
+function MenuBtn({
+  label,
+  hint,
+  glyph,
+  onClick,
+  accent,
+  primary,
+  disabled,
+}: {
+  label: string;
+  hint?: string;
+  glyph: React.ReactNode;
+  onClick: () => void;
+  accent: "cherry" | "sky" | "sage" | "sunny";
+  primary?: boolean;
+  disabled?: boolean;
+}) {
+  const bg =
+    accent === "cherry"
+      ? "var(--cherry)"
+      : accent === "sky"
+      ? "var(--sky)"
+      : accent === "sage"
+      ? "var(--sage)"
+      : "var(--sunny)";
   return (
-    <div className={compact ? "text-center" : "relative"}>
-      <div className="mb-2 inline-flex items-center gap-2 pixel-panel-sm bg-cherry !text-cream px-2 py-0.5">
-        <span className="h-1.5 w-1.5 bg-cream" />
-        <span className="font-display text-[11px] tracking-widest">
-          CAMPUS LIFE SIMULATOR
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="pixel-btn flex flex-col items-start gap-1 p-2.5 text-left disabled:opacity-50 disabled:cursor-not-allowed"
+      style={{ background: bg, color: "var(--ink)" }}
+    >
+      <div className="flex items-center gap-1.5 w-full">
+        <span className="inline-flex h-5 w-5 items-center justify-center bg-cream border-2 border-ink">
+          {glyph}
         </span>
+        {primary && <span className="ml-auto text-[9px] font-bold tracking-widest">PLAY</span>}
       </div>
-      <h1
-        className={
-          compact
-            ? "pixel-logo text-[28px] leading-none"
-            : "pixel-logo text-[36px] leading-none md:text-[56px]"
-        }
-      >
-        这专业我
-        <br />
-        先替你读了四年
-      </h1>
-      {!compact && (
-        <p className="mt-3 pixel-panel-sm inline-block bg-cream/95 px-2.5 py-1 font-display text-[13px] md:text-[15px]">
-          选择一个专业，开启一段离谱又真实的本科人生
-        </p>
-      )}
-    </div>
+      <div className="font-display text-[15px] leading-tight">{label}</div>
+      {hint && <div className="text-[10px] text-ink/70">{hint}</div>}
+    </button>
   );
 }
 
-
-interface MainMenuProps {
-  hasSave: boolean;
-  canLoad: boolean;
-  onStart: () => void;
-  onDex: () => void;
-  onCharacter: () => void;
-  onLoad: () => void;
-}
-
-function MainMenu({ onStart, onDex, onCharacter, onLoad, canLoad, hasSave }: MainMenuProps) {
-  const items: {
-    key: string;
-    label: string;
-    hint?: string;
-    onClick: () => void;
-    accent?: boolean;
-    disabled?: boolean;
-    glyph: React.ReactNode;
-  }[] = [
-    {
-      key: "start",
-      label: "开始模拟",
-      hint: hasSave ? "继续新档" : "创建新档",
-      onClick: onStart,
-      accent: true,
-      glyph: <GlyphPlay />,
-    },
-    { key: "dex", label: "专业图鉴", onClick: onDex, glyph: <GlyphBook /> },
-    { key: "char", label: "角色设定", onClick: onCharacter, glyph: <GlyphPerson /> },
-    {
-      key: "load",
-      label: "读取进度",
-      onClick: onLoad,
-      disabled: !canLoad,
-      hint: canLoad ? "上次进度" : "无存档",
-      glyph: <GlyphDisk />,
-    },
-  ];
-
+function PropItem({
+  icon,
+  title,
+  value,
+  tone,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  value: string;
+  tone: "cherry" | "sky" | "sage" | "tan";
+}) {
+  const bg =
+    tone === "cherry"
+      ? "bg-cherry/25"
+      : tone === "sky"
+      ? "bg-sky/30"
+      : tone === "sage"
+      ? "bg-sage/30"
+      : "bg-tan/40";
   return (
-    <div className="pixel-panel !p-3">
-      <div className="mb-2 flex items-center justify-between">
-        <span className="font-display text-[13px] tracking-widest text-ink">主菜单</span>
-        <span className="text-[10px] text-muted-foreground">按 ↵ 选择</span>
+    <div className={`pixel-border-sm ${bg} flex items-center gap-2 p-1.5`}>
+      <div className="shrink-0">{icon}</div>
+      <div className="min-w-0">
+        <div className="text-[10px] text-ink/70 leading-tight truncate">{title}</div>
+        <div className="font-display text-[13px] leading-tight truncate">{value}</div>
       </div>
-      <ul className="space-y-2">
-        {items.map((it) => (
-          <li key={it.key}>
-            <button
-              disabled={it.disabled}
-              onClick={it.onClick}
-              className="menu-btn disabled:opacity-50 disabled:cursor-not-allowed"
-              style={it.accent ? { background: "var(--cherry)", color: "var(--cream)" } : undefined}
-            >
-              <span
-                className="pixel-panel-sm !shadow-none flex h-7 w-7 shrink-0 items-center justify-center bg-cream"
-              >
-                {it.glyph}
-              </span>
-              <span className="flex-1 text-left">{it.label}</span>
-              {it.hint && (
-                <span className="text-[10px] font-normal tracking-normal text-ink/60 font-[var(--font-body)]">
-                  {it.hint}
-                </span>
-              )}
-            </button>
-          </li>
-        ))}
-      </ul>
     </div>
-  );
-}
-
-/* ================= 像素 Glyphs（无 emoji） ================= */
-
-function GlyphPlay() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <path
-        d="M4 3 h2 v2 h2 v2 h2 v2 h-2 v2 h-2 v2 h-2 z"
-        fill="var(--ink)"
-      />
-    </svg>
-  );
-}
-function GlyphBook() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <rect x="2" y="3" width="12" height="10" fill="var(--sky)" stroke="var(--ink)" strokeWidth="1.5" />
-      <line x1="8" y1="3" x2="8" y2="13" stroke="var(--ink)" strokeWidth="1.5" />
-      <line x1="3.5" y1="5.5" x2="7" y2="5.5" stroke="var(--ink)" />
-      <line x1="3.5" y1="7.5" x2="7" y2="7.5" stroke="var(--ink)" />
-      <line x1="9" y1="5.5" x2="12.5" y2="5.5" stroke="var(--ink)" />
-      <line x1="9" y1="7.5" x2="12.5" y2="7.5" stroke="var(--ink)" />
-    </svg>
-  );
-}
-function GlyphPerson() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <rect x="6" y="2" width="4" height="4" fill="var(--sunny)" stroke="var(--ink)" strokeWidth="1.5" />
-      <rect x="4" y="7" width="8" height="6" fill="var(--sage)" stroke="var(--ink)" strokeWidth="1.5" />
-    </svg>
-  );
-}
-function GlyphDisk() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <rect x="2" y="2" width="12" height="12" fill="var(--tan)" stroke="var(--ink)" strokeWidth="1.5" />
-      <rect x="4" y="2" width="8" height="4" fill="var(--cream)" stroke="var(--ink)" strokeWidth="1" />
-      <rect x="6" y="9" width="4" height="4" fill="var(--cream)" stroke="var(--ink)" strokeWidth="1" />
-      <rect x="9.5" y="3" width="1.5" height="2" fill="var(--ink)" />
-    </svg>
   );
 }
