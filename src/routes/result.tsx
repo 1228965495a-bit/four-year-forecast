@@ -85,22 +85,22 @@ function ResultPage() {
           </div>
 
           <div className="px-4 pt-3 -mb-1" style={{ background: "var(--parchment)" }}>
-            <PixelHeader variant="finalReport" className="!max-w-[280px]" />
+            <PixelHeader variant="finalReport" className="!max-w-[230px]" />
           </div>
 
           <header
-            className="px-4 pt-2 pb-5 text-center relative border-b-[3px] border-dashed border-ink/50"
+            className="px-4 pt-1 pb-4 text-center relative border-b-[3px] border-dashed border-ink/50"
             style={{ background: "var(--parchment)" }}
           >
             <div className="text-[10px] font-display tracking-[0.3em] text-ink/60">
               你的本科人生结局
             </div>
-            <h1 className="pixel-logo mt-3 leading-[1.1]" style={{ fontSize: 26 }}>
+            <h1 className="pixel-logo mt-2 leading-[1.1]" style={{ fontSize: 21 }}>
               {title}
             </h1>
 
             {resultTags.length > 0 && (
-              <div className="mt-3 flex justify-center flex-wrap gap-1.5">
+              <div className="mt-2 flex justify-center flex-wrap gap-1">
                 {resultTags.map((t) => (
                   <span key={t} className="text-[10px] font-display px-1.5 py-0.5 border-2 border-cherry text-cherry bg-cream">
                     {t}
@@ -109,31 +109,41 @@ function ResultPage() {
               </div>
             )}
 
-            <blockquote className="mt-4 mx-auto max-w-[92%] text-left relative px-3 py-2 border-l-[4px] border-cherry bg-cream/80">
-              <div className="absolute -top-2 -left-1 font-display text-cherry text-[20px] leading-none">“</div>
-              <p className="font-display text-[13.5px] leading-[1.55] text-ink pl-1">{summary}</p>
+            <blockquote className="mt-3 mx-auto max-w-[92%] text-left relative px-3 py-2 border-l-[4px] border-cherry bg-cream/80">
+              <div className="absolute -top-2 -left-1 font-display text-cherry text-[20px] leading-none">"</div>
+              <p className="font-display text-[13px] leading-[1.55] text-ink pl-1">{summary}</p>
             </blockquote>
           </header>
 
-          <section className="px-3 pt-3 pb-2">
+          <section className="px-3 pt-2.5 pb-2">
             <SectionLabel accent="cherry">专业后遗症 · 永久 DEBUFF</SectionLabel>
-            <div className="mt-2 flex flex-wrap gap-1 justify-center">
+            <div className="mt-1.5 flex flex-wrap gap-x-1 gap-y-0.5 justify-center">
               {afterEffects.map((a) => (
                 <PixelDebuffBadge key={a}>{a}</PixelDebuffBadge>
               ))}
             </div>
           </section>
 
-          <section className="px-3 pt-2 pb-2">
+          <section className="px-3 pt-1.5 pb-2">
             <SectionLabel>系统诊断 · DIAGNOSIS</SectionLabel>
-            <PixelBgPanel variant="note" className="mt-1.5" padding="px-4 py-4">
+            <div
+              className="relative mt-1.5 border-2 border-dashed border-ink/50 p-2.5"
+              style={{
+                background: "var(--parchment)",
+                backgroundImage:
+                  "repeating-linear-gradient(45deg, rgba(255,216,107,0.15) 0 6px, transparent 6px 12px)",
+              }}
+            >
+              <div className="absolute -top-2 left-3 text-[9px] font-display tracking-wider px-1.5 py-0.5 bg-sunny border-2 border-ink">
+                批注
+              </div>
               <p className="text-[12.5px] leading-[1.55] text-ink">{advice}</p>
-            </PixelBgPanel>
+            </div>
           </section>
 
-          <section className="px-3 pt-2 pb-2">
+          <section className="px-3 pt-1.5 pb-2">
             <SectionLabel>最终属性面板 · STATS</SectionLabel>
-            <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-2">
+            <div className="mt-1.5 grid grid-cols-2 gap-x-3 gap-y-1">
               {HUD_STATS.map((s) => {
                 const v = Math.max(0, Math.min(100, Math.round(game.stats[s.key] ?? 0)));
                 return (
@@ -142,12 +152,13 @@ function ResultPage() {
                       <span className="text-[11px] text-ink/80 whitespace-nowrap">{s.label}</span>
                       <span className="font-display text-[11px] tabular-nums">{v}</span>
                     </div>
-                    <PixelStatBar value={v} color={s.color} height={16} className="mt-0.5" />
+                    <PixelStatBar value={v} color={s.color} height={12} className="mt-0.5" />
                   </div>
                 );
               })}
             </div>
           </section>
+
 
           {achievementsToShow.length > 0 && (
             <section className="px-3 pt-2 pb-3">
