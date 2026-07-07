@@ -404,8 +404,8 @@
   height: calc(100dvh - 98px);
   min-height: 0;
   display: grid;
-  grid-template-rows: auto 176px minmax(0, 1fr);
-  gap: 6px;
+  grid-template-rows: auto 220px minmax(0, 1fr);
+  gap: 8px;
   padding-bottom: 8px;
   overflow: hidden;
 }
@@ -413,8 +413,8 @@
 @utility semester-hud {
   background: var(--cream);
   border-bottom: 2px solid rgba(63, 42, 31, 0.16);
-  padding: 8px 12px 8px;
-  min-height: 76px;
+  padding: 14px 12px 13px;
+  min-height: 130px;
 }
 
 @utility semester-scene-wrap {
@@ -432,19 +432,18 @@
 
 @media (max-height: 740px) {
   .semester-screen {
-    grid-template-rows: auto 160px minmax(0, 1fr);
-    gap: 5px;
-    padding-bottom: 6px;
+    grid-template-rows: auto 200px minmax(0, 1fr);
+    gap: 7px;
+    padding-bottom: 7px;
   }
-  .semester-hud { padding: 6px 10px 6px; min-height: 64px; }
+  .semester-hud { padding: 10px 10px 9px; min-height: 108px; }
 }
 
 @media (min-height: 800px) {
   .semester-screen {
-    grid-template-rows: auto 192px minmax(0, 1fr);
+    grid-template-rows: auto 240px minmax(0, 1fr);
   }
 }
-
 
 
 @utility scene-badge {

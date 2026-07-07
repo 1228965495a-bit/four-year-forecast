@@ -8,16 +8,12 @@ import {
   currentEventOf,
   currentSemesterLabel,
 } from "@/lib/gameStore";
-import { STAT_META } from "@/lib/statsMeta";
-
-const CORE_HUD_KEYS = ["obsession", "energy", "escapeImpulse"];
-const CORE_HUD_STATS = STAT_META.filter((s) => CORE_HUD_KEYS.includes(s.key));
+import { HUD_STATS } from "@/lib/statsMeta";
 import { totalSemesters } from "@/lib/scriptEngine";
 import { majorById } from "@/data/script/gameData";
 import { EventCard } from "@/components/ui/EventCard";
 import { CharacterPanel } from "@/components/ui/CharacterPanel";
 import { PixelButton } from "@/components/ui/PixelButton";
-import { PixelStatBar, PixelImgButton, PixelBgPanel } from "@/components/pixel/PixelSkin";
 
 export const Route = createFileRoute("/semester")({ component: SemesterPage });
 
@@ -57,29 +53,29 @@ function SemesterPage() {
   const total = totalSemesters();
 
   const topBar = (
-    <div className="border-b-[3px] border-ink bg-ink text-cream px-2.5 py-2 min-h-[46px] flex items-center gap-2">
+    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-3 min-h-[58px] flex items-center gap-2">
       <button
         onClick={() => navigate({ to: "/" })}
-        className="text-[11px] px-1.5 py-0.5 border border-cream leading-none"
+        className="text-[12px] px-2 py-1 border-2 border-cream leading-none"
       >
         ⌂
       </button>
       <div className="min-w-0 flex-1">
-        <div className="font-display text-[12.5px] leading-none truncate">{currentSemesterLabel(game)}</div>
-        <div className="text-[10px] text-cream/70 leading-none mt-0.5 truncate">
+        <div className="font-display text-[14px] leading-none truncate">{currentSemesterLabel(game)}</div>
+        <div className="text-[11px] text-cream/70 leading-none mt-1 truncate">
           {major.name} · {game.school}
         </div>
       </div>
-      <div className="flex items-center gap-1.5 shrink-0">
-        <span className="font-display text-[11px] tabular-nums">
-          {game.semesterIdx + 1}/{total}
+      <div className="flex items-center gap-2 shrink-0">
+        <span className="font-display text-[12px] tabular-nums">
+          {game.semesterIdx + 1} / {total}
         </span>
         <button
           onClick={() => {
             gameStore.set({ finished: true });
             navigate({ to: "/result" });
           }}
-          className="text-[10px] px-1.5 py-0.5 border border-cream bg-cherry text-cream leading-none"
+          className="text-[11px] px-2.5 py-1 border-2 border-cream bg-cherry text-cream leading-none"
         >
           结
         </button>
@@ -88,11 +84,11 @@ function SemesterPage() {
   );
 
   const bottomBar = (
-    <div className="border-t-[3px] border-ink bg-cream px-2.5 py-1.5 grid grid-cols-2 gap-2">
-      <button onClick={() => setDrawer("profile")} className="pixel-tab !justify-center py-1">
+    <div className="border-t-[3px] border-ink bg-cream px-2.5 py-2 grid grid-cols-2 gap-2">
+      <button onClick={() => setDrawer("profile")} className="pixel-tab !justify-center py-1.5">
         档案
       </button>
-      <button onClick={() => setDrawer("log")} className="pixel-tab !justify-center py-1">
+      <button onClick={() => setDrawer("log")} className="pixel-tab !justify-center py-1.5">
         事件记录
       </button>
     </div>
@@ -101,15 +97,14 @@ function SemesterPage() {
   return (
     <PhoneFrame topBar={topBar} bottomBar={bottomBar}>
       <div className="semester-screen" style={{ height: LAYOUT_HEIGHT }}>
-        {/* HUD：3 项核心数值 */}
+        {/* HUD：6 项明面数值 */}
         <div className="semester-hud">
           <div className="grid grid-cols-3 gap-3">
-            {CORE_HUD_STATS.map((s) => (
+            {HUD_STATS.map((s) => (
               <HudCell key={s.key} short={s.short} value={game.stats[s.key] ?? 0} color={s.color} />
             ))}
           </div>
         </div>
-
 
         {/* 主场景 */}
         <div className="semester-scene-wrap">
@@ -146,11 +141,13 @@ function SemesterPage() {
 
 function HudCell({ short, value, color }: { short: string; value: number; color: string }) {
   return (
-    <div className="flex flex-col items-center gap-1.5">
-      <PixelStatBar value={value} color={color} height={14} />
+    <div className="flex flex-col items-center gap-2">
+      <div className="w-full hud-bar">
+        <div className="hud-bar-fill" style={{ width: `${value}%`, backgroundColor: color }} />
+      </div>
       <div className="flex items-baseline justify-center gap-1 leading-none whitespace-nowrap">
-        <span className="font-display text-[12px] text-ink/70">{short}</span>
-        <span className="font-display text-[15px] tabular-nums">{Math.round(value)}</span>
+        <span className="font-display text-[13px] text-ink/70">{short}</span>
+        <span className="font-display text-[16px] tabular-nums">{Math.round(value)}</span>
       </div>
     </div>
   );
@@ -168,7 +165,7 @@ function FeedbackModal({
   return (
     <div className="absolute inset-0 z-50 flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-ink/55" />
-      <PixelBgPanel variant="medium" className="relative z-10 w-full max-w-[320px] animate-pop-in" padding="p-4">
+      <div className="modal-card relative z-10 w-full max-w-[320px] animate-pop-in">
         <div className="inline-flex items-center border-2 border-ink bg-cream px-2 py-0.5 text-[10px] font-display tracking-wider"
              style={{ boxShadow: "2px 2px 0 0 var(--ink)" }}>
           系统记录
@@ -181,10 +178,10 @@ function FeedbackModal({
           </div>
           {choice?.feedback || choice?.resultText || "……"}
         </div>
-        <PixelImgButton variant="primary" compact className="mt-3.5" onClick={onNext}>
+        <PixelButton variant="primary" size="block" className="mt-3.5" onClick={onNext}>
           继续 →
-        </PixelImgButton>
-      </PixelBgPanel>
+        </PixelButton>
+      </div>
     </div>
   );
 }

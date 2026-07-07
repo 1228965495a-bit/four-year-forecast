@@ -85,22 +85,22 @@ function ResultPage() {
           </div>
 
           <div className="px-4 pt-3 -mb-1" style={{ background: "var(--parchment)" }}>
-            <PixelHeader variant="finalReport" className="!max-w-[230px]" />
+            <PixelHeader variant="finalReport" className="!max-w-[280px]" />
           </div>
 
           <header
-            className="px-4 pt-1 pb-4 text-center relative border-b-[3px] border-dashed border-ink/50"
+            className="px-4 pt-2 pb-5 text-center relative border-b-[3px] border-dashed border-ink/50"
             style={{ background: "var(--parchment)" }}
           >
             <div className="text-[10px] font-display tracking-[0.3em] text-ink/60">
               你的本科人生结局
             </div>
-            <h1 className="pixel-logo mt-2 leading-[1.1]" style={{ fontSize: 21 }}>
+            <h1 className="pixel-logo mt-3 leading-[1.1]" style={{ fontSize: 26 }}>
               {title}
             </h1>
 
             {resultTags.length > 0 && (
-              <div className="mt-2 flex justify-center flex-wrap gap-1">
+              <div className="mt-3 flex justify-center flex-wrap gap-1.5">
                 {resultTags.map((t) => (
                   <span key={t} className="text-[10px] font-display px-1.5 py-0.5 border-2 border-cherry text-cherry bg-cream">
                     {t}
@@ -109,41 +109,31 @@ function ResultPage() {
               </div>
             )}
 
-            <blockquote className="mt-3 mx-auto max-w-[92%] text-left relative px-3 py-2 border-l-[4px] border-cherry bg-cream/80">
-              <div className="absolute -top-2 -left-1 font-display text-cherry text-[20px] leading-none">"</div>
-              <p className="font-display text-[13px] leading-[1.55] text-ink pl-1">{summary}</p>
+            <blockquote className="mt-4 mx-auto max-w-[92%] text-left relative px-3 py-2 border-l-[4px] border-cherry bg-cream/80">
+              <div className="absolute -top-2 -left-1 font-display text-cherry text-[20px] leading-none">“</div>
+              <p className="font-display text-[13.5px] leading-[1.55] text-ink pl-1">{summary}</p>
             </blockquote>
           </header>
 
-          <section className="px-3 pt-2.5 pb-2">
+          <section className="px-3 pt-3 pb-2">
             <SectionLabel accent="cherry">专业后遗症 · 永久 DEBUFF</SectionLabel>
-            <div className="mt-1.5 flex flex-wrap gap-x-1 gap-y-0.5 justify-center">
+            <div className="mt-2 flex flex-wrap gap-1 justify-center">
               {afterEffects.map((a) => (
                 <PixelDebuffBadge key={a}>{a}</PixelDebuffBadge>
               ))}
             </div>
           </section>
 
-          <section className="px-3 pt-1.5 pb-2">
+          <section className="px-3 pt-2 pb-2">
             <SectionLabel>系统诊断 · DIAGNOSIS</SectionLabel>
-            <div
-              className="relative mt-1.5 border-2 border-dashed border-ink/50 p-2.5"
-              style={{
-                background: "var(--parchment)",
-                backgroundImage:
-                  "repeating-linear-gradient(45deg, rgba(255,216,107,0.15) 0 6px, transparent 6px 12px)",
-              }}
-            >
-              <div className="absolute -top-2 left-3 text-[9px] font-display tracking-wider px-1.5 py-0.5 bg-sunny border-2 border-ink">
-                批注
-              </div>
+            <PixelBgPanel variant="note" className="mt-1.5" padding="px-4 py-4">
               <p className="text-[12.5px] leading-[1.55] text-ink">{advice}</p>
-            </div>
+            </PixelBgPanel>
           </section>
 
-          <section className="px-3 pt-1.5 pb-2">
+          <section className="px-3 pt-2 pb-2">
             <SectionLabel>最终属性面板 · STATS</SectionLabel>
-            <div className="mt-1.5 grid grid-cols-2 gap-x-3 gap-y-1">
+            <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-2">
               {HUD_STATS.map((s) => {
                 const v = Math.max(0, Math.min(100, Math.round(game.stats[s.key] ?? 0)));
                 return (
@@ -152,13 +142,12 @@ function ResultPage() {
                       <span className="text-[11px] text-ink/80 whitespace-nowrap">{s.label}</span>
                       <span className="font-display text-[11px] tabular-nums">{v}</span>
                     </div>
-                    <PixelStatBar value={v} color={s.color} height={12} className="mt-0.5" />
+                    <PixelStatBar value={v} color={s.color} height={16} className="mt-0.5" />
                   </div>
                 );
               })}
             </div>
           </section>
-
 
           {achievementsToShow.length > 0 && (
             <section className="px-3 pt-2 pb-3">
@@ -190,35 +179,21 @@ function ResultPage() {
         </article>
 
         <div className="space-y-2">
-          {/* 分享便签 */}
-          <div
-            className="relative border-2 border-ink shadow-[2px_2px_0_0_var(--ink)] px-2.5 py-1.5 -rotate-[1deg] mx-1"
-            style={{ background: "var(--sunny)" }}
-          >
-            <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 h-2.5 w-6 bg-cherry border border-ink" />
-            <div className="text-[9px] font-display tracking-[0.25em] text-ink/70">分享便签</div>
-            <div className="font-display text-[12.5px] leading-snug mt-0.5 line-clamp-2">
-              {shareText}
-            </div>
-          </div>
-
           <div className="grid grid-cols-2 gap-2">
             <PixelImgButton
               variant="secondary"
-              compact
               onClick={() => { gameStore.reset(); navigate({ to: "/" }); }}
             >
               回到首页
             </PixelImgButton>
             <PixelImgButton
               variant="primary"
-              compact
               onClick={() => { gameStore.reset(); navigate({ to: "/major" }); }}
             >
               挑战其他专业
             </PixelImgButton>
           </div>
-          <PixelImgButton variant="danger" compact onClick={share}>
+          <PixelImgButton variant="danger" onClick={share}>
             截图发给想报的人
           </PixelImgButton>
           <button
@@ -228,7 +203,6 @@ function ResultPage() {
             查看详细报告 →
           </button>
         </div>
-
 
       </div>
 
