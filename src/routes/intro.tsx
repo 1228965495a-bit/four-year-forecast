@@ -7,11 +7,11 @@ import { HUD_STATS } from "@/lib/statsMeta";
 import { majorEmoji, displayCategory, categoryTint } from "@/lib/majorDisplay";
 import {
   PixelHeader,
-  PixelBgPanel,
   PixelStatBar,
   PixelTierBadge,
   PixelImgButton,
 } from "@/components/pixel/PixelSkin";
+import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 
 export const Route = createFileRoute("/intro")({ component: IntroPage });
 
