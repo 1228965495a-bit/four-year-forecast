@@ -180,9 +180,9 @@ function FeedbackModal({
           </div>
           <div className="text-[12.5px] leading-snug">{choice?.feedback || choice?.resultText || "……"}</div>
         </PixelPanel9>
-        <PixelButton variant="primary" size="block" className="mt-3.5" onClick={onNext}>
+        <PixelButton3 variant="primary" className="mt-3.5" onClick={onNext}>
           继续 →
-        </PixelButton>
+        </PixelButton3>
       </PixelPanel9>
     </div>
   );
