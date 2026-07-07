@@ -85,18 +85,17 @@ function MajorSelectPage() {
   };
 
   const topBar = (
-    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-2 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2">
-      <button onClick={() => navigate({ to: "/" })} className="text-[11px] px-2 py-0.5 border-2 border-cream shrink-0">
+    <div className="relative border-b-[3px] border-ink bg-ink px-2 pt-2 pb-2">
+      <button
+        onClick={() => navigate({ to: "/" })}
+        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 text-cream text-[11px] px-2 py-0.5 border-2 border-cream"
+      >
         ← 返回
       </button>
-      <div className="min-w-0">
-        <div className="font-display text-[14px] leading-tight truncate">选择你的本科副本</div>
-        <div className="text-[10px] opacity-75 leading-tight mt-0.5 truncate">
-          选一个专业，快进体验本科四年
-        </div>
-      </div>
+      <PixelHeader variant="majorSelect" className="!max-w-[280px]" />
     </div>
   );
+
 
   return (
     <PhoneFrame topBar={topBar}>
