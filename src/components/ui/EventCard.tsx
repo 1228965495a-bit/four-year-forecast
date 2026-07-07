@@ -1,5 +1,6 @@
 // 事件卡：接脚本引擎的新 event/choice 结构。
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
+import { PixelButton3 } from "@/components/pixel/PixelSkin";
 
 type Choice = {
   id?: string;
