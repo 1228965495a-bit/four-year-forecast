@@ -8,6 +8,12 @@ import { PixelButton } from "@/components/ui/PixelButton";
 import { PixelPanel } from "@/components/ui/PixelPanel";
 import { TagBadge, inferTagTone } from "@/components/ui/TagBadge";
 import { majorEmoji, displayCategory, categoryTint } from "@/lib/majorDisplay";
+import {
+  PixelHeader,
+  PixelChip,
+  PixelTierBadge,
+  PixelImgButton,
+} from "@/components/pixel/PixelSkin";
 
 export const Route = createFileRoute("/major")({ component: MajorSelectPage });
 
@@ -79,18 +85,17 @@ function MajorSelectPage() {
   };
 
   const topBar = (
-    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-2 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2">
-      <button onClick={() => navigate({ to: "/" })} className="text-[11px] px-2 py-0.5 border-2 border-cream shrink-0">
+    <div className="relative border-b-[3px] border-ink bg-ink px-2 pt-2 pb-2">
+      <button
+        onClick={() => navigate({ to: "/" })}
+        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 text-cream text-[11px] px-2 py-0.5 border-2 border-cream"
+      >
         ← 返回
       </button>
-      <div className="min-w-0">
-        <div className="font-display text-[14px] leading-tight truncate">选择你的本科副本</div>
-        <div className="text-[10px] opacity-75 leading-tight mt-0.5 truncate">
-          选一个专业，快进体验本科四年
-        </div>
-      </div>
+      <PixelHeader variant="majorSelect" className="!max-w-[280px]" />
     </div>
   );
+
 
   return (
     <PhoneFrame topBar={topBar}>
@@ -98,23 +103,21 @@ function MajorSelectPage() {
         <div className="flex flex-col gap-2.5 p-2.5 pb-4">
 
           <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
-            <div className="flex gap-1.5 pb-1 w-max">
+            <div className="flex gap-1 pb-1 w-max items-end">
               {CATEGORY_TABS.map((t) => (
-                <button
+                <PixelChip
                   key={t.label}
+                  active={tabLabel === t.label}
                   onClick={() => setTabLabel(t.label)}
-                  className={cn(
-                    "shrink-0 font-display text-[11px] tracking-wider px-2.5 py-1 border-2 border-ink transition-colors",
-                    tabLabel === t.label
-                      ? "bg-ink text-cream shadow-[2px_2px_0_0_var(--ink)]"
-                      : "bg-cream text-ink/70 hover:text-ink",
-                  )}
+                  className="!text-[11px]"
+                  style={{ minWidth: 56, padding: "10px 12px 14px" }}
                 >
                   {t.label}
-                </button>
+                </PixelChip>
               ))}
             </div>
           </div>
+
 
           <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
             <div className="flex items-center gap-1.5 pb-1 w-max">
@@ -218,7 +221,7 @@ function SelectionPreview({
 
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
-            <span className={cn("rank-badge shrink-0", `rank-${rank}`)}>{rank}</span>
+            <PixelTierBadge tier={rank} size={26} className="shrink-0 -my-2" />
             <span className="font-display text-[15px] truncate flex-1">{major.name}</span>
             <span className="font-display text-[11px] text-cherry tabular-nums shrink-0">
               {fitOf(major)}%
@@ -235,20 +238,21 @@ function SelectionPreview({
         </div>
       </div>
 
-      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 mt-2.5">
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 mt-2.5 items-center">
         <button
           onClick={onOpenDetail}
           className="text-[11px] font-display px-2.5 py-1.5 border-2 border-ink bg-cream shadow-[2px_2px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
         >
           详情
         </button>
-        <PixelButton variant="accent" size="block" onClick={onConfirm}>
-          ✓ 确认进入「{major.name}」副本
-        </PixelButton>
+        <PixelImgButton variant="primary" onClick={onConfirm} className="!text-[13px]">
+          ✓ 进入「{major.name}」副本
+        </PixelImgButton>
       </div>
     </div>
   );
 }
+
 
 function QuestTile({
   major, selected, onClick,
@@ -267,7 +271,7 @@ function QuestTile({
         selected && "-translate-y-0.5 shadow-[3px_5px_0_0_var(--cherry)] ring-2 ring-cherry",
       )}
     >
-      <span className={cn("absolute top-1 right-1 z-10 rank-badge", `rank-${rank}`)}>{rank}</span>
+      <PixelTierBadge tier={rank} size={30} className="absolute top-1 right-1 z-10" />
 
       {major.tier === "S" && (
         <span className="absolute top-1 left-1 z-10 text-[8.5px] font-display tracking-wider px-1 py-0.5 bg-cherry text-cream border border-ink">
@@ -322,7 +326,7 @@ function DetailContent({ major, onConfirm }: { major: any; onConfirm: () => void
         </div>
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <span className={cn("rank-badge shrink-0", `rank-${rank}`)}>{rank}</span>
+            <PixelTierBadge tier={rank} size={30} className="shrink-0 -my-2" />
             <div className="font-display text-[18px] leading-tight truncate">{major.name}</div>
           </div>
           <div className="text-[11px] text-ink/70 mt-0.5">
@@ -374,9 +378,9 @@ function DetailContent({ major, onConfirm }: { major: any; onConfirm: () => void
         </div>
       )}
 
-      <PixelButton variant="accent" size="block" onClick={onConfirm}>
+      <PixelImgButton variant="primary" onClick={onConfirm}>
         ✓ 确认进入「{major.name}」副本
-      </PixelButton>
+      </PixelImgButton>
     </div>
   );
 }

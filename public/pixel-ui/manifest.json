@@ -1,0 +1,330 @@
+{
+  "source": "/Users/zhenzhen/Downloads/ChatGPT Image 2026年7月7日 17_23_10.png",
+  "assetCount": 27,
+  "assets": [
+    {
+      "filename": "panel-large.png",
+      "path": "pixel-ui/panels/panel-large.png",
+      "category": "panel",
+      "description": "大型羊皮纸主面板，适合事件内容或首页主卡。",
+      "size": {
+        "width": 593,
+        "height": 443
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "panel-medium.png",
+      "path": "pixel-ui/panels/panel-medium.png",
+      "category": "panel",
+      "description": "中型羊皮纸面板，适合开场或状态说明。",
+      "size": {
+        "width": 323,
+        "height": 410
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "panel-small.png",
+      "path": "pixel-ui/panels/panel-small.png",
+      "category": "panel",
+      "description": "小型羊皮纸面板，适合提示或小弹窗。",
+      "size": {
+        "width": 223,
+        "height": 247
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "panel-note-yellow.png",
+      "path": "pixel-ui/panels/panel-note-yellow.png",
+      "category": "panel",
+      "description": "黄色便签纸面板，适合备注和小结。",
+      "size": {
+        "width": 229,
+        "height": 239
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "panel-report-main.png",
+      "path": "pixel-ui/panels/panel-report-main.png",
+      "category": "panel",
+      "description": "带印章的报告纸面板，适合最终报告内容。",
+      "size": {
+        "width": 285,
+        "height": 309
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "primary-default.png",
+      "path": "pixel-ui/buttons/primary-default.png",
+      "category": "button",
+      "description": "红色长按钮，按功能命名为主按钮。",
+      "size": {
+        "width": 254,
+        "height": 99
+      },
+      "transparent": true,
+      "ambiguousNote": "总表未标注按钮语义，按红色醒目长按钮指定为 primary。"
+    },
+    {
+      "filename": "secondary-default.png",
+      "path": "pixel-ui/buttons/secondary-default.png",
+      "category": "button",
+      "description": "绿色长按钮，按功能命名为次按钮。",
+      "size": {
+        "width": 248,
+        "height": 99
+      },
+      "transparent": true,
+      "ambiguousNote": "总表未标注按钮语义，按绿色长按钮指定为 secondary。"
+    },
+    {
+      "filename": "danger-default.png",
+      "path": "pixel-ui/buttons/danger-default.png",
+      "category": "button",
+      "description": "橙红色长按钮，按功能命名为危险按钮。",
+      "size": {
+        "width": 252,
+        "height": 99
+      },
+      "transparent": true,
+      "ambiguousNote": "总表未标注按钮语义，按橙红色长按钮指定为 danger。"
+    },
+    {
+      "filename": "chip-default.png",
+      "path": "pixel-ui/buttons/chip-default.png",
+      "category": "button",
+      "description": "浅色短标签按钮，按功能命名为默认 chip。",
+      "size": {
+        "width": 174,
+        "height": 91
+      },
+      "transparent": true,
+      "ambiguousNote": "总表未标注 chip 状态，按浅色短标签指定为 default。"
+    },
+    {
+      "filename": "chip-active.png",
+      "path": "pixel-ui/buttons/chip-active.png",
+      "category": "button",
+      "description": "绿色气泡标签，按功能命名为激活 chip。",
+      "size": {
+        "width": 174,
+        "height": 105
+      },
+      "transparent": true,
+      "ambiguousNote": "总表未标注 chip 状态，按绿色气泡标签指定为 active。"
+    },
+    {
+      "filename": "tier-s.png",
+      "path": "pixel-ui/badges/tier-s.png",
+      "category": "badge",
+      "description": "S 档徽章。",
+      "size": {
+        "width": 158,
+        "height": 166
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "tier-a.png",
+      "path": "pixel-ui/badges/tier-a.png",
+      "category": "badge",
+      "description": "A 档徽章。",
+      "size": {
+        "width": 157,
+        "height": 167
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "tier-b.png",
+      "path": "pixel-ui/badges/tier-b.png",
+      "category": "badge",
+      "description": "B 档徽章。",
+      "size": {
+        "width": 151,
+        "height": 163
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "debuff-red.png",
+      "path": "pixel-ui/badges/debuff-red.png",
+      "category": "badge",
+      "description": "红色负面状态/减益徽章。",
+      "size": {
+        "width": 204,
+        "height": 133
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "achievement-gold.png",
+      "path": "pixel-ui/badges/achievement-gold.png",
+      "category": "badge",
+      "description": "金色成就徽章。",
+      "size": {
+        "width": 161,
+        "height": 154
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "tag-red.png",
+      "path": "pixel-ui/badges/tag-red.png",
+      "category": "badge",
+      "description": "红色标签。",
+      "size": {
+        "width": 140,
+        "height": 85
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "tag-green.png",
+      "path": "pixel-ui/badges/tag-green.png",
+      "category": "badge",
+      "description": "绿色标签。",
+      "size": {
+        "width": 136,
+        "height": 85
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "tag-blue.png",
+      "path": "pixel-ui/badges/tag-blue.png",
+      "category": "badge",
+      "description": "蓝色标签。",
+      "size": {
+        "width": 136,
+        "height": 84
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "tag-yellow.png",
+      "path": "pixel-ui/badges/tag-yellow.png",
+      "category": "badge",
+      "description": "黄色标签。",
+      "size": {
+        "width": 137,
+        "height": 85
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "stat-bar-frame.png",
+      "path": "pixel-ui/bars/stat-bar-frame.png",
+      "category": "bar",
+      "description": "空状态条框。",
+      "size": {
+        "width": 350,
+        "height": 81
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "stat-bar-green.png",
+      "path": "pixel-ui/bars/stat-bar-green.png",
+      "category": "bar",
+      "description": "绿色状态条。",
+      "size": {
+        "width": 272,
+        "height": 80
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "stat-bar-red.png",
+      "path": "pixel-ui/bars/stat-bar-red.png",
+      "category": "bar",
+      "description": "红色状态条。",
+      "size": {
+        "width": 253,
+        "height": 79
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "stat-bar-blue.png",
+      "path": "pixel-ui/bars/stat-bar-blue.png",
+      "category": "bar",
+      "description": "蓝色状态条。",
+      "size": {
+        "width": 254,
+        "height": 80
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "stat-bar-yellow.png",
+      "path": "pixel-ui/bars/stat-bar-yellow.png",
+      "category": "bar",
+      "description": "黄色状态条。",
+      "size": {
+        "width": 281,
+        "height": 80
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "final-report.png",
+      "path": "pixel-ui/headers/final-report.png",
+      "category": "header",
+      "description": "FINAL REPORT 标题条。",
+      "size": {
+        "width": 500,
+        "height": 126
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "major-select.png",
+      "path": "pixel-ui/headers/major-select.png",
+      "category": "header",
+      "description": "选择你的本科副本标题条。",
+      "size": {
+        "width": 499,
+        "height": 125
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    },
+    {
+      "filename": "semester.png",
+      "path": "pixel-ui/headers/semester.png",
+      "category": "header",
+      "description": "学期进度标题条。",
+      "size": {
+        "width": 443,
+        "height": 125
+      },
+      "transparent": true,
+      "ambiguousNote": null
+    }
+  ]
+}

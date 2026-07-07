@@ -6,6 +6,14 @@ import { pickEnding } from "@/lib/scriptEngine";
 import { STAT_META, HUD_STATS } from "@/lib/statsMeta";
 import { majorById, achievementsByMajorId } from "@/data/script/gameData";
 import { PixelButton } from "@/components/ui/PixelButton";
+import {
+  PixelHeader,
+  PixelDebuffBadge,
+  PixelAchievementBadge,
+  PixelStatBar,
+  PixelBgPanel,
+  PixelImgButton,
+} from "@/components/pixel/PixelSkin";
 
 export const Route = createFileRoute("/result")({ component: ResultPage });
 
@@ -65,16 +73,23 @@ function ResultPage() {
           className="border-[3px] border-ink shadow-[5px_5px_0_0_var(--ink)] overflow-hidden"
           style={{ background: "var(--cream)" }}
         >
-          <div className="relative bg-ink text-cream px-3 py-1.5 flex items-center justify-between">
+
+          <div className="relative bg-ink text-cream px-3 py-2 flex items-center justify-between">
             <div className="absolute inset-0 pixel-scanlines opacity-25" />
-            <div className="relative text-[10px] font-display tracking-[0.2em]">▌ FINAL · REPORT</div>
             <div className="relative text-[10px] font-display tracking-widest opacity-80">
               FILE：{String(major.id).slice(0, 6).toUpperCase()}
             </div>
+            <div className="relative text-[10px] font-display tracking-widest opacity-80">
+              {major.name}
+            </div>
+          </div>
+
+          <div className="px-4 pt-3 -mb-1" style={{ background: "var(--parchment)" }}>
+            <PixelHeader variant="finalReport" className="!max-w-[280px]" />
           </div>
 
           <header
-            className="px-4 pt-5 pb-5 text-center relative border-b-[3px] border-dashed border-ink/50"
+            className="px-4 pt-2 pb-5 text-center relative border-b-[3px] border-dashed border-ink/50"
             style={{ background: "var(--parchment)" }}
           >
             <div className="text-[10px] font-display tracking-[0.3em] text-ink/60">
@@ -102,32 +117,23 @@ function ResultPage() {
 
           <section className="px-3 pt-3 pb-2">
             <SectionLabel accent="cherry">专业后遗症 · 永久 DEBUFF</SectionLabel>
-            <div className="mt-1.5 flex flex-wrap gap-1.5">
+            <div className="mt-2 flex flex-wrap gap-1 justify-center">
               {afterEffects.map((a) => (
-                <span
-                  key={a}
-                  className="inline-flex items-center gap-1 border-2 border-ink bg-cherry/90 text-cream font-display text-[12px] px-2 py-0.5 shadow-[2px_2px_0_0_var(--ink)]"
-                >
-                  <span className="opacity-80">×</span>
-                  {a}
-                </span>
+                <PixelDebuffBadge key={a}>{a}</PixelDebuffBadge>
               ))}
             </div>
           </section>
 
           <section className="px-3 pt-2 pb-2">
             <SectionLabel>系统诊断 · DIAGNOSIS</SectionLabel>
-            <div
-              className="relative mt-1.5 border-2 border-dashed border-ink/60 p-2.5"
-              style={{ background: "var(--parchment)" }}
-            >
+            <PixelBgPanel variant="note" className="mt-1.5" padding="px-4 py-4">
               <p className="text-[12.5px] leading-[1.55] text-ink">{advice}</p>
-            </div>
+            </PixelBgPanel>
           </section>
 
           <section className="px-3 pt-2 pb-2">
             <SectionLabel>最终属性面板 · STATS</SectionLabel>
-            <div className="mt-1.5 grid grid-cols-2 gap-x-3 gap-y-1.5">
+            <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-2">
               {HUD_STATS.map((s) => {
                 const v = Math.max(0, Math.min(100, Math.round(game.stats[s.key] ?? 0)));
                 return (
@@ -136,9 +142,7 @@ function ResultPage() {
                       <span className="text-[11px] text-ink/80 whitespace-nowrap">{s.label}</span>
                       <span className="font-display text-[11px] tabular-nums">{v}</span>
                     </div>
-                    <div className="bar-track !h-1.5 mt-0.5">
-                      <div className="bar-fill" style={{ width: `${v}%`, background: s.color }} />
-                    </div>
+                    <PixelStatBar value={v} color={s.color} height={16} className="mt-0.5" />
                   </div>
                 );
               })}
@@ -148,21 +152,19 @@ function ResultPage() {
           {achievementsToShow.length > 0 && (
             <section className="px-3 pt-2 pb-3">
               <SectionLabel accent="sunny">代表成就 · ACHIEVEMENTS</SectionLabel>
-              <div className="mt-1.5 flex flex-wrap gap-1.5">
+              <div className="mt-2 flex flex-wrap gap-1 justify-center">
                 {achievementsToShow.map((id) => {
                   const a = achMap[id];
                   return (
-                    <span
-                      key={id}
-                      className="inline-flex items-center gap-1 border-2 border-ink bg-sunny text-ink font-display text-[12px] px-2 py-0.5 shadow-[2px_2px_0_0_var(--ink)]"
-                    >
-                      ★ {a?.name ?? id}
-                    </span>
+                    <PixelAchievementBadge key={id}>
+                      {a?.name ?? id}
+                    </PixelAchievementBadge>
                   );
                 })}
               </div>
             </section>
           )}
+
 
 
           <footer className="bg-ink text-cream text-center px-3 py-2.5">
@@ -178,22 +180,22 @@ function ResultPage() {
 
         <div className="space-y-2">
           <div className="grid grid-cols-2 gap-2">
-            <PixelButton
-              variant="primary" size="block"
+            <PixelImgButton
+              variant="secondary"
               onClick={() => { gameStore.reset(); navigate({ to: "/" }); }}
             >
               回到首页
-            </PixelButton>
-            <PixelButton
-              variant="primary" size="block"
+            </PixelImgButton>
+            <PixelImgButton
+              variant="primary"
               onClick={() => { gameStore.reset(); navigate({ to: "/major" }); }}
             >
               挑战其他专业
-            </PixelButton>
+            </PixelImgButton>
           </div>
-          <PixelButton variant="accent" size="block" onClick={share}>
+          <PixelImgButton variant="danger" onClick={share}>
             截图发给想报的人
-          </PixelButton>
+          </PixelImgButton>
           <button
             onClick={() => setDetailOpen(true)}
             className="w-full text-center text-[11px] font-display tracking-wider text-ink/70 underline underline-offset-4 decoration-dashed py-1"
@@ -201,6 +203,7 @@ function ResultPage() {
             查看详细报告 →
           </button>
         </div>
+
       </div>
 
       {detailOpen && <DetailSheet onClose={() => setDetailOpen(false)} achMap={achMap} />}
