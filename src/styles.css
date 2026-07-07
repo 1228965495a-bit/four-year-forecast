@@ -384,7 +384,7 @@
   height: calc(100dvh - 98px);
   min-height: 0;
   display: grid;
-  grid-template-rows: 38px minmax(0, 1fr) auto;
+  grid-template-rows: auto 220px minmax(0, 1fr);
   gap: 8px;
   padding-bottom: 8px;
   overflow: hidden;
@@ -393,7 +393,7 @@
 @utility semester-hud {
   background: var(--cream);
   border-bottom: 2px solid rgba(63, 42, 31, 0.16);
-  padding: 8px 10px 7px;
+  padding: 10px 10px 9px;
   min-height: 0;
 }
 
@@ -410,17 +410,19 @@
 
 @media (max-height: 740px) {
   .semester-screen {
-    grid-template-rows: 38px minmax(0, 1fr) auto;
+    grid-template-rows: auto 200px minmax(0, 1fr);
     gap: 7px;
     padding-bottom: 7px;
   }
+  .semester-hud { padding: 8px 10px 7px; }
 }
 
 @media (min-height: 800px) {
   .semester-screen {
-    grid-template-rows: 38px minmax(0, 1fr) auto;
+    grid-template-rows: auto 240px minmax(0, 1fr);
   }
 }
+
 
 @utility scene-badge {
   position: absolute;
@@ -615,23 +617,24 @@
 }
 
 @utility event-dialog-text {
-  font-size: 12.5px;
-  line-height: 1.45;
-  color: rgba(63, 42, 31, 0.84);
-  margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(63, 42, 31, 0.88);
+  margin-bottom: 10px;
 }
 
 @utility event-options {
   display: grid;
-  gap: 7px;
+  gap: 8px;
 }
 
 @media (max-height: 740px) {
-  .event-dialog-body { padding: 8px 10px 10px; }
-  .event-dialog-text { font-size: 12px; line-height: 1.35; margin-bottom: 6px; }
-  .event-options { gap: 6px; }
-  .option-btn { min-height: 31px; padding: 5px 8px; }
+  .event-dialog-body { padding: 9px 11px 11px; }
+  .event-dialog-text { font-size: 13px; line-height: 1.4; margin-bottom: 7px; }
+  .event-options { gap: 7px; }
+  .option-btn { min-height: 34px; padding: 6px 9px; }
 }
+
 
 
 /* ---- Scene ambient animations ---- */

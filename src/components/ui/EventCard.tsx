@@ -37,10 +37,11 @@ function OptionRow({ option, onPick, index }: { option: EventOption; onPick: (o:
   return (
     <button onClick={() => onPick(option)} className="option-btn group">
       <span className="option-letter" aria-hidden>{letter}</span>
-      <span className="flex-1 min-w-0 text-left font-display text-[13px] leading-snug">
+      <span className="flex-1 min-w-0 text-left font-display text-[14px] leading-snug">
         {option.label}
       </span>
       <span className="option-arrow">▶</span>
+
     </button>
   );
 }
