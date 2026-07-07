@@ -170,9 +170,9 @@ function MajorSelectPage() {
           </div>
 
           {list.length === 0 && (
-            <div className="pixel-panel-sm p-6 text-center text-[12px] text-ink/60">
-              没有匹配的副本，换个筛选试试
-            </div>
+            <PixelPanel9 variant="small" padding="p-5" className="text-center">
+              <div className="text-[12px] text-ink/60">没有匹配的副本，换个筛选试试</div>
+            </PixelPanel9>
           )}
         </div>
       </div>
