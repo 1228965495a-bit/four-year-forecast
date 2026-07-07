@@ -74,7 +74,7 @@ function MajorSelectPage() {
   const navigate = useNavigate();
   const [tabLabel, setTabLabel] = useState<string>("全部");
   const [recSet, setRecSet] = useState<Set<string>>(new Set());
-  const [kw, setKw] = useState("");
+  
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
 
