@@ -116,7 +116,12 @@ function SemesterPage() {
 
         {/* 主场景 */}
         <div className="semester-scene-wrap">
-          <SceneStage scene={currentEvent.scene} badge={currentEvent.category} />
+          <SceneStage
+            scene={currentEvent.scene}
+            badge={currentEvent.category}
+            title={currentEvent.title}
+            caption={currentEvent.description}
+          />
         </div>
 
         {/* 事件卡（不显示属性变化） */}
