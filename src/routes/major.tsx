@@ -378,9 +378,9 @@ function DetailContent({ major, onConfirm }: { major: any; onConfirm: () => void
         </div>
       )}
 
-      <PixelButton variant="accent" size="block" onClick={onConfirm}>
+      <PixelImgButton variant="primary" onClick={onConfirm}>
         ✓ 确认进入「{major.name}」副本
-      </PixelButton>
+      </PixelImgButton>
     </div>
   );
 }
