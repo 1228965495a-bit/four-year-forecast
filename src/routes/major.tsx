@@ -8,6 +8,12 @@ import { PixelButton } from "@/components/ui/PixelButton";
 import { PixelPanel } from "@/components/ui/PixelPanel";
 import { TagBadge, inferTagTone } from "@/components/ui/TagBadge";
 import { majorEmoji, displayCategory, categoryTint } from "@/lib/majorDisplay";
+import {
+  PixelHeader,
+  PixelChip,
+  PixelTierBadge,
+  PixelImgButton,
+} from "@/components/pixel/PixelSkin";
 
 export const Route = createFileRoute("/major")({ component: MajorSelectPage });
 
