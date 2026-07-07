@@ -17,6 +17,7 @@ import { majorById } from "@/data/script/gameData";
 import { EventCard } from "@/components/ui/EventCard";
 import { CharacterPanel } from "@/components/ui/CharacterPanel";
 import { PixelButton } from "@/components/ui/PixelButton";
+import { PixelStatBar, PixelImgButton, PixelBgPanel } from "@/components/pixel/PixelSkin";
 
 export const Route = createFileRoute("/semester")({ component: SemesterPage });
 
