@@ -91,11 +91,13 @@
 
   html, body {
     font-family: var(--font-body);
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--paper);
+    color: var(--text);
     background-image:
-      radial-gradient(oklch(0.32 0.05 40 / 0.06) 1px, transparent 1px);
-    background-size: 6px 6px;
+      radial-gradient(rgba(63, 42, 31, 0.10) 1px, transparent 1px),
+      radial-gradient(rgba(63, 42, 31, 0.05) 1px, transparent 1px);
+    background-size: 8px 8px, 24px 24px;
+    background-position: 0 0, 4px 4px;
   }
 
   h1, h2, h3, h4 {
