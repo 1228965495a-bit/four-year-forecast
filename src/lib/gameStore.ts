@@ -1,6 +1,8 @@
 // 游戏状态存储（脚本引擎版）。localStorage 持久化 + React 订阅。
+// 注意：模块加载阶段不读 localStorage，避免 SSR / 客户端首帧不一致导致 hydration 失败。
+// 水合流程：SSR 与客户端首帧都渲染 emptyState → 挂载后 hydrateFromStorage() 触发一次更新。
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import {
   initEngineForMajor,
   applyChoice as engineApplyChoice,
@@ -50,27 +52,35 @@ function emptyState(): GameState {
   };
 }
 
-let state: GameState = load();
+// 稳定的 server / 首帧快照 —— 引用必须始终相同，否则 useSyncExternalStore 会死循环。
+const SERVER_SNAPSHOT: GameState = emptyState();
+
+let state: GameState = SERVER_SNAPSHOT;
+let hydrated = false;
 const listeners = new Set<() => void>();
 
-function load(): GameState {
-  if (typeof window === "undefined") return emptyState();
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return emptyState();
-    return { ...emptyState(), ...JSON.parse(raw) };
-  } catch {
-    return emptyState();
-  }
-}
 function persist() {
   if (typeof window === "undefined") return;
   try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
 }
 function emit() { persist(); listeners.forEach((l) => l()); }
 
+function hydrateFromStorage() {
+  if (hydrated || typeof window === "undefined") return;
+  hydrated = true;
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    state = { ...emptyState(), ...JSON.parse(raw) };
+    listeners.forEach((l) => l());
+  } catch {
+    /* ignore */
+  }
+}
+
 export const gameStore = {
   get(): GameState { return state; },
+  getServerSnapshot(): GameState { return SERVER_SNAPSHOT; },
   subscribe(l: () => void) { listeners.add(l); return () => listeners.delete(l); },
   set(patch: Partial<GameState>) { state = { ...state, ...patch }; emit(); },
   reset() { state = emptyState(); emit(); },
@@ -111,7 +121,14 @@ export const gameStore = {
 };
 
 export function useGameState(): GameState {
-  return useSyncExternalStore(gameStore.subscribe, gameStore.get, gameStore.get);
+  const snap = useSyncExternalStore(
+    gameStore.subscribe,
+    gameStore.get,
+    gameStore.getServerSnapshot,
+  );
+  // 挂载后从 localStorage 水合一次；已水合则无操作。
+  useEffect(() => { hydrateFromStorage(); }, []);
+  return snap;
 }
 
 export function currentEventOf(g: GameState) {
@@ -119,3 +136,4 @@ export function currentEventOf(g: GameState) {
 }
 
 export { SEMESTER_KEYS, currentSemesterLabel };
+
