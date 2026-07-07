@@ -6,6 +6,14 @@ import { pickEnding } from "@/lib/scriptEngine";
 import { STAT_META, HUD_STATS } from "@/lib/statsMeta";
 import { majorById, achievementsByMajorId } from "@/data/script/gameData";
 import { PixelButton } from "@/components/ui/PixelButton";
+import {
+  PixelHeader,
+  PixelDebuffBadge,
+  PixelAchievementBadge,
+  PixelStatBar,
+  PixelBgPanel,
+  PixelImgButton,
+} from "@/components/pixel/PixelSkin";
 
 export const Route = createFileRoute("/result")({ component: ResultPage });
 
