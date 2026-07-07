@@ -206,6 +206,15 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "你选择先保护今天的心情。滤镜厚度维持稳定。",
       },
+      {
+        label: "反手劝前辈：还有救",
+        effects: [
+          { key: "mouthHard", delta: 8 },
+          { key: "obsession", delta: 4 },
+          { key: "escape", delta: -3 },
+        ],
+        feedback: "前辈愣了一下，然后笑着帮你续了饮料。你也不知道谁在劝谁。",
+      },
     ],
   },
   {
