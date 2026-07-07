@@ -8,7 +8,7 @@ import {
   currentEventOf,
   currentSemesterLabel,
 } from "@/lib/gameStore";
-import { HUD_STATS, STAT_META } from "@/lib/statsMeta";
+import { STAT_META } from "@/lib/statsMeta";
 
 const CORE_HUD_KEYS = ["obsession", "energy", "escapeImpulse"];
 const CORE_HUD_STATS = STAT_META.filter((s) => CORE_HUD_KEYS.includes(s.key));
