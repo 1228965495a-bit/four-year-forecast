@@ -2,6 +2,7 @@
 // 数值使用新的属性体系（obsession/battery/filter/gpa/illusion/escape + 隐藏 mouthHard/hairline）。
 
 import type { CharStats } from "@/lib/gameStore";
+import { getMajorScript } from "./scripts";
 
 export type EventCategory = "学业" | "社交" | "休闲" | "实习" | "健康" | "劝退" | "特殊";
 
@@ -473,8 +474,34 @@ export const EVENTS: GameEvent[] = [
 ];
 
 export function pickEvents(step: number, n = 1): GameEvent[] {
-  // 简单确定性伪随机，避免每次渲染重新洗牌
-  const arr = [...EVENTS];
+  return pickFromPool(EVENTS, step, n);
+}
+
+/**
+ * 按专业挑事件：优先用专业脚本里的事件池，不足则补充通用 EVENTS。
+ * 如果脚本里某个事件指定了 step，会在对应周固定出现。
+ */
+export function pickEventsForMajor(
+  majorId: string | null | undefined,
+  step: number,
+  n = 1,
+): GameEvent[] {
+  const script = getMajorScript(majorId);
+  if (!script?.events?.length) return pickEvents(step, n);
+
+  const pinned = script.events.filter((e) => e.step === step);
+  if (pinned.length >= n) return pinned.slice(0, n);
+
+  const pool: GameEvent[] = [
+    ...pinned,
+    ...script.events.filter((e) => e.step === undefined),
+    ...EVENTS,
+  ];
+  return pickFromPool(pool, step, n);
+}
+
+function pickFromPool(pool: GameEvent[], step: number, n: number): GameEvent[] {
+  const arr = [...pool];
   const seed = (step + 1) * 9301 + 49297;
   for (let i = arr.length - 1; i > 0; i--) {
     const j = ((seed * (i + 3)) >>> 0) % (i + 1);

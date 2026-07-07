@@ -3,6 +3,7 @@
 
 import type { CharStats } from "@/lib/gameStore";
 import type { MajorConfig } from "./majors";
+import { getMajorScript } from "./scripts";
 
 export type SurvivalRating =
   | "非常适合，但会掉电"
@@ -112,9 +113,14 @@ export const RESULT_TEMPLATES: ResultTemplate[] = [
 ];
 
 export function matchResult(stats: CharStats, major: MajorConfig) {
-  let best = RESULT_TEMPLATES[0];
+  // 优先用专业脚本里的 endings；没有就用通用池
+  const script = getMajorScript(major.id);
+  const pool: ResultTemplate[] =
+    script?.endings?.length ? script.endings : RESULT_TEMPLATES;
+
+  let best = pool[0];
   let bestScore = -1;
-  for (const t of RESULT_TEMPLATES) {
+  for (const t of pool) {
     const score = t.match(stats, major);
     if (score > bestScore) { bestScore = score; best = t; }
   }
