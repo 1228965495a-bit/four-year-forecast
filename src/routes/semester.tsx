@@ -1,56 +1,69 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { GameLayout } from "@/components/game/GameLayout";
-import { PixelCard } from "@/components/game/PixelCard";
-import { PixelButton } from "@/components/game/PixelButton";
-import { StatBar } from "@/components/game/StatBar";
-import { SemesterEventCard } from "@/components/game/SemesterEventCard";
-import { CharacterStatusPanel } from "@/components/game/CharacterStatusPanel";
-import { AchievementBadge } from "@/components/game/AchievementBadge";
+import { PhoneFrame } from "@/components/game/PhoneFrame";
+import {
+  IconStudy,
+  IconMoney,
+  IconMental,
+  IconSocial,
+  IconIntern,
+  IconEnergy,
+  PixelAvatar,
+} from "@/components/game/PixelIcon";
 import { EVENTS, type GameEvent } from "@/data/events";
 import { getMajorById } from "@/data/majors";
-import { gameStore, phaseLabel, useGameState } from "@/lib/gameStore";
+import {
+  gameStore,
+  phaseLabel,
+  useGameState,
+  type CharStats,
+} from "@/lib/gameStore";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/semester")({
   component: SemesterPage,
 });
 
+const TIMELINE: { w: number; label: string }[] = [
+  { w: 1, label: "W1" },
+  { w: 4, label: "W4" },
+  { w: 8, label: "W8" },
+  { w: 12, label: "W12" },
+  { w: 16, label: "W16" },
+  { w: 17, label: "期末" },
+];
+
 interface Toast {
   id: number;
   text: string;
 }
-
-const TIMELINE = [1, 4, 8, 12, 16, 17]; // 17 = 期末周
 
 function SemesterPage() {
   const game = useGameState();
   const navigate = useNavigate();
   const major = game.majorId ? getMajorById(game.majorId) : null;
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const [charOpen, setCharOpen] = useState(false);
 
   useEffect(() => {
-    if (!game.majorId) {
-      navigate({ to: "/major" });
-    }
+    if (!game.majorId) navigate({ to: "/major" });
   }, [game.majorId, navigate]);
-
   useEffect(() => {
     if (game.finished) navigate({ to: "/result" });
   }, [game.finished, navigate]);
 
-  // 事件抽 4 张，与阶段无关，简单洗牌
   const eventPool = useMemo<GameEvent[]>(() => {
     const arr = [...EVENTS];
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
-    return arr.slice(0, 4);
+    return arr.slice(0, 2);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game.year, game.semester, game.week]);
 
-  const totalWeeks = ((game.year - 1) * 2 + (game.semester - 1)) * 16 + game.week;
+  const totalWeeks =
+    ((game.year - 1) * 2 + (game.semester - 1)) * 16 + game.week;
   const totalTarget = 4 * 2 * 16;
   const progressPct = Math.min(100, (totalWeeks / totalTarget) * 100);
 
@@ -68,155 +81,276 @@ function SemesterPage() {
       title: ev.title,
       emoji: ev.emoji,
     });
-    // 简单成就
-    if (ev.id === "study_final") {
-      gameStore.addAchievement({ id: "no_fail", label: "0 挂科成就", emoji: "🎯" });
-    }
-    if (ev.id === "intern") {
+    if (ev.id === "study_final")
+      gameStore.addAchievement({ id: "no_fail", label: "0 挂科", emoji: "🎯" });
+    if (ev.id === "intern")
       gameStore.addAchievement({ id: "first_intern", label: "第一份实习", emoji: "💼" });
-    }
-    if (ev.id === "trip") {
+    if (ev.id === "trip")
       gameStore.addAchievement({ id: "wanderer", label: "校外漫游者", emoji: "🎒" });
-    }
-    const label = ev.gainLabel ?? ev.title;
-    pushToast(`${ev.emoji} ${ev.title}｜${label}`);
+    pushToast(`✦ ${ev.title}｜${ev.gainLabel ?? ""}`);
     gameStore.advanceWeek(4);
   };
 
   const diagnosis = useMemo(() => {
     const s = game.stats;
-    if (s.mental < 35) return "精神状态告急，建议休学一周去看海。";
-    if (s.study > 75 && s.internship > 60) return "两开花选手，前途一片光明。";
-    if (s.money < 25) return "已进入吃土模式，请注意生活质量。";
-    if (s.social < 30) return "社交电量偏低，室友都快忘了你长什么样。";
-    return "稳中有进，注意别把自己卷坏。";
+    if (s.mental < 35) return "精神状态告急，建议休学一周看海。";
+    if (s.study > 75 && s.internship > 60) return "两开花选手，前途光明。";
+    if (s.money < 25) return "已进入吃土模式。";
+    if (s.social < 30) return "社交电量偏低。";
+    return "稳中有进，注意别卷坏了。";
   }, [game.stats]);
 
   if (!major) return null;
+  const currentIdx = TIMELINE.findIndex((t) => game.week <= t.w);
 
-  const currentWeekIdx = TIMELINE.findIndex((w) => game.week <= w);
+  const topBar = (
+    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-1.5 flex items-center gap-2">
+      <button
+        onClick={() => navigate({ to: "/" })}
+        className="text-[11px] px-2 py-0.5 border-2 border-cream bg-transparent"
+      >
+        ⌂
+      </button>
+      <div>
+        <div className="font-display text-[13px] leading-none">
+          {phaseLabel(game)}
+        </div>
+        <div className="text-[9px] text-cream/70 leading-none mt-0.5">
+          {major.name} · {game.school}
+        </div>
+      </div>
+      <button
+        onClick={() => {
+          gameStore.set({ finished: true });
+          navigate({ to: "/result" });
+        }}
+        className="ml-auto text-[10px] px-2 py-1 border-2 border-cream bg-cherry text-cream"
+      >
+        结束模拟 →
+      </button>
+    </div>
+  );
 
   return (
-    <GameLayout showHome title={`🎮 学期模拟 · ${phaseLabel(game)}`} subtitle={major.name}>
-      {/* 顶部 HUD */}
-      <PixelCard tone="cream" className="!p-3">
-        <div className="grid grid-cols-2 gap-x-4 gap-y-2 md:grid-cols-6">
-          <StatBar label="学业" icon="📘" value={game.stats.study} tone="sky" size="sm" />
-          <StatBar label="金钱" icon="💰" value={game.stats.money} tone="sunny" size="sm" />
-          <StatBar label="精神" icon="🧠" value={game.stats.mental} tone="cherry" size="sm" />
-          <StatBar label="社交" icon="🎈" value={game.stats.social} tone="cherry" size="sm" />
-          <StatBar label="实习" icon="💼" value={game.stats.internship} tone="sage" size="sm" />
-          <StatBar label="体力" icon="⚡" value={game.stats.energy} tone="tan" size="sm" />
+    <PhoneFrame topBar={topBar}>
+      <div className="p-3 space-y-3 pb-6">
+        {/* HUD 两行 */}
+        <div className="pixel-panel !p-2">
+          <div className="grid grid-cols-3 gap-2">
+            <HudStat label="学业" val={game.stats.study} icon={<IconStudy />} color="var(--sky)" />
+            <HudStat label="金钱" val={game.stats.money} icon={<IconMoney />} color="var(--sunny)" />
+            <HudStat label="精神" val={game.stats.mental} icon={<IconMental />} color="var(--cherry)" />
+            <HudStat label="社交" val={game.stats.social} icon={<IconSocial />} color="var(--sage)" />
+            <HudStat label="实习" val={game.stats.internship} icon={<IconIntern />} color="var(--tan)" />
+            <HudStat label="体力" val={game.stats.energy} icon={<IconEnergy />} color="#D9534F" />
+          </div>
         </div>
-      </PixelCard>
 
-      <div className="mt-4 grid gap-4 lg:grid-cols-[1fr_340px]">
-        {/* 中间：时间线 + 事件 */}
-        <div className="space-y-4">
-          {/* 时间线 */}
-          <PixelCard tone="sky" className="!p-3">
-            <div className="mb-2 flex items-center justify-between text-xs">
-              <span className="font-semibold">🗓️ 本学期时间线</span>
-              <span className="text-ink/70">总进度 {Math.round(progressPct)}%</span>
-            </div>
-            <div className="flex items-center gap-1">
-              {TIMELINE.map((w, i) => (
-                <div key={w} className="flex flex-1 items-center">
-                  <div
-                    className={cn(
-                      "pixel-border-sm flex h-8 w-8 items-center justify-center text-[10px] font-bold shrink-0",
-                      i <= currentWeekIdx ? "bg-cherry/80" : "bg-cream",
-                    )}
-                  >
-                    {w === 17 ? "期末" : `W${w}`}
-                  </div>
-                  {i < TIMELINE.length - 1 && (
-                    <div className={cn("mx-1 h-1 flex-1", i < currentWeekIdx ? "bg-cherry" : "bg-ink/20")} />
+        {/* 时间线 */}
+        <div className="pixel-panel !p-2.5 bg-sky/30">
+          <div className="flex items-center justify-between mb-2">
+            <span className="font-display text-[12px]">本学期时间线</span>
+            <span className="text-[10px] text-ink/70">总进度 {Math.round(progressPct)}%</span>
+          </div>
+          <div className="flex items-center gap-0.5">
+            {TIMELINE.map((t, i) => (
+              <div key={t.w} className="flex flex-1 items-center">
+                <div
+                  className={cn(
+                    "pixel-border-sm !shadow-none flex h-7 flex-1 items-center justify-center text-[9px] font-bold",
+                    i <= currentIdx ? "bg-cherry text-cream" : "bg-cream"
                   )}
+                >
+                  {t.label}
                 </div>
-              ))}
-            </div>
-          </PixelCard>
-
-          {/* 事件卡 */}
-          <div>
-            <div className="mb-2 flex items-center justify-between">
-              <h3 className="font-display text-base">🎴 本周可选事件</h3>
-              <button
-                onClick={() => gameStore.advanceWeek(4)}
-                className="pixel-chip hover:bg-sunny/70"
-              >
-                ⏭ 跳过 4 周
-              </button>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {eventPool.map((ev) => (
-                <SemesterEventCard key={ev.id + game.week} event={ev} onPick={pickEvent} />
-              ))}
-            </div>
-          </div>
-
-          {/* 底部：目标 & 成就 */}
-          <div className="grid gap-3 md:grid-cols-2">
-            <PixelCard tone="sage">
-              <div className="mb-1 text-xs font-semibold">🎯 本学期目标</div>
-              <ul className="space-y-1 text-sm">
-                <li>· 学业保持在 60 以上</li>
-                <li>· 至少完成 1 段实习尝试</li>
-                <li>· 精神值不要跌破 30</li>
-              </ul>
-              <div className="mt-2">
-                <StatBar label="学期进度" value={progressPct} tone="sage" />
-              </div>
-            </PixelCard>
-            <PixelCard tone="sunny">
-              <div className="mb-1 text-xs font-semibold">🏅 成就进度 · 你可能成为……</div>
-              <div className="mb-2 flex flex-wrap gap-1.5">
-                {major.endings.map((e) => (
-                  <span key={e} className="pixel-chip bg-cream !text-[11px]">{e}</span>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {game.achievements.length === 0 && (
-                  <span className="text-xs text-ink/70">还没有成就，去做点事情吧。</span>
+                {i < TIMELINE.length - 1 && (
+                  <div className={cn("h-1 w-1.5", i < currentIdx ? "bg-cherry" : "bg-ink/20")} />
                 )}
-                {game.achievements.map((a) => (
-                  <AchievementBadge key={a.id} label={a.label} emoji={a.emoji} />
-                ))}
               </div>
-            </PixelCard>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <PixelButton variant="ghost" onClick={() => navigate({ to: "/major" })}>
-              ← 换个专业
-            </PixelButton>
-            <PixelButton
-              variant="accent"
-              onClick={() => {
-                gameStore.set({ finished: true });
-                navigate({ to: "/result" });
-              }}
-            >
-              🏁 结束模拟看结果
-            </PixelButton>
+            ))}
           </div>
         </div>
 
-        {/* 右：角色状态 */}
-        <div className="lg:sticky lg:top-24 lg:h-fit">
-          <CharacterStatusPanel game={game} major={major} diagnosis={diagnosis} />
+        {/* 事件卡 */}
+        <div>
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="font-display text-[13px] flex items-center gap-1">
+              <span className="h-1.5 w-1.5 bg-cherry" />
+              本周可选事件
+            </span>
+            <button
+              onClick={() => gameStore.advanceWeek(4)}
+              className="pixel-tab !py-0.5"
+            >
+              ⏭ 跳过 4 周
+            </button>
+          </div>
+          <div className="space-y-2">
+            {eventPool.map((ev) => (
+              <EventCard key={ev.id + game.week} event={ev} onPick={pickEvent} />
+            ))}
+          </div>
+        </div>
+
+        {/* 角色状态折叠 */}
+        <div className="pixel-panel !p-0 overflow-hidden">
+          <button
+            onClick={() => setCharOpen((v) => !v)}
+            className="w-full flex items-center gap-2 p-2 bg-cream border-b-[3px] border-ink"
+          >
+            <div className="pixel-border-sm !shadow-none overflow-hidden" style={{ width: 36, height: 36 }}>
+              <PixelAvatar size={36} />
+            </div>
+            <div className="min-w-0 text-left flex-1">
+              <div className="font-display text-[13px] truncate">{game.characterName}</div>
+              <div className="text-[10px] text-ink/70 truncate">{major.name} · 大{["一","二","三","四"][game.year-1]}</div>
+            </div>
+            <span className="text-[12px]">{charOpen ? "▲" : "▼"}</span>
+          </button>
+          {charOpen && (
+            <div className="p-2.5 space-y-2 text-[12px]">
+              <div className="grid grid-cols-2 gap-2">
+                <InfoCell label="姓名" value={game.characterName} />
+                <InfoCell label="学校" value={game.school} />
+                <InfoCell label="专业" value={major.name} />
+                <InfoCell label="年级" value={`大${["一","二","三","四"][game.year-1]}`} />
+              </div>
+              <div>
+                <div className="text-[11px] text-ink/60 mb-1 font-display tracking-widest">专业后遗症</div>
+                <div className="flex flex-wrap gap-1">
+                  {major.aftereffects.map((a) => (
+                    <span key={a} className="pixel-chip bg-cherry/20 !text-[10px]">{a}</span>
+                  ))}
+                </div>
+              </div>
+              <div className="pixel-border-sm !shadow-none bg-sage/25 p-2">
+                <div className="text-[10px] text-ink/60 mb-0.5">系统诊断</div>
+                <div className="text-[12px]">{diagnosis}</div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* 底部快捷区 */}
+        <div className="grid grid-cols-2 gap-2">
+          <div className="pixel-panel-sm !p-2 bg-sunny/40">
+            <div className="text-[11px] font-display tracking-widest mb-1">本学期目标</div>
+            <ul className="space-y-0.5 text-[11px]">
+              <li>· 学业 ≥ 60</li>
+              <li>· 完成 1 段实习</li>
+              <li>· 精神 &gt; 30</li>
+            </ul>
+          </div>
+          <div className="pixel-panel-sm !p-2 bg-sky/30">
+            <div className="text-[11px] font-display tracking-widest mb-1">你可能成为…</div>
+            <div className="flex flex-wrap gap-1">
+              {major.endings.slice(0, 4).map((e) => (
+                <span key={e} className="pixel-chip !text-[10px] bg-cream">{e}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="pixel-panel-sm !p-2">
+          <div className="text-[11px] font-display tracking-widest mb-1 flex items-center gap-1">
+            <span className="h-1.5 w-1.5 bg-sunny" />
+            阶段性成就
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {game.achievements.length === 0 && (
+              <span className="text-[11px] text-ink/60">还没成就，去做点事情。</span>
+            )}
+            {game.achievements.map((a) => (
+              <span key={a.id} className="pixel-chip bg-sunny/60 !text-[11px]">
+                ★ {a.label}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Toast 层 */}
-      <div className="pointer-events-none fixed inset-x-0 bottom-24 z-50 flex flex-col items-center gap-2">
+      {/* Toast */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-16 z-50 flex flex-col items-center gap-1.5 px-4">
         {toasts.map((t) => (
-          <div key={t.id} className="pixel-border bg-cream px-3 py-2 text-sm animate-toast">
+          <div
+            key={t.id}
+            className="pixel-panel-sm bg-ink text-cream px-3 py-1.5 text-[12px] animate-toast"
+          >
             {t.text}
           </div>
         ))}
       </div>
-    </GameLayout>
+    </PhoneFrame>
   );
 }
+
+function HudStat({
+  label,
+  val,
+  icon,
+  color,
+}: {
+  label: string;
+  val: number;
+  icon: React.ReactNode;
+  color: string;
+}) {
+  return (
+    <div className="flex items-center gap-1.5">
+      <div className="pixel-border-sm !shadow-none bg-cream shrink-0 flex items-center justify-center" style={{ width: 22, height: 22 }}>
+        {icon}
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-baseline gap-1">
+          <span className="text-[10px] text-ink/70">{label}</span>
+          <span className="font-display text-[11px] ml-auto">{val}</span>
+        </div>
+        <div className="bar-track !h-1.5 mt-0.5">
+          <div className="bar-fill" style={{ width: `${val}%`, background: color }} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function EventCard({ event, onPick }: { event: GameEvent; onPick: (e: GameEvent) => void }) {
+  const iconLetter = event.title.slice(0, 1);
+  return (
+    <div className="pixel-panel !p-2.5 flex gap-2.5">
+      <div
+        className="pixel-border-sm !shadow-none flex items-center justify-center font-display text-[16px] shrink-0"
+        style={{ width: 42, height: 42, background: "var(--sage)" }}
+      >
+        {iconLetter}
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2">
+          <span className="font-display text-[14px]">{event.title}</span>
+          <span className="pixel-chip !text-[9px] !py-0 bg-cream">{event.category}</span>
+        </div>
+        <div className="text-[11px] text-ink/70 mt-0.5 leading-snug">{event.description}</div>
+        {event.gainLabel && (
+          <div className="mt-1 text-[11px] font-display text-ink/80">{event.gainLabel}</div>
+        )}
+        <button
+          onClick={() => onPick(event)}
+          className="pixel-btn mt-1.5 px-3 py-1 text-[12px]"
+          style={{ background: "var(--sky)" }}
+        >
+          去做 →
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function InfoCell({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="pixel-border-sm !shadow-none bg-cream p-1.5">
+      <div className="text-[9px] text-ink/60 leading-none">{label}</div>
+      <div className="font-display text-[12px] leading-tight mt-0.5 truncate">{value}</div>
+    </div>
+  );
+}
+
+export type { CharStats };
