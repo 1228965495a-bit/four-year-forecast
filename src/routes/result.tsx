@@ -73,13 +73,6 @@ function ResultPage() {
           className="border-[3px] border-ink shadow-[5px_5px_0_0_var(--ink)] overflow-hidden"
           style={{ background: "var(--cream)" }}
         >
-          <div className="relative bg-ink text-cream px-3 py-1.5 flex items-center justify-between">
-            <div className="absolute inset-0 pixel-scanlines opacity-25" />
-            <div className="relative text-[10px] font-display tracking-[0.2em]">▌ FINAL · REPORT</div>
-            <div className="relative text-[10px] font-display tracking-widest opacity-80">
-              FILE：{String(major.id).slice(0, 6).toUpperCase()}
-            </div>
-          </div>
 
           <div className="relative bg-ink text-cream px-3 py-2 flex items-center justify-between">
             <div className="absolute inset-0 pixel-scanlines opacity-25" />
