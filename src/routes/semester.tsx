@@ -107,7 +107,7 @@ function SemesterPage() {
       <div className="semester-screen" style={{ height: LAYOUT_HEIGHT }}>
         {/* HUD：6 项明面数值 */}
         <div className="semester-hud">
-          <div className="grid grid-cols-6 gap-2">
+          <div className="grid grid-cols-3 gap-3">
             {VISIBLE_STATS.map((s) => (
               <HudCell key={s.key} short={s.short} value={game.stats[s.key]} color={s.color} />
             ))}
