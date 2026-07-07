@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
-import { MAJORS, MAJOR_CATEGORIES, type MajorConfig } from "@/data/majors";
+import { MAJORS, type MajorConfig } from "@/data/majors";
 import { gameStore } from "@/lib/gameStore";
 import { cn } from "@/lib/utils";
 import { PixelButton } from "@/components/ui/PixelButton";
@@ -11,8 +11,37 @@ import { TagBadge, inferTagTone } from "@/components/ui/TagBadge";
 
 export const Route = createFileRoute("/major")({ component: MajorSelectPage });
 
-const TABS = ["全部", "热门", ...MAJOR_CATEGORIES] as const;
-type Tab = (typeof TABS)[number];
+// ========== 分类 Tabs（按用户口径重新聚合） ==========
+type CategoryTab = { label: string; match: (m: MajorConfig) => boolean };
+const CATEGORY_TABS: CategoryTab[] = [
+  { label: "全部", match: () => true },
+  { label: "热门", match: (m) => m.tags.includes("热门") },
+  { label: "工科", match: (m) => m.category === "工科" },
+  { label: "人文", match: (m) => m.category === "人文" || m.category === "艺术" },
+  { label: "社科", match: (m) => m.category === "社科" || m.category === "教育" },
+  { label: "经管", match: (m) => m.category === "商科" },
+  { label: "医学", match: (m) => m.category === "医学" },
+  { label: "理学", match: (m) => m.category === "理科" },
+];
+
+// ========== 推荐筛选 chips ==========
+type RecFilter = { label: string; match: (m: MajorConfig) => boolean };
+const REC_FILTERS: RecFilter[] = [
+  { label: "适合我", match: (m) => m.fit >= 72 },
+  { label: "就业稳", match: (m) => m.stats.employment >= 65 && m.stats.stability >= 60 },
+  { label: "高挑战", match: (m) => m.stats.pressure >= 75 },
+  { label: "低痛苦", match: (m) => m.stats.pressure <= 55 },
+  {
+    label: "家长喜欢",
+    match: (m) =>
+      m.stats.stability >= 60 &&
+      (m.stats.employment >= 65 || m.category === "医学" || m.category === "教育"),
+  },
+  {
+    label: "慎入但香",
+    match: (m) => m.tags.includes("慎选") && (m.stats.salary >= 70 || m.fit >= 70),
+  },
+];
 
 const STAT_LABELS: { key: keyof MajorConfig["stats"]; label: string; color: string }[] = [
   { key: "interest", label: "兴趣", color: "var(--cherry)" },
@@ -23,7 +52,6 @@ const STAT_LABELS: { key: keyof MajorConfig["stats"]; label: string; color: stri
   { key: "stability", label: "稳定", color: "var(--tan)" },
 ];
 
-// 副本图标背景色（按分类分配，纯像素方块色块，等实际素材替换）
 const CATEGORY_TINT: Record<MajorConfig["category"], string> = {
   人文: "var(--tan)",
   社科: "var(--sky)",
@@ -44,19 +72,33 @@ function rankOf(fit: number): "S" | "A" | "B" | "C" {
 
 function MajorSelectPage() {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<Tab>("全部");
+  const [tabLabel, setTabLabel] = useState<string>("全部");
+  const [recSet, setRecSet] = useState<Set<string>>(new Set());
   const [kw, setKw] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
 
+  const toggleRec = (label: string) => {
+    setRecSet((prev) => {
+      const next = new Set(prev);
+      if (next.has(label)) next.delete(label);
+      else next.add(label);
+      return next;
+    });
+  };
+
+  const tab = CATEGORY_TABS.find((t) => t.label === tabLabel) ?? CATEGORY_TABS[0];
+
   const list = useMemo(() => {
     return MAJORS.filter((m) => {
-      if (tab === "热门" && !m.tags.includes("热门")) return false;
-      if (tab !== "全部" && tab !== "热门" && m.category !== tab) return false;
+      if (!tab.match(m)) return false;
+      for (const r of REC_FILTERS) {
+        if (recSet.has(r.label) && !r.match(m)) return false;
+      }
       if (kw && !m.name.includes(kw) && !m.tags.some((t) => t.includes(kw))) return false;
       return true;
     }).sort((a, b) => b.fit - a.fit);
-  }, [tab, kw]);
+  }, [tab, recSet, kw]);
 
   const selected = MAJORS.find((m) => m.id === selectedId) ?? null;
 
@@ -67,17 +109,17 @@ function MajorSelectPage() {
   };
 
   const topBar = (
-    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-2 flex items-center gap-2">
+    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-2 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2">
       <button
         onClick={() => navigate({ to: "/" })}
         className="text-[11px] px-2 py-0.5 border-2 border-cream shrink-0"
       >
         ← 返回
       </button>
-      <div className="min-w-0 flex-1">
-        <div className="font-display text-[14px] leading-none">选择你的本科副本</div>
-        <div className="text-[9px] opacity-70 leading-none mt-1 tracking-wider">
-          SELECT · YOUR · QUEST — 共 {MAJORS.length} 个可选副本
+      <div className="min-w-0">
+        <div className="font-display text-[14px] leading-tight truncate">选择你的本科副本</div>
+        <div className="text-[10px] opacity-75 leading-tight mt-0.5 truncate">
+          选一个专业，快进体验本科四年
         </div>
       </div>
     </div>
@@ -86,7 +128,7 @@ function MajorSelectPage() {
   return (
     <PhoneFrame topBar={topBar}>
       <div className="flex-1 min-h-0 overflow-y-auto">
-        <div className="flex flex-col gap-2.5 p-2.5 pb-32">
+        <div className="flex flex-col gap-2.5 p-2.5 pb-4">
           {/* 搜索 */}
           <div className="pixel-border-sm bg-cream flex items-center px-2 py-1.5">
             <svg width="14" height="14" viewBox="0 0 16 16" className="shrink-0">
@@ -101,25 +143,58 @@ function MajorSelectPage() {
             />
           </div>
 
-          {/* 分类 tab（横向滚动，紧凑药丸） */}
+          {/* 分类 tabs（横向滚动） */}
           <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
             <div className="flex gap-1.5 pb-1 w-max">
-              {TABS.map((t) => (
+              {CATEGORY_TABS.map((t) => (
                 <button
-                  key={t}
-                  onClick={() => setTab(t)}
+                  key={t.label}
+                  onClick={() => setTabLabel(t.label)}
                   className={cn(
                     "shrink-0 font-display text-[11px] tracking-wider px-2.5 py-1 border-2 border-ink transition-colors",
-                    tab === t
+                    tabLabel === t.label
                       ? "bg-ink text-cream shadow-[2px_2px_0_0_var(--ink)]"
                       : "bg-cream text-ink/70 hover:text-ink",
                   )}
                 >
-                  {t}
+                  {t.label}
                 </button>
               ))}
             </div>
           </div>
+
+          {/* 推荐筛选 chips */}
+          <div className="-mx-2.5 px-2.5 overflow-x-auto scrollbar-none">
+            <div className="flex items-center gap-1.5 pb-1 w-max">
+              <span className="text-[9px] font-display tracking-[0.2em] text-ink/50 shrink-0 pr-0.5">
+                推荐 ▸
+              </span>
+              {REC_FILTERS.map((r) => {
+                const active = recSet.has(r.label);
+                return (
+                  <button
+                    key={r.label}
+                    onClick={() => toggleRec(r.label)}
+                    className={cn(
+                      "shrink-0 text-[11px] px-2 py-0.5 border-2 border-ink transition-colors",
+                      active
+                        ? "bg-cherry text-cream shadow-[2px_2px_0_0_var(--ink)]"
+                        : "bg-cream text-ink/70",
+                    )}
+                  >
+                    #{r.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 当前选中副本预览卡 */}
+          <SelectionPreview
+            major={selected}
+            onOpenDetail={() => selected && setSheetOpen(true)}
+            onConfirm={confirm}
+          />
 
           {/* 章节标题 */}
           <div className="flex items-center gap-2 px-1 pt-0.5">
@@ -140,10 +215,7 @@ function MajorSelectPage() {
                 key={m.id}
                 major={m}
                 selected={m.id === selectedId}
-                onClick={() => {
-                  setSelectedId(m.id);
-                  setSheetOpen(true);
-                }}
+                onClick={() => setSelectedId(m.id)}
               />
             ))}
           </div>
@@ -155,45 +227,6 @@ function MajorSelectPage() {
           )}
         </div>
       </div>
-
-      {/* 底部选中副本悬浮确认条 */}
-      {selected && !sheetOpen && (
-        <div className="absolute inset-x-0 bottom-0 z-30 border-t-[3px] border-ink bg-cream shadow-[0_-3px_0_0_var(--ink)] animate-pop-in">
-          <div className="p-2.5 flex items-center gap-2.5">
-            <div
-              className="shrink-0 border-2 border-ink shadow-[2px_2px_0_0_var(--ink)] flex items-center justify-center text-[22px] leading-none"
-              style={{ width: 44, height: 44, background: CATEGORY_TINT[selected.category] }}
-            >
-              {selected.emoji}
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="text-[9px] font-display tracking-[0.2em] text-ink/60 leading-none">
-                当前选中副本
-              </div>
-              <div className="flex items-center gap-1.5 mt-1">
-                <span className={cn("rank-badge", `rank-${rankOf(selected.fit)}`)}>
-                  {rankOf(selected.fit)}
-                </span>
-                <span className="font-display text-[14px] truncate">{selected.name}</span>
-              </div>
-              <div className="text-[10px] text-ink/60 truncate mt-0.5">
-                {selected.diagnosis}
-              </div>
-            </div>
-            <div className="flex flex-col gap-1 shrink-0">
-              <button
-                onClick={() => setSheetOpen(true)}
-                className="text-[10px] font-display px-2 py-1 border-2 border-ink bg-cream"
-              >
-                详情
-              </button>
-              <PixelButton variant="accent" size="sm" onClick={confirm}>
-                进入 ✓
-              </PixelButton>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* 详情 sheet */}
       {sheetOpen && selected && (
@@ -213,6 +246,88 @@ function MajorSelectPage() {
   );
 }
 
+/** 当前选中副本预览卡（未选时给出占位提示） */
+function SelectionPreview({
+  major,
+  onOpenDetail,
+  onConfirm,
+}: {
+  major: MajorConfig | null;
+  onOpenDetail: () => void;
+  onConfirm: () => void;
+}) {
+  if (!major) {
+    return (
+      <div
+        className="border-[3px] border-dashed border-ink/40 bg-cream/60 p-3 text-center"
+      >
+        <div className="text-[10px] font-display tracking-[0.2em] text-ink/50">
+          当前选中副本
+        </div>
+        <div className="text-[12px] text-ink/60 mt-1">
+          👇 从下方点一个专业，先预览再进入
+        </div>
+      </div>
+    );
+  }
+
+  const rank = rankOf(major.fit);
+  const tint = CATEGORY_TINT[major.category];
+  // 3 个核心标签：优先梗标签
+  const coreTags = major.tags.filter((t) => t !== "热门").slice(0, 3);
+  const fillerTags = major.tags.slice(0, 3);
+  const shown = coreTags.length ? coreTags : fillerTags;
+
+  return (
+    <div
+      className="relative border-[3px] border-ink bg-cream shadow-[4px_4px_0_0_var(--cherry)] p-2.5"
+    >
+      <span className="absolute -top-2 left-2 text-[9px] font-display tracking-[0.2em] px-1.5 py-0.5 bg-ink text-cream">
+        ▌ 当前选中副本
+      </span>
+
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2.5 items-start pt-0.5">
+        <div
+          className="border-[3px] border-ink shadow-[2px_2px_0_0_var(--ink)] flex items-center justify-center text-[28px] shrink-0"
+          style={{ width: 54, height: 54, background: tint }}
+        >
+          {major.emoji}
+        </div>
+
+        <div className="min-w-0">
+          <div className="flex items-center gap-1.5">
+            <span className={cn("rank-badge shrink-0", `rank-${rank}`)}>{rank}</span>
+            <span className="font-display text-[15px] truncate flex-1">{major.name}</span>
+            <span className="font-display text-[11px] text-cherry tabular-nums shrink-0">
+              {major.fit}%
+            </span>
+          </div>
+          <div className="text-[11px] text-ink/70 mt-1 leading-snug line-clamp-2">
+            「{major.diagnosis}」
+          </div>
+          <div className="flex flex-wrap gap-1 mt-1.5">
+            {shown.map((t) => (
+              <TagBadge key={t} tone={inferTagTone(t)}>{t}</TagBadge>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 mt-2.5">
+        <button
+          onClick={onOpenDetail}
+          className="text-[11px] font-display px-2.5 py-1.5 border-2 border-ink bg-cream shadow-[2px_2px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+        >
+          详情
+        </button>
+        <PixelButton variant="accent" size="block" onClick={onConfirm}>
+          ✓ 确认进入「{major.name}」副本
+        </PixelButton>
+      </div>
+    </div>
+  );
+}
+
 function QuestTile({
   major,
   selected,
@@ -224,7 +339,6 @@ function QuestTile({
 }) {
   const rank = rankOf(major.fit);
   const tint = CATEGORY_TINT[major.category];
-  // 用第一个非"热门"的 tag 作为主梗标签
   const memeTag = major.tags.find((t) => t !== "热门") ?? major.tags[0];
   const hasWarn = major.tags.includes("慎选") || major.pressureLevel === "极高";
 
@@ -237,55 +351,42 @@ function QuestTile({
         selected && "-translate-y-0.5 shadow-[3px_5px_0_0_var(--cherry)] ring-2 ring-cherry",
       )}
     >
-      {/* 右上角适配度分档章 */}
-      <span
-        className={cn(
-          "absolute top-1 right-1 z-10 rank-badge",
-          `rank-${rank}`,
-        )}
-      >
+      <span className={cn("absolute top-1 right-1 z-10 rank-badge", `rank-${rank}`)}>
         {rank}
       </span>
 
-      {/* 热门角标 */}
       {major.tags.includes("热门") && (
         <span className="absolute top-1 left-1 z-10 text-[8.5px] font-display tracking-wider px-1 py-0.5 bg-cherry text-cream border border-ink">
           HOT
         </span>
       )}
 
-      {/* 图标区（占位色块，等素材替换） */}
       <div
-        className="h-[68px] flex items-center justify-center border-b-[3px] border-ink relative"
+        className="h-[60px] flex items-center justify-center border-b-[3px] border-ink relative"
         style={{ background: tint }}
       >
-        <div className="text-[34px] leading-none select-none" aria-hidden>
+        <div className="text-[30px] leading-none select-none" aria-hidden>
           {major.emoji}
         </div>
-        {/* 像素扫描线纹理 */}
         <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
       </div>
 
-      {/* 信息区 */}
       <div className="p-1.5">
-        <div className="flex items-baseline justify-between gap-1">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-1">
           <span className="font-display text-[13px] truncate">{major.name}</span>
           <span className="text-[9px] font-display tabular-nums text-cherry shrink-0">
             {major.fit}%
           </span>
         </div>
-        <div className="text-[9px] text-ink/60 mt-0.5 leading-none tracking-wider">
+        <div className="text-[9px] text-ink/60 mt-0.5 leading-none tracking-wider truncate">
           {major.category} · 压力 {major.pressureLevel}
         </div>
 
-        {/* 梗标签 + 慎入警告 */}
         <div className="mt-1.5 flex items-center gap-1 min-h-[16px]">
-          {memeTag && (
-            <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>
-          )}
+          {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
           {hasWarn && (
-            <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto">
-              ⚠ 慎入
+            <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">
+              ⚠
             </span>
           )}
         </div>
@@ -299,17 +400,16 @@ function DetailContent({ major, onConfirm }: { major: MajorConfig; onConfirm: ()
   const tint = CATEGORY_TINT[major.category];
   return (
     <div className="space-y-3">
-      {/* 头部 */}
-      <div className="flex items-center gap-3">
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
         <div
           className="border-[3px] border-ink shadow-[3px_3px_0_0_var(--ink)] flex items-center justify-center text-[28px] shrink-0"
           style={{ width: 62, height: 62, background: tint }}
         >
           {major.emoji}
         </div>
-        <div className="flex-1 min-w-0">
+        <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <span className={cn("rank-badge", `rank-${rank}`)}>{rank}</span>
+            <span className={cn("rank-badge shrink-0", `rank-${rank}`)}>{rank}</span>
             <div className="font-display text-[18px] leading-tight truncate">{major.name}</div>
           </div>
           <div className="text-[11px] text-ink/70 mt-0.5">
