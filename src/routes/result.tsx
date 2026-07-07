@@ -35,7 +35,7 @@ function ResultPage() {
 
   return (
     <PhoneFrame>
-      <div className="p-3 pb-4 space-y-3">
+      <div className="p-3 pb-6 space-y-3 flex-1 min-h-0 overflow-y-auto">
         {/* ========== 主报告卡：一整张，无内部粗边框 ========== */}
         <article
           className="border-[3px] border-ink shadow-[5px_5px_0_0_var(--ink)] overflow-hidden"
