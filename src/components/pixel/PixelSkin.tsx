@@ -190,10 +190,8 @@ export function PixelStatBar({
 }
 
 /* ------------------------------------------------------------------ */
-/* 3-slice 按钮 & Chip —— left cap + middle repeat-x + right cap       */
+/* 纯 CSS 像素按钮 —— 不再依赖贴图，任意尺寸/文案都自适应              */
 /* ------------------------------------------------------------------ */
-
-const B3_BASE = "/pixel-ui/buttons-3slice";
 
 type Btn3Variant =
   | "primary"
@@ -206,24 +204,31 @@ type Btn3Variant =
   | "chipDefault"
   | "chipActive";
 
-/**
- * 说明：原本导出的 3-slice 切片实际是被切坏的整张按钮图，
- * 所以这里改用整张按钮 PNG（-left 文件）配合 CSS border-image
- * 做 9-slice 拉伸：四角保持像素完整，边和中段横向 stretch。
- */
-const BTN3: Record<
-  Btn3Variant,
-  { src: string; h: number; slice: number; textCream: boolean; fs: number }
-> = {
-  primary:     { src: "primary-h56-left.png",      h: 56, slice: 28, textCream: true,  fs: 14 },
-  primaryTall: { src: "primary-h88-left.png",      h: 88, slice: 34, textCream: true,  fs: 15 },
-  secondary:   { src: "secondary-h56-left.png",    h: 56, slice: 28, textCream: true,  fs: 14 },
-  danger:      { src: "danger-h56-left.png",       h: 56, slice: 28, textCream: true,  fs: 14 },
-  option:      { src: "option-h64-left.png",       h: 64, slice: 28, textCream: false, fs: 14 },
-  optionTall:  { src: "option-h88-left.png",       h: 88, slice: 34, textCream: false, fs: 14 },
-  ghost:       { src: "ghost-h44-left.png",        h: 44, slice: 24, textCream: false, fs: 13 },
-  chipDefault: { src: "chip-default-h32-left.png", h: 32, slice: 18, textCream: false, fs: 11.5 },
-  chipActive:  { src: "chip-active-h32-left.png",  h: 32, slice: 18, textCream: true,  fs: 11.5 },
+type BtnSkin = {
+  face: string;        // 按钮正面色
+  faceHi: string;      // 顶部高光色
+  faceLo: string;      // 底部阴影色
+  border: string;      // 外描边（通常 ink）
+  text: string;        // 文字色
+  minH: number;        // 最小高度
+  fs: number;          // 字号
+  padX: number;
+  padY: number;
+};
+
+const INK = "var(--ink)";
+const CREAM = "var(--cream)";
+
+const BTN3: Record<Btn3Variant, BtnSkin> = {
+  primary:     { face: "var(--cherry)", faceHi: "#ff9aa2", faceLo: "#b5424a", border: INK, text: CREAM, minH: 52, fs: 14,   padX: 18, padY: 10 },
+  primaryTall: { face: "var(--cherry)", faceHi: "#ff9aa2", faceLo: "#b5424a", border: INK, text: CREAM, minH: 68, fs: 15,   padX: 20, padY: 12 },
+  secondary:   { face: "var(--sky)",    faceHi: "#c8ebff", faceLo: "#5a9dc8", border: INK, text: INK,   minH: 52, fs: 14,   padX: 18, padY: 10 },
+  danger:      { face: "#c8434b",       faceHi: "#f47c8a", faceLo: "#7d2830", border: INK, text: CREAM, minH: 52, fs: 14,   padX: 18, padY: 10 },
+  option:      { face: CREAM,           faceHi: "#fff8e6", faceLo: "#d8c8a4", border: INK, text: INK,   minH: 52, fs: 14,   padX: 16, padY: 10 },
+  optionTall:  { face: CREAM,           faceHi: "#fff8e6", faceLo: "#d8c8a4", border: INK, text: INK,   minH: 68, fs: 14,   padX: 16, padY: 12 },
+  ghost:       { face: "var(--parchment)", faceHi: "#fff5d8", faceLo: "#c9b98a", border: INK, text: INK, minH: 40, fs: 13, padX: 14, padY: 8 },
+  chipDefault: { face: CREAM,           faceHi: "#fff8e6", faceLo: "#d8c8a4", border: INK, text: INK,   minH: 28, fs: 11.5, padX: 10, padY: 4 },
+  chipActive:  { face: "var(--sage)",   faceHi: "#c8e6b8", faceLo: "#6a8c56", border: INK, text: INK,   minH: 28, fs: 11.5, padX: 10, padY: 4 },
 };
 
 export function PixelButton3({
@@ -237,41 +242,51 @@ export function PixelButton3({
   variant?: Btn3Variant;
   full?: boolean;
 }) {
-  const { src, h, slice, textCream, fs } = BTN3[variant];
-  const url = `${B3_BASE}/${src}`;
-  // 让按钮自适应：以 h 作为最小高度，内容多时自动增高；
-  // border-image 9-slice：四角固定像素、四边和中段 stretch，保证不同文案下都不变形。
-  const padY = Math.max(6, Math.round(slice * 0.35));
-  const padX = Math.max(12, Math.round(slice * 0.9));
+  const s = BTN3[variant];
+  // 分层 box-shadow 做像素立体：
+  //  - inset 高光/底影
+  //  - 外部 2px 硬阴影 = 像素落地感
+  const shadow = [
+    `inset 0 2px 0 0 ${s.faceHi}`,
+    `inset 0 -3px 0 0 ${s.faceLo}`,
+    `inset 2px 0 0 0 ${s.faceHi}`,
+    `inset -2px 0 0 0 ${s.faceLo}`,
+    `0 3px 0 0 ${s.border}`,
+    `3px 0 0 0 ${s.border}`,
+    `3px 3px 0 0 ${s.border}`,
+  ].join(", ");
+
   return (
     <button
       {...props}
       className={cn(
         "relative inline-flex items-center justify-center select-none align-middle font-display tracking-wider",
+        "border-[3px] outline-none",
+        "transition-transform active:translate-x-[2px] active:translate-y-[2px]",
+        "disabled:opacity-60 disabled:pointer-events-none",
         full ? "w-full" : "",
-        textCream ? "text-cream" : "text-ink",
-        "active:translate-y-[1px] transition-transform disabled:opacity-60 disabled:pointer-events-none",
         className,
       )}
       style={{
-        minHeight: h,
-        fontSize: fs,
+        background: s.face,
+        color: s.text,
+        borderColor: s.border,
+        minHeight: s.minH,
+        padding: `${s.padY}px ${s.padX}px`,
+        fontSize: s.fs,
         lineHeight: 1.2,
-        padding: `${padY}px ${padX}px`,
-        boxSizing: "border-box",
-        border: `${slice}px solid transparent`,
-        borderImage: `url(${url}) ${slice} fill / ${slice}px ${slice}px ${slice}px ${slice}px / 0 stretch`,
-        textShadow: textCream ? "1px 1px 0 rgba(0,0,0,0.35)" : undefined,
-        imageRendering: "pixelated",
+        boxShadow: shadow,
+        textShadow: s.text === CREAM ? "1px 1px 0 rgba(0,0,0,0.35)" : undefined,
+        borderRadius: 0,
         ...style,
       }}
     >
-      <span className="relative block text-center leading-tight break-words">{children}</span>
+      <span className="relative block text-center break-words">{children}</span>
     </button>
   );
 }
 
-/** 兼容旧 API：PixelImgButton 内部转为 3-slice。 */
+/** 兼容旧 API */
 export function PixelImgButton({
   variant = "primary",
   className,
@@ -287,7 +302,6 @@ export function PixelImgButton({
   );
 }
 
-/** 兼容旧 API：PixelChip 内部转为 3-slice chip。 */
 export function PixelChip({
   active,
   className,
