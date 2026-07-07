@@ -207,31 +207,37 @@ function SelectionPreview({
   const cardTags: string[] = major.card?.tags ?? major.tags?.slice(0, 3) ?? [];
 
   return (
-    <div className="relative border-[3px] border-ink bg-cream shadow-[4px_4px_0_0_var(--cherry)] p-2.5">
+    <div className="relative border-[3px] border-ink bg-cream shadow-[3px_3px_0_0_var(--cherry)] p-2">
       <span className="absolute -top-2 left-2 text-[9px] font-display tracking-[0.2em] px-1.5 py-0.5 bg-ink text-cream">
         ▌ 当前选中副本
       </span>
+      <button
+        onClick={onOpenDetail}
+        className="absolute -top-2 right-2 text-[9px] font-display tracking-wider px-1.5 py-0.5 bg-cream border-2 border-ink"
+      >
+        详情 ›
+      </button>
 
-      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2.5 items-start pt-0.5">
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 items-start pt-1">
         <div
-          className="border-[3px] border-ink shadow-[2px_2px_0_0_var(--ink)] flex items-center justify-center text-[28px] shrink-0"
-          style={{ width: 54, height: 54, background: tint }}
+          className="border-2 border-ink shadow-[2px_2px_0_0_var(--ink)] flex items-center justify-center text-[22px] shrink-0"
+          style={{ width: 42, height: 42, background: tint }}
         >
           {majorEmoji(major.id)}
         </div>
 
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
-            <PixelTierBadge tier={rank} size={26} className="shrink-0 -my-2" />
-            <span className="font-display text-[15px] truncate flex-1">{major.name}</span>
+            <PixelTierBadge tier={rank} size={22} className="shrink-0 -my-1" />
+            <span className="font-display text-[14px] truncate flex-1">{major.name}</span>
             <span className="font-display text-[11px] text-cherry tabular-nums shrink-0">
               {fitOf(major)}%
             </span>
           </div>
-          <div className="text-[11px] text-ink/70 mt-1 leading-snug line-clamp-2">
+          <div className="text-[11px] text-ink/70 mt-0.5 leading-snug line-clamp-2">
             「{major.card?.subtitle ?? major.card?.description ?? ""}」
           </div>
-          <div className="flex flex-wrap gap-1 mt-1.5">
+          <div className="flex flex-wrap gap-1 mt-1">
             {cardTags.slice(0, 3).map((t: string) => (
               <TagBadge key={t} tone={inferTagTone(t)}>{t}</TagBadge>
             ))}
@@ -239,20 +245,15 @@ function SelectionPreview({
         </div>
       </div>
 
-      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 mt-2.5 items-center">
-        <button
-          onClick={onOpenDetail}
-          className="text-[11px] font-display px-2.5 py-1.5 border-2 border-ink bg-cream shadow-[2px_2px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
-        >
-          详情
-        </button>
-        <PixelImgButton variant="primary" onClick={onConfirm} className="!text-[13px]">
+      <div className="mt-2">
+        <PixelImgButton variant="primary" compact onClick={onConfirm}>
           ✓ 进入「{major.name}」副本
         </PixelImgButton>
       </div>
     </div>
   );
 }
+
 
 
 function QuestTile({
