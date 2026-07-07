@@ -206,19 +206,24 @@ type Btn3Variant =
   | "chipDefault"
   | "chipActive";
 
+/**
+ * 说明：原本导出的 3-slice 切片实际是被切坏的整张按钮图，
+ * 所以这里改用整张按钮 PNG（-left 文件）配合 CSS border-image
+ * 做 9-slice 拉伸：四角保持像素完整，边和中段横向 stretch。
+ */
 const BTN3: Record<
   Btn3Variant,
-  { prefix: string; h: number; textCream: boolean }
+  { src: string; h: number; slice: number; textCream: boolean; fs: number }
 > = {
-  primary:     { prefix: "primary-h56",       h: 56, textCream: true  },
-  primaryTall: { prefix: "primary-h88",       h: 88, textCream: true  },
-  secondary:   { prefix: "secondary-h56",     h: 56, textCream: true  },
-  danger:      { prefix: "danger-h56",        h: 56, textCream: true  },
-  option:      { prefix: "option-h64",        h: 64, textCream: false },
-  optionTall:  { prefix: "option-h88",        h: 88, textCream: false },
-  ghost:       { prefix: "ghost-h44",         h: 44, textCream: false },
-  chipDefault: { prefix: "chip-default-h32",  h: 32, textCream: false },
-  chipActive:  { prefix: "chip-active-h32",   h: 32, textCream: true  },
+  primary:     { src: "primary-h56-left.png",      h: 56, slice: 28, textCream: true,  fs: 14 },
+  primaryTall: { src: "primary-h88-left.png",      h: 88, slice: 34, textCream: true,  fs: 15 },
+  secondary:   { src: "secondary-h56-left.png",    h: 56, slice: 28, textCream: true,  fs: 14 },
+  danger:      { src: "danger-h56-left.png",       h: 56, slice: 28, textCream: true,  fs: 14 },
+  option:      { src: "option-h64-left.png",       h: 64, slice: 28, textCream: false, fs: 14 },
+  optionTall:  { src: "option-h88-left.png",       h: 88, slice: 34, textCream: false, fs: 14 },
+  ghost:       { src: "ghost-h44-left.png",        h: 44, slice: 24, textCream: false, fs: 13 },
+  chipDefault: { src: "chip-default-h32-left.png", h: 32, slice: 18, textCream: false, fs: 11.5 },
+  chipActive:  { src: "chip-active-h32-left.png",  h: 32, slice: 18, textCream: true,  fs: 11.5 },
 };
 
 export function PixelButton3({
@@ -232,53 +237,36 @@ export function PixelButton3({
   variant?: Btn3Variant;
   full?: boolean;
 }) {
-  const { prefix, h, textCream } = BTN3[variant];
-  const left = `${B3_BASE}/${prefix}-left.png`;
-  const mid = `${B3_BASE}/${prefix}-mid.png`;
-  const right = `${B3_BASE}/${prefix}-right.png`;
+  const { src, h, slice, textCream, fs } = BTN3[variant];
+  const url = `${B3_BASE}/${src}`;
   return (
     <button
       {...props}
       className={cn(
-        "relative inline-flex items-stretch select-none align-middle",
+        "relative inline-flex items-center justify-center select-none align-middle font-display tracking-wider",
         full ? "w-full" : "",
+        textCream ? "text-cream" : "text-ink",
         "active:translate-y-[1px] transition-transform disabled:opacity-60 disabled:pointer-events-none",
         className,
       )}
-      style={{ height: h, ...style }}
+      style={{
+        height: h,
+        minHeight: h,
+        fontSize: fs,
+        lineHeight: 1.15,
+        padding: `0 ${Math.round(slice * 0.7)}px`,
+        borderStyle: "solid",
+        borderWidth: slice,
+        borderImageSource: `url(${url})`,
+        borderImageSlice: `${slice} fill`,
+        borderImageRepeat: "stretch",
+        borderImageWidth: `${slice}px`,
+        textShadow: textCream ? "1px 1px 0 rgba(0,0,0,0.35)" : undefined,
+        imageRendering: "pixelated",
+        ...style,
+      }}
     >
-      <img
-        src={left}
-        alt=""
-        aria-hidden
-        draggable={false}
-        className="block h-full w-auto shrink-0"
-        style={PX_BG}
-      />
-      <span
-        className={cn(
-          "flex-1 flex items-center justify-center font-display tracking-wider min-w-0",
-          textCream ? "text-cream" : "text-ink",
-        )}
-        style={{
-          backgroundImage: `url(${mid})`,
-          backgroundRepeat: "repeat-x",
-          backgroundSize: "auto 100%",
-          textShadow: textCream ? "1px 1px 0 rgba(0,0,0,0.35)" : undefined,
-          fontSize: h <= 32 ? 11.5 : h >= 88 ? 15 : 14,
-          ...PX_BG,
-        }}
-      >
-        <span className="relative block w-full text-center px-3 leading-tight">{children}</span>
-      </span>
-      <img
-        src={right}
-        alt=""
-        aria-hidden
-        draggable={false}
-        className="block h-full w-auto shrink-0"
-        style={PX_BG}
-      />
+      <span className="relative block text-center leading-tight px-1">{children}</span>
     </button>
   );
 }
