@@ -14,6 +14,7 @@ import {
   PixelTierBadge,
   PixelImgButton,
 } from "@/components/pixel/PixelSkin";
+import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 
 export const Route = createFileRoute("/major")({ component: MajorSelectPage });
 
