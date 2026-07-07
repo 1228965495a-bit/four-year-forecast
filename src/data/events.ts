@@ -313,6 +313,15 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "会议开完，你多了 3 个 PDF、5 个「我在忙」和 0 个进度。",
       },
+      {
+        label: "偷偷改了名单，只留三个人交",
+        effects: [
+          { key: "gpa", delta: 4 },
+          { key: "escape", delta: 5 },
+          { key: "mouthHard", delta: 4 },
+        ],
+        feedback: "分数出来那天，你收到了三条来自消失队友的私聊。",
+      },
     ],
   },
   {
