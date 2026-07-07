@@ -17,6 +17,7 @@ import { majorById } from "@/data/script/gameData";
 import { EventCard } from "@/components/ui/EventCard";
 import { CharacterPanel } from "@/components/ui/CharacterPanel";
 import { PixelButton } from "@/components/ui/PixelButton";
+import { PixelStatBar, PixelImgButton, PixelBgPanel } from "@/components/pixel/PixelSkin";
 
 export const Route = createFileRoute("/semester")({ component: SemesterPage });
 
@@ -145,13 +146,11 @@ function SemesterPage() {
 
 function HudCell({ short, value, color }: { short: string; value: number; color: string }) {
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="w-full hud-bar">
-        <div className="hud-bar-fill" style={{ width: `${value}%`, backgroundColor: color }} />
-      </div>
+    <div className="flex flex-col items-center gap-1.5">
+      <PixelStatBar value={value} color={color} height={14} />
       <div className="flex items-baseline justify-center gap-1 leading-none whitespace-nowrap">
-        <span className="font-display text-[13px] text-ink/70">{short}</span>
-        <span className="font-display text-[16px] tabular-nums">{Math.round(value)}</span>
+        <span className="font-display text-[12px] text-ink/70">{short}</span>
+        <span className="font-display text-[15px] tabular-nums">{Math.round(value)}</span>
       </div>
     </div>
   );
@@ -169,7 +168,7 @@ function FeedbackModal({
   return (
     <div className="absolute inset-0 z-50 flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-ink/55" />
-      <div className="modal-card relative z-10 w-full max-w-[320px] animate-pop-in">
+      <PixelBgPanel variant="medium" className="relative z-10 w-full max-w-[320px] animate-pop-in" padding="p-4">
         <div className="inline-flex items-center border-2 border-ink bg-cream px-2 py-0.5 text-[10px] font-display tracking-wider"
              style={{ boxShadow: "2px 2px 0 0 var(--ink)" }}>
           系统记录
@@ -182,10 +181,10 @@ function FeedbackModal({
           </div>
           {choice?.feedback || choice?.resultText || "……"}
         </div>
-        <PixelButton variant="primary" size="block" className="mt-3.5" onClick={onNext}>
+        <PixelImgButton variant="primary" compact className="mt-3.5" onClick={onNext}>
           继续 →
-        </PixelButton>
-      </div>
+        </PixelImgButton>
+      </PixelBgPanel>
     </div>
   );
 }
