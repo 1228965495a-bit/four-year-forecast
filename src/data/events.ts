@@ -278,6 +278,14 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "被子确实赢了。但你的作息又向后推了 2 小时。",
       },
+      {
+        label: "去了但走了两圈就摸回来",
+        effects: [
+          { key: "battery", delta: 6 },
+          { key: "mouthHard", delta: 3 },
+        ],
+        feedback: "你说自己在拉伸，其实在刷手机。",
+      },
     ],
   },
   {
