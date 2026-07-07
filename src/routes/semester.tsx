@@ -13,8 +13,9 @@ import { totalSemesters } from "@/lib/scriptEngine";
 import { majorById } from "@/data/script/gameData";
 import { EventCard } from "@/components/ui/EventCard";
 import { CharacterPanel } from "@/components/ui/CharacterPanel";
-import { PixelButton } from "@/components/ui/PixelButton";
+
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
+import { PixelButton3 } from "@/components/pixel/PixelSkin";
 
 export const Route = createFileRoute("/semester")({ component: SemesterPage });
 
@@ -179,9 +180,9 @@ function FeedbackModal({
           </div>
           <div className="text-[12.5px] leading-snug">{choice?.feedback || choice?.resultText || "……"}</div>
         </PixelPanel9>
-        <PixelButton variant="primary" size="block" className="mt-3.5" onClick={onNext}>
+        <PixelButton3 variant="primary" className="mt-3.5" onClick={onNext}>
           继续 →
-        </PixelButton>
+        </PixelButton3>
       </PixelPanel9>
     </div>
   );

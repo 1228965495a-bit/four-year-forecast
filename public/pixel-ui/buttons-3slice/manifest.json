@@ -1,0 +1,373 @@
+{
+  "source": "batch-03-buttons-3slice-sheet",
+  "sourceImage": "ChatGPT Image 2026年7月7日 19_04_54.png",
+  "type": "buttons-3slice",
+  "backgroundTreatment": "源图为 RGB 棋盘格底，已通过边缘连通棋盘格识别转为透明背景。",
+  "safePaddingPx": 3,
+  "middleTilePolicy": "middle 切片从每组中段中心裁出 32px 宽主体，并额外保留 3px 安全边距，用于 repeat-x。",
+  "groupCount": 9,
+  "assetCount": 27,
+  "groups": [
+    {
+      "id": "primary-h56",
+      "nameZh": "主按钮 56px",
+      "role": "primary button",
+      "height": 56,
+      "left": "primary-h56-left.png",
+      "middle": "primary-h56-mid.png",
+      "right": "primary-h56-right.png",
+      "path": "/pixel-ui/buttons-3slice/primary-h56",
+      "parts": {
+        "left": "/pixel-ui/buttons-3slice/primary-h56-left.png",
+        "middle": "/pixel-ui/buttons-3slice/primary-h56-mid.png",
+        "right": "/pixel-ui/buttons-3slice/primary-h56-right.png"
+      },
+      "useCases": [
+        "首页开始按钮",
+        "确认进入副本",
+        "截图分享按钮"
+      ],
+      "recommendedComponents": [
+        "HomeStartButton",
+        "EnterMajorButton",
+        "ShareButton"
+      ],
+      "sourceOrder": 1,
+      "exportSizes": {
+        "left": {
+          "width": 215,
+          "height": 96
+        },
+        "middle": {
+          "width": 38,
+          "height": 79
+        },
+        "right": {
+          "width": 213,
+          "height": 96
+        }
+      },
+      "cssHint": ".primary_h56 { display: grid; grid-template-columns: auto 1fr auto; min-height: 56px; }\n.primary_h56__mid { background-image: url('/pixel-ui/buttons-3slice/primary-h56-mid.png'); background-repeat: repeat-x; background-size: auto 100%; }",
+      "notes": "红色主按钮，适合最高优先级行动。"
+    },
+    {
+      "id": "primary-h88",
+      "nameZh": "主按钮 88px",
+      "role": "primary tall button",
+      "height": 88,
+      "left": "primary-h88-left.png",
+      "middle": "primary-h88-mid.png",
+      "right": "primary-h88-right.png",
+      "path": "/pixel-ui/buttons-3slice/primary-h88",
+      "parts": {
+        "left": "/pixel-ui/buttons-3slice/primary-h88-left.png",
+        "middle": "/pixel-ui/buttons-3slice/primary-h88-mid.png",
+        "right": "/pixel-ui/buttons-3slice/primary-h88-right.png"
+      },
+      "useCases": [
+        "双行文字事件选项",
+        "重要选择按钮"
+      ],
+      "recommendedComponents": [
+        "EventChoiceButton",
+        "ImportantChoiceButton"
+      ],
+      "sourceOrder": 2,
+      "exportSizes": {
+        "left": {
+          "width": 216,
+          "height": 141
+        },
+        "middle": {
+          "width": 38,
+          "height": 121
+        },
+        "right": {
+          "width": 213,
+          "height": 141
+        }
+      },
+      "cssHint": ".primary_h88 { display: grid; grid-template-columns: auto 1fr auto; min-height: 88px; }\n.primary_h88__mid { background-image: url('/pixel-ui/buttons-3slice/primary-h88-mid.png'); background-repeat: repeat-x; background-size: auto 100%; }",
+      "notes": "更高的红色主按钮，适合双行选项或重点选择。"
+    },
+    {
+      "id": "secondary-h56",
+      "nameZh": "次级按钮 56px",
+      "role": "secondary button",
+      "height": 56,
+      "left": "secondary-h56-left.png",
+      "middle": "secondary-h56-mid.png",
+      "right": "secondary-h56-right.png",
+      "path": "/pixel-ui/buttons-3slice/secondary-h56",
+      "parts": {
+        "left": "/pixel-ui/buttons-3slice/secondary-h56-left.png",
+        "middle": "/pixel-ui/buttons-3slice/secondary-h56-mid.png",
+        "right": "/pixel-ui/buttons-3slice/secondary-h56-right.png"
+      },
+      "useCases": [
+        "换个专业继续受苦",
+        "返回",
+        "次级操作"
+      ],
+      "recommendedComponents": [
+        "SecondaryButton",
+        "BackButton",
+        "RestartMajorButton"
+      ],
+      "sourceOrder": 3,
+      "exportSizes": {
+        "left": {
+          "width": 215,
+          "height": 99
+        },
+        "middle": {
+          "width": 38,
+          "height": 78
+        },
+        "right": {
+          "width": 213,
+          "height": 99
+        }
+      },
+      "cssHint": ".secondary_h56 { display: grid; grid-template-columns: auto 1fr auto; min-height: 56px; }\n.secondary_h56__mid { background-image: url('/pixel-ui/buttons-3slice/secondary-h56-mid.png'); background-repeat: repeat-x; background-size: auto 100%; }",
+      "notes": "绿色次级按钮，适合非主线但仍可点击的行动。"
+    },
+    {
+      "id": "danger-h56",
+      "nameZh": "危险按钮 56px",
+      "role": "danger button",
+      "height": 56,
+      "left": "danger-h56-left.png",
+      "middle": "danger-h56-mid.png",
+      "right": "danger-h56-right.png",
+      "path": "/pixel-ui/buttons-3slice/danger-h56",
+      "parts": {
+        "left": "/pixel-ui/buttons-3slice/danger-h56-left.png",
+        "middle": "/pixel-ui/buttons-3slice/danger-h56-mid.png",
+        "right": "/pixel-ui/buttons-3slice/danger-h56-right.png"
+      },
+      "useCases": [
+        "强行冲刺",
+        "高风险选项",
+        "危险操作"
+      ],
+      "recommendedComponents": [
+        "DangerChoiceButton",
+        "RiskActionButton"
+      ],
+      "sourceOrder": 4,
+      "exportSizes": {
+        "left": {
+          "width": 215,
+          "height": 93
+        },
+        "middle": {
+          "width": 38,
+          "height": 76
+        },
+        "right": {
+          "width": 213,
+          "height": 93
+        }
+      },
+      "cssHint": ".danger_h56 { display: grid; grid-template-columns: auto 1fr auto; min-height: 56px; }\n.danger_h56__mid { background-image: url('/pixel-ui/buttons-3slice/danger-h56-mid.png'); background-repeat: repeat-x; background-size: auto 100%; }",
+      "notes": "红橙色危险按钮，建议用于高风险分支。"
+    },
+    {
+      "id": "option-h64",
+      "nameZh": "普通选项按钮 64px",
+      "role": "option button",
+      "height": 64,
+      "left": "option-h64-left.png",
+      "middle": "option-h64-mid.png",
+      "right": "option-h64-right.png",
+      "path": "/pixel-ui/buttons-3slice/option-h64",
+      "parts": {
+        "left": "/pixel-ui/buttons-3slice/option-h64-left.png",
+        "middle": "/pixel-ui/buttons-3slice/option-h64-mid.png",
+        "right": "/pixel-ui/buttons-3slice/option-h64-right.png"
+      },
+      "useCases": [
+        "事件页普通选项按钮"
+      ],
+      "recommendedComponents": [
+        "EventOptionButton"
+      ],
+      "sourceOrder": 5,
+      "exportSizes": {
+        "left": {
+          "width": 214,
+          "height": 85
+        },
+        "middle": {
+          "width": 38,
+          "height": 72
+        },
+        "right": {
+          "width": 213,
+          "height": 85
+        }
+      },
+      "cssHint": ".option_h64 { display: grid; grid-template-columns: auto 1fr auto; min-height: 64px; }\n.option_h64__mid { background-image: url('/pixel-ui/buttons-3slice/option-h64-mid.png'); background-repeat: repeat-x; background-size: auto 100%; }",
+      "notes": "浅色普通选项按钮，适合事件页常规选择。"
+    },
+    {
+      "id": "option-h88",
+      "nameZh": "双行选项按钮 88px",
+      "role": "tall option button",
+      "height": 88,
+      "left": "option-h88-left.png",
+      "middle": "option-h88-mid.png",
+      "right": "option-h88-right.png",
+      "path": "/pixel-ui/buttons-3slice/option-h88",
+      "parts": {
+        "left": "/pixel-ui/buttons-3slice/option-h88-left.png",
+        "middle": "/pixel-ui/buttons-3slice/option-h88-mid.png",
+        "right": "/pixel-ui/buttons-3slice/option-h88-right.png"
+      },
+      "useCases": [
+        "事件页双行选项按钮"
+      ],
+      "recommendedComponents": [
+        "EventOptionButton",
+        "LongChoiceButton"
+      ],
+      "sourceOrder": 6,
+      "exportSizes": {
+        "left": {
+          "width": 216,
+          "height": 146
+        },
+        "middle": {
+          "width": 38,
+          "height": 128
+        },
+        "right": {
+          "width": 213,
+          "height": 145
+        }
+      },
+      "cssHint": ".option_h88 { display: grid; grid-template-columns: auto 1fr auto; min-height: 88px; }\n.option_h88__mid { background-image: url('/pixel-ui/buttons-3slice/option-h88-mid.png'); background-repeat: repeat-x; background-size: auto 100%; }",
+      "notes": "更高的浅色选项按钮，适合较长选项文案。"
+    },
+    {
+      "id": "ghost-h44",
+      "nameZh": "幽灵按钮 44px",
+      "role": "ghost button",
+      "height": 44,
+      "left": "ghost-h44-left.png",
+      "middle": "ghost-h44-mid.png",
+      "right": "ghost-h44-right.png",
+      "path": "/pixel-ui/buttons-3slice/ghost-h44",
+      "parts": {
+        "left": "/pixel-ui/buttons-3slice/ghost-h44-left.png",
+        "middle": "/pixel-ui/buttons-3slice/ghost-h44-mid.png",
+        "right": "/pixel-ui/buttons-3slice/ghost-h44-right.png"
+      },
+      "useCases": [
+        "返回",
+        "查看详情",
+        "次级小按钮"
+      ],
+      "recommendedComponents": [
+        "GhostButton",
+        "DetailButton"
+      ],
+      "sourceOrder": 7,
+      "exportSizes": {
+        "left": {
+          "width": 214,
+          "height": 73
+        },
+        "middle": {
+          "width": 38,
+          "height": 63
+        },
+        "right": {
+          "width": 213,
+          "height": 73
+        }
+      },
+      "cssHint": ".ghost_h44 { display: grid; grid-template-columns: auto 1fr auto; min-height: 44px; }\n.ghost_h44__mid { background-image: url('/pixel-ui/buttons-3slice/ghost-h44-mid.png'); background-repeat: repeat-x; background-size: auto 100%; }",
+      "notes": "小号浅色按钮，适合低优先级操作。"
+    },
+    {
+      "id": "chip-active-h32",
+      "nameZh": "筛选标签选中态 32px",
+      "role": "active chip",
+      "height": 32,
+      "left": "chip-active-h32-left.png",
+      "middle": "chip-active-h32-mid.png",
+      "right": "chip-active-h32-right.png",
+      "path": "/pixel-ui/buttons-3slice/chip-active-h32",
+      "parts": {
+        "left": "/pixel-ui/buttons-3slice/chip-active-h32-left.png",
+        "middle": "/pixel-ui/buttons-3slice/chip-active-h32-mid.png",
+        "right": "/pixel-ui/buttons-3slice/chip-active-h32-right.png"
+      },
+      "useCases": [
+        "专业选择页分类筛选选中态"
+      ],
+      "recommendedComponents": [
+        "MajorFilterChip",
+        "CategoryChip"
+      ],
+      "sourceOrder": 8,
+      "exportSizes": {
+        "left": {
+          "width": 214,
+          "height": 75
+        },
+        "middle": {
+          "width": 38,
+          "height": 65
+        },
+        "right": {
+          "width": 98,
+          "height": 71
+        }
+      },
+      "cssHint": ".chip_active_h32 { display: grid; grid-template-columns: auto 1fr auto; min-height: 32px; }\n.chip_active_h32__mid { background-image: url('/pixel-ui/buttons-3slice/chip-active-h32-mid.png'); background-repeat: repeat-x; background-size: auto 100%; }",
+      "notes": "绿色小标签，适合筛选器选中态。"
+    },
+    {
+      "id": "chip-default-h32",
+      "nameZh": "筛选标签默认态 32px",
+      "role": "default chip",
+      "height": 32,
+      "left": "chip-default-h32-left.png",
+      "middle": "chip-default-h32-mid.png",
+      "right": "chip-default-h32-right.png",
+      "path": "/pixel-ui/buttons-3slice/chip-default-h32",
+      "parts": {
+        "left": "/pixel-ui/buttons-3slice/chip-default-h32-left.png",
+        "middle": "/pixel-ui/buttons-3slice/chip-default-h32-mid.png",
+        "right": "/pixel-ui/buttons-3slice/chip-default-h32-right.png"
+      },
+      "useCases": [
+        "专业选择页分类筛选默认态"
+      ],
+      "recommendedComponents": [
+        "MajorFilterChip",
+        "CategoryChip"
+      ],
+      "sourceOrder": 9,
+      "exportSizes": {
+        "left": {
+          "width": 214,
+          "height": 76
+        },
+        "middle": {
+          "width": 38,
+          "height": 66
+        },
+        "right": {
+          "width": 97,
+          "height": 68
+        }
+      },
+      "cssHint": ".chip_default_h32 { display: grid; grid-template-columns: auto 1fr auto; min-height: 32px; }\n.chip_default_h32__mid { background-image: url('/pixel-ui/buttons-3slice/chip-default-h32-mid.png'); background-repeat: repeat-x; background-size: auto 100%; }",
+      "notes": "浅色小标签，适合筛选器默认态。"
+    }
+  ]
+}

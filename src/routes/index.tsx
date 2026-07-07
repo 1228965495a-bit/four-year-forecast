@@ -5,6 +5,7 @@ import { useGameState, gameStore } from "@/lib/gameStore";
 import { majorById } from "@/data/script/gameData";
 import { PixelButton } from "@/components/ui/PixelButton";
 import { PixelPanel } from "@/components/ui/PixelPanel";
+import { PixelButton3 } from "@/components/pixel/PixelSkin";
 
 export const Route = createFileRoute("/")({ component: HomePage });
 
@@ -71,14 +72,24 @@ function HomePage() {
           titleRight={<span className="text-[10px] opacity-70">按 ↵ 选择</span>}
           bodyClassName="p-2.5 space-y-2"
         >
-          <MenuRow
-            label={hasSave ? "继续本科副本" : "开始模拟"}
-            hint={hasSave ? "读取当前存档" : "创建新档案"}
-            glyph={<GlyphPlay />}
-            accent="cherry"
-            primary
-            onClick={onStart}
-          />
+          <PixelButton3 variant="primaryTall" onClick={onStart}>
+            <span className="flex items-center gap-2.5 px-1">
+              <span className="inline-flex h-7 w-7 items-center justify-center bg-cream border-2 border-ink shrink-0 text-ink">
+                <GlyphPlay />
+              </span>
+              <span className="flex flex-col items-start leading-tight">
+                <span className="font-display text-[15px] text-cream">
+                  {hasSave ? "继续本科副本" : "开始模拟"}
+                </span>
+                <span className="text-[10px] text-cream/85">
+                  {hasSave ? "读取当前存档" : "创建新档案"}
+                </span>
+              </span>
+              <span className="ml-2 text-[9px] font-display tracking-widest bg-ink text-cream px-1.5 py-0.5">
+                PLAY ▶
+              </span>
+            </span>
+          </PixelButton3>
           <div className="grid grid-cols-3 gap-2">
             <MiniMenuBtn label="专业图鉴" glyph={<GlyphBook />} accent="sky" onClick={() => navigate({ to: "/major" })} />
             <MiniMenuBtn label="角色设定" glyph={<GlyphPerson />} accent="sage" onClick={onCharacter} />

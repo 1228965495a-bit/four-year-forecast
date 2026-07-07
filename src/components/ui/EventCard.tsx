@@ -1,5 +1,6 @@
 // 事件卡：接脚本引擎的新 event/choice 结构。
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
+import { PixelButton3 } from "@/components/pixel/PixelSkin";
 
 type Choice = {
   id?: string;
@@ -59,13 +60,19 @@ export function EventCard({
 
 function OptionRow({ option, onPick, index }: { option: Choice; onPick: (o: Choice) => void; index: number }) {
   const letter = String.fromCharCode(65 + index);
+  const long = (option.text?.length ?? 0) > 16;
   return (
-    <button onClick={() => onPick(option)} className="option-btn group">
-      <span className="option-letter" aria-hidden>{letter}</span>
-      <span className="flex-1 min-w-0 text-left font-display text-[14px] leading-snug">
-        {option.text}
+    <PixelButton3
+      variant={long ? "optionTall" : "option"}
+      full
+      onClick={() => onPick(option)}
+      className="mb-2 last:mb-0"
+    >
+      <span className="flex-1 min-w-0 flex items-center gap-2 px-1">
+        <span className="font-display text-ink/70 text-[12px] shrink-0">{letter}.</span>
+        <span className="flex-1 min-w-0 text-left leading-snug whitespace-normal">{option.text}</span>
+        <span className="text-ink/60 shrink-0">▶</span>
       </span>
-      <span className="option-arrow">▶</span>
-    </button>
+    </PixelButton3>
   );
 }

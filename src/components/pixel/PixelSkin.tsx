@@ -190,69 +190,130 @@ export function PixelStatBar({
 }
 
 /* ------------------------------------------------------------------ */
-/* Chip / 按钮 —— 图片背景 button                                      */
+/* 3-slice 按钮 & Chip —— left cap + middle repeat-x + right cap       */
 /* ------------------------------------------------------------------ */
 
-type ChipProps = ButtonHTMLAttributes<HTMLButtonElement> & { active?: boolean };
+const B3_BASE = "/pixel-ui/buttons-3slice";
 
-export function PixelChip({ active, className, children, ...props }: ChipProps) {
-  const bg = active ? pixelAssets.buttons.chipActive : pixelAssets.buttons.chipDefault;
+type Btn3Variant =
+  | "primary"
+  | "primaryTall"
+  | "secondary"
+  | "danger"
+  | "option"
+  | "optionTall"
+  | "ghost"
+  | "chipDefault"
+  | "chipActive";
+
+const BTN3: Record<
+  Btn3Variant,
+  { prefix: string; h: number; textCream: boolean }
+> = {
+  primary:     { prefix: "primary-h56",       h: 56, textCream: true  },
+  primaryTall: { prefix: "primary-h88",       h: 88, textCream: true  },
+  secondary:   { prefix: "secondary-h56",     h: 56, textCream: true  },
+  danger:      { prefix: "danger-h56",        h: 56, textCream: true  },
+  option:      { prefix: "option-h64",        h: 64, textCream: false },
+  optionTall:  { prefix: "option-h88",        h: 88, textCream: false },
+  ghost:       { prefix: "ghost-h44",         h: 44, textCream: false },
+  chipDefault: { prefix: "chip-default-h32",  h: 32, textCream: false },
+  chipActive:  { prefix: "chip-active-h32",   h: 32, textCream: true  },
+};
+
+export function PixelButton3({
+  variant = "primary",
+  full = true,
+  className,
+  children,
+  style,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: Btn3Variant;
+  full?: boolean;
+}) {
+  const { prefix, h, textCream } = BTN3[variant];
+  const left = `${B3_BASE}/${prefix}-left.png`;
+  const mid = `${B3_BASE}/${prefix}-mid.png`;
+  const right = `${B3_BASE}/${prefix}-right.png`;
   return (
     <button
       {...props}
       className={cn(
-        "relative inline-flex items-center justify-center shrink-0 select-none",
-        "font-display text-[11.5px] tracking-wider",
-        active ? "text-cream" : "text-ink",
-        "active:translate-y-[1px] transition-transform",
+        "relative inline-flex items-stretch select-none align-middle",
+        full ? "w-full" : "",
+        "active:translate-y-[1px] transition-transform disabled:opacity-60 disabled:pointer-events-none",
         className,
       )}
-      style={{
-        backgroundImage: `url(${bg})`,
-        backgroundSize: "100% 100%",
-        backgroundRepeat: "no-repeat",
-        padding: "12px 16px 16px",
-        minWidth: 64,
-        ...PX_BG,
-      }}
+      style={{ height: h, ...style }}
     >
-      <span className="relative">{children}</span>
+      <img
+        src={left}
+        alt=""
+        aria-hidden
+        draggable={false}
+        className="block h-full w-auto shrink-0"
+        style={PX_BG}
+      />
+      <span
+        className={cn(
+          "flex-1 flex items-center justify-center font-display tracking-wider min-w-0",
+          textCream ? "text-cream" : "text-ink",
+        )}
+        style={{
+          backgroundImage: `url(${mid})`,
+          backgroundRepeat: "repeat-x",
+          backgroundSize: "auto 100%",
+          textShadow: textCream ? "1px 1px 0 rgba(0,0,0,0.35)" : undefined,
+          fontSize: h <= 32 ? 11.5 : h >= 88 ? 15 : 14,
+          ...PX_BG,
+        }}
+      >
+        <span className="relative block w-full text-center px-3 leading-tight">{children}</span>
+      </span>
+      <img
+        src={right}
+        alt=""
+        aria-hidden
+        draggable={false}
+        className="block h-full w-auto shrink-0"
+        style={PX_BG}
+      />
     </button>
   );
 }
 
-type BtnVariant = "primary" | "secondary" | "danger";
+/** 兼容旧 API：PixelImgButton 内部转为 3-slice。 */
 export function PixelImgButton({
   variant = "primary",
   className,
   children,
   ...props
-}: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: BtnVariant }) {
-  const bg =
-    variant === "secondary"
-      ? pixelAssets.buttons.secondary
-      : variant === "danger"
-      ? pixelAssets.buttons.danger
-      : pixelAssets.buttons.primary;
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: "primary" | "secondary" | "danger";
+}) {
   return (
-    <button
+    <PixelButton3 variant={variant} full className={className} {...props}>
+      {children}
+    </PixelButton3>
+  );
+}
+
+/** 兼容旧 API：PixelChip 内部转为 3-slice chip。 */
+export function PixelChip({
+  active,
+  className,
+  children,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement> & { active?: boolean }) {
+  return (
+    <PixelButton3
+      variant={active ? "chipActive" : "chipDefault"}
+      full={false}
+      className={className}
       {...props}
-      className={cn(
-        "relative inline-flex items-center justify-center w-full select-none",
-        "font-display text-cream text-[14px] tracking-wider",
-        "active:translate-y-[1px] transition-transform",
-        className,
-      )}
-      style={{
-        backgroundImage: `url(${bg})`,
-        backgroundSize: "100% 100%",
-        backgroundRepeat: "no-repeat",
-        padding: "16px 20px 20px",
-        textShadow: "1px 1px 0 rgba(0,0,0,0.35)",
-        ...PX_BG,
-      }}
     >
-      <span className="relative">{children}</span>
-    </button>
+      {children}
+    </PixelButton3>
   );
 }
