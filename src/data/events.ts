@@ -62,6 +62,15 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "老师看了你一眼，你假装在查 PPT 补充资料。嘴硬 +1。",
       },
+      {
+        label: "边听边偷偷开小差记灵感",
+        effects: [
+          { key: "obsession", delta: 3 },
+          { key: "filter", delta: 2 },
+          { key: "gpa", delta: -1 },
+        ],
+        feedback: "你觉得自己找到了这门课的浪漫版本。（老师并不觉得）",
+      },
     ],
   },
   {
@@ -124,6 +133,15 @@ export const EVENTS: GameEvent[] = [
           { key: "filter", delta: -3 },
         ],
         feedback: "系统提示：你把复习变成了拖延艺术。",
+      },
+      {
+        label: "组队去开黑，考完再说",
+        effects: [
+          { key: "battery", delta: 10 },
+          { key: "escape", delta: 6 },
+          { key: "gpa", delta: -10 },
+        ],
+        feedback: "你笑得最大声，但心里已经开始盘算补考日程。",
       },
     ],
   },
@@ -188,6 +206,15 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "你选择先保护今天的心情。滤镜厚度维持稳定。",
       },
+      {
+        label: "反手劝前辈：还有救",
+        effects: [
+          { key: "mouthHard", delta: 8 },
+          { key: "obsession", delta: 4 },
+          { key: "escape", delta: -3 },
+        ],
+        feedback: "前辈愣了一下，然后笑着帮你续了饮料。你也不知道谁在劝谁。",
+      },
     ],
   },
   {
@@ -251,6 +278,14 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "被子确实赢了。但你的作息又向后推了 2 小时。",
       },
+      {
+        label: "去了但走了两圈就摸回来",
+        effects: [
+          { key: "battery", delta: 6 },
+          { key: "mouthHard", delta: 3 },
+        ],
+        feedback: "你说自己在拉伸，其实在刷手机。",
+      },
     ],
   },
   {
@@ -278,6 +313,15 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "会议开完，你多了 3 个 PDF、5 个「我在忙」和 0 个进度。",
       },
+      {
+        label: "偷偷改了名单，只留三个人交",
+        effects: [
+          { key: "gpa", delta: 4 },
+          { key: "escape", delta: 5 },
+          { key: "mouthHard", delta: 4 },
+        ],
+        feedback: "分数出来那天，你收到了三条来自消失队友的私聊。",
+      },
     ],
   },
   {
@@ -304,6 +348,15 @@ export const EVENTS: GameEvent[] = [
           { key: "escape", delta: 3 },
         ],
         feedback: "说出来那一刻你反而轻松了。这是难得的坦白时刻。",
+      },
+      {
+        label: "把话题带偏到八卦",
+        effects: [
+          { key: "battery", delta: 5 },
+          { key: "filter", delta: 2 },
+          { key: "obsession", delta: -2 },
+        ],
+        feedback: "宿舍气氛回到轻松，你成功躲过一次灵魂拷问。",
       },
     ],
   },
@@ -333,6 +386,15 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "你告诉自己「以后履历上会写上这一笔」。周末就这么没了。",
       },
+      {
+        label: "反问一句「有加分吗」",
+        effects: [
+          { key: "escape", delta: 3 },
+          { key: "obsession", delta: -2 },
+          { key: "illusion", delta: 3 },
+        ],
+        feedback: "辅导员愣了两秒，然后说：你去问上一届。",
+      },
     ],
   },
   {
@@ -359,6 +421,15 @@ export const EVENTS: GameEvent[] = [
           { key: "battery", delta: -4 },
         ],
         feedback: "打开书 30 分钟你就开始刷别人的旅行 vlog。",
+      },
+      {
+        label: "去一半，路上被拉回来复习",
+        effects: [
+          { key: "battery", delta: 3 },
+          { key: "filter", delta: 2 },
+          { key: "gpa", delta: -2 },
+        ],
+        feedback: "你带着火锅味坐进自习室，被两个学霸看穿了。",
       },
     ],
   },
@@ -387,6 +458,15 @@ export const EVENTS: GameEvent[] = [
           { key: "escape", delta: 4 },
         ],
         feedback: "你告诉自己「明天再开始」。明天没有开始。",
+      },
+      {
+        label: "只选一门认真啃",
+        effects: [
+          { key: "gpa", delta: 8 },
+          { key: "obsession", delta: 6 },
+          { key: "battery", delta: -6 },
+        ],
+        feedback: "考完那天你在朋友圈发了张证书照，配文只写了「一」。",
       },
     ],
   },
