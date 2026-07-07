@@ -36,7 +36,7 @@ function SemesterPage() {
   }, [game.finished, navigate]);
 
   const currentEvent = useMemo<GameEvent>(
-    () => pickEventsForMajor(game.majorId, game.step, 1)[0] ?~ EVENTS[0],
+    () => pickEventsForMajor(game.majorId, game.step, 1)[0] ?? EVENTS[0],
     [game.majorId, game.step],
   );
   const sceneAsset = useMemo(() => getSceneAsset(currentEvent.scene), [currentEvent.scene]);
