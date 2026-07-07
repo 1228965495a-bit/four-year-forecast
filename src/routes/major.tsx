@@ -95,10 +95,10 @@ function MajorSelectPage() {
       for (const r of REC_FILTERS) {
         if (recSet.has(r.label) && !r.match(m)) return false;
       }
-      if (kw && !m.name.includes(kw) && !m.tags.some((t) => t.includes(kw))) return false;
       return true;
     }).sort((a, b) => b.fit - a.fit);
-  }, [tab, recSet, kw]);
+  }, [tab, recSet]);
+
 
   const selected = MAJORS.find((m) => m.id === selectedId) ?? null;
 
