@@ -355,7 +355,7 @@
   transition: width 300ms ease-out;
 }
 @utility hud-bar {
-  height: 18px;
+  height: 20px;
   border: 2px solid var(--ink);
   background: #EFE1C1;
   border-radius: 2px;
