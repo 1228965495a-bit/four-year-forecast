@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
  * 通用像素面板：奶油底 + 深棕 3px 描边 + 硬阴影。
  * 支持可选羊皮纸标题条。
  */
-export interface PixelPanelProps extends HTMLAttributes<HTMLDivElement> {
+export interface PixelPanelProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   title?: ReactNode;
   titleRight?: ReactNode;
   size?: "sm" | "md";
