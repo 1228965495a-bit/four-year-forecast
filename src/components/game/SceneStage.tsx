@@ -5,10 +5,23 @@ import type { SceneKey } from "@/data/events";
  * 全部使用 CSS 像素块拼接，不使用 emoji / canvas / 图片。
  * 后续可将背景替换为 /assets/backgrounds/{scene}.png。
  */
-export function SceneStage({ scene, badge }: { scene: SceneKey; badge?: string }) {
+export function SceneStage({
+  scene,
+  badge,
+  title,
+  caption,
+}: {
+  scene: SceneKey;
+  badge?: string;
+  title?: string;
+  caption?: string;
+}) {
   return (
     <div className="scene-stage">
       <div className="absolute inset-0">{renderScene(scene)}</div>
+      {title && <div className="scene-title-banner">{title}</div>}
+      {caption && <div className="scene-speech">{shortenCaption(caption)}</div>}
+      <PixelStudent />
       {badge && (
         <div className="scene-badge">
           <span className="h-1.5 w-1.5 bg-cherry" />
@@ -17,6 +30,23 @@ export function SceneStage({ scene, badge }: { scene: SceneKey; badge?: string }
       )}
       {/* 扫描线 */}
       <div className="absolute inset-0 pixel-scanlines pointer-events-none opacity-40" />
+    </div>
+  );
+}
+
+function shortenCaption(text: string) {
+  return text.length > 18 ? `${text.slice(0, 18)}…` : text;
+}
+
+function PixelStudent() {
+  return (
+    <div className="pixel-student" aria-hidden>
+      <div className="pixel-student-head" />
+      <div className="pixel-student-hair" />
+      <div className="pixel-student-face" />
+      <div className="pixel-student-body" />
+      <div className="pixel-student-leg left" />
+      <div className="pixel-student-leg right" />
     </div>
   );
 }

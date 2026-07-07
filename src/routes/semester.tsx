@@ -17,6 +17,8 @@ import { PixelButton } from "@/components/ui/PixelButton";
 
 export const Route = createFileRoute("/semester")({ component: SemesterPage });
 
+const LAYOUT_HEIGHT = "calc(100dvh - 98px)";
+
 function SemesterPage() {
   const game = useGameState();
   const navigate = useNavigate();
@@ -102,9 +104,9 @@ function SemesterPage() {
 
   return (
     <PhoneFrame topBar={topBar} bottomBar={bottomBar}>
-      <div className="flex flex-col h-full">
+      <div className="semester-screen" style={{ height: LAYOUT_HEIGHT }}>
         {/* HUD：6 项明面数值 */}
-        <div className="px-2.5 pt-2 pb-2 border-b-2 border-ink/15 bg-cream shrink-0">
+        <div className="semester-hud">
           <div className="grid grid-cols-6 gap-1">
             {VISIBLE_STATS.map((s) => (
               <HudCell key={s.key} short={s.short} value={game.stats[s.key]} color={s.color} />
@@ -113,12 +115,17 @@ function SemesterPage() {
         </div>
 
         {/* 主场景 */}
-        <div className="px-2.5 pt-2 shrink-0">
-          <SceneStage scene={currentEvent.scene} badge={currentEvent.category} />
+        <div className="semester-scene-wrap">
+          <SceneStage
+            scene={currentEvent.scene}
+            badge={currentEvent.category}
+            title={currentEvent.title}
+            caption={currentEvent.description}
+          />
         </div>
 
         {/* 事件卡（不显示属性变化） */}
-        <div className="flex-1 min-h-0 px-2.5 pt-2 pb-2 flex flex-col">
+        <div className="semester-event-wrap">
           <EventCard event={currentEvent} onPick={onPick} />
         </div>
       </div>

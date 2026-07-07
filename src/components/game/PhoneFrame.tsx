@@ -24,7 +24,7 @@ export function PhoneFrame({
       <div className="hidden sm:flex flex-col items-center">
         <PhoneShell className={className}>
           {topBar}
-          <div className="flex-1 overflow-y-auto scrollbar-none">{children}</div>
+          <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden scrollbar-none">{children}</div>
           {bottomBar}
         </PhoneShell>
         <div className="mt-3 font-display text-[11px] tracking-widest text-ink/60">
@@ -32,9 +32,9 @@ export function PhoneFrame({
         </div>
       </div>
       {/* 手机原生视图 */}
-      <div className="flex sm:hidden w-full min-h-screen flex-col bg-cream">
+      <div className="relative flex sm:hidden w-full h-[100dvh] min-h-[100dvh] flex-col bg-cream overflow-hidden">
         {topBar}
-        <div className="flex-1 overflow-y-auto">{children}</div>
+        <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden">{children}</div>
         {bottomBar}
       </div>
     </div>
