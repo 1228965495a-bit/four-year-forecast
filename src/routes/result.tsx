@@ -117,32 +117,23 @@ function ResultPage() {
 
           <section className="px-3 pt-3 pb-2">
             <SectionLabel accent="cherry">专业后遗症 · 永久 DEBUFF</SectionLabel>
-            <div className="mt-1.5 flex flex-wrap gap-1.5">
+            <div className="mt-2 flex flex-wrap gap-1 justify-center">
               {afterEffects.map((a) => (
-                <span
-                  key={a}
-                  className="inline-flex items-center gap-1 border-2 border-ink bg-cherry/90 text-cream font-display text-[12px] px-2 py-0.5 shadow-[2px_2px_0_0_var(--ink)]"
-                >
-                  <span className="opacity-80">×</span>
-                  {a}
-                </span>
+                <PixelDebuffBadge key={a}>{a}</PixelDebuffBadge>
               ))}
             </div>
           </section>
 
           <section className="px-3 pt-2 pb-2">
             <SectionLabel>系统诊断 · DIAGNOSIS</SectionLabel>
-            <div
-              className="relative mt-1.5 border-2 border-dashed border-ink/60 p-2.5"
-              style={{ background: "var(--parchment)" }}
-            >
+            <PixelBgPanel variant="note" className="mt-1.5" padding="px-4 py-4">
               <p className="text-[12.5px] leading-[1.55] text-ink">{advice}</p>
-            </div>
+            </PixelBgPanel>
           </section>
 
           <section className="px-3 pt-2 pb-2">
             <SectionLabel>最终属性面板 · STATS</SectionLabel>
-            <div className="mt-1.5 grid grid-cols-2 gap-x-3 gap-y-1.5">
+            <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-2">
               {HUD_STATS.map((s) => {
                 const v = Math.max(0, Math.min(100, Math.round(game.stats[s.key] ?? 0)));
                 return (
@@ -151,9 +142,7 @@ function ResultPage() {
                       <span className="text-[11px] text-ink/80 whitespace-nowrap">{s.label}</span>
                       <span className="font-display text-[11px] tabular-nums">{v}</span>
                     </div>
-                    <div className="bar-track !h-1.5 mt-0.5">
-                      <div className="bar-fill" style={{ width: `${v}%`, background: s.color }} />
-                    </div>
+                    <PixelStatBar value={v} color={s.color} height={16} className="mt-0.5" />
                   </div>
                 );
               })}
@@ -163,21 +152,19 @@ function ResultPage() {
           {achievementsToShow.length > 0 && (
             <section className="px-3 pt-2 pb-3">
               <SectionLabel accent="sunny">代表成就 · ACHIEVEMENTS</SectionLabel>
-              <div className="mt-1.5 flex flex-wrap gap-1.5">
+              <div className="mt-2 flex flex-wrap gap-1 justify-center">
                 {achievementsToShow.map((id) => {
                   const a = achMap[id];
                   return (
-                    <span
-                      key={id}
-                      className="inline-flex items-center gap-1 border-2 border-ink bg-sunny text-ink font-display text-[12px] px-2 py-0.5 shadow-[2px_2px_0_0_var(--ink)]"
-                    >
-                      ★ {a?.name ?? id}
-                    </span>
+                    <PixelAchievementBadge key={id}>
+                      {a?.name ?? id}
+                    </PixelAchievementBadge>
                   );
                 })}
               </div>
             </section>
           )}
+
 
 
           <footer className="bg-ink text-cream text-center px-3 py-2.5">
