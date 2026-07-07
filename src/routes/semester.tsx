@@ -17,6 +17,8 @@ import { PixelButton } from "@/components/ui/PixelButton";
 
 export const Route = createFileRoute("/semester")({ component: SemesterPage });
 
+const LAYOUT_HEIGHT = "calc(100dvh - 98px)";
+
 function SemesterPage() {
   const game = useGameState();
   const navigate = useNavigate();
@@ -102,7 +104,7 @@ function SemesterPage() {
 
   return (
     <PhoneFrame topBar={topBar} bottomBar={bottomBar}>
-      <div className="semester-screen">
+      <div className="semester-screen" style={{ height: LAYOUT_HEIGHT }}>
         {/* HUD：6 项明面数值 */}
         <div className="semester-hud">
           <div className="grid grid-cols-6 gap-1">
