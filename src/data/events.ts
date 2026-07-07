@@ -422,6 +422,15 @@ export const EVENTS: GameEvent[] = [
         ],
         feedback: "打开书 30 分钟你就开始刷别人的旅行 vlog。",
       },
+      {
+        label: "去一半，路上被拉回来复习",
+        effects: [
+          { key: "battery", delta: 3 },
+          { key: "filter", delta: 2 },
+          { key: "gpa", delta: -2 },
+        ],
+        feedback: "你带着火锅味坐进自习室，被两个学霸看穿了。",
+      },
     ],
   },
   {
