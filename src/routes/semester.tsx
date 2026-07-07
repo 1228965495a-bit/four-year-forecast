@@ -4,6 +4,7 @@ import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { SceneStage } from "@/components/game/SceneStage";
 import { pickEvents, type EventOption, type GameEvent, EVENTS } from "@/data/events";
 import { getMajorById } from "@/data/majors";
+import { getSceneAsset } from "@/data/sceneAssets";
 import {
   gameStore,
   phaseLabel,
