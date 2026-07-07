@@ -190,21 +190,35 @@ function ResultPage() {
         </article>
 
         <div className="space-y-2">
+          {/* 分享便签 */}
+          <div
+            className="relative border-2 border-ink shadow-[2px_2px_0_0_var(--ink)] px-2.5 py-1.5 -rotate-[1deg] mx-1"
+            style={{ background: "var(--sunny)" }}
+          >
+            <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 h-2.5 w-6 bg-cherry border border-ink" />
+            <div className="text-[9px] font-display tracking-[0.25em] text-ink/70">分享便签</div>
+            <div className="font-display text-[12.5px] leading-snug mt-0.5 line-clamp-2">
+              {shareText}
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 gap-2">
             <PixelImgButton
               variant="secondary"
+              compact
               onClick={() => { gameStore.reset(); navigate({ to: "/" }); }}
             >
               回到首页
             </PixelImgButton>
             <PixelImgButton
               variant="primary"
+              compact
               onClick={() => { gameStore.reset(); navigate({ to: "/major" }); }}
             >
               挑战其他专业
             </PixelImgButton>
           </div>
-          <PixelImgButton variant="danger" onClick={share}>
+          <PixelImgButton variant="danger" compact onClick={share}>
             截图发给想报的人
           </PixelImgButton>
           <button
@@ -214,6 +228,7 @@ function ResultPage() {
             查看详细报告 →
           </button>
         </div>
+
 
       </div>
 
