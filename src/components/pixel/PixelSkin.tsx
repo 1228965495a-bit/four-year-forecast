@@ -239,6 +239,10 @@ export function PixelButton3({
 }) {
   const { src, h, slice, textCream, fs } = BTN3[variant];
   const url = `${B3_BASE}/${src}`;
+  // 让按钮自适应：以 h 作为最小高度，内容多时自动增高；
+  // border-image 9-slice：四角固定像素、四边和中段 stretch，保证不同文案下都不变形。
+  const padY = Math.max(6, Math.round(slice * 0.35));
+  const padX = Math.max(12, Math.round(slice * 0.9));
   return (
     <button
       {...props}
@@ -250,23 +254,19 @@ export function PixelButton3({
         className,
       )}
       style={{
-        height: h,
         minHeight: h,
         fontSize: fs,
-        lineHeight: 1.15,
-        padding: `0 ${Math.round(slice * 0.7)}px`,
-        borderStyle: "solid",
-        borderWidth: slice,
-        borderImageSource: `url(${url})`,
-        borderImageSlice: `${slice} fill`,
-        borderImageRepeat: "stretch",
-        borderImageWidth: `${slice}px`,
+        lineHeight: 1.2,
+        padding: `${padY}px ${padX}px`,
+        boxSizing: "border-box",
+        border: `${slice}px solid transparent`,
+        borderImage: `url(${url}) ${slice} fill / ${slice}px ${slice}px ${slice}px ${slice}px / 0 stretch`,
         textShadow: textCream ? "1px 1px 0 rgba(0,0,0,0.35)" : undefined,
         imageRendering: "pixelated",
         ...style,
       }}
     >
-      <span className="relative block text-center leading-tight px-1">{children}</span>
+      <span className="relative block text-center leading-tight break-words">{children}</span>
     </button>
   );
 }
