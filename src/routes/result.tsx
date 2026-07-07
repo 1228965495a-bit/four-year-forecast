@@ -5,8 +5,6 @@ import { getMajorById } from "@/data/majors";
 import { matchResult, survivalRating } from "@/data/results";
 import { gameStore, useGameState, VISIBLE_STATS, STAT_META } from "@/lib/gameStore";
 import { PixelButton } from "@/components/ui/PixelButton";
-import { PixelPanel } from "@/components/ui/PixelPanel";
-import { StatBar } from "@/components/ui/StatBar";
 import { TagBadge } from "@/components/ui/TagBadge";
 
 export const Route = createFileRoute("/result")({ component: ResultPage });
@@ -35,147 +33,220 @@ function ResultPage() {
     }
   };
 
-  const bottomBar = (
-    <div className="border-t-[3px] border-ink bg-cream px-3 py-2 space-y-1.5">
-      <div className="grid grid-cols-2 gap-2">
-        <PixelButton
-          variant="primary"
-          size="block"
-          onClick={() => {
-            gameStore.reset();
-            navigate({ to: "/major" });
-          }}
-        >
-          换个专业继续受苦
-        </PixelButton>
-        <PixelButton variant="accent" size="block" onClick={share}>
-          截图发给想报的人
-        </PixelButton>
-      </div>
-      <button
-        onClick={() => setDetailOpen(true)}
-        className="w-full pixel-tab !justify-center py-1"
-      >
-        查看详细报告 →
-      </button>
-    </div>
-  );
-
   return (
-    <PhoneFrame bottomBar={bottomBar}>
-      <div className="p-3 pb-4">
-        {/* 结局海报卡 */}
-        <div className="pixel-panel !p-0 overflow-hidden">
-          {/* 顶部条 */}
-          <div className="relative bg-ink text-cream px-3 py-2 border-b-[3px] border-ink">
-            <div className="absolute inset-0 pixel-scanlines opacity-30" />
-            <div className="relative flex items-center justify-between">
-              <div className="text-[10px] tracking-widest font-display opacity-90">
-                CAMPUS · SIM · ENDING
-              </div>
-              <div className="text-[10px] opacity-80">FINAL REPORT</div>
+    <PhoneFrame>
+      <div className="p-3 pb-4 space-y-3">
+        {/* ========== 主报告卡：一整张，无内部粗边框 ========== */}
+        <article
+          className="border-[3px] border-ink shadow-[5px_5px_0_0_var(--ink)] overflow-hidden"
+          style={{ background: "var(--cream)" }}
+        >
+          {/* 顶部盖章条 */}
+          <div className="relative bg-ink text-cream px-3 py-1.5 flex items-center justify-between">
+            <div className="absolute inset-0 pixel-scanlines opacity-25" />
+            <div className="relative text-[10px] font-display tracking-[0.2em]">
+              ▌ FINAL · REPORT
+            </div>
+            <div className="relative text-[10px] font-display tracking-widest opacity-80">
+              NO.{String(major.id).slice(0, 6).toUpperCase()}
             </div>
           </div>
 
-          {/* 主视觉：专业人格标题 */}
-          <div
-            className="border-b-[3px] border-ink px-3 pt-3 pb-4 text-center relative"
+          {/* 主视觉：结局身份 */}
+          <header
+            className="px-4 pt-4 pb-4 text-center relative border-b-[3px] border-dashed border-ink/50"
             style={{ background: "var(--parchment)" }}
           >
-            <div className="text-[11px] font-display tracking-widest text-ink/70">
+            <div className="text-[10px] font-display tracking-[0.3em] text-ink/60">
               你的本科人生结局
             </div>
-            <h1 className="pixel-logo mt-1.5 leading-[1.05]" style={{ fontSize: 26 }}>
+            <div className="mt-1 inline-block px-2 py-0.5 border-2 border-ink bg-cream font-display text-[12px]">
+              {major.name}
+            </div>
+            <h1
+              className="pixel-logo mt-2.5 leading-[1]"
+              style={{ fontSize: 30 }}
+            >
               {result.title}
             </h1>
-            <div className="mt-3 flex justify-center gap-1.5 flex-wrap">
-              <span className="achievement-medal">★ 评级</span>
-              <span className="pixel-chip bg-cream !text-[11px]">{rating}</span>
-            </div>
-          </div>
 
-          {/* 一句话总结 */}
-          <PixelPanel title="一句话本科总结" size="sm" tone="cream" bodyClassName="p-3">
-            <div className="font-display text-[15px] leading-[1.45] text-ink">
-              「{result.summary}」
-            </div>
-          </PixelPanel>
-
-          {/* 6 项明面数值 */}
-          <PixelPanel title="六项明面数值" size="sm" bodyClassName="p-3">
-            <div className="grid grid-cols-2 gap-x-3 gap-y-1">
-              {VISIBLE_STATS.map((s) => (
-                <StatBar
-                  key={s.key}
-                  label={s.label}
-                  value={game.stats[s.key]}
-                  color={s.color}
-                  size="sm"
-                />
-              ))}
-            </div>
-          </PixelPanel>
-
-          {/* 专业后遗症 */}
-          <PixelPanel title="专业后遗症" size="sm" tone="cherry" bodyClassName="p-3">
-            <div className="flex flex-wrap gap-1">
-              {major.aftereffects.slice(0, 4).map((a) => (
-                <TagBadge key={a} tone="hard">{a}</TagBadge>
-              ))}
-            </div>
-          </PixelPanel>
-
-          {/* 系统建议 */}
-          <div className="px-3 pt-1 pb-3">
-            <div className="diag-note">
-              <div className="text-[10px] font-display tracking-widest text-ink/60 mb-0.5">
-                系统建议
+            {/* 评级 stamp */}
+            <div className="mt-3 flex justify-center">
+              <div className="relative inline-flex items-center gap-1.5 px-3 py-1 border-[3px] border-cherry bg-cream -rotate-2 shadow-[2px_2px_0_0_var(--ink)]">
+                <span className="text-cherry font-display text-[10px] tracking-widest">
+                  ★ 评级
+                </span>
+                <span className="font-display text-[12px] text-ink">{rating}</span>
               </div>
-              <div className="text-[12.5px]">{result.advice}</div>
             </div>
-          </div>
 
-          {/* 代表成就 */}
-          <PixelPanel title="代表成就" size="sm" tone="sunny" bodyClassName="p-3">
-            <div className="flex flex-wrap gap-1.5">
-              {result.achievements.slice(0, 3).map((a) => (
-                <span key={a} className="achievement-medal">★ {a}</span>
+            {/* 一句话总结 — pull quote */}
+            <blockquote
+              className="mt-4 mx-auto max-w-[92%] text-left relative px-3 py-2 border-l-[4px] border-cherry bg-cream/80"
+            >
+              <div className="absolute -top-2 -left-1 font-display text-cherry text-[20px] leading-none">
+                “
+              </div>
+              <p className="font-display text-[13.5px] leading-[1.55] text-ink pl-1">
+                {result.summary}
+              </p>
+            </blockquote>
+          </header>
+
+          {/* ===== 高亮：专业后遗症 ===== */}
+          <section className="px-3 pt-3 pb-2">
+            <SectionLabel accent="cherry">专业后遗症 · SIDE EFFECTS</SectionLabel>
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {major.aftereffects.map((a) => (
+                <span
+                  key={a}
+                  className="inline-flex items-center gap-1 border-2 border-ink bg-cherry/90 text-cream font-display text-[12px] px-2 py-0.5 shadow-[2px_2px_0_0_var(--ink)]"
+                >
+                  <span className="opacity-80">×</span>
+                  {a}
+                </span>
               ))}
             </div>
-          </PixelPanel>
+          </section>
 
-          {/* 分享文案 */}
-          <div className="px-3 pt-1 pb-3">
+          {/* ===== 高亮：代表成就 ===== */}
+          <section className="px-3 pt-2 pb-2">
+            <SectionLabel accent="sunny">代表成就 · ACHIEVEMENTS</SectionLabel>
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {result.achievements.slice(0, 3).map((a) => (
+                <span
+                  key={a}
+                  className="inline-flex items-center gap-1 border-2 border-ink bg-sunny text-ink font-display text-[12px] px-2 py-0.5 shadow-[2px_2px_0_0_var(--ink)]"
+                >
+                  ★ {a}
+                </span>
+              ))}
+            </div>
+          </section>
+
+          {/* ===== 六项数值：紧凑 2 列，标签完整 ===== */}
+          <section className="px-3 pt-2 pb-2">
+            <SectionLabel>六项明面数值 · STATS</SectionLabel>
+            <div className="mt-1.5 grid grid-cols-2 gap-x-3 gap-y-1.5">
+              {VISIBLE_STATS.map((s) => {
+                const v = Math.max(0, Math.min(100, Math.round(game.stats[s.key])));
+                return (
+                  <div key={s.key} className="min-w-0">
+                    <div className="flex items-baseline justify-between gap-1">
+                      <span className="text-[11px] text-ink/80 whitespace-nowrap">
+                        {s.label}
+                      </span>
+                      <span className="font-display text-[11px] tabular-nums">
+                        {v}
+                      </span>
+                    </div>
+                    <div className="bar-track !h-1.5 mt-0.5">
+                      <div
+                        className="bar-fill"
+                        style={{ width: `${v}%`, background: s.color }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* ===== 系统吐槽 ===== */}
+          <section className="px-3 pt-2 pb-3">
             <div
-              className="border-[3px] border-ink shadow-[3px_3px_0_0_var(--ink)] p-2.5 relative"
+              className="relative border-2 border-dashed border-ink/60 p-2.5"
               style={{ background: "var(--parchment)" }}
             >
-              <div className="absolute -top-2 left-3 pixel-chip bg-cherry !text-cream !text-[10px]">
-                分享文案
+              <div className="absolute -top-2 left-2 bg-cream px-1.5 text-[10px] font-display tracking-widest text-ink/70">
+                系统吐槽
               </div>
-              <div className="font-display text-[13px] leading-snug pt-1">
-                「{result.shareText}」
-              </div>
+              <p className="text-[12.5px] leading-[1.55] text-ink pt-0.5">
+                {result.advice}
+              </p>
             </div>
-          </div>
+          </section>
 
-          {/* 品牌落款 */}
-          <div className="bg-ink text-cream text-center py-3">
-            <div className="text-[10px] font-display tracking-widest opacity-70 mb-0.5">
+          {/* ===== 分享文案 stamp ===== */}
+          <section className="px-3 pb-3">
+            <div
+              className="relative border-[3px] border-ink p-2.5 pt-3"
+              style={{ background: "var(--sunny)" }}
+            >
+              <div className="absolute -top-2.5 left-2.5 pixel-chip !bg-ink !text-cream !text-[10px]">
+                📣 一句话安利/劝退
+              </div>
+              <p className="font-display text-[13.5px] leading-[1.5] text-ink">
+                「{result.shareText}」
+              </p>
+            </div>
+          </section>
+
+          {/* 落款 */}
+          <footer className="bg-ink text-cream text-center px-3 py-2.5">
+            <div className="text-[10px] font-display tracking-[0.25em] opacity-70">
               这段分享自
             </div>
-            <div className="font-display text-[15px] tracking-wider">
+            <div className="font-display text-[13px] tracking-wider mt-0.5">
               这专业我先替你读了四年
             </div>
             <div className="text-[10px] opacity-60 mt-0.5">
               {major.name} · {game.characterName}
             </div>
+          </footer>
+        </article>
+
+        {/* ========== 操作区：贴合报告卡外，纸质小按钮 ========== */}
+        <div className="space-y-2">
+          <div className="grid grid-cols-2 gap-2">
+            <PixelButton
+              variant="primary"
+              size="block"
+              onClick={() => {
+                gameStore.reset();
+                navigate({ to: "/major" });
+              }}
+            >
+              换个专业继续受苦
+            </PixelButton>
+            <PixelButton variant="accent" size="block" onClick={share}>
+              截图发给想报的人
+            </PixelButton>
           </div>
+          <button
+            onClick={() => setDetailOpen(true)}
+            className="w-full text-center text-[11px] font-display tracking-wider text-ink/70 underline underline-offset-4 decoration-dashed py-1"
+          >
+            查看详细报告 →
+          </button>
         </div>
       </div>
 
       {detailOpen && <DetailSheet onClose={() => setDetailOpen(false)} />}
     </PhoneFrame>
+  );
+}
+
+function SectionLabel({
+  children,
+  accent,
+}: {
+  children: React.ReactNode;
+  accent?: "cherry" | "sunny";
+}) {
+  const barColor =
+    accent === "cherry" ? "var(--cherry)" : accent === "sunny" ? "var(--sunny)" : "var(--ink)";
+  return (
+    <div className="flex items-center gap-1.5">
+      <span
+        className="inline-block h-2.5 w-2.5"
+        style={{ background: barColor, boxShadow: "1px 1px 0 0 var(--ink)" }}
+      />
+      <span className="text-[10.5px] font-display tracking-[0.2em] text-ink/70">
+        {children}
+      </span>
+      <span className="flex-1 h-px bg-ink/20" />
+    </div>
   );
 }
 
@@ -208,16 +279,24 @@ function DetailSheet({ onClose }: { onClose: () => void }) {
         </Section>
 
         <Section title="全部属性（含隐藏）">
-          <div className="grid grid-cols-2 gap-x-3 gap-y-1">
-            {STAT_META.map((s) => (
-              <StatBar
-                key={s.key}
-                label={s.label + (s.hidden ? " ·隐藏" : "")}
-                value={game.stats[s.key]}
-                color={s.color}
-                size="sm"
-              />
-            ))}
+          <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
+            {STAT_META.map((s) => {
+              const v = Math.max(0, Math.min(100, Math.round(game.stats[s.key])));
+              return (
+                <div key={s.key} className="min-w-0">
+                  <div className="flex items-baseline justify-between gap-1">
+                    <span className="text-[11px] text-ink/80 whitespace-nowrap">
+                      {s.label}
+                      {s.hidden ? "·隐" : ""}
+                    </span>
+                    <span className="font-display text-[11px] tabular-nums">{v}</span>
+                  </div>
+                  <div className="bar-track !h-1.5 mt-0.5">
+                    <div className="bar-fill" style={{ width: `${v}%`, background: s.color }} />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </Section>
 
