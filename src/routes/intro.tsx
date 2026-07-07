@@ -46,7 +46,7 @@ function IntroPage() {
       <div className="flex-1 min-h-0 overflow-y-auto">
         <div className="flex flex-col gap-3 p-3 pb-6">
           {/* 专业建档主卡 */}
-          <PixelBgPanel variant="medium" padding="px-5 pt-6 pb-5">
+          <PixelPanel9 variant="profile" padding="px-5 pt-5 pb-5">
             <div className="text-center">
               <div className="text-[10px] font-display tracking-[0.3em] text-ink/60">
                 专业建档 · NEW FILE
@@ -83,7 +83,7 @@ function IntroPage() {
               <span>档案 · {game.characterName}</span>
               <span>{game.school ?? "未定学校"}</span>
             </div>
-          </PixelBgPanel>
+          </PixelPanel9>
 
           {/* 初始数值面板 */}
           <div>
@@ -95,7 +95,7 @@ function IntroPage() {
               <span className="h-px flex-1 bg-ink/20" />
             </div>
 
-            <PixelBgPanel variant="note" padding="px-4 py-4">
+            <PixelPanel9 variant="noteYellow" padding="px-4 py-3">
               <div className="grid grid-cols-2 gap-x-3 gap-y-2">
                 {HUD_STATS.map((s) => {
                   const v = Math.max(0, Math.min(100, Math.round(game.stats[s.key] ?? 0)));
@@ -110,7 +110,7 @@ function IntroPage() {
                   );
                 })}
               </div>
-            </PixelBgPanel>
+            </PixelPanel9>
           </div>
 
           {/* 进入大一上 */}
