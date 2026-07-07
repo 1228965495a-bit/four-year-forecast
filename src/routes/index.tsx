@@ -112,7 +112,7 @@ function HomePage() {
 
           {/* 便签 */}
           <div
-            className="col-span-2 relative border-[3px] border-ink shadow-[3px_3px_0_0_var(--ink)] p-2 -rotate-2"
+            className="col-span-2 relative border-[3px] border-ink shadow-[3px_3px_0_0_var(--ink)] p-2 -rotate-[1deg]"
             style={{ background: "var(--parchment)" }}
           >
             <div className="absolute -top-2 left-1/2 -translate-x-1/2 h-3 w-8 bg-cherry border-2 border-ink" />
