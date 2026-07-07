@@ -31,6 +31,7 @@
 
   /* Game palette */
   --color-cream: var(--cream);
+  --color-paper: var(--paper);
   --color-sage: var(--sage);
   --color-sky: var(--sky);
   --color-cherry: var(--cherry);
