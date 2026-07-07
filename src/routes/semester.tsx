@@ -11,11 +11,9 @@ import {
   VISIBLE_STATS,
   TOTAL_STEPS,
 } from "@/lib/gameStore";
-import { SemesterTimeline } from "@/components/ui/SemesterTimeline";
-import { EventCard, EffectChip } from "@/components/ui/EventCard";
+import { EventCard } from "@/components/ui/EventCard";
 import { CharacterPanel } from "@/components/ui/CharacterPanel";
 import { PixelButton } from "@/components/ui/PixelButton";
-import { PixelPanel } from "@/components/ui/PixelPanel";
 
 export const Route = createFileRoute("/semester")({ component: SemesterPage });
 
@@ -24,7 +22,7 @@ function SemesterPage() {
   const navigate = useNavigate();
   const major = game.majorId ? getMajorById(game.majorId) : null;
 
-  const [feedback, setFeedback] = useState<{ option: EventOption; eventTitle: string } | null>(null);
+  const [feedback, setFeedback] = useState<{ option: EventOption; event: GameEvent } | null>(null);
   const [drawer, setDrawer] = useState<"none" | "profile" | "log">("none");
 
   useEffect(() => {
@@ -39,7 +37,7 @@ function SemesterPage() {
     [game.step],
   );
 
-  const onPick = (opt: EventOption) => setFeedback({ option: opt, eventTitle: currentEvent.title });
+  const onPick = (opt: EventOption) => setFeedback({ option: opt, event: currentEvent });
 
   const confirmNext = () => {
     if (!feedback) return;
@@ -47,7 +45,7 @@ function SemesterPage() {
     gameStore.logEvent({
       step: game.step + 1,
       phase: phaseLabel(game),
-      title: feedback.eventTitle,
+      title: feedback.event.title,
       choice: feedback.option.label,
     });
     const mhDelta = feedback.option.effects.find((e) => e.key === "mouthHard")?.delta ?? 0;
@@ -61,20 +59,20 @@ function SemesterPage() {
   if (!major) return null;
 
   const topBar = (
-    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-1.5 flex items-center gap-2">
+    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-2 flex items-center gap-2">
       <button
         onClick={() => navigate({ to: "/" })}
         className="text-[11px] px-2 py-0.5 border-2 border-cream"
       >
         ⌂
       </button>
-      <div className="min-w-0">
+      <div className="min-w-0 flex-1">
         <div className="font-display text-[13px] leading-none truncate">{phaseLabel(game)}</div>
-        <div className="text-[9px] text-cream/70 leading-none mt-0.5 truncate">
+        <div className="text-[9.5px] text-cream/70 leading-none mt-1 truncate">
           {major.name} · {game.school}
         </div>
       </div>
-      <div className="ml-auto flex items-center gap-1">
+      <div className="flex items-center gap-1.5 shrink-0">
         <span className="font-display text-[11px] tabular-nums">
           {Math.min(game.step + 1, TOTAL_STEPS)} / {TOTAL_STEPS}
         </span>
@@ -85,22 +83,28 @@ function SemesterPage() {
           }}
           className="text-[10px] px-2 py-0.5 border-2 border-cream bg-cherry text-cream"
         >
-          结束
+          结
         </button>
       </div>
     </div>
   );
 
-  return (
-    <PhoneFrame topBar={topBar}>
-      <div className="flex flex-col h-full">
-        {/* ============ 学期时间线 ============ */}
-        <div className="px-2.5 pt-2 pb-1.5 border-b-2 border-ink/20 bg-cream">
-          <SemesterTimeline year={game.year} semester={game.semester} />
-        </div>
+  const bottomBar = (
+    <div className="border-t-[3px] border-ink bg-cream px-2.5 py-2 grid grid-cols-2 gap-2">
+      <button onClick={() => setDrawer("profile")} className="pixel-tab !justify-center py-1.5">
+        档案
+      </button>
+      <button onClick={() => setDrawer("log")} className="pixel-tab !justify-center py-1.5">
+        事件记录
+      </button>
+    </div>
+  );
 
-        {/* ============ HUD：6 项明面数值 ============ */}
-        <div className="px-2.5 pt-1.5 pb-1.5 border-b-2 border-ink/20 bg-cream">
+  return (
+    <PhoneFrame topBar={topBar} bottomBar={bottomBar}>
+      <div className="flex flex-col h-full">
+        {/* HUD：6 项明面数值 */}
+        <div className="px-2.5 pt-2 pb-2 border-b-2 border-ink/15 bg-cream shrink-0">
           <div className="grid grid-cols-6 gap-1">
             {VISIBLE_STATS.map((s) => (
               <HudCell key={s.key} short={s.short} value={game.stats[s.key]} color={s.color} />
@@ -108,47 +112,21 @@ function SemesterPage() {
           </div>
         </div>
 
-        {/* ============ 主场景 ============ */}
-        <div className="px-2.5 pt-2">
+        {/* 主场景 */}
+        <div className="px-2.5 pt-2 shrink-0">
           <SceneStage scene={currentEvent.scene} badge={currentEvent.category} />
         </div>
 
-        {/* ============ 事件卡 ============ */}
-        <div className="flex-1 min-h-0 px-2.5 pt-2 pb-2 flex flex-col gap-2">
+        {/* 事件卡（不显示属性变化） */}
+        <div className="flex-1 min-h-0 px-2.5 pt-2 pb-2 flex flex-col">
           <EventCard event={currentEvent} onPick={onPick} />
-
-          {/* 目标 + 抽屉入口 */}
-          <div className="grid grid-cols-3 gap-1.5">
-            <button
-              onClick={() => setDrawer("profile")}
-              className="pixel-tab !justify-center py-1"
-            >
-              档案
-            </button>
-            <button
-              onClick={() => setDrawer("log")}
-              className="pixel-tab !justify-center py-1"
-            >
-              记录 · {game.history.length}
-            </button>
-            <button
-              onClick={() => {
-                setFeedback(null);
-                gameStore.advanceStep();
-              }}
-              className="pixel-tab !justify-center py-1"
-              title="跳过本事件"
-            >
-              跳过 ▷
-            </button>
-          </div>
         </div>
       </div>
 
       {feedback && (
-        <FeedbackSheet
+        <FeedbackModal
           option={feedback.option}
-          eventTitle={feedback.eventTitle}
+          event={feedback.event}
           onNext={confirmNext}
         />
       )}
@@ -168,7 +146,7 @@ function HudCell({ short, value, color }: { short: string; value: number; color:
       <div className="w-full bar-track !h-2">
         <div className="bar-fill" style={{ width: `${value}%`, background: color }} />
       </div>
-      <div className="flex items-center gap-0.5 leading-none">
+      <div className="flex items-baseline gap-0.5 leading-none">
         <span className="text-[9px] text-ink/70">{short}</span>
         <span className="font-display text-[10px] tabular-nums">{Math.round(value)}</span>
       </div>
@@ -176,41 +154,36 @@ function HudCell({ short, value, color }: { short: string; value: number; color:
   );
 }
 
-function FeedbackSheet({
-  option, eventTitle, onNext,
+function FeedbackModal({
+  option,
+  event,
+  onNext,
 }: {
   option: EventOption;
-  eventTitle: string;
+  event: GameEvent;
   onNext: () => void;
 }) {
   return (
-    <>
-      <div className="absolute inset-0 z-40 bg-ink/50" />
-      <div className="absolute inset-x-0 bottom-0 z-50 sheet-panel p-3 pb-5 animate-pop-in max-h-[80%] overflow-y-auto">
-        <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-ink/40" />
-        <div className="text-[10px] font-display tracking-widest text-ink/60">系统记录</div>
-        <div className="mt-1 font-display text-[15px] leading-tight">
-          {eventTitle} · {option.label}
+    <div className="absolute inset-0 z-50 flex items-center justify-center px-4">
+      <div className="absolute inset-0 bg-ink/55" />
+      <div className="modal-card relative z-10 w-full max-w-[320px] animate-pop-in">
+        <div className="inline-flex items-center border-2 border-ink bg-cream px-2 py-0.5 text-[10px] font-display tracking-wider"
+             style={{ boxShadow: "2px 2px 0 0 var(--ink)" }}>
+          系统记录
         </div>
-        <PixelPanel size="sm" className="mt-2" bodyClassName="p-2">
-          <div className="text-[10px] text-ink/60 mb-1">数值变化</div>
-          <div className="flex flex-wrap gap-1.5">
-            {option.effects.map((e, i) => (
-              <EffectChip key={i} effect={e} kind={e.delta >= 0 ? "gain" : "cost"} />
-            ))}
-          </div>
-        </PixelPanel>
+        <div className="mt-2.5 font-display text-[16px] leading-tight">{event.title}</div>
+        <p className="mt-1.5 text-[12.5px] leading-snug text-ink/85">{option.label}。</p>
         <div className="diag-note mt-3">
           <div className="text-[10px] font-display tracking-widest text-ink/60 mb-0.5">
-            系统吐槽
+            系统提示
           </div>
           {option.feedback}
         </div>
-        <PixelButton variant="primary" size="block" className="mt-3" onClick={onNext}>
+        <PixelButton variant="primary" size="block" className="mt-3.5" onClick={onNext}>
           进入下一周 →
         </PixelButton>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -253,3 +226,4 @@ function LogDrawer() {
     </div>
   );
 }
+

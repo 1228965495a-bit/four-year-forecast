@@ -1,4 +1,5 @@
 import type { GameEvent, EventOption, EventEffect } from "@/data/events";
+
 import { STAT_META } from "@/lib/gameStore";
 import { cn } from "@/lib/utils";
 
@@ -26,40 +27,28 @@ export function EventCard({
         <p className="text-[12.5px] leading-snug text-ink/85 mb-2.5">{event.description}</p>
         <div className="space-y-1.5">
           {event.options.map((opt, i) => (
-            <OptionRow key={i} option={opt} onPick={onPick} />
+            <OptionRow key={i} option={opt} onPick={onPick} index={i} />
           ))}
+
         </div>
       </div>
     </div>
   );
 }
 
-function OptionRow({ option, onPick }: { option: EventOption; onPick: (o: EventOption) => void }) {
-  const { costs, gains } = splitEffects(option.effects);
+function OptionRow({ option, onPick, index }: { option: EventOption; onPick: (o: EventOption) => void; index: number }) {
+  const letter = String.fromCharCode(65 + index); // A, B, C, D
   return (
     <button onClick={() => onPick(option)} className="option-btn group">
-      <div className="flex-1 min-w-0">
-        <div className="font-display text-[13px] leading-snug">{option.label}</div>
-        <div className="mt-1 flex flex-wrap gap-1">
-          {gains.map((e, i) => (
-            <EffectChip key={`g${i}`} effect={e} kind="gain" />
-          ))}
-          {costs.map((e, i) => (
-            <EffectChip key={`c${i}`} effect={e} kind="cost" />
-          ))}
-        </div>
-      </div>
+      <span className="option-letter" aria-hidden>{letter}</span>
+      <span className="flex-1 min-w-0 text-left font-display text-[13px] leading-snug">
+        {option.label}
+      </span>
       <span className="option-arrow">▶</span>
     </button>
   );
 }
 
-function splitEffects(effects: EventEffect[]) {
-  const costs: EventEffect[] = [];
-  const gains: EventEffect[] = [];
-  for (const e of effects) (e.delta >= 0 ? gains : costs).push(e);
-  return { costs, gains };
-}
 
 export function EffectChip({
   effect,

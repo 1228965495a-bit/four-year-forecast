@@ -436,6 +436,29 @@
   font-size: 12px;
   flex-shrink: 0;
 }
+@utility option-letter {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  background: var(--parchment);
+  font-family: var(--font-display);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--ink);
+  box-shadow: 1px 1px 0 0 var(--ink);
+}
+@utility modal-card {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 5px 5px 0 0 var(--ink);
+  padding: 14px;
+}
+
 
 /* ---- Scene ambient animations ---- */
 @keyframes cloud-drift { 0% { transform: translateX(-8px);} 100% { transform: translateX(28px);} }
