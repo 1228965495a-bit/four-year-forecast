@@ -57,6 +57,10 @@
   --sage: #A8CFA3;         /* 鼠尾草绿 */
   --sunny: #FFD86B;        /* 暖黄 */
   --tan: #E4C79A;          /* 浅棕 */
+  --parchment: #F1E1B8;    /* 羊皮纸标题条 */
+  --gold: #F0B23A;         /* 成就金 */
+  --danger: #E5644A;       /* 危险 / 跑路 */
+  --wood: #7A4A2B;         /* 木边角标 */
 
   --background: var(--paper);
   --foreground: var(--text);
