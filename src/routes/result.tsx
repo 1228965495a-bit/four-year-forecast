@@ -208,15 +208,25 @@ function ResultPage() {
               size="block"
               onClick={() => {
                 gameStore.reset();
+                navigate({ to: "/" });
+              }}
+            >
+              回到首页
+            </PixelButton>
+            <PixelButton
+              variant="primary"
+              size="block"
+              onClick={() => {
+                gameStore.reset();
                 navigate({ to: "/major" });
               }}
             >
-              换个专业继续受苦
-            </PixelButton>
-            <PixelButton variant="accent" size="block" onClick={share}>
-              截图发给想报的人
+              挑战其他专业
             </PixelButton>
           </div>
+          <PixelButton variant="accent" size="block" onClick={share}>
+            截图发给想报的人
+          </PixelButton>
           <button
             onClick={() => setDetailOpen(true)}
             className="w-full text-center text-[11px] font-display tracking-wider text-ink/70 underline underline-offset-4 decoration-dashed py-1"
