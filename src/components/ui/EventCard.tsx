@@ -26,8 +26,9 @@ export function EventCard({
         <p className="text-[12.5px] leading-snug text-ink/85 mb-2.5">{event.description}</p>
         <div className="space-y-1.5">
           {event.options.map((opt, i) => (
-            <OptionRow key={i} option={opt} onPick={onPick} />
+            <OptionRow key={i} option={opt} onPick={onPick} index={i} />
           ))}
+
         </div>
       </div>
     </div>
