@@ -168,7 +168,7 @@ function FeedbackModal({
   return (
     <div className="absolute inset-0 z-50 flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-ink/55" />
-      <div className="modal-card relative z-10 w-full max-w-[320px] animate-pop-in">
+      <PixelBgPanel variant="medium" className="relative z-10 w-full max-w-[320px] animate-pop-in" padding="p-4">
         <div className="inline-flex items-center border-2 border-ink bg-cream px-2 py-0.5 text-[10px] font-display tracking-wider"
              style={{ boxShadow: "2px 2px 0 0 var(--ink)" }}>
           系统记录
@@ -181,10 +181,10 @@ function FeedbackModal({
           </div>
           {choice?.feedback || choice?.resultText || "……"}
         </div>
-        <PixelButton variant="primary" size="block" className="mt-3.5" onClick={onNext}>
+        <PixelImgButton variant="primary" compact className="mt-3.5" onClick={onNext}>
           继续 →
-        </PixelButton>
-      </div>
+        </PixelImgButton>
+      </PixelBgPanel>
     </div>
   );
 }
