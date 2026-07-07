@@ -168,17 +168,6 @@ function ResultPage() {
             </section>
           )}
 
-          <section className="px-3 pb-3">
-            <div
-              className="relative border-[3px] border-ink p-2.5 pt-3"
-              style={{ background: "var(--sunny)" }}
-            >
-              <div className="absolute -top-2.5 left-2.5 pixel-chip !bg-ink !text-cream !text-[10px]">
-                📣 一句话安利/劝退
-              </div>
-              <p className="font-display text-[13.5px] leading-[1.5] text-ink">「{shareText}」</p>
-            </div>
-          </section>
 
           <footer className="bg-ink text-cream text-center px-3 py-2.5">
             <div className="text-[10px] font-display tracking-[0.25em] opacity-70">这段分享自</div>
