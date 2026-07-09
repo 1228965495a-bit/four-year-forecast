@@ -116,12 +116,28 @@ function MidwayResultPage() {
               </div>
               <div>
                 <SectionLabel>中途报告</SectionLabel>
-                <PixelPanel9 variant="diagnosis" padding="pt-4 pb-3 px-4" className="mt-1.5">
-                  <p className="text-[12.5px] leading-[1.6]">
-                    {major.name}副本刚开场，你就先进行了战略撤离。
-                    还没被课程和考试彻底拿下，已经先把自己救出副本。
+                <PixelPanel9 variant="diagnosis" padding="pt-5 pb-4 px-4" className="mt-1.5">
+                  <p className="text-[12.5px] leading-[1.7]">
+                    <span className="font-display text-ink/70">档案编号 </span>
+                    <span className="font-display tabular-nums">#MID-{String(game.semesterIdx + 1).padStart(2, "0")}</span>
+                    <span className="text-ink/50">　·　签发：教务处（离场窗口）</span>
                   </p>
-                  <p className="text-cherry font-display text-[12.5px] mt-2">
+                  <p className="text-[12.5px] leading-[1.7] mt-2">
+                    {major.name}副本刚开场，你就先进行了战略撤离。
+                    没有被通宵的 DDL 和随堂小测彻底拿下，
+                    你选择在游戏还没把你榨干之前，主动按下退出键。
+                  </p>
+                  <p className="text-[12.5px] leading-[1.7] mt-2">
+                    这不是弃权，是识时务。真正会玩的人，
+                    知道哪些副本不值得肝，哪些经验值可以晚点再刷——
+                    先把自己这条命保住，才有资格重开下一局。
+                  </p>
+                  <ul className="mt-2.5 space-y-1 text-[12px] leading-[1.55] text-ink/90">
+                    <li>· 已保留：<span className="font-display">头发 / 睡眠 / 少量幻想</span></li>
+                    <li>· 已释放：<span className="font-display">早八 / 全勤 / 内耗额度</span></li>
+                    <li>· 建议：<span className="font-display">带上这份鉴定，去下一段人生开新号</span></li>
+                  </ul>
+                  <p className="text-cherry font-display text-[12.5px] mt-3">
                     结论：活着，比全勤更重要。
                   </p>
                 </PixelPanel9>
@@ -129,7 +145,7 @@ function MidwayResultPage() {
             </section>
 
             <FuturePinnedNote>
-              {`退出一次，不代表人生失败。\n真正厉害的人，也懂得在不想玩的时候按下停止键。\n等你想好了，再回来开新档。❤`}
+              {`嘿，是我，几年后的你。\n\n听说你今天在${major.name}副本按下了停止键。放心，我没有怪你——事实上，我挺感激那个时候敢喊停的自己。\n\n退出一次，不代表人生失败。真正厉害的人，也懂得在不想玩的时候先把自己救出来，休整、换地图、再重开一局。\n\n你现在觉得糟糕的这些事，很多在几年后都只是一句可以笑着讲出来的段子。等你想好了，再回来开新档，我在这边等你。❤`}
             </FuturePinnedNote>
 
             <div className="px-3 py-2 text-center text-[10px] font-display tracking-[0.3em] text-ink/50">
