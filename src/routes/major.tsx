@@ -288,7 +288,7 @@ function QuestTile({
     <button
       onClick={onClick}
       className={cn(
-        "relative text-left border-[3px] border-ink bg-cream overflow-hidden transition-all",
+        "relative text-left pixel-frame overflow-hidden transition-all",
         "shadow-[3px_3px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0_0_var(--ink)]",
         selected && "-translate-y-0.5 shadow-[3px_5px_0_0_var(--cherry)] ring-2 ring-cherry",
       )}
