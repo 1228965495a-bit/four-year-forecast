@@ -135,6 +135,17 @@ function SemesterPage() {
         />
       )}
 
+      {game.pendingReviveReason && !feedback && (
+        <ReviveModal
+          onAccept={() => gameStore.acceptRevive()}
+          onDecline={() => {
+            gameStore.declineRevive();
+            navigate({ to: "/midway-result" });
+          }}
+        />
+      )}
+
+
       {drawer !== "none" && (
         <DrawerSheet onClose={() => setDrawer("none")}>
           {drawer === "profile" ? <CharacterPanel /> : <LogDrawer />}
