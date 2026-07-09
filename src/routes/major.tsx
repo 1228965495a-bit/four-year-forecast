@@ -27,6 +27,7 @@ import clinicalCardAsset from "@/assets/majors/clinical-card.png.asset.json";
 import aiSceneAsset from "@/assets/majors/ai-scene.png.asset.json";
 import clinicalSceneAsset from "@/assets/majors/clinical-scene.png.asset.json";
 import financeSceneAsset from "@/assets/majors/finance-scene.png.asset.json";
+import csSceneAsset from "@/assets/majors/cs-scene.png.asset.json";
 import electronicInfoCardAsset from "@/assets/majors/electronic-info-card.png.asset.json";
 import civilCardAsset from "@/assets/majors/civil-card.png.asset.json";
 import electricalCardAsset from "@/assets/majors/electrical-card.png.asset.json";
