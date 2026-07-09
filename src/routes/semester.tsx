@@ -34,7 +34,8 @@ function SemesterPage() {
   }, [game.majorId, navigate]);
   useEffect(() => {
     if (game.finished) navigate({ to: "/result" });
-  }, [game.finished, navigate]);
+    else if (game.midwayFinished) navigate({ to: "/midway-result" });
+  }, [game.finished, game.midwayFinished, navigate]);
 
   const currentEvent = useMemo(() => currentEventOf(game), [game]);
   const sceneKey = currentEvent?.scene ?? undefined;
