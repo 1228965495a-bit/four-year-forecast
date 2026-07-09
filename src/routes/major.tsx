@@ -146,10 +146,11 @@ function MajorSelectPage() {
                     key={r.label}
                     onClick={() => toggleRec(r.label)}
                     className={cn(
-                      "shrink-0 text-[11px] px-2 py-0.5 border-2 border-ink transition-colors",
+                      "shrink-0 text-[11px] leading-none px-2.5 py-1.5 rounded-full border-2 border-ink transition-transform",
+                      "shadow-[2px_2px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
                       active
-                        ? "bg-cherry text-cream shadow-[2px_2px_0_0_var(--ink)]"
-                        : "bg-cream text-ink/70",
+                        ? "bg-sage text-ink"
+                        : "bg-cream text-ink/80",
                     )}
                   >
                     #{r.label}
@@ -166,13 +167,21 @@ function MajorSelectPage() {
           />
 
           <div className="flex items-center gap-2 px-1 pt-0.5">
-            <span className="inline-block h-2.5 w-2.5 bg-cherry border-2 border-ink" />
-            <span className="font-display text-[11px] tracking-[0.2em] text-ink/70">
+            <span className="text-[15px] leading-none" aria-hidden>📖</span>
+            <span className="font-display text-[12px] tracking-[0.15em] text-ink">
               可选副本 · {list.length}
             </span>
             <span className="h-px flex-1 bg-ink/20" />
-            <span className="text-[9px] font-display tracking-wider text-ink/50">按分档排序</span>
+            <button
+              onClick={() => setSortDesc((v) => !v)}
+              className="flex items-center gap-1 text-[10px] font-display tracking-wider text-ink/70 px-1.5 py-1 border-2 border-ink bg-cream shadow-[1px_1px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+              aria-label="切换分档排序"
+            >
+              <span>按分档排序</span>
+              <span className="text-[10px] leading-none">{sortDesc ? "▼" : "▲"}</span>
+            </button>
           </div>
+
 
           <div className="grid grid-cols-2 gap-2">
             {list.map((m: any) => (
