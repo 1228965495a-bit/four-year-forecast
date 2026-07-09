@@ -13,6 +13,7 @@ import {
   PixelChip,
   PixelTierBadge,
   PixelImgButton,
+  PixelEnterButton,
 } from "@/components/pixel/PixelSkin";
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 import sceneAsset from "@/assets/law-scene.png.asset.json";
