@@ -36,6 +36,7 @@ import architectureCardAsset from "@/assets/majors/architecture-card.png.asset.j
 import architectureSceneAsset from "@/assets/majors/architecture-scene.png.asset.json";
 import teacherEducationSceneAsset from "@/assets/majors/teacher-education-scene.png.asset.json";
 import chineseLanguageLiteratureSceneAsset from "@/assets/majors/chinese-language-literature-scene.png.asset.json";
+import designSceneAsset from "@/assets/majors/design-scene.png.asset.json";
 
 // 完整整卡素材（含标题/百分比/角标烘焙在图内）。有此映射时 QuestTile 直接渲染整张图。
 const MAJOR_CARD: Record<string, string> = {
@@ -64,6 +65,7 @@ const MAJOR_SCENE: Record<string, string> = {
   accounting: accountingSceneAsset.url,
   teacher_education: teacherEducationSceneAsset.url,
   chinese_language_literature: chineseLanguageLiteratureSceneAsset.url,
+  design: designSceneAsset.url,
 };
 
 
