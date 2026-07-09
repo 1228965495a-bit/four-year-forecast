@@ -155,8 +155,9 @@ function MidwayResultPage() {
                     <li>· 建议：<span className="font-display">带上这份鉴定，去下一段人生开新号</span></li>
                   </ul>
                   <p className="text-cherry font-display text-[12.5px] mt-3">
-                    结论：活着，比全勤更重要。
+                    结论：{displayConclusion}
                   </p>
+
                 </PixelPanel9>
               </div>
             </section>
