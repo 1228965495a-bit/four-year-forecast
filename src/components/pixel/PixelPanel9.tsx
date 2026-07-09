@@ -60,8 +60,8 @@ export function PixelPanel9({
   borderPx?: number;
 }) {
   const resolvedSrc = src ?? (variant ? panel9Assets[variant] : "");
-  const resolvedSlice = slice ?? INSET;
-  const resolvedBorder = borderPx ?? BORDER_PX;
+  const resolvedSlice = slice ?? (variant ? VARIANT_SLICE[variant] ?? INSET : INSET);
+  const resolvedBorder = borderPx ?? (variant ? VARIANT_BORDER[variant] ?? BORDER_PX : BORDER_PX);
   const s: CSSProperties = {
     borderStyle: "solid",
     borderWidth: `${resolvedBorder}px`,
