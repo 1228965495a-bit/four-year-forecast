@@ -7,6 +7,7 @@ import {
   type PixelTier,
   type BarColor,
 } from "@/lib/pixelAssets";
+import enterButtonAsset from "@/assets/pixel/enter-button.png.asset.json";
 
 /** 通用像素图 css：像素化不模糊，铺满容器 */
 const PX_BG: CSSProperties = {
@@ -321,60 +322,32 @@ export function PixelChip({
 }
 
 /**
- * PixelEnterButton — Stardew Valley 风统一「进入副本」按钮
- * 规格：固定宽 220px × 高 44px；4px 描边；分层 inset 高光/底影 + 3px 硬投影
- * 文案：ENTER（display 字体，字号 18，字距 0.25em）
- * 配色：草木绿主体（--sage 系），墨色描边，米色文字带 1px 硬阴影
- * 装饰：左右各一个像素箭头 ▶ / ◀ 反白色块
+ * PixelEnterButton — 统一「进入副本」按钮
+ * 现使用美术提供的 enter-button.png 贴图，文字 / 箭头 / 边框均已烘焙在图内。
+ * 显示尺寸保持 44px 高度，宽度按贴图比例自适应（约 182px）。
  */
 export function PixelEnterButton({
   className,
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement>) {
-  const face = "var(--sage)";
-  const faceHi = "#cfe8b6";
-  const faceLo = "#5a7a3e";
-  const border = INK;
-  const text = CREAM;
-  const shadow = [
-    `inset 0 3px 0 0 ${faceHi}`,
-    `inset 0 -4px 0 0 ${faceLo}`,
-    `inset 3px 0 0 0 ${faceHi}`,
-    `inset -3px 0 0 0 ${faceLo}`,
-    `0 4px 0 0 ${border}`,
-    `4px 0 0 0 ${border}`,
-    `4px 4px 0 0 ${border}`,
-  ].join(", ");
-
   return (
     <button
       {...props}
       className={cn(
-        "relative inline-flex items-center justify-center gap-2 select-none align-middle font-display",
-        "border-[4px] outline-none",
+        "relative inline-flex items-center justify-center p-0 border-0 bg-transparent outline-none select-none",
         "transition-transform active:translate-x-[2px] active:translate-y-[2px]",
         "disabled:opacity-60 disabled:pointer-events-none",
-        "hover:brightness-[1.05]",
+        "hover:brightness-[1.08]",
         className,
       )}
-      style={{
-        background: face,
-        color: text,
-        borderColor: border,
-        width: 220,
-        height: 44,
-        fontSize: 18,
-        lineHeight: 1,
-        letterSpacing: "0.25em",
-        boxShadow: shadow,
-        textShadow: "2px 2px 0 rgba(0,0,0,0.4)",
-        borderRadius: 0,
-        imageRendering: "pixelated",
-      }}
     >
-      <span aria-hidden className="text-[14px] leading-none opacity-90">▶</span>
-      <span className="relative block text-center">ENTER</span>
-      <span aria-hidden className="text-[14px] leading-none opacity-90">◀</span>
+      <img
+        src={enterButtonAsset.url}
+        alt="ENTER"
+        draggable={false}
+        className="block h-[44px] w-auto select-none"
+        style={{ imageRendering: "pixelated" }}
+      />
     </button>
   );
 }

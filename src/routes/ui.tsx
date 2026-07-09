@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
-import { PixelButton3, PixelChip } from "@/components/pixel/PixelSkin";
+import { PixelButton3, PixelChip, PixelEnterButton } from "@/components/pixel/PixelSkin";
 import {
   PixelPanel,
   PixelCard,
@@ -59,6 +59,9 @@ function UIKitPage() {
             <PixelChip active>热门</PixelChip>
             <PixelChip>工科</PixelChip>
             <PixelChip>人文</PixelChip>
+          </div>
+          <div className="mt-3 flex justify-center">
+            <PixelEnterButton />
           </div>
         </PixelPanel>
 
