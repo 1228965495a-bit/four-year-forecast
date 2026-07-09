@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UiRouteImport } from './routes/ui'
 import { Route as SemesterRouteImport } from './routes/semester'
 import { Route as ResultRouteImport } from './routes/result'
 import { Route as MajorRouteImport } from './routes/major'
 import { Route as IntroRouteImport } from './routes/intro'
 import { Route as IndexRouteImport } from './routes/index'
 
+const UiRoute = UiRouteImport.update({
+  id: '/ui',
+  path: '/ui',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SemesterRoute = SemesterRouteImport.update({
   id: '/semester',
   path: '/semester',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/major': typeof MajorRoute
   '/result': typeof ResultRoute
   '/semester': typeof SemesterRoute
+  '/ui': typeof UiRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/major': typeof MajorRoute
   '/result': typeof ResultRoute
   '/semester': typeof SemesterRoute
+  '/ui': typeof UiRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,14 @@ export interface FileRoutesById {
   '/major': typeof MajorRoute
   '/result': typeof ResultRoute
   '/semester': typeof SemesterRoute
+  '/ui': typeof UiRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/intro' | '/major' | '/result' | '/semester'
+  fullPaths: '/' | '/intro' | '/major' | '/result' | '/semester' | '/ui'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/intro' | '/major' | '/result' | '/semester'
-  id: '__root__' | '/' | '/intro' | '/major' | '/result' | '/semester'
+  to: '/' | '/intro' | '/major' | '/result' | '/semester' | '/ui'
+  id: '__root__' | '/' | '/intro' | '/major' | '/result' | '/semester' | '/ui'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,10 +86,18 @@ export interface RootRouteChildren {
   MajorRoute: typeof MajorRoute
   ResultRoute: typeof ResultRoute
   SemesterRoute: typeof SemesterRoute
+  UiRoute: typeof UiRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/ui': {
+      id: '/ui'
+      path: '/ui'
+      fullPath: '/ui'
+      preLoaderRoute: typeof UiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/semester': {
       id: '/semester'
       path: '/semester'
@@ -125,6 +142,7 @@ const rootRouteChildren: RootRouteChildren = {
   MajorRoute: MajorRoute,
   ResultRoute: ResultRoute,
   SemesterRoute: SemesterRoute,
+  UiRoute: UiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
