@@ -75,13 +75,14 @@ function SemesterPage() {
         </span>
         <button
           onClick={() => {
-            gameStore.set({ midwayFinished: true });
+            gameStore.quitToMidway();
             navigate({ to: "/midway-result" });
           }}
           className="text-[11px] px-2.5 py-1 border-2 border-cream bg-cherry text-cream leading-none"
         >
           结
         </button>
+
       </div>
     </div>
   );
