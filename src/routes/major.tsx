@@ -63,6 +63,7 @@ const MAJOR_SCENE: Record<string, string> = {
   computer_science: csSceneAsset.url,
   accounting: accountingSceneAsset.url,
   teacher_education: teacherEducationSceneAsset.url,
+  chinese_language_literature: chineseLanguageLiteratureSceneAsset.url,
 };
 
 
