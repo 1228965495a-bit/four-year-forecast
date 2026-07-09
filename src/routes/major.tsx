@@ -302,12 +302,23 @@ function QuestTile({
       )}
 
       <div
-        className="h-[60px] flex items-center justify-center border-b-[3px] border-ink relative"
+        className="h-[60px] flex items-center justify-center border-b-[3px] border-ink relative overflow-hidden"
         style={{ background: tint }}
       >
-        <div className="text-[30px] leading-none select-none" aria-hidden>
-          {majorEmoji(major.id)}
-        </div>
+        {MAJOR_SCENE[major.id] ? (
+          <img
+            src={MAJOR_SCENE[major.id]}
+            alt=""
+            aria-hidden
+            draggable={false}
+            className="absolute inset-0 w-full h-full object-cover select-none"
+            style={{ imageRendering: "pixelated" }}
+          />
+        ) : (
+          <div className="text-[30px] leading-none select-none" aria-hidden>
+            {majorEmoji(major.id)}
+          </div>
+        )}
         <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
       </div>
 
