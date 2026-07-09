@@ -78,7 +78,9 @@ const MAJOR_SCENE: Record<string, string> = {
   journalism_communication: journalismCommunicationSceneAsset.url,
   electronic_information: electronicInformationSceneAsset.url,
   psychology: psychologySceneAsset.url,
+  stomatology: stomatologySceneAsset.url,
 };
+
 
 
 
