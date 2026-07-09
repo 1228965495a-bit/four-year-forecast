@@ -1,7 +1,6 @@
 // 分类/emoji 展示映射：从 majors.json 的 category / id 映射到 UI 展示。
 
 const MAJOR_EMOJI: Record<string, string> = {
-  law: "⚖️",
   computer_science: "💻",
   artificial_intelligence: "🤖",
   clinical_medicine: "🩺",
