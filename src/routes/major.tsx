@@ -16,6 +16,12 @@ import {
 } from "@/components/pixel/PixelSkin";
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 import sceneAsset from "@/assets/law-scene.png.asset.json";
+import lawCardAsset from "@/assets/law-card.png.asset.json";
+
+// 完整整卡素材（含标题/百分比/角标烘焙在图内）。有此映射时 QuestTile 直接渲染整张图。
+const MAJOR_CARD: Record<string, string> = {
+  law: lawCardAsset.url,
+};
 
 // 每个专业的头图（会被 object-cover 裁剪到对应尺寸）。
 // 未上传的专业保持 emoji 占位，不使用默认图，避免所有专业撞脸。
@@ -284,6 +290,29 @@ function QuestTile({
   const tint = categoryTint(major.category);
   const memeTag: string | undefined = major.card?.tags?.[0] ?? major.tags?.[0];
   const hasWarn = !!major.card?.riskWarning;
+
+  const fullCard = MAJOR_CARD[major.id];
+  if (fullCard) {
+    return (
+      <button
+        onClick={onClick}
+        aria-label={major.name}
+        className={cn(
+          "relative block overflow-hidden border-[3px] border-ink transition-all",
+          "shadow-[3px_3px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0_0_var(--ink)]",
+          selected && "-translate-y-0.5 shadow-[3px_5px_0_0_var(--cherry)] ring-2 ring-cherry",
+        )}
+      >
+        <img
+          src={fullCard}
+          alt={major.name}
+          draggable={false}
+          className="block w-full h-auto select-none"
+          style={{ imageRendering: "pixelated" }}
+        />
+      </button>
+    );
+  }
 
   return (
     <button
