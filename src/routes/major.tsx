@@ -220,10 +220,23 @@ function SelectionPreview({
 
       <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2.5 items-start pt-0.5">
         <div
-          className="border-[3px] border-ink shadow-[2px_2px_0_0_var(--ink)] flex items-center justify-center text-[28px] shrink-0"
+          className="border-[3px] border-ink shadow-[2px_2px_0_0_var(--ink)] relative overflow-hidden shrink-0"
           style={{ width: 54, height: 54, background: tint }}
         >
-          {majorEmoji(major.id)}
+          <img
+            src={MAJOR_SCENE[major.id] ?? DEFAULT_SCENE}
+            alt=""
+            aria-hidden
+            draggable={false}
+            className="absolute inset-0 w-full h-full object-cover select-none"
+            style={{ imageRendering: "pixelated" }}
+          />
+          <span
+            className="absolute bottom-0 right-0 text-[14px] leading-none px-0.5 bg-cream/85 border-l-2 border-t-2 border-ink"
+            aria-hidden
+          >
+            {majorEmoji(major.id)}
+          </span>
         </div>
 
         <div className="min-w-0">
