@@ -34,7 +34,8 @@ function SemesterPage() {
   }, [game.majorId, navigate]);
   useEffect(() => {
     if (game.finished) navigate({ to: "/result" });
-  }, [game.finished, navigate]);
+    else if (game.midwayFinished) navigate({ to: "/midway-result" });
+  }, [game.finished, game.midwayFinished, navigate]);
 
   const currentEvent = useMemo(() => currentEventOf(game), [game]);
   const sceneKey = currentEvent?.scene ?? undefined;
@@ -74,8 +75,8 @@ function SemesterPage() {
         </span>
         <button
           onClick={() => {
-            gameStore.set({ finished: true });
-            navigate({ to: "/result" });
+            gameStore.set({ midwayFinished: true });
+            navigate({ to: "/midway-result" });
           }}
           className="text-[11px] px-2.5 py-1 border-2 border-cream bg-cherry text-cream leading-none"
         >

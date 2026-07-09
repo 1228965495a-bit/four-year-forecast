@@ -25,6 +25,8 @@ export interface GameState extends EngineState {
   history: HistoryItem[];
   /** 最近解锁的成就 id，用于弹 toast */
   pendingAchievement: string | null;
+  /** 中途主动结束游戏（点顶部 结 按钮） */
+  midwayFinished: boolean;
 }
 
 const STORAGE_KEY = "cszmg_save_v3";
@@ -49,6 +51,7 @@ function emptyState(): GameState {
     school: "云上大学",
     history: [],
     pendingAchievement: null,
+    midwayFinished: false,
   };
 }
 
