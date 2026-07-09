@@ -40,6 +40,8 @@ import designSceneAsset from "@/assets/majors/design-scene.png.asset.json";
 import businessAdministrationSceneAsset from "@/assets/majors/business-administration-scene.png.asset.json";
 import journalismCommunicationSceneAsset from "@/assets/majors/journalism-communication-scene.png.asset.json";
 import electronicInformationSceneAsset from "@/assets/majors/electronic-information-scene.png.asset.json";
+import psychologySceneAsset from "@/assets/majors/psychology-scene.png.asset.json";
+
 
 
 // 完整整卡素材（含标题/百分比/角标烘焙在图内）。有此映射时 QuestTile 直接渲染整张图。
@@ -73,7 +75,9 @@ const MAJOR_SCENE: Record<string, string> = {
   business_administration: businessAdministrationSceneAsset.url,
   journalism_communication: journalismCommunicationSceneAsset.url,
   electronic_information: electronicInformationSceneAsset.url,
+  psychology: psychologySceneAsset.url,
 };
+
 
 
 
