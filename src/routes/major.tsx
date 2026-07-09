@@ -57,6 +57,7 @@ const MAJOR_SCENE: Record<string, string> = {
   clinical_medicine: clinicalSceneAsset.url,
   finance: financeSceneAsset.url,
   architecture: architectureSceneAsset.url,
+  computer_science: csSceneAsset.url,
 };
 
 
