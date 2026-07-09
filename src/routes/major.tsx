@@ -69,6 +69,7 @@ const MAJOR_SCENE: Record<string, string> = {
   chinese_language_literature: chineseLanguageLiteratureSceneAsset.url,
   design: designSceneAsset.url,
   business_administration: businessAdministrationSceneAsset.url,
+  journalism_communication: journalismCommunicationSceneAsset.url,
 };
 
 
