@@ -15,6 +15,11 @@ import {
   PixelImgButton,
 } from "@/components/pixel/PixelSkin";
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
+import lawSceneAsset from "@/assets/law-scene.png.asset.json";
+
+const MAJOR_SCENE: Record<string, string> = {
+  law: lawSceneAsset.url,
+};
 
 export const Route = createFileRoute("/major")({ component: MajorSelectPage });
 
