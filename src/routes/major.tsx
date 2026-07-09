@@ -17,6 +17,8 @@ import {
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 import sceneAsset from "@/assets/law-scene.png.asset.json";
 import lawCardAsset from "@/assets/law-card.png.asset.json";
+import panelWideAsset from "@/assets/pixel/panel-wide.png.asset.json";
+import panelSquareAsset from "@/assets/pixel/panel-square.png.asset.json";
 
 // 完整整卡素材（含标题/百分比/角标烘焙在图内）。有此映射时 QuestTile 直接渲染整张图。
 const MAJOR_CARD: Record<string, string> = {
@@ -220,7 +222,13 @@ function SelectionPreview({
 }: { major: any; onOpenDetail: () => void; onConfirm: () => void }) {
   if (!major) {
     return (
-      <PixelPanel9 variant="small" padding="px-4 py-3" className="text-center">
+      <PixelPanel9
+        src={panelSquareAsset.url}
+        slice={150}
+        borderPx={22}
+        padding="px-4 py-5"
+        className="text-center"
+      >
         <div className="text-[10px] font-display tracking-[0.2em] text-ink/50">当前选中副本</div>
         <div className="text-[12px] text-ink/60 mt-1">👇 从下方点一个专业，先预览再进入</div>
       </PixelPanel9>
@@ -232,7 +240,13 @@ function SelectionPreview({
   const cardTags: string[] = major.card?.tags ?? major.tags?.slice(0, 3) ?? [];
 
   return (
-    <div className="pixel-frame p-2.5 relative">
+    <PixelPanel9
+      src={panelWideAsset.url}
+      slice={80}
+      borderPx={18}
+      padding="p-2.5"
+      className="relative"
+    >
       <span className="absolute -top-2 left-3 z-10 text-[9px] font-display tracking-[0.2em] px-1.5 py-0.5 bg-ink text-cream">
         ▌ 当前选中副本
       </span>
@@ -289,7 +303,7 @@ function SelectionPreview({
           ✓ 进入「{major.name}」副本
         </PixelImgButton>
       </div>
-    </div>
+    </PixelPanel9>
   );
 }
 

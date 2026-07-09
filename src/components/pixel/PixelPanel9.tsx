@@ -32,27 +32,37 @@ export function PixelPanel9({
   style,
   padding = "p-4",
   children,
+  src,
+  slice,
+  borderPx,
 }: {
-  variant: Panel9Variant;
+  variant?: Panel9Variant;
   className?: string;
   style?: CSSProperties;
   padding?: string;
   children: ReactNode;
+  /** 自定义 9-slice 图源，优先于 variant */
+  src?: string;
+  /** 自定义 slice inset（源图像素） */
+  slice?: number;
+  /** 自定义 CSS 边框宽度 */
+  borderPx?: number;
 }) {
-  const src = panel9Assets[variant];
+  const resolvedSrc = src ?? (variant ? panel9Assets[variant] : "");
+  const resolvedSlice = slice ?? INSET;
+  const resolvedBorder = borderPx ?? BORDER_PX;
   const s: CSSProperties = {
     borderStyle: "solid",
-    borderWidth: `${BORDER_PX}px`,
-    borderImageSource: `url(${src})`,
-    borderImageSlice: `${INSET} fill`,
+    borderWidth: `${resolvedBorder}px`,
+    borderImageSource: `url(${resolvedSrc})`,
+    borderImageSlice: `${resolvedSlice} fill`,
     borderImageRepeat: "stretch",
-    borderImageWidth: `${BORDER_PX}px`,
+    borderImageWidth: `${resolvedBorder}px`,
     imageRendering: "pixelated",
     ...style,
   };
   return (
     <div className={cn("relative", className)} style={s}>
-      {/* 抵消 border 视觉，让内容贴合面板内壁 */}
       <div className={cn("relative -m-1", padding)}>{children}</div>
     </div>
   );
