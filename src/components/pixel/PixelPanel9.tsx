@@ -28,7 +28,7 @@ const INSET = 32;
 // 每个 variant 的默认 9-slice inset（源图像素）。未列出的走 INSET=32。
 const VARIANT_SLICE: Partial<Record<Panel9Variant, number>> = {
   event: 60,
-  noteYellow: 119,
+  noteYellow: 60,
 };
 // 每个 variant 的默认 CSS 边框宽度。
 const VARIANT_BORDER: Partial<Record<Panel9Variant, number>> = {
