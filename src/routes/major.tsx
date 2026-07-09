@@ -69,6 +69,7 @@ function MajorSelectPage() {
   const [recSet, setRecSet] = useState<Set<string>>(new Set());
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [sortDesc, setSortDesc] = useState(true);
 
   const toggleRec = (label: string) => {
     setRecSet((prev) => {
@@ -81,15 +82,16 @@ function MajorSelectPage() {
   const tab = CATEGORY_TABS.find((t) => t.label === tabLabel) ?? CATEGORY_TABS[0];
 
   const list = useMemo(() => {
+    const tierRank = { S: 3, A: 2, B: 1, C: 0 } as Record<string, number>;
     return ALL_MAJORS.filter((m: any) => {
       if (!tab.match(m)) return false;
       for (const r of REC_FILTERS) if (recSet.has(r.label) && !r.match(m)) return false;
       return true;
     }).sort((a: any, b: any) => {
-      const tierRank = { S: 3, A: 2, B: 1, C: 0 } as Record<string, number>;
-      return (tierRank[b.tier] ?? 0) - (tierRank[a.tier] ?? 0);
+      const diff = (tierRank[b.tier] ?? 0) - (tierRank[a.tier] ?? 0);
+      return sortDesc ? diff : -diff;
     });
-  }, [tab, recSet]);
+  }, [tab, recSet, sortDesc]);
 
   const selected = ALL_MAJORS.find((m: any) => m.id === selectedId) ?? null;
 
