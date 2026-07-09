@@ -14,7 +14,7 @@ export const panel9Assets = {
   event: panelEventAsset.url,
   card: "/pixel-ui/panels-9slice/panel-card-source.png",
   profile: "/pixel-ui/panels-9slice/panel-profile-source.png",
-  noteYellow: "/pixel-ui/panels-9slice/panel-note-yellow-source.png",
+  noteYellow: panelNoteYellowAsset.url,
   noteBlue: "/pixel-ui/panels-9slice/panel-note-blue-source.png",
   diagnosis: "/pixel-ui/panels-9slice/panel-diagnosis-source.png",
   sheet: "/pixel-ui/panels-9slice/panel-sheet-source.png",
