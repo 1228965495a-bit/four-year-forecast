@@ -439,24 +439,46 @@ function PagedQuestGrid({
         </PixelPanel9>
       ) : (
         <div className="relative">
+          {/* 横向滑轨：所有分页横向拼接，用 translateX 平滑切换 */}
           <div
-            className="grid grid-cols-2 gap-2 select-none touch-pan-y"
+            className="overflow-hidden select-none touch-pan-y"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
           >
-            {pageItems.map((m: any) => (
-              <QuestTile
-                key={m.id}
-                major={m}
-                selected={m.id === selectedId}
-                onClick={() => onSelect(m.id)}
-              />
-            ))}
-            {/* 占位保持每页高度一致 */}
-            {Array.from({ length: PAGE_SIZE - pageItems.length }).map((_, i) => (
-              <div key={`ph-${i}`} aria-hidden className="invisible" />
-            ))}
+            <div
+              className="flex will-change-transform"
+              style={{
+                width: `${pageCount * 100}%`,
+                transform: `translateX(-${(page * 100) / pageCount}%)`,
+                transition: "transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1)",
+              }}
+            >
+              {Array.from({ length: pageCount }).map((_, pi) => {
+                const items = list.slice(pi * PAGE_SIZE, pi * PAGE_SIZE + PAGE_SIZE);
+                return (
+                  <div
+                    key={pi}
+                    className="shrink-0 grid grid-cols-2 gap-2 px-0.5"
+                    style={{ width: `${100 / pageCount}%` }}
+                    aria-hidden={pi !== page}
+                  >
+                    {items.map((m: any) => (
+                      <QuestTile
+                        key={m.id}
+                        major={m}
+                        selected={m.id === selectedId}
+                        onClick={() => onSelect(m.id)}
+                      />
+                    ))}
+                    {Array.from({ length: PAGE_SIZE - items.length }).map((_, i) => (
+                      <div key={`ph-${pi}-${i}`} aria-hidden className="invisible h-[176px]" />
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
           </div>
+
 
           {/* 翻页控制 */}
           <div className="mt-2 flex items-center justify-between gap-2">
