@@ -290,20 +290,17 @@ function QuestTile({
         className="h-[60px] flex items-center justify-center border-b-[3px] border-ink relative overflow-hidden"
         style={{ background: tint }}
       >
-        {MAJOR_SCENE[major.id] ? (
-          <img
-            src={MAJOR_SCENE[major.id]}
-            alt=""
-            aria-hidden
-            draggable={false}
-            className="absolute inset-0 w-full h-full object-cover select-none"
-            style={{ imageRendering: "pixelated" }}
-          />
-        ) : (
-          <div className="text-[30px] leading-none select-none" aria-hidden>
-            {majorEmoji(major.id)}
-          </div>
-        )}
+        <img
+          src={MAJOR_SCENE[major.id] ?? DEFAULT_SCENE}
+          alt=""
+          aria-hidden
+          draggable={false}
+          className="absolute inset-0 w-full h-full object-cover select-none"
+          style={{ imageRendering: "pixelated" }}
+        />
+        <div className="absolute top-1 left-1 z-[1] text-[20px] leading-none drop-shadow-[1px_1px_0_rgba(0,0,0,0.6)] select-none" aria-hidden>
+          {majorEmoji(major.id)}
+        </div>
         <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
       </div>
 
