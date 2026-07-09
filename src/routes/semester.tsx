@@ -172,25 +172,35 @@ function FeedbackModal({
       <div className="absolute inset-0 bg-ink/55" />
       <PixelPanel9
         variant="noteYellow"
-        className="relative z-10 animate-pop-in"
+        className="relative z-10 animate-pop-in flex flex-col"
         style={{ width: 280, minHeight: Math.round(280 * 416 / 275) }}
-        padding="p-3"
+        padding="p-4 flex flex-col h-full"
       >
-        <div className="inline-flex items-center border-2 border-ink bg-cream px-2 py-0.5 text-[10px] font-display tracking-wider"
+        <div className="inline-flex items-center self-start border-2 border-ink bg-cream px-2.5 py-1 text-[11px] font-display tracking-wider"
              style={{ boxShadow: "2px 2px 0 0 var(--ink)" }}>
           系统记录
         </div>
-        <div className="mt-2.5 font-display text-[16px] leading-tight">{event?.title}</div>
-        <p className="mt-1.5 text-[12.5px] leading-snug text-ink/85">{choice?.text}。</p>
-        <PixelPanel9 variant="diagnosis" className="mt-3" padding="px-3 py-2">
-          <div className="text-[10px] font-display tracking-widest text-ink/60 mb-0.5">
-            系统提示
-          </div>
-          <div className="text-[12.5px] leading-snug">{choice?.feedback || choice?.resultText || "……"}</div>
-        </PixelPanel9>
-        <PixelButton3 variant="primary" className="mt-3.5" onClick={onNext}>
-          继续 →
-        </PixelButton3>
+
+        <div className="mt-4 font-display text-[19px] leading-snug">{event?.title}</div>
+
+        <p className="mt-2 text-[13.5px] leading-relaxed text-ink/85">
+          {choice?.text}。
+        </p>
+
+        <div className="mt-4 h-[2px] bg-ink/25" />
+
+        <div className="mt-3 text-[10.5px] font-display tracking-[0.25em] text-ink/55">
+          系统提示
+        </div>
+        <p className="mt-1.5 text-[14px] leading-relaxed">
+          {choice?.feedback || choice?.resultText || "……"}
+        </p>
+
+        <div className="mt-auto pt-5">
+          <PixelButton3 variant="primary" onClick={onNext}>
+            继续 →
+          </PixelButton3>
+        </div>
       </PixelPanel9>
     </div>
   );
