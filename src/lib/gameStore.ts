@@ -11,6 +11,8 @@ import {
   SEMESTER_KEYS,
   type EngineState,
 } from "./scriptEngine";
+import { checkMidGG, applyRevivePenalties } from "./midGgRules";
+
 
 export interface HistoryItem {
   semester: string;
