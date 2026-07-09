@@ -53,6 +53,7 @@ const MAJOR_SCENE: Record<string, string> = {
   law: sceneAsset.url,
   artificial_intelligence: aiSceneAsset.url,
   clinical_medicine: clinicalSceneAsset.url,
+  finance: financeSceneAsset.url,
 };
 
 
