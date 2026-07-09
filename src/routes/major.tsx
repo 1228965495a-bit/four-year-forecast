@@ -17,10 +17,12 @@ import {
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 import sceneAsset from "@/assets/law-scene.png.asset.json";
 
-// 暂时所有专业头图都用同一张场景图，通过 object-cover 裁剪到卡片尺寸。
-// 未来给每个专业上传独立图后，只需在这里补上 id -> url 覆盖即可。
+// 每个专业的头图（会被 object-cover 裁剪到对应尺寸）。
+// 未上传的专业保持 emoji 占位，不使用默认图，避免所有专业撞脸。
 const DEFAULT_SCENE = sceneAsset.url;
-const MAJOR_SCENE: Record<string, string> = {};
+const MAJOR_SCENE: Record<string, string> = {
+  law: sceneAsset.url,
+};
 
 export const Route = createFileRoute("/major")({ component: MajorSelectPage });
 
