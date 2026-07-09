@@ -22,7 +22,7 @@ import panelSquareAsset from "@/assets/pixel/panel-square.png.asset.json";
 
 // 完整整卡素材（含标题/百分比/角标烘焙在图内）。有此映射时 QuestTile 直接渲染整张图。
 const MAJOR_CARD: Record<string, string> = {
-  law: lawCardAsset.url,
+  // 统一用 QuestTile 生成的卡片布局，避免整卡烘焙图与其他专业画风不一致
 };
 
 // 每个专业的头图（会被 object-cover 裁剪到对应尺寸）。
