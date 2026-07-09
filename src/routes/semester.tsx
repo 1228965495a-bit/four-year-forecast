@@ -143,18 +143,20 @@ function SemesterPage() {
 }
 
 function HudCell({ short, value, color }: { short: string; value: number; color: string }) {
+  const v = Math.max(0, Math.min(100, value));
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="w-full hud-bar">
-        <div className="hud-bar-fill" style={{ width: `${value}%`, backgroundColor: color }} />
+    <div className="flex flex-col gap-1 leading-none">
+      <div className="pixel-seg-bar">
+        <div className="pixel-seg-bar-fill" style={{ width: `${v}%`, backgroundColor: color }} />
       </div>
-      <div className="flex items-baseline justify-center gap-1 leading-none whitespace-nowrap">
-        <span className="font-display text-[13px] text-ink/70">{short}</span>
-        <span className="font-display text-[16px] tabular-nums">{Math.round(value)}</span>
+      <div className="flex items-baseline gap-1 whitespace-nowrap px-[1px]">
+        <span className="font-display text-[11px] text-ink/80">{short}</span>
+        <span className="font-display text-[13px] tabular-nums ml-auto">{Math.round(value)}</span>
       </div>
     </div>
   );
 }
+
 
 function FeedbackModal({
   event,
