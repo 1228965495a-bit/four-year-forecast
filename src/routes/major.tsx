@@ -410,7 +410,7 @@ function PagedQuestGrid({
     }
   };
 
-  const pageItems = list.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+  
 
   return (
     <div className="flex flex-col gap-2">
@@ -439,24 +439,46 @@ function PagedQuestGrid({
         </PixelPanel9>
       ) : (
         <div className="relative">
+          {/* 横向滑轨：所有分页横向拼接，用 translateX 平滑切换 */}
           <div
-            className="grid grid-cols-2 gap-2 select-none touch-pan-y"
+            className="overflow-hidden select-none touch-pan-y"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
           >
-            {pageItems.map((m: any) => (
-              <QuestTile
-                key={m.id}
-                major={m}
-                selected={m.id === selectedId}
-                onClick={() => onSelect(m.id)}
-              />
-            ))}
-            {/* 占位保持每页高度一致 */}
-            {Array.from({ length: PAGE_SIZE - pageItems.length }).map((_, i) => (
-              <div key={`ph-${i}`} aria-hidden className="invisible" />
-            ))}
+            <div
+              className="flex will-change-transform"
+              style={{
+                width: `${pageCount * 100}%`,
+                transform: `translateX(-${(page * 100) / pageCount}%)`,
+                transition: "transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1)",
+              }}
+            >
+              {Array.from({ length: pageCount }).map((_, pi) => {
+                const items = list.slice(pi * PAGE_SIZE, pi * PAGE_SIZE + PAGE_SIZE);
+                return (
+                  <div
+                    key={pi}
+                    className="shrink-0 grid grid-cols-2 gap-2 px-0.5"
+                    style={{ width: `${100 / pageCount}%` }}
+                    aria-hidden={pi !== page}
+                  >
+                    {items.map((m: any) => (
+                      <QuestTile
+                        key={m.id}
+                        major={m}
+                        selected={m.id === selectedId}
+                        onClick={() => onSelect(m.id)}
+                      />
+                    ))}
+                    {Array.from({ length: PAGE_SIZE - items.length }).map((_, i) => (
+                      <div key={`ph-${pi}-${i}`} aria-hidden className="invisible h-[176px]" />
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
           </div>
+
 
           {/* 翻页控制 */}
           <div className="mt-2 flex items-center justify-between gap-2">
@@ -524,7 +546,7 @@ function QuestTile({
     <button
       onClick={onClick}
       className={cn(
-        "relative text-left block transition-all",
+        "relative text-left block transition-all h-[176px]",
         "active:translate-x-[1px] active:translate-y-[1px]",
         selected && "-translate-y-0.5 drop-shadow-[3px_5px_0_var(--cherry)]",
       )}
@@ -534,9 +556,9 @@ function QuestTile({
         slice={80}
         borderPx={12}
         padding="p-0"
-        className={cn("overflow-hidden", selected && "ring-2 ring-cherry")}
+        className={cn("overflow-hidden h-full", selected && "ring-2 ring-cherry")}
       >
-        <div className="relative">
+        <div className="relative h-full flex flex-col">
           <PixelTierBadge tier={rank} size={30} className="absolute top-1 right-1 z-10" />
           {major.tier === "S" && (
             <span className="absolute top-1 left-1 z-10 text-[8.5px] font-display tracking-wider px-1 py-0.5 bg-cherry text-cream border border-ink">
@@ -544,63 +566,65 @@ function QuestTile({
             </span>
           )}
 
-          <div
-            className="h-[60px] flex items-center justify-center border-b-[3px] border-ink relative overflow-hidden"
-            style={{ background: tint }}
-          >
-            {MAJOR_SCENE[major.id] ? (
-              <img
-                src={MAJOR_SCENE[major.id]}
-                alt=""
-                aria-hidden
-                draggable={false}
-                className="absolute inset-0 w-full h-full object-cover select-none"
-                style={{ imageRendering: "pixelated" }}
-              />
-            ) : (
-              <div className="text-[30px] leading-none select-none" aria-hidden>
-                {majorEmoji(major.id) || (
-                  <span className="text-ink/30 text-[12px]">暂无图片</span>
-                )}
-              </div>
-            )}
-            <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
-          </div>
-
           {bannerSrc ? (
+            // 有整卡烘焙素材：整张图撑满，object-cover 消除比例差
             <img
               src={bannerSrc}
               alt={major.name}
               draggable={false}
-              className="block w-full h-auto select-none"
+              className="absolute inset-0 w-full h-full object-cover select-none"
               style={{ imageRendering: "pixelated" }}
             />
           ) : (
-            <div className="p-1.5">
-              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-1">
-                <span className="font-display text-[13px] truncate">{major.name}</span>
-                <span className="text-[9px] font-display tabular-nums text-cherry shrink-0">
-                  {fitOf(major)}%
-                </span>
-              </div>
-              <div className="text-[9px] text-ink/60 mt-0.5 leading-none tracking-wider truncate">
-                {displayCategory(major.category)} · {major.tier}
-              </div>
-
-              <div className="mt-1.5 flex items-center gap-1 min-h-[16px]">
-                {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
-                {hasWarn && (
-                  <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">⚠</span>
+            <>
+              <div
+                className="h-[60px] shrink-0 flex items-center justify-center border-b-[3px] border-ink relative overflow-hidden"
+                style={{ background: tint }}
+              >
+                {MAJOR_SCENE[major.id] ? (
+                  <img
+                    src={MAJOR_SCENE[major.id]}
+                    alt=""
+                    aria-hidden
+                    draggable={false}
+                    className="absolute inset-0 w-full h-full object-cover select-none"
+                    style={{ imageRendering: "pixelated" }}
+                  />
+                ) : (
+                  <div className="text-[30px] leading-none select-none" aria-hidden>
+                    {majorEmoji(major.id) || (
+                      <span className="text-ink/30 text-[12px]">暂无图片</span>
+                    )}
+                  </div>
                 )}
+                <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
               </div>
-            </div>
-          )}
 
+              <div className="p-1.5 flex-1 min-h-0 flex flex-col">
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-1">
+                  <span className="font-display text-[13px] truncate">{major.name}</span>
+                  <span className="text-[9px] font-display tabular-nums text-cherry shrink-0">
+                    {fitOf(major)}%
+                  </span>
+                </div>
+                <div className="text-[9px] text-ink/60 mt-0.5 leading-none tracking-wider truncate">
+                  {displayCategory(major.category)} · {major.tier}
+                </div>
+                <div className="mt-auto flex items-center gap-1 min-h-[16px]">
+                  {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
+                  {hasWarn && (
+                    <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">⚠</span>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </PixelPanel9>
     </button>
   );
 }
+
 
 function DetailContent({ major, onConfirm }: { major: any; onConfirm: () => void }) {
   const rank = tierOf(major);
