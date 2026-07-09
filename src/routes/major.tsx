@@ -567,14 +567,16 @@ function QuestTile({
           )}
 
           {bannerSrc ? (
-            // 有整卡烘焙素材：整张图撑满，object-cover 消除比例差
-            <img
-              src={bannerSrc}
-              alt={major.name}
-              draggable={false}
-              className="absolute inset-0 w-full h-full object-cover select-none"
-              style={{ imageRendering: "pixelated" }}
-            />
+            // 有整卡烘焙素材：按原比例完整显示，不能拉伸/裁切导致素材变形。
+            <div className="absolute inset-0 flex items-center justify-center bg-cream overflow-hidden">
+              <img
+                src={bannerSrc}
+                alt={major.name}
+                draggable={false}
+                className="block max-w-full max-h-full w-full h-auto select-none"
+                style={{ imageRendering: "pixelated" }}
+              />
+            </div>
           ) : (
             <>
               <div
