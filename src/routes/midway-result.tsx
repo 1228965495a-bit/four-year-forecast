@@ -33,9 +33,17 @@ function MidwayResultPage() {
   const navigate = useNavigate();
   const major = game.majorId ? majorById[game.majorId] : null;
 
+  // 等 gameStore 水合完再判断是否要跳走，避免首帧就误跳回首页。
+  const [hydrated, setHydrated] = useState(false);
+  const settleRef = useRef<number | null>(null);
   useEffect(() => {
-    if (!game.majorId) navigate({ to: "/" });
-  }, [game.majorId, navigate]);
+    if (settleRef.current) window.clearTimeout(settleRef.current);
+    settleRef.current = window.setTimeout(() => setHydrated(true), 0);
+    return () => { if (settleRef.current) window.clearTimeout(settleRef.current); };
+  }, []);
+  useEffect(() => {
+    if (hydrated && !game.majorId) navigate({ to: "/" });
+  }, [hydrated, game.majorId, navigate]);
 
   const tags = useMemo(() => deriveResultTags(game, "midway"), [game]);
 
