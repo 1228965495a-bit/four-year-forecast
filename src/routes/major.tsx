@@ -328,36 +328,8 @@ function QuestTile({
   const memeTag: string | undefined = major.card?.tags?.[0] ?? major.tags?.[0];
   const hasWarn = !!major.card?.riskWarning;
 
-  const fullCard = MAJOR_CARD[major.id];
-  if (fullCard) {
-    return (
-      <button
-        onClick={onClick}
-        aria-label={major.name}
-        className={cn(
-          "relative block transition-all",
-          "active:translate-x-[1px] active:translate-y-[1px]",
-          selected && "-translate-y-0.5 drop-shadow-[3px_5px_0_var(--cherry)]",
-        )}
-      >
-        <PixelPanel9
-          src={panelWideAsset.url}
-          slice={80}
-          borderPx={12}
-          padding="p-0"
-          className={cn(selected && "ring-2 ring-cherry")}
-        >
-          <img
-            src={fullCard}
-            alt={major.name}
-            draggable={false}
-            className="block w-full h-auto select-none"
-            style={{ imageRendering: "pixelated" }}
-          />
-        </PixelPanel9>
-      </button>
-    );
-  }
+  const bannerSrc = MAJOR_CARD[major.id];
+
 
   return (
     <button
