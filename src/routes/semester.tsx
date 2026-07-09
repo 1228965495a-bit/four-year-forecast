@@ -170,7 +170,12 @@ function FeedbackModal({
   return (
     <div className="absolute inset-0 z-50 flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-ink/55" />
-      <PixelPanel9 variant="noteYellow" className="relative z-10 w-full max-w-[320px] animate-pop-in" padding="p-3">
+      <PixelPanel9
+        variant="noteYellow"
+        className="relative z-10 animate-pop-in"
+        style={{ width: 280, minHeight: Math.round(280 * 416 / 275) }}
+        padding="p-3"
+      >
         <div className="inline-flex items-center border-2 border-ink bg-cream px-2 py-0.5 text-[10px] font-display tracking-wider"
              style={{ boxShadow: "2px 2px 0 0 var(--ink)" }}>
           系统记录
