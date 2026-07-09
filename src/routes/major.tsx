@@ -61,6 +61,7 @@ const MAJOR_SCENE: Record<string, string> = {
   architecture: architectureSceneAsset.url,
   computer_science: csSceneAsset.url,
   accounting: accountingSceneAsset.url,
+  teacher_education: teacherEducationSceneAsset.url,
 };
 
 
