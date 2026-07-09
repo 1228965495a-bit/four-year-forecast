@@ -46,6 +46,7 @@ import nursingSceneAsset from "@/assets/majors/nursing-scene.png.asset.json";
 import mechanicalEngineeringSceneAsset from "@/assets/majors/mechanical-engineering-scene.png.asset.json";
 import pharmacySceneAsset from "@/assets/majors/pharmacy-scene.png.asset.json";
 import civilEngineeringSceneAsset from "@/assets/majors/civil-engineering-scene.png.asset.json";
+import englishSceneAsset from "@/assets/majors/english-scene.png.asset.json";
 
 
 
@@ -90,6 +91,7 @@ const MAJOR_SCENE: Record<string, string> = {
   mechanical_engineering: mechanicalEngineeringSceneAsset.url,
   pharmacy: pharmacySceneAsset.url,
   civil_engineering: civilEngineeringSceneAsset.url,
+  english: englishSceneAsset.url,
 };
 
 
