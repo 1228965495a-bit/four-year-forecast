@@ -60,6 +60,9 @@ function UIKitPage() {
             <PixelChip>工科</PixelChip>
             <PixelChip>人文</PixelChip>
           </div>
+          <div className="mt-3 flex justify-center">
+            <PixelEnterButton />
+          </div>
         </PixelPanel>
 
         {/* 图标按钮 & 徽章 */}
