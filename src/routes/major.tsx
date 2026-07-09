@@ -99,7 +99,7 @@ function MajorSelectPage() {
         onClick={() => navigate({ to: "/" })}
         className="absolute left-2 top-1/2 -translate-y-1/2 z-10 text-cream text-[11px] px-2 py-0.5 border-2 border-cream"
       >
-        ← 返回
+        ←&nbsp;
       </button>
       <PixelHeader variant="majorSelect" className="!max-w-[280px]" />
     </div>
