@@ -215,10 +215,11 @@ function SelectionPreview({
   const cardTags: string[] = major.card?.tags ?? major.tags?.slice(0, 3) ?? [];
 
   return (
-    <PixelPanel9 variant="sheet" padding="p-2.5" className="relative">
+    <div className="pixel-frame p-2.5 relative">
       <span className="absolute -top-2 left-3 z-10 text-[9px] font-display tracking-[0.2em] px-1.5 py-0.5 bg-ink text-cream">
         ▌ 当前选中副本
       </span>
+
 
       <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2.5 items-start pt-0.5">
         <div
@@ -271,7 +272,7 @@ function SelectionPreview({
           ✓ 进入「{major.name}」副本
         </PixelImgButton>
       </div>
-    </PixelPanel9>
+    </div>
   );
 }
 
@@ -288,7 +289,7 @@ function QuestTile({
     <button
       onClick={onClick}
       className={cn(
-        "relative text-left border-[3px] border-ink bg-cream overflow-hidden transition-all",
+        "relative text-left pixel-frame overflow-hidden transition-all",
         "shadow-[3px_3px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0_0_var(--ink)]",
         selected && "-translate-y-0.5 shadow-[3px_5px_0_0_var(--cherry)] ring-2 ring-cherry",
       )}

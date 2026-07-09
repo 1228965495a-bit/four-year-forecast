@@ -844,3 +844,15 @@
   border: 2px solid var(--ink);
   border-radius: 2px;
 }
+
+/* Pixel wooden frame (9-slice border-image) */
+@utility pixel-frame {
+  border-style: solid;
+  border-width: 14px;
+  border-image-source: url("/__l5e/assets-v1/17dc8009-71c2-4369-9043-80c9414733ca/pixel-frame.png");
+  border-image-slice: 260 fill;
+  border-image-width: 14px;
+  border-image-repeat: stretch;
+  image-rendering: pixelated;
+  background-color: var(--cream);
+}
