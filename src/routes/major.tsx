@@ -15,11 +15,12 @@ import {
   PixelImgButton,
 } from "@/components/pixel/PixelSkin";
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
-import lawSceneAsset from "@/assets/law-scene.png.asset.json";
+import sceneAsset from "@/assets/law-scene.png.asset.json";
 
-const MAJOR_SCENE: Record<string, string> = {
-  law: lawSceneAsset.url,
-};
+// 暂时所有专业头图都用同一张场景图，通过 object-cover 裁剪到卡片尺寸。
+// 未来给每个专业上传独立图后，只需在这里补上 id -> url 覆盖即可。
+const DEFAULT_SCENE = sceneAsset.url;
+const MAJOR_SCENE: Record<string, string> = {};
 
 export const Route = createFileRoute("/major")({ component: MajorSelectPage });
 
