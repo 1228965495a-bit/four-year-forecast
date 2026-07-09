@@ -319,3 +319,62 @@ export function PixelChip({
     </PixelButton3>
   );
 }
+
+/**
+ * PixelEnterButton — Stardew Valley 风统一「进入副本」按钮
+ * 规格：固定宽 176px × 高 56px；4px 描边；分层 inset 高光/底影 + 3px 硬投影
+ * 文案：ENTER（display 字体，字号 20，字距 0.25em）
+ * 配色：草木绿主体（--sage 系），墨色描边，米色文字带 1px 硬阴影
+ * 装饰：左右各一个像素箭头 ▶ / ◀ 反白色块
+ */
+export function PixelEnterButton({
+  className,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement>) {
+  const face = "var(--sage)";
+  const faceHi = "#cfe8b6";
+  const faceLo = "#5a7a3e";
+  const border = INK;
+  const text = CREAM;
+  const shadow = [
+    `inset 0 3px 0 0 ${faceHi}`,
+    `inset 0 -4px 0 0 ${faceLo}`,
+    `inset 3px 0 0 0 ${faceHi}`,
+    `inset -3px 0 0 0 ${faceLo}`,
+    `0 4px 0 0 ${border}`,
+    `4px 0 0 0 ${border}`,
+    `4px 4px 0 0 ${border}`,
+  ].join(", ");
+
+  return (
+    <button
+      {...props}
+      className={cn(
+        "relative inline-flex items-center justify-center gap-2 select-none align-middle font-display",
+        "border-[4px] outline-none",
+        "transition-transform active:translate-x-[2px] active:translate-y-[2px]",
+        "disabled:opacity-60 disabled:pointer-events-none",
+        "hover:brightness-[1.05]",
+        className,
+      )}
+      style={{
+        background: face,
+        color: text,
+        borderColor: border,
+        width: 176,
+        height: 56,
+        fontSize: 20,
+        lineHeight: 1,
+        letterSpacing: "0.25em",
+        boxShadow: shadow,
+        textShadow: "2px 2px 0 rgba(0,0,0,0.4)",
+        borderRadius: 0,
+        imageRendering: "pixelated",
+      }}
+    >
+      <span aria-hidden className="text-[14px] leading-none opacity-90">▶</span>
+      <span className="relative block text-center">ENTER</span>
+      <span aria-hidden className="text-[14px] leading-none opacity-90">◀</span>
+    </button>
+  );
+}

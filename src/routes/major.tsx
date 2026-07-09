@@ -13,6 +13,7 @@ import {
   PixelChip,
   PixelTierBadge,
   PixelImgButton,
+  PixelEnterButton,
 } from "@/components/pixel/PixelSkin";
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 import sceneAsset from "@/assets/law-scene.png.asset.json";
@@ -365,16 +366,8 @@ function SelectionPreview({
         </div>
       </div>
 
-      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 mt-2.5 items-center">
-        <button
-          onClick={onOpenDetail}
-          className="text-[11px] font-display px-2.5 py-1.5 border-2 border-ink bg-cream shadow-[2px_2px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
-        >
-          详情
-        </button>
-        <PixelImgButton variant="primary" onClick={onConfirm} className="!text-[13px]">
-          ✓ 进入「{major.name}」副本
-        </PixelImgButton>
+      <div className="mt-2.5 flex justify-center">
+        <PixelEnterButton onClick={onConfirm} />
       </div>
     </PixelPanel9>
   );
