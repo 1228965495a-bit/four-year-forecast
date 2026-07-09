@@ -28,6 +28,7 @@ import aiSceneAsset from "@/assets/majors/ai-scene.png.asset.json";
 import clinicalSceneAsset from "@/assets/majors/clinical-scene.png.asset.json";
 import financeSceneAsset from "@/assets/majors/finance-scene.png.asset.json";
 import csSceneAsset from "@/assets/majors/cs-scene.png.asset.json";
+import accountingSceneAsset from "@/assets/majors/accounting-scene.png.asset.json";
 import electronicInfoCardAsset from "@/assets/majors/electronic-info-card.png.asset.json";
 import civilCardAsset from "@/assets/majors/civil-card.png.asset.json";
 import electricalCardAsset from "@/assets/majors/electrical-card.png.asset.json";
@@ -58,6 +59,7 @@ const MAJOR_SCENE: Record<string, string> = {
   finance: financeSceneAsset.url,
   architecture: architectureSceneAsset.url,
   computer_science: csSceneAsset.url,
+  accounting: accountingSceneAsset.url,
 };
 
 
