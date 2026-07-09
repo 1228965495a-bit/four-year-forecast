@@ -45,20 +45,36 @@ function MidwayResultPage() {
     if (hydrated && !game.majorId) navigate({ to: "/" });
   }, [hydrated, game.majorId, navigate]);
 
-  const tags = useMemo(() => deriveResultTags(game, "midway"), [game]);
+  const tags = useMemo(() => {
+    if (game.midGgTags && game.midGgTags.length) {
+      // 用引擎生成的原因标签，长度不足再拿风格标签补齐到 6
+      const seen = new Set(game.midGgTags);
+      const extra = deriveResultTags(game, "midway").filter((t) => !seen.has(t.label));
+      const merged = [
+        ...game.midGgTags.map((label, i) => ({ id: `mg-${i}`, label, icon: "🎯", tone: (["cherry","sage","sunny","grape","sky","tan"] as const)[i % 6] })),
+        ...extra,
+      ];
+      return merged.slice(0, 6);
+    }
+    return deriveResultTags(game, "midway");
+  }, [game]);
 
   if (!major) return null;
 
   const total = totalSemesters();
   const semesterAt = currentSemesterLabel(game);
+  const displayTitle = game.midGgTitle || "跑路预备役";
+  const displaySubtitle = game.midGgSubtitle || "你按下了结束键，提前结束本科副本。";
+  const displayConclusion = game.midGgConclusion || "跑路不是失败，是战略转移。";
 
   const backHome = () => { gameStore.reset(); navigate({ to: "/" }); };
   const retry    = () => { gameStore.reset(); navigate({ to: "/major" }); };
   const share    = () => {
-    const text = `《这专业我先替你读了四年》\n中途结算·${semesterAt}\n专业：${major.name}\n结论：跑路不是失败，是战略转移。`;
-    if (navigator.share) navigator.share({ title: "跑路预备役", text }).catch(() => {});
+    const text = `《这专业我先替你读了四年》\n中途结算·${semesterAt}\n专业：${major.name}\n称号：${displayTitle}\n结论：${displayConclusion}`;
+    if (navigator.share) navigator.share({ title: displayTitle, text }).catch(() => {});
     else { navigator.clipboard?.writeText(text); alert("已复制烂尾结局文案。"); }
   };
+
 
   const topBar = (
     <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-3 min-h-[58px] flex items-center gap-2">
