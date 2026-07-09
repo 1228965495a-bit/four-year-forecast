@@ -43,6 +43,8 @@ import electronicInformationSceneAsset from "@/assets/majors/electronic-informat
 import psychologySceneAsset from "@/assets/majors/psychology-scene.png.asset.json";
 import stomatologySceneAsset from "@/assets/majors/stomatology-scene.png.asset.json";
 import nursingSceneAsset from "@/assets/majors/nursing-scene.png.asset.json";
+import mechanicalEngineeringSceneAsset from "@/assets/majors/mechanical-engineering-scene.png.asset.json";
+
 
 
 
@@ -82,7 +84,9 @@ const MAJOR_SCENE: Record<string, string> = {
   psychology: psychologySceneAsset.url,
   stomatology: stomatologySceneAsset.url,
   nursing: nursingSceneAsset.url,
+  mechanical_engineering: mechanicalEngineeringSceneAsset.url,
 };
+
 
 
 
