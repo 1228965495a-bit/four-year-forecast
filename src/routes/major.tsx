@@ -240,39 +240,14 @@ function MajorSelectPage() {
             onConfirm={confirm}
           />
 
-          <div className="flex items-center gap-2 px-1 pt-0.5">
-            <span className="text-[15px] leading-none" aria-hidden>📖</span>
-            <span className="font-display text-[12px] tracking-[0.15em] text-ink">
-              可选副本 · {list.length}
-            </span>
-            <span className="h-px flex-1 bg-ink/20" />
-            <button
-              onClick={() => setSortDesc((v) => !v)}
-              className="flex items-center gap-1 text-[10px] font-display tracking-wider text-ink/70 px-1.5 py-1 border-2 border-ink bg-cream shadow-[1px_1px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
-              aria-label="切换分档排序"
-            >
-              <span>按分档排序</span>
-              <span className="text-[10px] leading-none">{sortDesc ? "▼" : "▲"}</span>
-            </button>
-          </div>
+          <PagedQuestGrid
+            list={list}
+            selectedId={selectedId}
+            onSelect={setSelectedId}
+            sortDesc={sortDesc}
+            onToggleSort={() => setSortDesc((v) => !v)}
+          />
 
-
-          <div className="grid grid-cols-2 gap-2">
-            {list.map((m: any) => (
-              <QuestTile
-                key={m.id}
-                major={m}
-                selected={m.id === selectedId}
-                onClick={() => setSelectedId(m.id)}
-              />
-            ))}
-          </div>
-
-          {list.length === 0 && (
-            <PixelPanel9 variant="small" padding="p-5" className="text-center">
-              <div className="text-[12px] text-ink/60">没有匹配的副本，换个筛选试试</div>
-            </PixelPanel9>
-          )}
         </div>
       </div>
 
