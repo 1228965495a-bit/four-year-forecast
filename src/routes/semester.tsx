@@ -99,16 +99,16 @@ function SemesterPage() {
   return (
     <PhoneFrame topBar={topBar} bottomBar={bottomBar}>
       <div className="semester-screen" style={{ height: LAYOUT_HEIGHT }}>
-        {/* HUD：6 项明面数值 */}
+        {/* HUD：6 项明面数值 —— 紧凑 3×2 分段像素条 */}
         <div className="semester-hud">
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-x-3 gap-y-2">
             {HUD_STATS.map((s) => (
               <HudCell key={s.key} short={s.short} value={game.stats[s.key] ?? 0} color={s.color} />
             ))}
           </div>
         </div>
 
-        {/* 主场景 */}
+        {/* 主场景（素材位） */}
         <div className="semester-scene-wrap">
           <SceneStage
             scene={sceneKey}
@@ -118,11 +118,12 @@ function SemesterPage() {
           />
         </div>
 
-        {/* 事件卡 */}
+        {/* 事件卡（含选项按钮） */}
         <div className="semester-event-wrap">
           <EventCard event={currentEvent} onPick={onPick} />
         </div>
       </div>
+
 
       {feedback && (
         <FeedbackModal
