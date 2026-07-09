@@ -84,6 +84,13 @@ export function initEngineForMajor(majorId: string): EngineState {
     finished: false,
     endingId: null,
     semesterRandomShown: false,
+    usedRevive: false,
+    midGgReason: null,
+    midGgTitle: null,
+    midGgSubtitle: null,
+    midGgConclusion: null,
+    midGgTags: [],
+    pendingReviveReason: null,
   };
 }
 
