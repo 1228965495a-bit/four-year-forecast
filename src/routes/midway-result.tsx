@@ -108,7 +108,7 @@ function MidwayResultPage() {
               </div>
               <div>
                 <SectionLabel>中途报告</SectionLabel>
-                <PixelPanel9 variant="diagnosis" padding="px-3 py-2.5" className="mt-1.5">
+                <PixelPanel9 variant="diagnosis" padding="pt-4 pb-3 px-4" className="mt-1.5">
                   <p className="text-[12.5px] leading-[1.6]">
                     {major.name}副本刚开场，你就先进行了战略撤离。
                     还没被课程和考试彻底拿下，已经先把自己救出副本。
