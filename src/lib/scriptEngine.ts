@@ -35,7 +35,22 @@ export interface EngineState {
   endingId: string | null;
   /** 当前学期是否已经播过随机事件 */
   semesterRandomShown: boolean;
+  /** 本局是否已经用过一次嘴硬续命 */
+  usedRevive: boolean;
+  /** 中途 GG 触发原因（结算页展示用） */
+  midGgReason: string | null;
+  /** 中途 GG 生成的称号 */
+  midGgTitle: string | null;
+  /** 中途 GG 副标题 */
+  midGgSubtitle: string | null;
+  /** 中途 GG 结论 */
+  midGgConclusion: string | null;
+  /** 中途 GG 标签 */
+  midGgTags: string[];
+  /** 等待玩家决定是否嘴硬续命 —— 非 null 表示弹嘴硬续命窗 */
+  pendingReviveReason: string | null;
 }
+
 
 // ============= 数值 =============
 
