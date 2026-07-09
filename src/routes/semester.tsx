@@ -99,16 +99,16 @@ function SemesterPage() {
   return (
     <PhoneFrame topBar={topBar} bottomBar={bottomBar}>
       <div className="semester-screen" style={{ height: LAYOUT_HEIGHT }}>
-        {/* HUD：6 项明面数值 */}
+        {/* HUD：6 项明面数值 —— 紧凑 3×2 分段像素条 */}
         <div className="semester-hud">
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-x-3 gap-y-2">
             {HUD_STATS.map((s) => (
               <HudCell key={s.key} short={s.short} value={game.stats[s.key] ?? 0} color={s.color} />
             ))}
           </div>
         </div>
 
-        {/* 主场景 */}
+        {/* 主场景（素材位） */}
         <div className="semester-scene-wrap">
           <SceneStage
             scene={sceneKey}
@@ -118,11 +118,12 @@ function SemesterPage() {
           />
         </div>
 
-        {/* 事件卡 */}
+        {/* 事件卡（含选项按钮） */}
         <div className="semester-event-wrap">
           <EventCard event={currentEvent} onPick={onPick} />
         </div>
       </div>
+
 
       {feedback && (
         <FeedbackModal
@@ -142,18 +143,20 @@ function SemesterPage() {
 }
 
 function HudCell({ short, value, color }: { short: string; value: number; color: string }) {
+  const v = Math.max(0, Math.min(100, value));
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="w-full hud-bar">
-        <div className="hud-bar-fill" style={{ width: `${value}%`, backgroundColor: color }} />
+    <div className="flex flex-col gap-1 leading-none">
+      <div className="pixel-seg-bar">
+        <div className="pixel-seg-bar-fill" style={{ width: `${v}%`, backgroundColor: color }} />
       </div>
-      <div className="flex items-baseline justify-center gap-1 leading-none whitespace-nowrap">
-        <span className="font-display text-[13px] text-ink/70">{short}</span>
-        <span className="font-display text-[16px] tabular-nums">{Math.round(value)}</span>
+      <div className="flex items-baseline gap-1 whitespace-nowrap px-[1px]">
+        <span className="font-display text-[11px] text-ink/80">{short}</span>
+        <span className="font-display text-[13px] tabular-nums ml-auto">{Math.round(value)}</span>
       </div>
     </div>
   );
 }
+
 
 function FeedbackModal({
   event,

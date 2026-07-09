@@ -404,17 +404,17 @@
   height: calc(100dvh - 98px);
   min-height: 0;
   display: grid;
-  grid-template-rows: auto 220px minmax(0, 1fr);
-  gap: 8px;
-  padding-bottom: 8px;
+  grid-template-rows: auto 190px minmax(0, 1fr);
+  gap: 6px;
+  padding-bottom: 6px;
   overflow: hidden;
 }
 
 @utility semester-hud {
   background: var(--cream);
   border-bottom: 2px solid rgba(63, 42, 31, 0.16);
-  padding: 14px 12px 13px;
-  min-height: 130px;
+  padding: 8px 10px 8px;
+  min-height: 0;
 }
 
 @utility semester-scene-wrap {
@@ -424,7 +424,7 @@
 
 @utility semester-event-wrap {
   min-height: 0;
-  padding: 0 10px 8px;
+  padding: 0 10px 6px;
   display: block;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -432,17 +432,38 @@
 
 @media (max-height: 740px) {
   .semester-screen {
-    grid-template-rows: auto 200px minmax(0, 1fr);
-    gap: 7px;
-    padding-bottom: 7px;
+    grid-template-rows: auto 170px minmax(0, 1fr);
+    gap: 5px;
+    padding-bottom: 5px;
   }
-  .semester-hud { padding: 10px 10px 9px; min-height: 108px; }
+  .semester-hud { padding: 6px 8px 6px; }
 }
 
 @media (min-height: 800px) {
   .semester-screen {
-    grid-template-rows: auto 240px minmax(0, 1fr);
+    grid-template-rows: auto 210px minmax(0, 1fr);
   }
+}
+
+/* Segmented pixel stat bar — 纯 CSS，用于动态数值。
+   mask 做出竖条切分，露出底槽形成像素段。 */
+@utility pixel-seg-bar {
+  position: relative;
+  height: 12px;
+  border: 2px solid var(--ink);
+  background: #E8D9B4;
+  overflow: hidden;
+  image-rendering: pixelated;
+  box-shadow: inset 1px 1px 0 rgba(0,0,0,0.12);
+}
+@utility pixel-seg-bar-fill {
+  height: 100%;
+  transition: width 300ms ease-out;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.35),
+    inset 0 -2px 0 rgba(0,0,0,0.28);
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 6px, transparent 6px 8px);
+          mask-image: repeating-linear-gradient(90deg, #000 0 6px, transparent 6px 8px);
 }
 
 

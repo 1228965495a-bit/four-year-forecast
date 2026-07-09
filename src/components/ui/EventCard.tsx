@@ -40,16 +40,16 @@ export function EventCard({
   const opts = event.options ?? event.choices ?? [];
   const badge = TYPE_LABEL[event.type ?? "main"] ?? event.type ?? "";
   return (
-    <PixelPanel9 variant="event" padding="px-3 pt-2 pb-3">
-      <div className="flex items-center gap-2 mb-2">
+    <PixelPanel9 variant="event" padding="px-3 pt-2 pb-2.5">
+      <div className="flex items-center gap-2 mb-1.5">
         <span className="rank-badge rank-B" aria-hidden>
           {badge.slice(0, 1) || "?"}
         </span>
-        <span className="flex-1 truncate font-display text-[14px]">{event.title}</span>
+        <span className="flex-1 truncate font-display text-[13px]">{event.title}</span>
         <span className="text-[10px] font-display tracking-wider text-ink/60">{badge}</span>
       </div>
-      <p className="event-dialog-text mb-2">{event.description}</p>
-      <div className="event-options">
+      <p className="event-dialog-text mb-2 text-[12px] leading-snug">{event.description}</p>
+      <div className="event-options space-y-1.5">
         {opts.map((opt, i) => (
           <OptionRow key={opt.id ?? i} option={opt} onPick={onPick} index={i} />
         ))}
@@ -60,18 +60,17 @@ export function EventCard({
 
 function OptionRow({ option, onPick, index }: { option: Choice; onPick: (o: Choice) => void; index: number }) {
   const letter = String.fromCharCode(65 + index);
-  const long = (option.text?.length ?? 0) > 16;
   return (
     <PixelButton3
-      variant={long ? "optionTall" : "option"}
+      variant="option"
       full
       onClick={() => onPick(option)}
-      className="mb-2 last:mb-0"
+      style={{ minHeight: 38, padding: "6px 12px", fontSize: 12.5 }}
     >
-      <span className="flex-1 min-w-0 flex items-center gap-2 px-1">
+      <span className="flex-1 min-w-0 flex items-center gap-2">
         <span className="font-display text-ink/70 text-[12px] shrink-0">{letter}.</span>
         <span className="flex-1 min-w-0 text-left leading-snug whitespace-normal">{option.text}</span>
-        <span className="text-ink/60 shrink-0">▶</span>
+        <span className="text-ink/60 shrink-0 text-[11px]">▶</span>
       </span>
     </PixelButton3>
   );
