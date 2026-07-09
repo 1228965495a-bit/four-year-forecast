@@ -4,16 +4,66 @@ import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { useGameState } from "@/lib/gameStore";
 import { majorById } from "@/data/script/gameData";
 import { HUD_STATS } from "@/lib/statsMeta";
-import { majorEmoji, displayCategory, categoryTint } from "@/lib/majorDisplay";
 import {
-  PixelHeader,
   PixelStatBar,
   PixelTierBadge,
-  PixelImgButton,
+  PixelButton3,
 } from "@/components/pixel/PixelSkin";
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 
 export const Route = createFileRoute("/intro")({ component: IntroPage });
+
+/** 深棕机身背景色 —— 与参考图一致 */
+const WOOD = "#3a2418";
+const WOOD_HI = "#5a3a28";
+
+/** 顶部深棕框内的「← 返回」像素按钮 */
+function BackChip({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="relative inline-flex items-center justify-center font-display text-cream text-[12px] tracking-wider select-none border-[3px] border-cream/90 active:translate-x-[1px] active:translate-y-[1px]"
+      style={{
+        background: WOOD_HI,
+        padding: "6px 12px",
+        boxShadow: `0 2px 0 0 rgba(0,0,0,0.5), inset 0 2px 0 0 rgba(255,255,255,0.08)`,
+        borderRadius: 0,
+      }}
+    >
+      ← 返回
+    </button>
+  );
+}
+
+/** 顶部卷轴形标题：专业建档中... */
+function ScrollTitle() {
+  return (
+    <div
+      className="relative flex-1 inline-flex items-center justify-center font-display text-ink tracking-[0.15em] select-none border-[3px] border-ink"
+      style={{
+        background: "var(--parchment)",
+        padding: "8px 16px",
+        minHeight: 40,
+        fontSize: 15,
+        boxShadow: `0 3px 0 0 var(--ink), inset 0 2px 0 0 rgba(255,255,255,0.35), inset 0 -3px 0 0 rgba(0,0,0,0.12)`,
+        borderRadius: 0,
+      }}
+    >
+      {/* 卷轴左右耳朵 */}
+      <span
+        aria-hidden
+        className="absolute -left-2 top-1/2 -translate-y-1/2 block"
+        style={{ width: 8, height: 20, background: "var(--ink)" }}
+      />
+      <span
+        aria-hidden
+        className="absolute -right-2 top-1/2 -translate-y-1/2 block"
+        style={{ width: 8, height: 20, background: "var(--ink)" }}
+      />
+      专业建档中...
+    </div>
+  );
+}
 
 function IntroPage() {
   const game = useGameState();
@@ -21,108 +71,139 @@ function IntroPage() {
   const major = game.majorId ? majorById[game.majorId] : null;
 
   useEffect(() => {
-    if (!major) navigate({ to: "/major" });
+    if (major) return;
+    // 首帧 SSR 快照可能 majorId 为空，等 localStorage 水合一次；
+    // 若存档里也没有 majorId 才回到选专业。
+    try {
+      const raw =
+        typeof window !== "undefined"
+          ? window.localStorage.getItem("cszmg_save_v3")
+          : null;
+      if (raw && JSON.parse(raw)?.majorId) return;
+    } catch {
+      /* ignore */
+    }
+    navigate({ to: "/major" });
   }, [major, navigate]);
 
   if (!major) return null;
 
-  const tint = categoryTint(major.category);
   const tier = (major.tier ?? "B") as "S" | "A" | "B" | "C";
 
   const topBar = (
-    <div className="relative border-b-[3px] border-ink bg-ink px-2 pt-2 pb-2">
-      <button
-        onClick={() => navigate({ to: "/major" })}
-        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 text-cream text-[11px] px-2 py-0.5 border-2 border-cream"
-      >
-        ← 换专业
-      </button>
-      <PixelHeader variant="majorSelect" className="!max-w-[280px]" />
+    <div
+      className="flex items-center gap-3 px-3 pt-3 pb-3 border-b-[3px] border-ink"
+      style={{ background: WOOD }}
+    >
+      <BackChip onClick={() => navigate({ to: "/major" })} />
+      <ScrollTitle />
     </div>
   );
 
   return (
     <PhoneFrame topBar={topBar}>
-      <div className="flex-1 min-h-0 overflow-y-auto">
-        <div className="flex flex-col gap-3 p-3 pb-6">
-          {/* 专业建档主卡 */}
-          <PixelPanel9 variant="profile" padding="px-5 pt-5 pb-5">
-            <div className="text-center">
-              <div className="text-[10px] font-display tracking-[0.3em] text-ink/60">
-                专业建档 · NEW FILE
-              </div>
-              <div className="mt-2 flex items-center justify-center gap-2">
-                <PixelTierBadge tier={tier} size={34} />
-                <h1 className="pixel-logo leading-none" style={{ fontSize: 26 }}>
-                  {major.name}
-                </h1>
-              </div>
-              <div className="text-[11px] text-ink/70 mt-1">
-                {displayCategory(major.category)} · 分档 {major.tier}
-              </div>
-            </div>
-
-            <div className="mt-4 mx-auto flex items-center justify-center">
+      <div
+        className="flex-1 min-h-0 overflow-y-auto"
+        style={{ background: WOOD }}
+      >
+        <div className="p-3 pb-5">
+          <PixelPanel9 variant="profile" padding="p-4">
+            {/* 顶部：旗帜 · 专业名 · 段位徽章 */}
+            <div className="flex items-start gap-2">
               <div
-                className="border-[3px] border-ink shadow-[3px_3px_0_0_var(--ink)] flex items-center justify-center text-[42px]"
-                style={{ width: 84, height: 84, background: tint }}
+                className="shrink-0 select-none leading-none"
+                style={{ fontSize: 30 }}
                 aria-hidden
               >
-                {majorEmoji(major.id)}
+                🚩
+              </div>
+              <div className="flex-1 min-w-0 text-center">
+                <h1
+                  className="pixel-logo leading-tight break-words"
+                  style={{ fontSize: 22 }}
+                >
+                  {major.name}
+                </h1>
+                <div className="mt-1 text-[11px] text-ink/70">
+                  · {game.school}
+                </div>
+              </div>
+              <PixelTierBadge tier={tier} size={38} className="shrink-0" />
+            </div>
+
+            <div className="mt-3 border-t border-dashed border-ink/30" />
+
+            {/* 正文文案 */}
+            <div className="mt-3 text-center font-display text-[12.5px] leading-[1.75] text-ink px-1">
+              <p>你被 {major.name} 录取了！</p>
+              <p className="mt-1">
+                {major.card?.subtitle ??
+                  major.card?.description ??
+                  "未来四年将充满未知与选择，做好准备。"}
+              </p>
+            </div>
+
+            {/* 场景插图占位（等待美术贴图） */}
+            <div
+              className="mt-4 relative w-full flex items-center justify-center border-[3px] border-dashed border-ink/40 bg-cream/60"
+              style={{ height: 200 }}
+            >
+              <div className="text-center text-ink/45 font-display text-[10.5px] tracking-[0.25em]">
+                [ 专业场景插图占位 ]
+                <div className="mt-1 text-[9px] tracking-[0.2em]">
+                  ILLUSTRATION · ~ 320 × 200
+                </div>
               </div>
             </div>
 
-            <blockquote className="mt-4 mx-auto max-w-[92%] text-left relative px-3 py-2 border-l-[4px] border-cherry bg-cream/80">
-              <div className="absolute -top-2 -left-1 font-display text-cherry text-[20px] leading-none">"</div>
-              <p className="font-display text-[13px] leading-[1.55] text-ink pl-1">
-                {major.card?.subtitle ?? major.card?.description ?? "本科四年 · 现在存档，随时可以入学。"}
-              </p>
-            </blockquote>
+            {/* 初始属性 */}
+            <div className="mt-5 flex items-center gap-1.5">
+              <span className="text-ink text-[14px] leading-none">★</span>
+              <span className="font-display text-[11px] tracking-[0.2em] text-ink/80">
+                初始属性
+              </span>
+              <span
+                className="flex-1 border-t border-dashed border-ink/30 ml-1"
+                aria-hidden
+              />
+            </div>
 
-            <div className="mt-3 flex items-center justify-between text-[10px] font-display tracking-widest text-ink/60">
-              <span>档案 · {game.characterName}</span>
-              <span>{game.school ?? "未定学校"}</span>
+            <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-3">
+              {HUD_STATS.map((s) => {
+                const v = Math.max(
+                  0,
+                  Math.min(100, Math.round(game.stats[s.key] ?? 0)),
+                );
+                return (
+                  <div key={s.key} className="min-w-0">
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-[12px] text-ink whitespace-nowrap">
+                        {s.label}
+                      </span>
+                      <span className="font-display text-[12px] tabular-nums text-ink">
+                        {v}
+                      </span>
+                    </div>
+                    <PixelStatBar
+                      value={v}
+                      color={s.color}
+                      height={14}
+                      className="mt-1"
+                    />
+                  </div>
+                );
+              })}
             </div>
           </PixelPanel9>
 
-          {/* 初始数值面板 */}
-          <div>
-            <div className="flex items-center gap-1.5 px-1 mb-1.5">
-              <span className="inline-block h-2.5 w-2.5 bg-cherry border-2 border-ink" />
-              <span className="font-display text-[11px] tracking-[0.2em] text-ink/70">
-                初始属性 · STATS
-              </span>
-              <span className="h-px flex-1 bg-ink/20" />
-            </div>
-
-            <PixelPanel9 variant="noteYellow" padding="px-4 py-3">
-              <div className="grid grid-cols-2 gap-x-3 gap-y-2">
-                {HUD_STATS.map((s) => {
-                  const v = Math.max(0, Math.min(100, Math.round(game.stats[s.key] ?? 0)));
-                  return (
-                    <div key={s.key} className="min-w-0">
-                      <div className="flex items-baseline justify-between gap-1">
-                        <span className="text-[11px] text-ink/80 whitespace-nowrap">{s.label}</span>
-                        <span className="font-display text-[11px] tabular-nums">{v}</span>
-                      </div>
-                      <PixelStatBar value={v} color={s.color} height={16} className="mt-0.5" />
-                    </div>
-                  );
-                })}
-              </div>
-            </PixelPanel9>
-          </div>
-
           {/* 进入大一上 */}
-          <PixelImgButton
-            variant="primary"
-            onClick={() => navigate({ to: "/semester" })}
-          >
-            ▶ 进入大一上学期
-          </PixelImgButton>
-
-          <div className="text-center text-[10px] font-display tracking-widest text-ink/50">
-            按下即建档 · 存档后不可回头
+          <div className="mt-4">
+            <PixelButton3
+              variant="primaryTall"
+              onClick={() => navigate({ to: "/semester" })}
+            >
+              进入大学 · 大一上
+            </PixelButton3>
           </div>
         </div>
       </div>
