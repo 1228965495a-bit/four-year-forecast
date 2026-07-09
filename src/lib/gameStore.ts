@@ -51,6 +51,7 @@ function emptyState(): GameState {
     school: "云上大学",
     history: [],
     pendingAchievement: null,
+    midwayFinished: false,
   };
 }
 
