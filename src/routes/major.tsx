@@ -410,7 +410,7 @@ function PagedQuestGrid({
     }
   };
 
-  const pageItems = list.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+  
 
   return (
     <div className="flex flex-col gap-2">
