@@ -403,14 +403,15 @@ function QuestTile({
               {displayCategory(major.category)} · {major.tier}
             </div>
 
-
-        <div className="mt-1.5 flex items-center gap-1 min-h-[16px]">
-          {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
-          {hasWarn && (
-            <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">⚠</span>
-          )}
+            <div className="mt-1.5 flex items-center gap-1 min-h-[16px]">
+              {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
+              {hasWarn && (
+                <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">⚠</span>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
+      </PixelPanel9>
     </button>
   );
 }
