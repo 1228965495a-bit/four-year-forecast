@@ -272,7 +272,7 @@ function SelectionPreview({
           ✓ 进入「{major.name}」副本
         </PixelImgButton>
       </div>
-    </PixelPanel9>
+    </div>
   );
 }
 
