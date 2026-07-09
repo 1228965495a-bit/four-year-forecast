@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UiRouteImport } from './routes/ui'
 import { Route as SemesterRouteImport } from './routes/semester'
 import { Route as ResultRouteImport } from './routes/result'
+import { Route as MidwayResultRouteImport } from './routes/midway-result'
 import { Route as MajorRouteImport } from './routes/major'
 import { Route as IntroRouteImport } from './routes/intro'
 import { Route as IndexRouteImport } from './routes/index'
@@ -29,6 +30,11 @@ const SemesterRoute = SemesterRouteImport.update({
 const ResultRoute = ResultRouteImport.update({
   id: '/result',
   path: '/result',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MidwayResultRoute = MidwayResultRouteImport.update({
+  id: '/midway-result',
+  path: '/midway-result',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MajorRoute = MajorRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/intro': typeof IntroRoute
   '/major': typeof MajorRoute
+  '/midway-result': typeof MidwayResultRoute
   '/result': typeof ResultRoute
   '/semester': typeof SemesterRoute
   '/ui': typeof UiRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/intro': typeof IntroRoute
   '/major': typeof MajorRoute
+  '/midway-result': typeof MidwayResultRoute
   '/result': typeof ResultRoute
   '/semester': typeof SemesterRoute
   '/ui': typeof UiRoute
@@ -68,22 +76,46 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/intro': typeof IntroRoute
   '/major': typeof MajorRoute
+  '/midway-result': typeof MidwayResultRoute
   '/result': typeof ResultRoute
   '/semester': typeof SemesterRoute
   '/ui': typeof UiRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/intro' | '/major' | '/result' | '/semester' | '/ui'
+  fullPaths:
+    | '/'
+    | '/intro'
+    | '/major'
+    | '/midway-result'
+    | '/result'
+    | '/semester'
+    | '/ui'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/intro' | '/major' | '/result' | '/semester' | '/ui'
-  id: '__root__' | '/' | '/intro' | '/major' | '/result' | '/semester' | '/ui'
+  to:
+    | '/'
+    | '/intro'
+    | '/major'
+    | '/midway-result'
+    | '/result'
+    | '/semester'
+    | '/ui'
+  id:
+    | '__root__'
+    | '/'
+    | '/intro'
+    | '/major'
+    | '/midway-result'
+    | '/result'
+    | '/semester'
+    | '/ui'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   IntroRoute: typeof IntroRoute
   MajorRoute: typeof MajorRoute
+  MidwayResultRoute: typeof MidwayResultRoute
   ResultRoute: typeof ResultRoute
   SemesterRoute: typeof SemesterRoute
   UiRoute: typeof UiRoute
@@ -110,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/result'
       fullPath: '/result'
       preLoaderRoute: typeof ResultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/midway-result': {
+      id: '/midway-result'
+      path: '/midway-result'
+      fullPath: '/midway-result'
+      preLoaderRoute: typeof MidwayResultRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/major': {
@@ -140,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   IntroRoute: IntroRoute,
   MajorRoute: MajorRoute,
+  MidwayResultRoute: MidwayResultRoute,
   ResultRoute: ResultRoute,
   SemesterRoute: SemesterRoute,
   UiRoute: UiRoute,

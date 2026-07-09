@@ -1,21 +1,32 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
-import { gameStore, useGameState } from "@/lib/gameStore";
-import { pickEnding } from "@/lib/scriptEngine";
+import { gameStore, useGameState, currentSemesterLabel } from "@/lib/gameStore";
+import { pickEnding, totalSemesters } from "@/lib/scriptEngine";
 import { STAT_META, HUD_STATS } from "@/lib/statsMeta";
 import { majorById, achievementsByMajorId } from "@/data/script/gameData";
-import { PixelButton } from "@/components/ui/PixelButton";
-import {
-  PixelHeader,
-  PixelDebuffBadge,
-  PixelAchievementBadge,
-  PixelStatBar,
-  PixelImgButton,
-} from "@/components/pixel/PixelSkin";
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
+import { deriveResultTags } from "@/lib/resultTags";
+import {
+  ResultCard,
+  ResultBanner,
+  ResultRibbon,
+  TagBadgeGrid,
+  StatBarList,
+  FuturePinnedNote,
+  ResultActionRow,
+  SectionLabel,
+} from "@/components/result/ResultShell";
 
-export const Route = createFileRoute("/result")({ component: ResultPage });
+export const Route = createFileRoute("/result")({
+  head: () => ({
+    meta: [
+      { title: "本科幸存报告 · 结局达成" },
+      { name: "description", content: "看看你四年本科副本走出了什么结局。" },
+    ],
+  }),
+  component: ResultPage,
+});
 
 function ResultPage() {
   const game = useGameState();
@@ -27,183 +38,156 @@ function ResultPage() {
     if (!major) navigate({ to: "/major" });
   }, [major, navigate]);
 
-  const ending = useMemo(() => {
-    if (!major) return null;
-    if (game.endingId) {
-      const pool = major.endings ?? [];
-      const byId = (id: string) => {
-        // endingsByMajorId source is loose; find via engine helper
-        // small inline search:
-        return (pool as string[]).includes?.(id) ? null : null;
-      };
-      byId; // placeholder
-    }
-    return pickEnding(game);
-  }, [game, major]);
-
-  if (!major) return null;
+  const ending = useMemo(() => (major ? pickEnding(game) : null), [game, major]);
+  const tags   = useMemo(() => deriveResultTags(game, "final"), [game]);
 
   const achMap = useMemo(() => {
+    if (!major) return {};
     const map: Record<string, any> = {};
     for (const a of achievementsByMajorId[major.id] ?? []) map[a.id] = a;
     return map;
   }, [major]);
 
-  const share = () => {
-    const text = `《这专业我先替你读了四年》\n专业：${major.name}\n结局：${ending?.title ?? "毕业"}\n${ending?.shareText ?? ""}`;
+  if (!major) return null;
+
+  const title    = ending?.title ?? `${major.name}·顺利毕业`;
+  const summary  = ending?.summary ?? "你把本科四年跑完了，说不上惊艳，也没有翻车。";
+  const advice   = ending?.advice ?? "别把学历当护身符，接下来才是正片。";
+  const shareText = ending?.shareText ?? major.shareTexts?.[0] ?? summary;
+  const total = totalSemesters();
+
+  const backHome = () => { gameStore.reset(); navigate({ to: "/" }); };
+  const retry    = () => { gameStore.reset(); navigate({ to: "/major" }); };
+  const share    = () => {
+    const text = `《这专业我先替你读了四年》\n专业：${major.name}\n结局：${title}\n${shareText}`;
     if (navigator.share) navigator.share({ title: "本科幸存报告", text }).catch(() => {});
-    else {
-      navigator.clipboard?.writeText(text);
-      alert("已复制分享文案，去截图发给想报的人吧。");
-    }
+    else { navigator.clipboard?.writeText(text); alert("已复制分享文案。"); }
   };
 
-  const title = ending?.title ?? `${major.name}·顺利毕业`;
-  const summary = ending?.summary ?? "你把本科四年跑完了，说不上惊艳，也没有翻车。";
-  const advice = ending?.advice ?? "别把学历当护身符，接下来才是正片。";
-  const afterEffects: string[] = ending?.afterEffects ?? major.painPoints?.slice(0, 3) ?? [];
-  const shareText = ending?.shareText ?? major.shareTexts?.[0] ?? summary;
-  const resultTags: string[] = ending?.resultTags ?? [];
-  const achievementsToShow = game.achievements.slice(0, 4);
+  // 关键选择时间线：取 history 的每学年第一条（不足则回退用序号）
+  const timeline = useMemo(() => buildTimeline(game.history), [game.history]);
+  const achToShow = game.achievements.slice(0, 3);
+
+  const topBar = (
+    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-3 min-h-[58px] flex items-center gap-2">
+      <button
+        onClick={() => navigate({ to: "/" })}
+        className="text-[12px] px-2 py-1 border-2 border-cream leading-none"
+      >⌂</button>
+      <div className="min-w-0 flex-1">
+        <div className="font-display text-[14px] leading-none truncate">{currentSemesterLabel(game)}</div>
+        <div className="text-[11px] text-cream/70 leading-none mt-1 truncate">
+          {major.name} · {game.school}
+        </div>
+      </div>
+      <div className="flex items-center gap-2 shrink-0 text-right">
+        <div className="leading-tight">
+          <div className="font-display text-[11px] text-cream/70">结局达成</div>
+          <div className="font-display text-[12px] tabular-nums">{total}/{total}</div>
+        </div>
+        <span className="text-[11px] px-2.5 py-1 border-2 border-cream bg-cherry text-cream leading-none">活</span>
+      </div>
+    </div>
+  );
 
   return (
-    <PhoneFrame>
-      <div className="p-3 pb-6 space-y-3 flex-1 min-h-0 overflow-y-auto">
-        <article
-          className="border-[3px] border-ink shadow-[5px_5px_0_0_var(--ink)] overflow-hidden"
-          style={{ background: "var(--cream)" }}
-        >
+    <PhoneFrame topBar={topBar}>
+      <div className="flex-1 min-h-0 overflow-y-auto">
+        <div className="p-3 pb-6 space-y-3">
+          <ResultCard>
+            <ResultBanner tag="结局达成!" title={title} tier="S" emoji="🎓" />
 
-          <div className="relative bg-ink text-cream px-3 py-2 flex items-center justify-between">
-            <div className="absolute inset-0 pixel-scanlines opacity-25" />
-            <div className="relative text-[10px] font-display tracking-widest opacity-80">
-              FILE：{String(major.id).slice(0, 6).toUpperCase()}
-            </div>
-            <div className="relative text-[10px] font-display tracking-widest opacity-80">
-              {major.name}
-            </div>
-          </div>
+            <ResultRibbon>{summary}</ResultRibbon>
 
-          <div className="px-4 pt-3 -mb-1" style={{ background: "var(--parchment)" }}>
-            <PixelHeader variant="finalReport" className="!max-w-[280px]" />
-          </div>
+            <TagBadgeGrid tags={tags} title="你的本科学籍鉴定" />
 
-          <header
-            className="px-4 pt-2 pb-5 text-center relative border-b-[3px] border-dashed border-ink/50"
-            style={{ background: "var(--parchment)" }}
-          >
-            <div className="text-[10px] font-display tracking-[0.3em] text-ink/60">
-              你的本科人生结局
-            </div>
-            <h1 className="pixel-logo mt-3 leading-[1.1]" style={{ fontSize: 26 }}>
-              {title}
-            </h1>
-
-            {resultTags.length > 0 && (
-              <div className="mt-3 flex justify-center flex-wrap gap-1.5">
-                {resultTags.map((t) => (
-                  <span key={t} className="text-[10px] font-display px-1.5 py-0.5 border-2 border-cherry text-cherry bg-cream">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            <blockquote className="mt-4 mx-auto max-w-[92%] text-left relative px-3 py-2 border-l-[4px] border-cherry bg-cream/80">
-              <div className="absolute -top-2 -left-1 font-display text-cherry text-[20px] leading-none">“</div>
-              <p className="font-display text-[13.5px] leading-[1.55] text-ink pl-1">{summary}</p>
-            </blockquote>
-          </header>
-
-          <section className="px-3 pt-3 pb-2">
-            <SectionLabel accent="cherry">专业后遗症 · 永久 DEBUFF</SectionLabel>
-            <div className="mt-2 flex flex-wrap gap-1 justify-center">
-              {afterEffects.map((a) => (
-                <PixelDebuffBadge key={a}>{a}</PixelDebuffBadge>
-              ))}
-            </div>
-          </section>
-
-          <section className="px-3 pt-2 pb-2">
-            <SectionLabel>系统诊断 · DIAGNOSIS</SectionLabel>
-            <PixelPanel9 variant="diagnosis" className="mt-1.5" padding="px-4 py-3">
-              <p className="text-[12.5px] leading-[1.55] text-ink">{advice}</p>
-            </PixelPanel9>
-          </section>
-
-          <section className="px-3 pt-2 pb-2">
-            <SectionLabel>最终属性面板 · STATS</SectionLabel>
-            <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-2">
-              {HUD_STATS.map((s) => {
-                const v = Math.max(0, Math.min(100, Math.round(game.stats[s.key] ?? 0)));
-                return (
-                  <div key={s.key} className="min-w-0">
-                    <div className="flex items-baseline justify-between gap-1">
-                      <span className="text-[11px] text-ink/80 whitespace-nowrap">{s.label}</span>
-                      <span className="font-display text-[11px] tabular-nums">{v}</span>
-                    </div>
-                    <PixelStatBar value={v} color={s.color} height={16} className="mt-0.5" />
+            <section className="px-3 pt-3 grid grid-cols-1 gap-3">
+              {/* 综合评价 */}
+              <div>
+                <SectionLabel accent="sunny">🌱 综合评价</SectionLabel>
+                <div className="mt-2 flex items-start gap-2">
+                  <div className="shrink-0 border-[3px] border-ink w-14 h-14 flex items-center justify-center text-[28px]"
+                       style={{ background: "var(--cream)", boxShadow: "2px 2px 0 0 var(--ink)" }}>
+                    🧑‍🎓
                   </div>
-                );
-              })}
-            </div>
-          </section>
+                  <p className="text-[12px] leading-[1.55] text-ink flex-1 min-w-0">
+                    {advice}
+                  </p>
+                </div>
+                <div className="mt-2.5">
+                  <StatBarList stats={HUD_STATS} values={game.stats} columns={2} />
+                </div>
+              </div>
 
-          {achievementsToShow.length > 0 && (
-            <section className="px-3 pt-2 pb-3">
-              <SectionLabel accent="sunny">代表成就 · ACHIEVEMENTS</SectionLabel>
-              <div className="mt-2 flex flex-wrap gap-1 justify-center">
-                {achievementsToShow.map((id) => {
-                  const a = achMap[id];
-                  return (
-                    <PixelAchievementBadge key={id}>
-                      {a?.name ?? id}
-                    </PixelAchievementBadge>
-                  );
-                })}
+              {/* 关键选择 & 成就 */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <SectionLabel>🪧 关键选择</SectionLabel>
+                  <ul className="mt-2 space-y-1.5">
+                    {timeline.map((t, i) => (
+                      <li key={i} className="flex items-start gap-1.5 text-[11px] leading-snug">
+                        <span
+                          className="shrink-0 inline-flex items-center justify-center w-5 h-5 border-2 border-ink font-display text-[11px] text-ink"
+                          style={{ background: t.pick === "A" ? "var(--cherry)" : "var(--sky)", boxShadow: "1px 1px 0 0 var(--ink)" }}
+                        >{t.pick}</span>
+                        <div className="min-w-0">
+                          <div className="font-display text-[10.5px] text-ink/70">{t.year}</div>
+                          <div className="truncate">{t.text}</div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <SectionLabel accent="sunny">🏆 获得成就</SectionLabel>
+                  <ul className="mt-2 space-y-1.5">
+                    {achToShow.length === 0 && (
+                      <li className="text-[11px] text-ink/60">暂无解锁</li>
+                    )}
+                    {achToShow.map((id) => {
+                      const a = achMap[id];
+                      return (
+                        <li key={id} className="flex items-start gap-1.5 text-[11px] leading-snug">
+                          <span className="shrink-0 text-[14px] leading-none">🏅</span>
+                          <div className="min-w-0">
+                            <div className="font-display text-[11.5px]">{a?.name ?? id}</div>
+                            {a?.description && (
+                              <div className="text-ink/60 text-[10.5px] truncate">{a.description}</div>
+                            )}
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               </div>
             </section>
-          )}
 
+            <FuturePinnedNote>
+              {advice}
+              {"\n"}
+              {shareText}
+            </FuturePinnedNote>
 
-
-          <footer className="bg-ink text-cream text-center px-3 py-2.5">
-            <div className="text-[10px] font-display tracking-[0.25em] opacity-70">这段分享自</div>
-            <div className="font-display text-[13px] tracking-wider mt-0.5">
-              这专业我先替你读了四年
+            <div className="px-3 py-2 flex items-center justify-center">
+              <PixelPanel9 variant="diagnosis" padding="px-3 py-1.5" className="inline-block">
+                <button
+                  onClick={() => setDetailOpen(true)}
+                  className="text-[11px] font-display tracking-wider text-ink/80"
+                >
+                  查看详细报告 →
+                </button>
+              </PixelPanel9>
             </div>
-            <div className="text-[10px] opacity-60 mt-0.5">
-              {major.name} · {game.characterName}
-            </div>
-          </footer>
-        </article>
+          </ResultCard>
 
-        <div className="space-y-2">
-          <div className="grid grid-cols-2 gap-2">
-            <PixelImgButton
-              variant="secondary"
-              onClick={() => { gameStore.reset(); navigate({ to: "/" }); }}
-            >
-              回到首页
-            </PixelImgButton>
-            <PixelImgButton
-              variant="primary"
-              onClick={() => { gameStore.reset(); navigate({ to: "/major" }); }}
-            >
-              挑战其他专业
-            </PixelImgButton>
-          </div>
-          <PixelImgButton variant="danger" onClick={share}>
-            截图发给想报的人
-          </PixelImgButton>
-          <button
-            onClick={() => setDetailOpen(true)}
-            className="w-full text-center text-[11px] font-display tracking-wider text-ink/70 underline underline-offset-4 decoration-dashed py-1"
-          >
-            查看详细报告 →
-          </button>
+          <ResultActionRow
+            onHome={backHome}
+            onRetry={retry}
+            onShare={share}
+            shareLabel="分享结局"
+          />
         </div>
-
       </div>
 
       {detailOpen && <DetailSheet onClose={() => setDetailOpen(false)} achMap={achMap} />}
@@ -211,19 +195,28 @@ function ResultPage() {
   );
 }
 
-function SectionLabel({
-  children, accent,
-}: { children: React.ReactNode; accent?: "cherry" | "sunny" }) {
-  const barColor =
-    accent === "cherry" ? "var(--cherry)" : accent === "sunny" ? "var(--sunny)" : "var(--ink)";
-  return (
-    <div className="flex items-center gap-1.5">
-      <span className="inline-block h-2.5 w-2.5" style={{ background: barColor, boxShadow: "1px 1px 0 0 var(--ink)" }} />
-      <span className="text-[10.5px] font-display tracking-[0.2em] text-ink/70">{children}</span>
-      <span className="flex-1 h-px bg-ink/20" />
-    </div>
-  );
+/* ---------------- helpers ---------------- */
+
+function buildTimeline(history: { semester: string; title: string; choice: string }[]) {
+  const YEARS = ["大一", "大二", "大三", "大四"] as const;
+  const out: { year: string; pick: "A" | "B"; text: string }[] = [];
+  for (const y of YEARS) {
+    // history 是新在前，找该学年的第一条（也就是原顺序里最早的）——取最后出现
+    const hit = [...history].reverse().find((h) => h.semester?.startsWith(y));
+    if (hit) {
+      out.push({
+        year: y,
+        pick: (hit.choice?.match(/^[AaBb]/)?.[0].toUpperCase() as "A" | "B") ?? (out.length % 2 === 0 ? "A" : "B"),
+        text: hit.choice.replace(/^[AaBb][.、]?\s*/, "").slice(0, 14) || hit.title.slice(0, 14),
+      });
+    } else {
+      out.push({ year: y, pick: "A", text: "—" });
+    }
+  }
+  return out;
 }
+
+/* ---------------- 详细报告抽屉（保留旧内容） ---------------- */
 
 function DetailSheet({ onClose, achMap }: { onClose: () => void; achMap: Record<string, any> }) {
   const game = useGameState();
@@ -268,24 +261,6 @@ function DetailSheet({ onClose, achMap }: { onClose: () => void; achMap: Record<
               );
             })}
           </div>
-          {major.majorStats?.length > 0 && (
-            <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1.5">
-              {major.majorStats.map((s: any) => {
-                const v = Math.round(game.majorStats[s.key] ?? s.initialValue ?? 0);
-                return (
-                  <div key={s.key} className="min-w-0">
-                    <div className="flex items-baseline justify-between gap-1">
-                      <span className="text-[11px] text-ink/80 whitespace-nowrap">{s.name}</span>
-                      <span className="font-display text-[11px] tabular-nums">{v}</span>
-                    </div>
-                    <div className="bar-track !h-1.5 mt-0.5">
-                      <div className="bar-fill" style={{ width: `${Math.min(100, v)}%`, background: "var(--tan)" }} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
         </Section>
 
         <Section title="所有成就">
