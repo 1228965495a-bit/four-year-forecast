@@ -234,19 +234,22 @@ function MajorSelectPage() {
             </div>
           </div>
 
-          <SelectionPreview
-            major={selected}
-            onOpenDetail={() => selected && setSheetOpen(true)}
-            onConfirm={confirm}
-          />
+          <div className="sticky top-0 z-20 -mx-2.5 px-2.5 pt-1 pb-2 bg-cream/95 backdrop-blur-[2px]">
+            <SelectionPreview
+              major={selected}
+              onOpenDetail={() => selected && setSheetOpen(true)}
+              onConfirm={confirm}
+            />
+          </div>
 
-          <PagedQuestGrid
+          <QuestGrid
             list={list}
             selectedId={selectedId}
             onSelect={setSelectedId}
             sortDesc={sortDesc}
             onToggleSort={() => setSortDesc((v) => !v)}
           />
+
 
         </div>
       </div>
