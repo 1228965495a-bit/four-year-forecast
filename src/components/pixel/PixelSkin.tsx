@@ -322,8 +322,8 @@ export function PixelChip({
 
 /**
  * PixelEnterButton — Stardew Valley 风统一「进入副本」按钮
- * 规格：固定宽 176px × 高 56px；4px 描边；分层 inset 高光/底影 + 3px 硬投影
- * 文案：ENTER（display 字体，字号 20，字距 0.25em）
+ * 规格：固定宽 220px × 高 44px；4px 描边；分层 inset 高光/底影 + 3px 硬投影
+ * 文案：ENTER（display 字体，字号 18，字距 0.25em）
  * 配色：草木绿主体（--sage 系），墨色描边，米色文字带 1px 硬阴影
  * 装饰：左右各一个像素箭头 ▶ / ◀ 反白色块
  */
@@ -361,9 +361,9 @@ export function PixelEnterButton({
         background: face,
         color: text,
         borderColor: border,
-        width: 176,
-        height: 56,
-        fontSize: 20,
+        width: 220,
+        height: 44,
+        fontSize: 18,
         lineHeight: 1,
         letterSpacing: "0.25em",
         boxShadow: shadow,
