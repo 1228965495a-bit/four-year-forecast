@@ -16,13 +16,23 @@ import {
 } from "@/components/pixel/PixelSkin";
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 import sceneAsset from "@/assets/law-scene.png.asset.json";
-import lawCardAsset from "@/assets/law-card.png.asset.json";
 import panelWideAsset from "@/assets/pixel/panel-wide.png.asset.json";
 import panelSquareAsset from "@/assets/pixel/panel-square.png.asset.json";
+import lawCardAsset from "@/assets/majors/law-card.png.asset.json";
+import aiCardAsset from "@/assets/majors/ai-card.png.asset.json";
+import accountingCardAsset from "@/assets/majors/accounting-card.png.asset.json";
+import financeCardAsset from "@/assets/majors/finance-card.png.asset.json";
+import csCardAsset from "@/assets/majors/cs-card.png.asset.json";
+import clinicalCardAsset from "@/assets/majors/clinical-card.png.asset.json";
 
 // 完整整卡素材（含标题/百分比/角标烘焙在图内）。有此映射时 QuestTile 直接渲染整张图。
 const MAJOR_CARD: Record<string, string> = {
-  // 统一用 QuestTile 生成的卡片布局，避免整卡烘焙图与其他专业画风不一致
+  law: lawCardAsset.url,
+  artificial_intelligence: aiCardAsset.url,
+  accounting: accountingCardAsset.url,
+  finance: financeCardAsset.url,
+  computer_science: csCardAsset.url,
+  clinical_medicine: clinicalCardAsset.url,
 };
 
 // 每个专业的头图（会被 object-cover 裁剪到对应尺寸）。
@@ -30,6 +40,7 @@ const DEFAULT_SCENE = sceneAsset.url;
 const MAJOR_SCENE: Record<string, string> = {
   law: sceneAsset.url,
 };
+
 
 export const Route = createFileRoute("/major")({ component: MajorSelectPage });
 
