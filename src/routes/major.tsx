@@ -378,24 +378,35 @@ function QuestTile({
             <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
           </div>
 
-          <div className="p-1.5">
-            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-1">
-              <span className="font-display text-[13px] truncate">{major.name}</span>
-              <span className="text-[9px] font-display tabular-nums text-cherry shrink-0">
-                {fitOf(major)}%
-              </span>
-            </div>
-            <div className="text-[9px] text-ink/60 mt-0.5 leading-none tracking-wider truncate">
-              {displayCategory(major.category)} · {major.tier}
-            </div>
+          {bannerSrc ? (
+            <img
+              src={bannerSrc}
+              alt={major.name}
+              draggable={false}
+              className="block w-full h-auto select-none"
+              style={{ imageRendering: "pixelated" }}
+            />
+          ) : (
+            <div className="p-1.5">
+              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-1">
+                <span className="font-display text-[13px] truncate">{major.name}</span>
+                <span className="text-[9px] font-display tabular-nums text-cherry shrink-0">
+                  {fitOf(major)}%
+                </span>
+              </div>
+              <div className="text-[9px] text-ink/60 mt-0.5 leading-none tracking-wider truncate">
+                {displayCategory(major.category)} · {major.tier}
+              </div>
 
-            <div className="mt-1.5 flex items-center gap-1 min-h-[16px]">
-              {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
-              {hasWarn && (
-                <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">⚠</span>
-              )}
+              <div className="mt-1.5 flex items-center gap-1 min-h-[16px]">
+                {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
+                {hasWarn && (
+                  <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">⚠</span>
+                )}
+              </div>
             </div>
-          </div>
+          )}
+
         </div>
       </PixelPanel9>
     </button>
