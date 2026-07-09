@@ -7,6 +7,7 @@ import {
   type PixelTier,
   type BarColor,
 } from "@/lib/pixelAssets";
+import enterButtonAsset from "@/assets/pixel/enter-button.png.asset.json";
 
 /** 通用像素图 css：像素化不模糊，铺满容器 */
 const PX_BG: CSSProperties = {
