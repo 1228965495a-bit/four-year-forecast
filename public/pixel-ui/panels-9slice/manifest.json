@@ -142,7 +142,7 @@
       "id": "panel-note-yellow",
       "file": "panel-note-yellow-source.png",
       "path": "/pixel-ui/panels-9slice/panel-note-yellow-source.png",
-      "nameZh": "黄色便签面板",
+      "nameZh": "羊皮纸便签面板",
       "role": "yellow note panel",
       "useCases": [
         "系统建议",
@@ -156,22 +156,22 @@
       ],
       "slice": {
         "type": "9-slice",
-        "inset": 32,
-        "cssHint": "border-image-slice: 32 fill; border-image-repeat: stretch;"
+        "inset": 119,
+        "cssHint": "border-image-slice: 119 fill; border-image-repeat: stretch;"
       },
       "sourceOrder": 5,
       "sourceBox": {
-        "x": 1131,
-        "y": 161,
-        "width": 255,
-        "height": 396
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 1536
       },
       "exportSize": {
-        "width": 275,
-        "height": 416
+        "width": 1024,
+        "height": 1536
       },
-      "safePaddingPx": 10,
-      "notes": "便签视觉强，适合短文本提示，不建议承载长正文。"
+      "safePaddingPx": 120,
+      "notes": "新重绘羊皮纸便签面板，1024×1536 独立素材，9-slice inset 约 119px（等比原 32/275）。"
     },
     {
       "id": "panel-note-blue",
