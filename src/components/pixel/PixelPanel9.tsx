@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import panelEventAsset from "@/assets/pixel/panels-9slice/panel-event.png.asset.json";
+import panelNoteYellowAsset from "@/assets/pixel/panels-9slice/panel-note-yellow.png.asset.json";
 
 /**
  * 9-slice 面板组件。
