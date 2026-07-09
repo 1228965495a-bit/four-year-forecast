@@ -11,6 +11,8 @@ import {
   SEMESTER_KEYS,
   type EngineState,
 } from "./scriptEngine";
+import { checkMidGG, applyRevivePenalties } from "./midGgRules";
+
 
 export interface HistoryItem {
   semester: string;
@@ -47,6 +49,13 @@ function emptyState(): GameState {
     finished: false,
     endingId: null,
     semesterRandomShown: false,
+    usedRevive: false,
+    midGgReason: null,
+    midGgTitle: null,
+    midGgSubtitle: null,
+    midGgConclusion: null,
+    midGgTags: [],
+    pendingReviveReason: null,
     characterName: "新生同学",
     school: "云上大学",
     history: [],
@@ -108,14 +117,94 @@ export const gameStore = {
       choice: choice?.text ?? "",
       feedback: choice?.feedback ?? choice?.resultText ?? "",
     };
-    state = {
+    let merged: GameState = {
       ...state,
       ...next,
       history: [history, ...state.history].slice(0, 60),
       pendingAchievement: newAchievements[0] ?? state.pendingAchievement,
     };
+
+    // 中途 GG 判定 —— 只在还没进入结局 / 还没排队续命时跑
+    if (!merged.finished && !merged.midwayFinished && !merged.pendingReviveReason) {
+      const hit = checkMidGG(merged, { usedRevive: merged.usedRevive });
+      if (hit?.type === "revive_offer") {
+        merged = { ...merged, pendingReviveReason: hit.reason };
+      } else if (hit?.type === "mid_gg") {
+        merged = {
+          ...merged,
+          midwayFinished: true,
+          midGgReason: hit.reason,
+          midGgTitle: hit.title,
+          midGgSubtitle: hit.subtitle,
+          midGgConclusion: hit.conclusion,
+          midGgTags: hit.tags,
+        };
+      }
+    }
+
+    state = merged;
     emit();
   },
+
+  /** 玩家接受嘴硬续命 —— 扣属性、清除续命窗口 */
+  acceptRevive() {
+    const s: GameState = {
+      ...state,
+      stats: { ...state.stats },
+      hiddenStats: { ...state.hiddenStats },
+    };
+    applyRevivePenalties(s);
+    s.usedRevive = true;
+    s.pendingReviveReason = null;
+    if (!s.achievements.includes("嘴硬续命")) s.achievements = [...s.achievements, "嘴硬续命"];
+    state = s;
+    emit();
+  },
+
+  /** 玩家拒绝嘴硬续命 —— 直接进入中途结算 */
+  declineRevive() {
+    const reason = state.pendingReviveReason;
+    if (!reason) return;
+    const hit = checkMidGG(state, { usedRevive: true });
+    // usedRevive=true 会强制走 mid_gg 分支
+    if (hit?.type === "mid_gg") {
+      state = {
+        ...state,
+        midwayFinished: true,
+        pendingReviveReason: null,
+        midGgReason: hit.reason,
+        midGgTitle: hit.title,
+        midGgSubtitle: hit.subtitle,
+        midGgConclusion: hit.conclusion,
+        midGgTags: hit.tags,
+      };
+    } else {
+      // 兜底：直接清窗口并结算
+      state = { ...state, midwayFinished: true, pendingReviveReason: null, midGgReason: reason };
+    }
+    emit();
+  },
+
+  /** 主动结束按钮 —— 生成 manual_quit 结算数据 */
+  quitToMidway() {
+    const hit = checkMidGG(state, { manual: true, usedRevive: state.usedRevive });
+    if (hit) {
+      state = {
+        ...state,
+        midwayFinished: true,
+        pendingReviveReason: null,
+        midGgReason: hit.reason,
+        midGgTitle: hit.title,
+        midGgSubtitle: hit.subtitle,
+        midGgConclusion: hit.conclusion,
+        midGgTags: hit.tags,
+      };
+    } else {
+      state = { ...state, midwayFinished: true };
+    }
+    emit();
+  },
+
 
   clearPendingAchievement() {
     state = { ...state, pendingAchievement: null };
