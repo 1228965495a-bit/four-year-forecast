@@ -173,8 +173,9 @@ function FeedbackModal({
       <PixelPanel9
         variant="noteYellow"
         className="relative z-10 animate-pop-in flex flex-col"
-        style={{ width: 280, minHeight: Math.round(280 * 416 / 275) }}
+        style={{ width: 280, minHeight: Math.round(280 * 1536 / 1024) }}
         padding="p-4 flex flex-col h-full"
+        slice={119}
       >
         <div className="inline-flex items-center self-start border-2 border-ink bg-cream px-2.5 py-1 text-[11px] font-display tracking-wider"
              style={{ boxShadow: "2px 2px 0 0 var(--ink)" }}>
