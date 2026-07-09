@@ -234,22 +234,19 @@ function MajorSelectPage() {
             </div>
           </div>
 
-          <div className="sticky top-0 z-20 -mx-2.5 px-2.5 pt-1 pb-2 bg-cream/95 backdrop-blur-[2px]">
-            <SelectionPreview
-              major={selected}
-              onOpenDetail={() => selected && setSheetOpen(true)}
-              onConfirm={confirm}
-            />
-          </div>
+          <SelectionPreview
+            major={selected}
+            onOpenDetail={() => selected && setSheetOpen(true)}
+            onConfirm={confirm}
+          />
 
-          <QuestGrid
+          <PagedQuestGrid
             list={list}
             selectedId={selectedId}
             onSelect={setSelectedId}
             sortDesc={sortDesc}
             onToggleSort={() => setSortDesc((v) => !v)}
           />
-
 
         </div>
       </div>
@@ -353,10 +350,12 @@ function SelectionPreview({
 
 
 /**
- * 纵向滚动的副本网格：2 列 grid，全部一次性渲染。
- * 顶部「当前选中副本 + ENTER」用 sticky 常驻。
+ * 分页展示副本网格：每页 4 个（2×2），支持左右按钮 / 圆点 / 触屏横向滑动。
+ * 目的：滚动时不再让顶部「当前选中副本 + ENTER」滑出视野。
  */
-function QuestGrid({
+const PAGE_SIZE = 4;
+
+function PagedQuestGrid({
   list,
   selectedId,
   onSelect,
@@ -370,6 +369,48 @@ function QuestGrid({
   onToggleSort: () => void;
 }) {
   const total = list.length;
+  const pageCount = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const [page, setPage] = useState(0);
+
+  // 列表变化（切 tab / 换筛选 / 换排序）时回到第一页
+  const listSig = `${sortDesc}|${total}|${list[0]?.id ?? ""}|${list[list.length - 1]?.id ?? ""}`;
+  useEffect(() => {
+    setPage(0);
+  }, [listSig]);
+
+  // 当前选中若跳到别的页，自动翻过去
+  useEffect(() => {
+    if (!selectedId) return;
+    const idx = list.findIndex((m) => m.id === selectedId);
+    if (idx < 0) return;
+    const p = Math.floor(idx / PAGE_SIZE);
+    if (p !== page) setPage(p);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedId]);
+
+  const clamp = (p: number) => Math.max(0, Math.min(pageCount - 1, p));
+  const prev = () => setPage((p) => clamp(p - 1));
+  const next = () => setPage((p) => clamp(p + 1));
+
+  // 触屏横向滑动
+  const touchRef = useRef<{ x: number; y: number; done: boolean } | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => {
+    const t = e.touches[0];
+    touchRef.current = { x: t.clientX, y: t.clientY, done: false };
+  };
+  const onTouchMove = (e: React.TouchEvent) => {
+    const s = touchRef.current;
+    if (!s || s.done) return;
+    const t = e.touches[0];
+    const dx = t.clientX - s.x;
+    const dy = t.clientY - s.y;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      if (dx < 0) next(); else prev();
+      s.done = true;
+    }
+  };
+
+  const pageItems = list.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
 
   return (
     <div className="flex flex-col gap-2">
@@ -379,6 +420,9 @@ function QuestGrid({
           可选副本 · {total}
         </span>
         <span className="h-px flex-1 bg-ink/20" />
+        <span className="font-display text-[10px] tabular-nums text-ink/60">
+          {pageCount > 0 ? page + 1 : 0}/{pageCount}
+        </span>
         <button
           onClick={onToggleSort}
           className="flex items-center gap-1 text-[10px] font-display tracking-wider text-ink/70 px-1.5 py-1 border-2 border-ink bg-cream shadow-[1px_1px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
@@ -394,21 +438,74 @@ function QuestGrid({
           <div className="text-[12px] text-ink/60">没有匹配的副本，换个筛选试试</div>
         </PixelPanel9>
       ) : (
-        <div className="grid grid-cols-2 gap-2 px-0.5">
-          {list.map((m: any) => (
-            <QuestTile
-              key={m.id}
-              major={m}
-              selected={m.id === selectedId}
-              onClick={() => onSelect(m.id)}
-            />
-          ))}
+        <div className="relative">
+          <div
+            className="grid grid-cols-2 gap-2 select-none touch-pan-y"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+          >
+            {pageItems.map((m: any) => (
+              <QuestTile
+                key={m.id}
+                major={m}
+                selected={m.id === selectedId}
+                onClick={() => onSelect(m.id)}
+              />
+            ))}
+            {/* 占位保持每页高度一致 */}
+            {Array.from({ length: PAGE_SIZE - pageItems.length }).map((_, i) => (
+              <div key={`ph-${i}`} aria-hidden className="invisible" />
+            ))}
+          </div>
+
+          {/* 翻页控制 */}
+          <div className="mt-2 flex items-center justify-between gap-2">
+            <button
+              onClick={prev}
+              disabled={page === 0}
+              className={cn(
+                "font-display text-[11px] px-2.5 py-1.5 border-2 border-ink bg-cream shadow-[2px_2px_0_0_var(--ink)]",
+                "active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
+                "disabled:opacity-40 disabled:cursor-not-allowed disabled:active:translate-x-0 disabled:active:translate-y-0 disabled:active:shadow-[2px_2px_0_0_var(--ink)]",
+              )}
+              aria-label="上一页"
+            >
+              ◀ 上一页
+            </button>
+
+            <div className="flex items-center gap-1.5" aria-label="页码指示">
+              {Array.from({ length: pageCount }).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setPage(i)}
+                  aria-label={`第 ${i + 1} 页`}
+                  className={cn(
+                    "border-2 border-ink",
+                    i === page ? "bg-cherry" : "bg-cream",
+                  )}
+                  style={{ width: 10, height: 10 }}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={next}
+              disabled={page >= pageCount - 1}
+              className={cn(
+                "font-display text-[11px] px-2.5 py-1.5 border-2 border-ink bg-cream shadow-[2px_2px_0_0_var(--ink)]",
+                "active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
+                "disabled:opacity-40 disabled:cursor-not-allowed disabled:active:translate-x-0 disabled:active:translate-y-0 disabled:active:shadow-[2px_2px_0_0_var(--ink)]",
+              )}
+              aria-label="下一页"
+            >
+              下一页 ▶
+            </button>
+          </div>
         </div>
       )}
     </div>
   );
 }
-
 
 
 
@@ -427,7 +524,7 @@ function QuestTile({
     <button
       onClick={onClick}
       className={cn(
-        "relative text-left block transition-all h-[176px]",
+        "relative text-left block transition-all",
         "active:translate-x-[1px] active:translate-y-[1px]",
         selected && "-translate-y-0.5 drop-shadow-[3px_5px_0_var(--cherry)]",
       )}
@@ -437,9 +534,9 @@ function QuestTile({
         slice={80}
         borderPx={12}
         padding="p-0"
-        className={cn("overflow-hidden h-full", selected && "ring-2 ring-cherry")}
+        className={cn("overflow-hidden", selected && "ring-2 ring-cherry")}
       >
-        <div className="relative h-full flex flex-col">
+        <div className="relative">
           <PixelTierBadge tier={rank} size={30} className="absolute top-1 right-1 z-10" />
           {major.tier === "S" && (
             <span className="absolute top-1 left-1 z-10 text-[8.5px] font-display tracking-wider px-1 py-0.5 bg-cherry text-cream border border-ink">
@@ -447,67 +544,63 @@ function QuestTile({
             </span>
           )}
 
-          {bannerSrc ? (
-            // 有整卡烘焙素材：按原比例完整显示，不能拉伸/裁切导致素材变形。
-            <div className="absolute inset-0 flex items-center justify-center bg-cream overflow-hidden">
+          <div
+            className="h-[60px] flex items-center justify-center border-b-[3px] border-ink relative overflow-hidden"
+            style={{ background: tint }}
+          >
+            {MAJOR_SCENE[major.id] ? (
               <img
-                src={bannerSrc}
-                alt={major.name}
+                src={MAJOR_SCENE[major.id]}
+                alt=""
+                aria-hidden
                 draggable={false}
-                className="block max-w-full max-h-full w-full h-auto select-none"
+                className="absolute inset-0 w-full h-full object-cover select-none"
                 style={{ imageRendering: "pixelated" }}
               />
-            </div>
-          ) : (
-            <>
-              <div
-                className="h-[60px] shrink-0 flex items-center justify-center border-b-[3px] border-ink relative overflow-hidden"
-                style={{ background: tint }}
-              >
-                {MAJOR_SCENE[major.id] ? (
-                  <img
-                    src={MAJOR_SCENE[major.id]}
-                    alt=""
-                    aria-hidden
-                    draggable={false}
-                    className="absolute inset-0 w-full h-full object-cover select-none"
-                    style={{ imageRendering: "pixelated" }}
-                  />
-                ) : (
-                  <div className="text-[30px] leading-none select-none" aria-hidden>
-                    {majorEmoji(major.id) || (
-                      <span className="text-ink/30 text-[12px]">暂无图片</span>
-                    )}
-                  </div>
+            ) : (
+              <div className="text-[30px] leading-none select-none" aria-hidden>
+                {majorEmoji(major.id) || (
+                  <span className="text-ink/30 text-[12px]">暂无图片</span>
                 )}
-                <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
+              </div>
+            )}
+            <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
+          </div>
+
+          {bannerSrc ? (
+            <img
+              src={bannerSrc}
+              alt={major.name}
+              draggable={false}
+              className="block w-full h-auto select-none"
+              style={{ imageRendering: "pixelated" }}
+            />
+          ) : (
+            <div className="p-1.5">
+              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-1">
+                <span className="font-display text-[13px] truncate">{major.name}</span>
+                <span className="text-[9px] font-display tabular-nums text-cherry shrink-0">
+                  {fitOf(major)}%
+                </span>
+              </div>
+              <div className="text-[9px] text-ink/60 mt-0.5 leading-none tracking-wider truncate">
+                {displayCategory(major.category)} · {major.tier}
               </div>
 
-              <div className="p-1.5 flex-1 min-h-0 flex flex-col">
-                <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-1">
-                  <span className="font-display text-[13px] truncate">{major.name}</span>
-                  <span className="text-[9px] font-display tabular-nums text-cherry shrink-0">
-                    {fitOf(major)}%
-                  </span>
-                </div>
-                <div className="text-[9px] text-ink/60 mt-0.5 leading-none tracking-wider truncate">
-                  {displayCategory(major.category)} · {major.tier}
-                </div>
-                <div className="mt-auto flex items-center gap-1 min-h-[16px]">
-                  {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
-                  {hasWarn && (
-                    <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">⚠</span>
-                  )}
-                </div>
+              <div className="mt-1.5 flex items-center gap-1 min-h-[16px]">
+                {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
+                {hasWarn && (
+                  <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">⚠</span>
+                )}
               </div>
-            </>
+            </div>
           )}
+
         </div>
       </PixelPanel9>
     </button>
   );
 }
-
 
 function DetailContent({ major, onConfirm }: { major: any; onConfirm: () => void }) {
   const rank = tierOf(major);
