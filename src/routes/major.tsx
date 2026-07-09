@@ -277,7 +277,7 @@ function SelectionPreview({
         className="text-center"
       >
         <div className="text-[10px] font-display tracking-[0.2em] text-ink/50">当前选中副本</div>
-        <div className="text-[12px] text-ink/60 mt-1">👇 从下方点一个专业，先预览再进入</div>
+        <div className="text-[12px] text-ink/60 mt-1">&nbsp;从下方点一个专业，先预览再进入</div>
       </PixelPanel9>
     );
   }
