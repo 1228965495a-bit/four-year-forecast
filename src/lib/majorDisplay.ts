@@ -4,7 +4,7 @@ const MAJOR_EMOJI: Record<string, string> = {
   computer_science: "💻",
   artificial_intelligence: "🤖",
   clinical_medicine: "🩺",
-  finance: "📈",
+  finance: "",
   accounting: "🧮",
   journalism_communication: "📰",
   electrical_engineering: "⚡",
