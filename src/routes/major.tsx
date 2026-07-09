@@ -303,7 +303,7 @@ function SelectionPreview({
           ✓ 进入「{major.name}」副本
         </PixelImgButton>
       </div>
-    </div>
+    </PixelPanel9>
   );
 }
 
