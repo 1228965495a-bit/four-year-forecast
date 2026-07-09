@@ -24,6 +24,10 @@ import accountingCardAsset from "@/assets/majors/accounting-card.png.asset.json"
 import financeCardAsset from "@/assets/majors/finance-card.png.asset.json";
 import csCardAsset from "@/assets/majors/cs-card.png.asset.json";
 import clinicalCardAsset from "@/assets/majors/clinical-card.png.asset.json";
+import electronicInfoCardAsset from "@/assets/majors/electronic-info-card.png.asset.json";
+import civilCardAsset from "@/assets/majors/civil-card.png.asset.json";
+import electricalCardAsset from "@/assets/majors/electrical-card.png.asset.json";
+import architectureCardAsset from "@/assets/majors/architecture-card.png.asset.json";
 
 // 完整整卡素材（含标题/百分比/角标烘焙在图内）。有此映射时 QuestTile 直接渲染整张图。
 const MAJOR_CARD: Record<string, string> = {
@@ -33,7 +37,12 @@ const MAJOR_CARD: Record<string, string> = {
   finance: financeCardAsset.url,
   computer_science: csCardAsset.url,
   clinical_medicine: clinicalCardAsset.url,
+  electronic_information: electronicInfoCardAsset.url,
+  civil_engineering: civilCardAsset.url,
+  electrical_engineering: electricalCardAsset.url,
+  architecture: architectureCardAsset.url,
 };
+
 
 // 每个专业的头图（会被 object-cover 裁剪到对应尺寸）。
 const DEFAULT_SCENE = sceneAsset.url;
