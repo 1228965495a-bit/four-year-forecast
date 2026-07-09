@@ -16,6 +16,12 @@ import {
 } from "@/components/pixel/PixelSkin";
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 import sceneAsset from "@/assets/law-scene.png.asset.json";
+import lawCardAsset from "@/assets/law-card.png.asset.json";
+
+// 完整整卡素材（含标题/百分比/角标烘焙在图内）。有此映射时 QuestTile 直接渲染整张图。
+const MAJOR_CARD: Record<string, string> = {
+  law: lawCardAsset.url,
+};
 
 // 每个专业的头图（会被 object-cover 裁剪到对应尺寸）。
 // 未上传的专业保持 emoji 占位，不使用默认图，避免所有专业撞脸。
