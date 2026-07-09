@@ -49,6 +49,7 @@ const MAJOR_CARD: Record<string, string> = {
 const DEFAULT_SCENE = sceneAsset.url;
 const MAJOR_SCENE: Record<string, string> = {
   law: sceneAsset.url,
+  artificial_intelligence: aiSceneAsset.url,
 };
 
 
