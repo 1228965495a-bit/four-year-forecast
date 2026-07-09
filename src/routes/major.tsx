@@ -328,36 +328,8 @@ function QuestTile({
   const memeTag: string | undefined = major.card?.tags?.[0] ?? major.tags?.[0];
   const hasWarn = !!major.card?.riskWarning;
 
-  const fullCard = MAJOR_CARD[major.id];
-  if (fullCard) {
-    return (
-      <button
-        onClick={onClick}
-        aria-label={major.name}
-        className={cn(
-          "relative block transition-all",
-          "active:translate-x-[1px] active:translate-y-[1px]",
-          selected && "-translate-y-0.5 drop-shadow-[3px_5px_0_var(--cherry)]",
-        )}
-      >
-        <PixelPanel9
-          src={panelWideAsset.url}
-          slice={80}
-          borderPx={12}
-          padding="p-0"
-          className={cn(selected && "ring-2 ring-cherry")}
-        >
-          <img
-            src={fullCard}
-            alt={major.name}
-            draggable={false}
-            className="block w-full h-auto select-none"
-            style={{ imageRendering: "pixelated" }}
-          />
-        </PixelPanel9>
-      </button>
-    );
-  }
+  const bannerSrc = MAJOR_CARD[major.id];
+
 
   return (
     <button
@@ -406,24 +378,35 @@ function QuestTile({
             <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
           </div>
 
-          <div className="p-1.5">
-            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-1">
-              <span className="font-display text-[13px] truncate">{major.name}</span>
-              <span className="text-[9px] font-display tabular-nums text-cherry shrink-0">
-                {fitOf(major)}%
-              </span>
-            </div>
-            <div className="text-[9px] text-ink/60 mt-0.5 leading-none tracking-wider truncate">
-              {displayCategory(major.category)} · {major.tier}
-            </div>
+          {bannerSrc ? (
+            <img
+              src={bannerSrc}
+              alt={major.name}
+              draggable={false}
+              className="block w-full h-auto select-none"
+              style={{ imageRendering: "pixelated" }}
+            />
+          ) : (
+            <div className="p-1.5">
+              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-1">
+                <span className="font-display text-[13px] truncate">{major.name}</span>
+                <span className="text-[9px] font-display tabular-nums text-cherry shrink-0">
+                  {fitOf(major)}%
+                </span>
+              </div>
+              <div className="text-[9px] text-ink/60 mt-0.5 leading-none tracking-wider truncate">
+                {displayCategory(major.category)} · {major.tier}
+              </div>
 
-            <div className="mt-1.5 flex items-center gap-1 min-h-[16px]">
-              {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
-              {hasWarn && (
-                <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">⚠</span>
-              )}
+              <div className="mt-1.5 flex items-center gap-1 min-h-[16px]">
+                {memeTag && <TagBadge tone={inferTagTone(memeTag)}>{memeTag}</TagBadge>}
+                {hasWarn && (
+                  <span className="text-[9px] font-display px-1 border border-cherry text-cherry ml-auto shrink-0">⚠</span>
+                )}
+              </div>
             </div>
-          </div>
+          )}
+
         </div>
       </PixelPanel9>
     </button>
