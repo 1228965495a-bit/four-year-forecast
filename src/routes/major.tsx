@@ -59,6 +59,7 @@ const MAJOR_SCENE: Record<string, string> = {
   finance: financeSceneAsset.url,
   architecture: architectureSceneAsset.url,
   computer_science: csSceneAsset.url,
+  accounting: accountingSceneAsset.url,
 };
 
 
