@@ -100,12 +100,13 @@ function MidwayResultPage() {
       <div className="flex-1 min-h-0 overflow-y-auto">
         <div className="p-3 pb-6 space-y-3">
           <ResultCard>
-            <ResultBanner tag="中途结算!" title="跑路预备役" tier="C" emoji="🏃" />
+            <ResultBanner tag="中途结算!" title={displayTitle} tier="C" emoji="🏃" />
 
             <ResultRibbon>
-              你按下了结束键，提前结束本科副本。<br/>
-              跑路不是失败，是战略转移。
+              {displaySubtitle}<br/>
+              {displayConclusion}
             </ResultRibbon>
+
 
             {/* 场景素材位 */}
             <div
