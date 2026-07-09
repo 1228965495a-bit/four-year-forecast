@@ -258,3 +258,38 @@ function LogDrawer() {
     </div>
   );
 }
+
+function ReviveModal({ onAccept, onDecline }: { onAccept: () => void; onDecline: () => void }) {
+  return (
+    <div className="absolute inset-0 z-50 flex items-center justify-center px-4">
+      <div className="absolute inset-0 bg-ink/70" />
+      <PixelPanel9
+        variant="noteYellow"
+        className="relative z-10 animate-pop-in flex flex-col"
+        style={{ width: 288, minHeight: 360 }}
+        padding="p-4 flex flex-col h-full"
+      >
+        <div className="inline-flex items-center self-start border-2 border-ink bg-cherry text-cream px-2.5 py-1 text-[11px] font-display tracking-wider"
+             style={{ boxShadow: "2px 2px 0 0 var(--ink)" }}>
+          ⚠ 紧急抢救
+        </div>
+        <div className="mt-4 font-display text-[19px] leading-snug">嘴硬续命？</div>
+        <p className="mt-2 text-[13px] leading-relaxed text-ink/85">
+          你已触发【本科人生紧急抢救状态】。<br/>
+          是否发动一次性技能「嘴硬续命」？
+        </p>
+        <div className="mt-3 h-[2px] bg-ink/25" />
+        <div className="mt-2 text-[10.5px] font-display tracking-[0.25em] text-ink/55">代价</div>
+        <ul className="mt-1 space-y-0.5 text-[12px] leading-[1.55] text-ink/85">
+          <li>· 跑路冲动 −25 · 精神电量 −8 · 滤镜 −10</li>
+          <li>· 嘴硬浓度 +35（解锁成就「嘴硬续命」）</li>
+        </ul>
+        <div className="mt-auto pt-4 grid grid-cols-2 gap-2">
+          <PixelButton3 variant="ghost" onClick={onDecline}>先撤了</PixelButton3>
+          <PixelButton3 variant="primary" onClick={onAccept}>嘴硬续命</PixelButton3>
+        </div>
+      </PixelPanel9>
+    </div>
+  );
+}
+
