@@ -9,7 +9,6 @@ import {
   PixelTierBadge,
   PixelButton3,
 } from "@/components/pixel/PixelSkin";
-import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 
 export const Route = createFileRoute("/intro")({ component: IntroPage });
 
@@ -107,7 +106,15 @@ function IntroPage() {
         style={{ background: WOOD }}
       >
         <div className="p-3 pb-5">
-          <PixelPanel9 variant="profile" padding="p-4">
+          <div
+            className="relative border-[3px] border-ink p-4"
+            style={{
+              background: "var(--cream)",
+              boxShadow: "4px 4px 0 0 var(--ink)",
+              borderRadius: 0,
+              imageRendering: "pixelated",
+            }}
+          >
             {/* 顶部：旗帜 · 专业名 · 段位徽章 */}
             <div className="flex items-start gap-2">
               <div
@@ -125,28 +132,35 @@ function IntroPage() {
                   {major.name}
                 </h1>
                 <div className="mt-1 text-[11px] text-ink/70">
-                  · {game.school}
+                  · {game.school} ·
                 </div>
               </div>
               <PixelTierBadge tier={tier} size={38} className="shrink-0" />
             </div>
 
-            <div className="mt-3 border-t border-dashed border-ink/30" />
+            {/* 录取通知条 */}
+            <div className="mt-3 flex items-center gap-2">
+              <span className="flex-1 border-t-[2px] border-dotted border-ink/40" aria-hidden />
+              <span className="font-display text-[10.5px] tracking-[0.3em] text-ink/80">
+                录取通知 · 新生报到
+              </span>
+              <span className="flex-1 border-t-[2px] border-dotted border-ink/40" aria-hidden />
+            </div>
 
             {/* 正文文案 */}
-            <div className="mt-3 text-center font-display text-[12.5px] leading-[1.75] text-ink px-1">
-              <p>你被 {major.name} 录取了！</p>
-              <p className="mt-1">
+            <div className="mt-3 text-center font-display text-[12.5px] leading-[1.8] text-ink px-1">
+              <p>恭喜你！即将开启 {major.name} 副本。</p>
+              <p className="mt-1 text-ink/80">
                 {major.card?.subtitle ??
                   major.card?.description ??
-                  "未来四年将充满未知与选择，做好准备。"}
+                  "未来四年，愿你披荆斩棘，全身而退。"}
               </p>
             </div>
 
             {/* 场景插图占位（等待美术贴图） */}
             <div
-              className="mt-4 relative w-full flex items-center justify-center border-[3px] border-dashed border-ink/40 bg-cream/60"
-              style={{ height: 200 }}
+              className="mt-4 relative w-full flex items-center justify-center border-[3px] border-dashed border-ink/40"
+              style={{ height: 200, background: "rgba(0,0,0,0.04)" }}
             >
               <div className="text-center text-ink/45 font-display text-[10.5px] tracking-[0.25em]">
                 [ 专业场景插图占位 ]
@@ -194,7 +208,7 @@ function IntroPage() {
                 );
               })}
             </div>
-          </PixelPanel9>
+          </div>
 
           {/* 进入大一上 */}
           <div className="mt-4">
