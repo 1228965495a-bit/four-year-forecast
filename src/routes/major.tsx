@@ -17,10 +17,12 @@ import {
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 import sceneAsset from "@/assets/law-scene.png.asset.json";
 
-// 暂时所有专业头图都用同一张场景图，通过 object-cover 裁剪到卡片尺寸。
-// 未来给每个专业上传独立图后，只需在这里补上 id -> url 覆盖即可。
+// 每个专业的头图（会被 object-cover 裁剪到对应尺寸）。
+// 未上传的专业保持 emoji 占位，不使用默认图，避免所有专业撞脸。
 const DEFAULT_SCENE = sceneAsset.url;
-const MAJOR_SCENE: Record<string, string> = {};
+const MAJOR_SCENE: Record<string, string> = {
+  law: sceneAsset.url,
+};
 
 export const Route = createFileRoute("/major")({ component: MajorSelectPage });
 
@@ -300,12 +302,23 @@ function QuestTile({
       )}
 
       <div
-        className="h-[60px] flex items-center justify-center border-b-[3px] border-ink relative"
+        className="h-[60px] flex items-center justify-center border-b-[3px] border-ink relative overflow-hidden"
         style={{ background: tint }}
       >
-        <div className="text-[30px] leading-none select-none" aria-hidden>
-          {majorEmoji(major.id)}
-        </div>
+        {MAJOR_SCENE[major.id] ? (
+          <img
+            src={MAJOR_SCENE[major.id]}
+            alt=""
+            aria-hidden
+            draggable={false}
+            className="absolute inset-0 w-full h-full object-cover select-none"
+            style={{ imageRendering: "pixelated" }}
+          />
+        ) : (
+          <div className="text-[30px] leading-none select-none" aria-hidden>
+            {majorEmoji(major.id)}
+          </div>
+        )}
         <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
       </div>
 
