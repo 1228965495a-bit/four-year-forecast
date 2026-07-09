@@ -24,7 +24,7 @@ const MAJOR_EMOJI: Record<string, string> = {
 };
 
 export function majorEmoji(id: string): string {
-  return MAJOR_EMOJI[id] ?? "🎓";
+  return MAJOR_EMOJI[id] ?? "";
 }
 
 /** 后端类别 → 展示大类 */

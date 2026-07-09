@@ -26,7 +26,6 @@ const MAJOR_CARD: Record<string, string> = {
 };
 
 // 每个专业的头图（会被 object-cover 裁剪到对应尺寸）。
-// 未上传的专业保持 emoji 占位，不使用默认图，避免所有专业撞脸。
 const DEFAULT_SCENE = sceneAsset.url;
 const MAJOR_SCENE: Record<string, string> = {
   law: sceneAsset.url,
