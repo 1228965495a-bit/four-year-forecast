@@ -220,10 +220,23 @@ function SelectionPreview({
 
       <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2.5 items-start pt-0.5">
         <div
-          className="border-[3px] border-ink shadow-[2px_2px_0_0_var(--ink)] flex items-center justify-center text-[28px] shrink-0"
+          className="border-[3px] border-ink shadow-[2px_2px_0_0_var(--ink)] relative overflow-hidden shrink-0"
           style={{ width: 54, height: 54, background: tint }}
         >
-          {majorEmoji(major.id)}
+          <img
+            src={MAJOR_SCENE[major.id] ?? DEFAULT_SCENE}
+            alt=""
+            aria-hidden
+            draggable={false}
+            className="absolute inset-0 w-full h-full object-cover select-none"
+            style={{ imageRendering: "pixelated" }}
+          />
+          <span
+            className="absolute bottom-0 right-0 text-[14px] leading-none px-0.5 bg-cream/85 border-l-2 border-t-2 border-ink"
+            aria-hidden
+          >
+            {majorEmoji(major.id)}
+          </span>
         </div>
 
         <div className="min-w-0">
@@ -287,18 +300,10 @@ function QuestTile({
       )}
 
       <div
-        className="h-[60px] flex items-center justify-center border-b-[3px] border-ink relative overflow-hidden"
+        className="h-[60px] flex items-center justify-center border-b-[3px] border-ink relative"
         style={{ background: tint }}
       >
-        <img
-          src={MAJOR_SCENE[major.id] ?? DEFAULT_SCENE}
-          alt=""
-          aria-hidden
-          draggable={false}
-          className="absolute inset-0 w-full h-full object-cover select-none"
-          style={{ imageRendering: "pixelated" }}
-        />
-        <div className="absolute top-1 left-1 z-[1] text-[20px] leading-none drop-shadow-[1px_1px_0_rgba(0,0,0,0.6)] select-none" aria-hidden>
+        <div className="text-[30px] leading-none select-none" aria-hidden>
           {majorEmoji(major.id)}
         </div>
         <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
