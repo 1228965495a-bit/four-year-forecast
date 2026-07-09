@@ -264,12 +264,14 @@ function SelectionPreview({
             className="absolute inset-0 w-full h-full object-cover select-none"
             style={{ imageRendering: "pixelated" }}
           />
-          <span
-            className="absolute bottom-0 right-0 text-[14px] leading-none px-0.5 bg-cream/85 border-l-2 border-t-2 border-ink"
-            aria-hidden
-          >
-            {majorEmoji(major.id)}
-          </span>
+          {majorEmoji(major.id) && (
+            <span
+              className="absolute bottom-0 right-0 text-[14px] leading-none px-0.5 bg-cream/85 border-l-2 border-t-2 border-ink"
+              aria-hidden
+            >
+              {majorEmoji(major.id)}
+            </span>
+          )}
         </div>
 
         <div className="min-w-0">
@@ -385,7 +387,9 @@ function QuestTile({
               />
             ) : (
               <div className="text-[30px] leading-none select-none" aria-hidden>
-                {majorEmoji(major.id)}
+                {majorEmoji(major.id) || (
+                  <span className="text-ink/30 text-[12px]">暂无图片</span>
+                )}
               </div>
             )}
             <div className="absolute inset-0 pixel-scanlines opacity-15 pointer-events-none" />
