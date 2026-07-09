@@ -152,18 +152,14 @@ export function FuturePinnedNote({
 }: { title?: string; children: ReactNode }) {
   return (
     <div className="mx-3 mt-3">
-      <PixelPanel9 variant="noteYellow" padding="p-3.5">
-        <div className="flex items-start gap-2">
-          <span className="text-[16px] leading-none shrink-0 -mt-1" aria-hidden>📌</span>
-          <div className="min-w-0 flex-1">
-            <div className="text-cherry font-display text-[12.5px] tracking-wider mb-1.5">
-              {title}
-            </div>
-            <div className="text-[12.5px] leading-[1.55] text-ink whitespace-pre-line">
-              {children}
-            </div>
+      <PixelPanel9 variant="noteYellow" padding="pt-8 pb-6 pl-5 pr-5">
+        <div className="min-w-0">
+          <div className="text-cherry font-display text-[12.5px] tracking-wider mb-1.5 pl-8">
+            {title}
           </div>
-          <span className="text-[22px] leading-none shrink-0 self-end" aria-hidden>✉️</span>
+          <div className="text-[12.5px] leading-[1.55] text-ink whitespace-pre-line pr-6">
+            {children}
+          </div>
         </div>
       </PixelPanel9>
     </div>

@@ -2,6 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import panelEventAsset from "@/assets/pixel/panels-9slice/panel-event.png.asset.json";
 import panelNoteYellowAsset from "@/assets/pixel/panels-9slice/panel-note-yellow.png.asset.json";
+import panelDiagnosisAsset from "@/assets/pixel/panels-9slice/panel-diagnosis.png.asset.json";
 
 /**
  * 9-slice 面板组件。
@@ -16,7 +17,7 @@ export const panel9Assets = {
   profile: "/pixel-ui/panels-9slice/panel-profile-source.png",
   noteYellow: panelNoteYellowAsset.url,
   noteBlue: "/pixel-ui/panels-9slice/panel-note-blue-source.png",
-  diagnosis: "/pixel-ui/panels-9slice/panel-diagnosis-source.png",
+  diagnosis: panelDiagnosisAsset.url,
   sheet: "/pixel-ui/panels-9slice/panel-sheet-source.png",
   small: "/pixel-ui/panels-9slice/panel-small-source.png",
   warning: "/pixel-ui/panels-9slice/panel-warning-source.png",
@@ -25,14 +26,17 @@ export const panel9Assets = {
 export type Panel9Variant = keyof typeof panel9Assets;
 
 const INSET = 32;
-// 每个 variant 的默认 9-slice inset（源图像素）。未列出的走 INSET=32。
+// 每个 variant 的默认 9-slice inset(源图像素)。未列出的走 INSET=32。
 const VARIANT_SLICE: Partial<Record<Panel9Variant, number>> = {
   event: 60,
-  noteYellow: 60,
+  noteYellow: 240,
+  diagnosis: 220,
 };
 // 每个 variant 的默认 CSS 边框宽度。
 const VARIANT_BORDER: Partial<Record<Panel9Variant, number>> = {
   event: 26,
+  noteYellow: 28,
+  diagnosis: 26,
 };
 // CSS 端把 32px 源缩放到 ~18px 边框，视觉更贴合手机端；内部再留 padding。
 const BORDER_PX = 18;
