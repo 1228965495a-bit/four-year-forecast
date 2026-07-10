@@ -2,7 +2,7 @@
 // actually has more fields than the strict declarations. The engine reads
 // via its own typed views (see src/lib/scriptEngine.ts).
 
-import majorsJson from "./majors.json";
+import { majors, majorById } from "./majorCatalog";
 import eventsJson from "./events.json";
 import routesJson from "./routes.json";
 import endingsJson from "./endings.json";
@@ -10,7 +10,6 @@ import achievementsJson from "./achievements.json";
 import transferRulesJson from "./transferRules.json";
 import globalStatsJson from "./globalStats.json";
 
-export const majors = majorsJson as any[];
 export const events = eventsJson as any[];
 export const routes = routesJson as any[];
 export const endings = endingsJson as any[];
@@ -18,9 +17,6 @@ export const achievements = achievementsJson as any[];
 export const transferRules = transferRulesJson as any;
 export const globalStats = globalStatsJson as any;
 
-export const majorById: Record<string, any> = Object.fromEntries(
-  majors.map((m) => [m.id, m]),
-);
 export const eventById: Record<string, any> = Object.fromEntries(
   events.map((e) => [e.id, e]),
 );
