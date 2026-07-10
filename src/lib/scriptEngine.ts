@@ -8,7 +8,7 @@ import {
   achievementsByMajorId,
 } from "@/data/script/gameData";
 import { majorById } from "@/data/script/majorCatalog";
-import { SEMESTER_KEYS, SEMESTER_LABEL, totalSemesters } from "@/data/script/semesterMeta";
+import { SEMESTER_KEYS, SEMESTER_LABEL } from "@/data/script/semesterMeta";
 export { SEMESTER_KEYS } from "@/data/script/semesterMeta";
 export type { SemesterKey } from "@/data/script/semesterMeta";
 
