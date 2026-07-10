@@ -166,12 +166,13 @@ export const gameStore = {
     void loadEngine().then(async (engineRuntime) => {
       await engineRuntime.loadMajorRuntime(id);
       if (state.majorId !== id || state.currentEventData) return;
-      const currentEventId = state.currentEventId ?? engineRuntime.firstEventIdForSemester(id, state.semesterIdx);
+      const existingEvent = engineRuntime.getCurrentEvent(state);
+      const currentEventId = existingEvent ? state.currentEventId : engineRuntime.firstEventIdForSemester(id, state.semesterIdx);
       state = {
         ...state,
         currentEventId,
         seenEvents: currentEventId && !state.seenEvents.includes(currentEventId) ? [...state.seenEvents, currentEventId] : state.seenEvents,
-        currentEventData: engineRuntime.getCurrentEvent({ ...state, currentEventId }),
+        currentEventData: existingEvent ?? engineRuntime.getCurrentEvent({ ...state, currentEventId }),
       };
       emit();
     });
@@ -224,12 +225,13 @@ export const gameStore = {
     if (!state.majorId || state.currentEventData) return;
     const engineRuntime = await loadEngine();
     await engineRuntime.loadMajorRuntime(state.majorId);
-    const currentEventId = state.currentEventId ?? engineRuntime.firstEventIdForSemester(state.majorId, state.semesterIdx);
+    const existingEvent = engineRuntime.getCurrentEvent(state);
+    const currentEventId = existingEvent ? state.currentEventId : engineRuntime.firstEventIdForSemester(state.majorId, state.semesterIdx);
     const nextState = { ...state, currentEventId };
     state = {
       ...nextState,
       seenEvents: currentEventId && !nextState.seenEvents.includes(currentEventId) ? [...nextState.seenEvents, currentEventId] : nextState.seenEvents,
-      currentEventData: engineRuntime.getCurrentEvent(nextState),
+      currentEventData: existingEvent ?? engineRuntime.getCurrentEvent(nextState),
     };
     emit();
   },
