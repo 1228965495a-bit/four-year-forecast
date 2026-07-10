@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
-import { useGameState } from "@/lib/gameStore";
+import { useGameState, warmGameEngine } from "@/lib/gameStore";
 import { majorById } from "@/data/script/majorCatalog";
 import { HUD_STATS } from "@/lib/statsMeta";
 import {
@@ -70,6 +70,7 @@ function IntroPage() {
   const major = game.majorId ? majorById[game.majorId] : null;
 
   useEffect(() => {
+    warmGameEngine();
     if (major) return;
     // 首帧 SSR 快照可能 majorId 为空，等 localStorage 水合一次；
     // 若存档里也没有 majorId 才回到选专业。

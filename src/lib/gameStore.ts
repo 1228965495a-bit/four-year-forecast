@@ -5,6 +5,7 @@
 import { useEffect, useSyncExternalStore } from "react";
 import type { EngineState } from "./scriptEngine";
 import { SEMESTER_KEYS, currentSemesterLabelFromIndex } from "@/data/script/semesterMeta";
+import { majorById } from "@/data/script/majorCatalog";
 import { checkMidGG, applyRevivePenalties } from "./midGgRules";
 
 type EngineModule = typeof import("./scriptEngine");
@@ -17,6 +18,35 @@ function loadEngine() {
 
 export function warmGameEngine() {
   void loadEngine();
+}
+
+function initEngineShellForMajor(majorId: string): EngineState {
+  const major = majorById[majorId];
+  if (!major) throw new Error(`unknown major: ${majorId}`);
+  const firstId = major.timeline?.find((x: any) => x.key === "y1s1" || x.semester === "y1s1")?.mainEventIds?.[0] ?? null;
+  return {
+    majorId,
+    semesterIdx: 0,
+    stats: { ...(major.initialStats ?? {}) },
+    majorStats: Object.fromEntries((major.majorStats ?? []).map((s: any) => [s.key, s.initialValue ?? 0])),
+    hiddenStats: {},
+    flags: [],
+    routes: [],
+    seenEvents: firstId ? [firstId] : [],
+    achievements: [],
+    currentEventId: firstId,
+    ggRisk: 0,
+    finished: false,
+    endingId: null,
+    semesterRandomShown: false,
+    usedRevive: false,
+    midGgReason: null,
+    midGgTitle: null,
+    midGgSubtitle: null,
+    midGgConclusion: null,
+    midGgTags: [],
+    pendingReviveReason: null,
+  };
 }
 
 
@@ -115,18 +145,17 @@ export const gameStore = {
   set(patch: Partial<GameState>) { state = { ...state, ...patch }; emit(); },
   reset() { state = emptyState(); emit(); },
 
-  async selectMajor(id: string) {
-    const engineRuntime = await loadEngine();
-    const engine = engineRuntime.initEngineForMajor(id);
-    const currentEventData = engineRuntime.getCurrentEvent(engine);
+  selectMajor(id: string) {
+    const engine = initEngineShellForMajor(id);
     state = {
       ...emptyState(),
       ...engine,
-      currentEventData,
+      currentEventData: null,
       characterName: state.characterName,
       school: state.school,
     };
     emit();
+    void gameStore.ensureRuntimeData();
   },
 
   async applyChoice(choice: any) {

@@ -174,9 +174,9 @@ function MajorSelectPage() {
 
   const selected = ALL_MAJORS.find((m: any) => m.id === selectedId) ?? null;
 
-  const confirm = async () => {
+  const confirm = () => {
     if (!selected) return;
-    await gameStore.selectMajor(selected.id);
+    gameStore.selectMajor(selected.id);
     navigate({ to: "/intro" });
   };
 
