@@ -10,6 +10,8 @@ import achievementsJson from "./achievements.json";
 import transferRulesJson from "./transferRules.json";
 import globalStatsJson from "./globalStats.json";
 
+export { majors, majorById } from "./majorCatalog";
+
 export const events = eventsJson as any[];
 export const routes = routesJson as any[];
 export const endings = endingsJson as any[];

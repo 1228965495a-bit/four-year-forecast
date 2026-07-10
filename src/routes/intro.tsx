@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { useGameState } from "@/lib/gameStore";
-import { majorById } from "@/data/script/gameData";
+import { majorById } from "@/data/script/majorCatalog";
 import { HUD_STATS } from "@/lib/statsMeta";
 import {
   PixelStatBar,

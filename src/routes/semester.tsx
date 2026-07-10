@@ -9,8 +9,8 @@ import {
   currentSemesterLabel,
 } from "@/lib/gameStore";
 import { HUD_STATS } from "@/lib/statsMeta";
-import { totalSemesters } from "@/lib/scriptEngine";
-import { majorById } from "@/data/script/gameData";
+import { totalSemesters } from "@/data/script/semesterMeta";
+import { majorById } from "@/data/script/majorCatalog";
 import { EventCard } from "@/components/ui/EventCard";
 import { CharacterPanel } from "@/components/ui/CharacterPanel";
 
@@ -33,6 +33,9 @@ function SemesterPage() {
     if (!game.majorId) navigate({ to: "/major" });
   }, [game.majorId, navigate]);
   useEffect(() => {
+    void gameStore.ensureRuntimeData();
+  }, [game.majorId, game.currentEventId, game.currentEventData]);
+  useEffect(() => {
     if (game.finished) navigate({ to: "/result" });
     else if (game.midwayFinished) navigate({ to: "/midway-result" });
   }, [game.finished, game.midwayFinished, navigate]);
@@ -47,7 +50,7 @@ function SemesterPage() {
 
   const confirmNext = () => {
     if (!feedback) return;
-    gameStore.applyChoice(feedback.choice);
+    void gameStore.applyChoice(feedback.choice);
     setFeedback(null);
   };
 

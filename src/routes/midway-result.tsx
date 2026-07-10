@@ -2,8 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { gameStore, useGameState, currentSemesterLabel } from "@/lib/gameStore";
-import { totalSemesters } from "@/lib/scriptEngine";
-import { majorById } from "@/data/script/gameData";
+import { totalSemesters } from "@/data/script/semesterMeta";
+import { majorById } from "@/data/script/majorCatalog";
 import { HUD_STATS } from "@/lib/statsMeta";
 import { deriveResultTags } from "@/lib/resultTags";
 import {
