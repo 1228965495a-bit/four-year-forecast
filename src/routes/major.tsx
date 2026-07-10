@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { majors as ALL_MAJORS } from "@/data/script/majorCatalog";
-import { gameStore } from "@/lib/gameStore";
+import { gameStore, warmGameEngine } from "@/lib/gameStore";
 import { cn } from "@/lib/utils";
 import { PixelButton } from "@/components/ui/PixelButton";
 import { PixelPanel } from "@/components/ui/PixelPanel";
@@ -173,6 +173,7 @@ function MajorSelectPage() {
     if (!selected) return;
     gameStore.selectMajor(selected.id);
     navigate({ to: "/intro" });
+    window.setTimeout(() => warmGameEngine(), 100);
   };
 
   const topBar = (
