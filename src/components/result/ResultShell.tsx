@@ -168,26 +168,43 @@ export function FuturePinnedNote({
 
 /* ---------------- 按钮行（3 个） ---------------- */
 
+/* ---------------- 按钮行（2 个）----------------
+ * 尺寸规格：
+ * - 容器：grid-cols-2，gap 10px，横向 padding 12px。
+ * - 单键：宽度 = (容器宽 - gap) / 2，最小高 64px，内边距 12/16px。
+ * - 字号：15px，行高 1.15，font-display，tracking-wider，单行 nowrap。
+ * - 图标：前置符号 16px，与文字间距 6px。
+ * 美工规格：
+ * - 重新开始：面色 sage(#B9D9A3)，字 ink；顶部 2px 高光 #C8E6B8，底部 3px 暗边 #6A8C56。
+ * - 分享结局：面色 cherry(#D8636B)，字 cream；顶部 2px 高光 #FF9AA2，底部 3px 暗边 #B5424A。
+ * - 边框：3px ink 硬边；外阴影 3×3px ink 硬投影，营造像素落地感。
+ * - 交互：按下 translate(2,2)，无 hover 色变。
+ */
 export function ResultActionRow({
-  onHome, onRetry, onShare,
+  onRetry, onShare,
   shareLabel = "分享结局",
 }: {
-  onHome: () => void;
+  onHome?: () => void;
   onRetry: () => void;
   onShare: () => void;
   shareLabel?: string;
 }) {
   return (
-    <div className="grid grid-cols-3 gap-2 px-3 pt-3 pb-2">
-      <PixelButton3 variant="secondary" onClick={onHome}>
-        <span className="mr-1">🏠</span>返回主菜单
+    <div className="grid grid-cols-2 gap-2.5 px-3 pt-3 pb-2">
+      <PixelButton3
+        variant="option"
+        onClick={onRetry}
+        className="!min-h-[64px] !text-[15px] !px-4 whitespace-nowrap"
+        style={{ backgroundColor: "var(--sage)" }}
+      >
+        <span className="mr-1.5 text-[16px] leading-none">↻</span>重新开始
       </PixelButton3>
-      <PixelButton3 variant="option" onClick={onRetry}
-        style={{ backgroundColor: "var(--sage)" }}>
-        <span className="mr-1">↻</span>重新开启人生
-      </PixelButton3>
-      <PixelButton3 variant="primary" onClick={onShare}>
-        <span className="mr-1">↗</span>{shareLabel}
+      <PixelButton3
+        variant="primary"
+        onClick={onShare}
+        className="!min-h-[64px] !text-[15px] !px-4 whitespace-nowrap"
+      >
+        <span className="mr-1.5 text-[16px] leading-none">↗</span>{shareLabel}
       </PixelButton3>
     </div>
   );
