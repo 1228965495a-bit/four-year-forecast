@@ -137,8 +137,15 @@ function fitOf(m: any): number {
   return Math.min(99, Math.max(40, Math.round((m.initialStats?.obsession ?? 60) * 0.6 + (m.initialStats?.filter ?? 60) * 0.4)));
 }
 
+type MajorBrowserMode = "select" | "catalog";
+
 function MajorSelectPage() {
+  return <MajorBrowser mode="select" />;
+}
+
+export function MajorBrowser({ mode }: { mode: MajorBrowserMode }) {
   const navigate = useNavigate();
+  const isCatalog = mode === "catalog";
   const [tabLabel, setTabLabel] = useState<string>("全部");
   const [recSet, setRecSet] = useState<Set<string>>(new Set());
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -170,7 +177,7 @@ function MajorSelectPage() {
   const selected = ALL_MAJORS.find((m: any) => m.id === selectedId) ?? null;
 
   const confirm = () => {
-    if (!selected) return;
+    if (!selected || isCatalog) return;
     gameStore.selectMajor(selected.id);
     navigate({ to: "/intro" });
   };
@@ -186,6 +193,11 @@ function MajorSelectPage() {
       <PixelHeader variant="majorSelect" className="!max-w-[280px]" />
     </div>
   );
+
+  const selectMajorCard = (id: string) => {
+    setSelectedId(id);
+    if (isCatalog) setSheetOpen(true);
+  };
 
 
   return (
@@ -236,6 +248,7 @@ function MajorSelectPage() {
 
           <SelectionPreview
             major={selected}
+            mode={mode}
             onOpenDetail={() => selected && setSheetOpen(true)}
             onConfirm={confirm}
           />
@@ -243,9 +256,10 @@ function MajorSelectPage() {
           <PagedQuestGrid
             list={list}
             selectedId={selectedId}
-            onSelect={setSelectedId}
+            onSelect={selectMajorCard}
             sortDesc={sortDesc}
             onToggleSort={() => setSortDesc((v) => !v)}
+            mode={mode}
           />
 
         </div>
@@ -256,7 +270,7 @@ function MajorSelectPage() {
           <button aria-label="关闭" onClick={() => setSheetOpen(false)} className="absolute inset-0 z-40 bg-ink/50" />
           <div className="sheet-panel absolute bottom-0 left-0 right-0 z-50 max-h-[85%] overflow-y-auto p-3 pb-6 animate-pop-in">
             <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-ink/40" />
-            <DetailContent major={selected} onConfirm={confirm} />
+            <DetailContent major={selected} mode={mode} onConfirm={confirm} />
           </div>
         </>
       )}
@@ -265,8 +279,9 @@ function MajorSelectPage() {
 }
 
 function SelectionPreview({
-  major, onOpenDetail, onConfirm,
-}: { major: any; onOpenDetail: () => void; onConfirm: () => void }) {
+  major, mode, onOpenDetail, onConfirm,
+}: { major: any; mode: MajorBrowserMode; onOpenDetail: () => void; onConfirm: () => void }) {
+  const isCatalog = mode === "catalog";
   if (!major) {
     return (
       <PixelPanel9
@@ -276,8 +291,12 @@ function SelectionPreview({
         padding="px-4 py-5"
         className="text-center"
       >
-        <div className="text-[10px] font-display tracking-[0.2em] text-ink/50">当前选中副本</div>
-        <div className="text-[12px] text-ink/60 mt-1">&nbsp;从下方点一个专业，先预览再进入</div>
+        <div className="text-[10px] font-display tracking-[0.2em] text-ink/50">
+          {isCatalog ? "专业图鉴" : "当前选中副本"}
+        </div>
+        <div className="text-[12px] text-ink/60 mt-1">
+          &nbsp;{isCatalog ? "从下方点一个专业，查看图鉴详情" : "从下方点一个专业，先预览再进入"}
+        </div>
       </PixelPanel9>
     );
   }
@@ -295,7 +314,7 @@ function SelectionPreview({
       className="relative"
     >
       <span className="absolute -top-2 left-3 z-10 text-[9px] font-display tracking-[0.2em] px-1.5 py-0.5 bg-ink text-cream">
-        ▌ 当前选中副本
+        ▌ {isCatalog ? "当前查看专业" : "当前选中副本"}
       </span>
 
 
@@ -342,7 +361,16 @@ function SelectionPreview({
       </div>
 
       <div className="mt-2.5 flex justify-center">
-        <PixelEnterButton onClick={onConfirm} />
+        {isCatalog ? (
+          <button
+            onClick={onOpenDetail}
+            className="font-display text-[11px] px-3 py-1.5 border-2 border-ink bg-sky shadow-[2px_2px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+          >
+            查看详情
+          </button>
+        ) : (
+          <PixelEnterButton onClick={onConfirm} />
+        )}
       </div>
     </PixelPanel9>
   );
@@ -361,12 +389,14 @@ function PagedQuestGrid({
   onSelect,
   sortDesc,
   onToggleSort,
+  mode,
 }: {
   list: any[];
   selectedId: string | null;
   onSelect: (id: string) => void;
   sortDesc: boolean;
   onToggleSort: () => void;
+  mode: MajorBrowserMode;
 }) {
   const total = list.length;
   const pageCount = Math.max(1, Math.ceil(total / PAGE_SIZE));
@@ -417,7 +447,7 @@ function PagedQuestGrid({
       <div className="flex items-center gap-2 px-1 pt-0.5">
         <span className="text-[15px] leading-none" aria-hidden>📖</span>
         <span className="font-display text-[12px] tracking-[0.15em] text-ink">
-          可选副本 · {total}
+          {mode === "catalog" ? "专业图鉴" : "可选副本"} · {total}
         </span>
         <span className="h-px flex-1 bg-ink/20" />
         <span className="font-display text-[10px] tabular-nums text-ink/60">
@@ -602,10 +632,11 @@ function QuestTile({
   );
 }
 
-function DetailContent({ major, onConfirm }: { major: any; onConfirm: () => void }) {
+function DetailContent({ major, mode, onConfirm }: { major: any; mode: MajorBrowserMode; onConfirm: () => void }) {
   const rank = tierOf(major);
   const tint = categoryTint(major.category);
   const memes: string[] = major.memes ?? [];
+  const isCatalog = mode === "catalog";
   return (
     <div className="space-y-3">
       <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
@@ -669,9 +700,17 @@ function DetailContent({ major, onConfirm }: { major: any; onConfirm: () => void
         </PixelPanel9>
       )}
 
-      <PixelImgButton variant="primary" onClick={onConfirm}>
-        ✓ 确认进入「{major.name}」副本
-      </PixelImgButton>
+      {isCatalog ? (
+        <PixelPanel9 variant="small" padding="px-3 py-2.5">
+          <div className="text-[12px] leading-snug text-ink/70">
+            图鉴模式仅用于查看专业信息，不会进入本科副本。
+          </div>
+        </PixelPanel9>
+      ) : (
+        <PixelImgButton variant="primary" onClick={onConfirm}>
+          ✓ 确认进入「{major.name}」副本
+        </PixelImgButton>
+      )}
     </div>
   );
 }

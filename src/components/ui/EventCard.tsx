@@ -41,12 +41,13 @@ export function EventCard({
   const badge = TYPE_LABEL[event.type ?? "main"] ?? event.type ?? "";
   return (
     <PixelPanel9 variant="event" padding="px-3 pt-2 pb-2.5">
-      <div className="flex items-center gap-2 mb-1.5">
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-2 mb-1.5">
         <span className="rank-badge rank-B" aria-hidden>
           {badge.slice(0, 1) || "?"}
         </span>
-        <span className="flex-1 truncate font-display text-[13px]">{event.title}</span>
-        <span className="text-[10px] font-display tracking-wider text-ink/60">{badge}</span>
+        <span className="min-w-0 font-display text-[13px] leading-snug line-clamp-2 break-words">
+          {event.title}
+        </span>
       </div>
       <p className="event-dialog-text mb-2 text-[12px] leading-snug">{event.description}</p>
       <div className="event-options space-y-1.5">

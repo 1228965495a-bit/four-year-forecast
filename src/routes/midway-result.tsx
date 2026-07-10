@@ -90,7 +90,6 @@ function MidwayResultPage() {
       </div>
       <div className="flex items-center gap-2 shrink-0">
         <span className="font-display text-[12px] tabular-nums">{game.semesterIdx + 1} / {total}</span>
-        <span className="text-[11px] px-2.5 py-1 border-2 border-cream bg-cherry text-cream leading-none">结</span>
       </div>
     </div>
   );

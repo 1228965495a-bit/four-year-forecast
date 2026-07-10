@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { CampusScene, GlyphPlay, GlyphBook, GlyphPerson, GlyphDisk } from "@/components/game/PixelIcon";
@@ -14,20 +15,32 @@ function HomePage() {
   const navigate = useNavigate();
   const currentMajor = game.majorId ? majorById[game.majorId] : null;
   const hasSave = !!currentMajor;
+  const [characterOpen, setCharacterOpen] = useState(false);
+  const [nameDraft, setNameDraft] = useState(game.characterName);
 
   const onStart = () => {
-    if (!hasSave) gameStore.reset();
+    if (!hasSave) {
+      const { characterName } = gameStore.get();
+      gameStore.reset();
+      gameStore.set({ characterName, school: "云上大学" });
+    }
     navigate({ to: "/major" });
   };
   const onCharacter = () => {
-    const name = window.prompt("给你的角色起个名字：", game.characterName) || game.characterName;
-    const school = window.prompt("学校叫什么？", game.school) || game.school;
-    gameStore.set({ characterName: name, school });
+    setNameDraft(game.characterName);
+    setCharacterOpen(true);
+  };
+  const saveCharacter = () => {
+    gameStore.set({
+      characterName: nameDraft.trim() || "新生同学",
+      school: "云上大学",
+    });
+    setCharacterOpen(false);
   };
 
   return (
     <PhoneFrame>
-      <div className="flex flex-col gap-2.5 p-2.5 pb-4">
+      <div className="relative flex flex-col gap-2.5 p-2.5 pb-4">
         {/* ============ 顶部游戏栏 ============ */}
         <div className="pixel-panel-sm !p-1.5 bg-ink !text-cream flex items-center gap-2">
           <div className="h-4 w-4 bg-cherry border-2 border-cream" />
@@ -91,7 +104,7 @@ function HomePage() {
             </span>
           </PixelButton3>
           <div className="grid grid-cols-3 gap-2">
-            <MiniMenuBtn label="专业图鉴" glyph={<GlyphBook />} accent="sky" onClick={() => navigate({ to: "/major" })} />
+            <MiniMenuBtn label="专业图鉴" glyph={<GlyphBook />} accent="sky" onClick={() => navigate({ to: "/catalog" })} />
             <MiniMenuBtn label="角色设定" glyph={<GlyphPerson />} accent="sage" onClick={onCharacter} />
             <MiniMenuBtn
               label="读取进度"
@@ -108,10 +121,10 @@ function HomePage() {
           <PixelPanel size="sm" className="col-span-3" bodyClassName="p-2">
             <div className="text-[9px] font-display tracking-widest text-ink/60">PROFILE</div>
             <div className="font-display text-[13px] leading-tight truncate mt-0.5">
-              {hasSave ? game.characterName : "未创建角色"}
+              {game.characterName}
             </div>
             <div className="text-[10px] text-ink/70 truncate">
-              {hasSave ? `${currentMajor?.name} · ${game.school}` : "点击「角色设定」创建角色"}
+              {hasSave ? `${currentMajor?.name} · ${game.school}` : `${game.school} · 未入学`}
             </div>
             <div className="mt-1 flex flex-wrap gap-1">
               <span className="tag-badge tag-fun">新生档案</span>
@@ -136,6 +149,46 @@ function HomePage() {
         <div className="text-center text-[9px] text-ink/50 pt-0.5">
           © Pixel Future · 每一次选择都会导向不同的人生
         </div>
+
+        {characterOpen && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center bg-ink/55 p-4">
+            <div className="w-full border-[3px] border-ink bg-cream shadow-[5px_5px_0_0_var(--ink)]">
+              <div className="flex items-center justify-between border-b-[3px] border-ink bg-sage px-3 py-2">
+                <div className="font-display text-[14px] leading-none">角色设定</div>
+                <button
+                  onClick={() => setCharacterOpen(false)}
+                  className="h-7 w-7 border-2 border-ink bg-cream font-display text-[13px] leading-none shadow-[2px_2px_0_0_var(--ink)]"
+                  aria-label="关闭角色设定"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="space-y-3 p-3">
+                <label className="block">
+                  <span className="font-display text-[10px] tracking-widest text-ink/60">姓名</span>
+                  <input
+                    value={nameDraft}
+                    onChange={(e) => setNameDraft(e.target.value)}
+                    maxLength={12}
+                    className="mt-1 w-full border-[3px] border-ink bg-cream px-2 py-2 text-[14px] outline-none shadow-[2px_2px_0_0_var(--ink)]"
+                  />
+                </label>
+                <div className="border-[3px] border-ink bg-parchment px-2 py-2 shadow-[2px_2px_0_0_var(--ink)]">
+                  <div className="font-display text-[10px] tracking-widest text-ink/60">学校</div>
+                  <div className="mt-1 text-[13px] text-ink/80">云上大学</div>
+                </div>
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <PixelButton3 variant="ghost" onClick={() => setCharacterOpen(false)}>
+                    取消
+                  </PixelButton3>
+                  <PixelButton3 variant="secondary" onClick={saveCharacter}>
+                    保存
+                  </PixelButton3>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </PhoneFrame>
   );
