@@ -155,7 +155,6 @@ export const gameStore = {
       school: state.school,
     };
     emit();
-    void gameStore.ensureRuntimeData();
   },
 
   async applyChoice(choice: any) {
