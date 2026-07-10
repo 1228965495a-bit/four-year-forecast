@@ -121,7 +121,7 @@ function SemesterPage() {
                 scene={sceneKey}
                 badge={currentEvent.tags?.[0]}
                 title={currentEvent.title}
-                caption={currentEvent.description}
+                caption={currentEvent.body ?? currentEvent.description}
               />
             </div>
 
@@ -306,4 +306,3 @@ function ReviveModal({ onAccept, onDecline }: { onAccept: () => void; onDecline:
     </div>
   );
 }
-

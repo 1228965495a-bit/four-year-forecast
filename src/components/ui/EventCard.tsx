@@ -13,7 +13,8 @@ type Choice = {
 type EventLike = {
   id: string;
   title: string;
-  description: string;
+  description?: string;
+  body?: string;
   type?: string;
   tags?: string[];
   options?: Choice[];
@@ -39,6 +40,7 @@ export function EventCard({
 }) {
   const opts = event.options ?? event.choices ?? [];
   const badge = TYPE_LABEL[event.type ?? "main"] ?? event.type ?? "";
+  const body = event.body ?? event.description ?? "";
   return (
     <PixelPanel9 variant="event" padding="px-3 pt-2 pb-2.5">
       <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-2 mb-1.5">
@@ -49,7 +51,7 @@ export function EventCard({
           {event.title}
         </span>
       </div>
-      <p className="event-dialog-text mb-2 text-[12px] leading-snug">{event.description}</p>
+      <p className="event-dialog-text mb-2 text-[12px] leading-snug">{body}</p>
       <div className="event-options space-y-1.5">
         {opts.map((opt, i) => (
           <OptionRow key={opt.id ?? i} option={opt} onPick={onPick} index={i} />

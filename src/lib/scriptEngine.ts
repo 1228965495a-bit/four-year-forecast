@@ -122,12 +122,10 @@ export function initEngineForMajor(majorId: string): EngineState {
 }
 
 function firstEventOfSemester(majorId: string, semIdx: number): string | null {
-  const major = majorById[majorId];
-  const sem = SEMESTER_KEYS[semIdx];
-  const t = major?.timeline?.find((x: any) => x.key === sem || x.semester === sem);
-  const ids: string[] = t?.mainEventIds ?? [];
+  const ids = timelineEventIdsForSemester(majorId, semIdx);
   const loaded = loadedRuntime.get(majorId);
   for (const id of ids) if (!loaded || loaded.eventById[id]) return id;
+  const sem = SEMESTER_KEYS[semIdx];
   const namedMain = `${majorId}_main_${sem}`;
   if (!loaded || loaded.eventById[namedMain]) return namedMain;
   return loaded.events.find((e: any) => e.semester === sem && e.type === "main")?.id ?? null;
@@ -135,6 +133,28 @@ function firstEventOfSemester(majorId: string, semIdx: number): string | null {
 
 export function firstEventIdForSemester(majorId: string, semIdx: number) {
   return firstEventOfSemester(majorId, semIdx);
+}
+
+function timelineEventIdsForSemester(majorId: string, semIdx: number): string[] {
+  const major = majorById[majorId];
+  const sem = SEMESTER_KEYS[semIdx];
+  const t = major?.timeline?.find((x: any) => x.key === sem || x.semester === sem);
+  return t?.mainEventIds ?? [];
+}
+
+function nextTimelineEventInSemester(state: EngineState): string | null {
+  if (!state.currentEventId) return null;
+  const runtime = runtimeOf(state.majorId);
+  const ids = timelineEventIdsForSemester(state.majorId, state.semesterIdx);
+  const currentIdx = ids.indexOf(state.currentEventId);
+  if (currentIdx < 0) return null;
+  for (const id of ids.slice(currentIdx + 1)) {
+    const event = runtime.eventById[id];
+    if (!event || state.seenEvents.includes(id)) continue;
+    if (!evalCond(state, event.triggerCondition) || !evalCond(state, event.conditions)) continue;
+    return id;
+  }
+  return null;
 }
 
 // ============= 条件求值 =============
@@ -276,6 +296,13 @@ function mergeDelta(bag: Record<string, number>, delta: any, clamp: boolean) {
 }
 
 function advanceSemester(state: EngineState) {
+  const nextTimelineId = nextTimelineEventInSemester(state);
+  if (nextTimelineId) {
+    state.currentEventId = nextTimelineId;
+    if (!state.seenEvents.includes(nextTimelineId)) state.seenEvents.push(nextTimelineId);
+    return;
+  }
+
   // 在推进到下学期前，如果本学期还没播过随机事件，尝试插一个
   if (!state.semesterRandomShown) {
     const rid = pickRandomEvent(state);
