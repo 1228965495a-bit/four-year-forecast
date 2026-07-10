@@ -3,7 +3,7 @@
 // 对应设计文档里的 majorInterest/mentalEnergy/filterThickness/gpaDesire/jobIllusion/escapeImpulse。
 
 import type { EngineState } from "./scriptEngine";
-import { SEMESTER_KEYS } from "./scriptEngine";
+import { SEMESTER_KEYS } from "@/data/script/semesterMeta";
 
 export type MidGgReason =
   | "manual_quit"

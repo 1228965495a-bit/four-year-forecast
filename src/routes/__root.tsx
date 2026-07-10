@@ -122,7 +122,6 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-
   useEffect(() => {
     // 预加载重资源面板 PNG（border-image 素材，单张最大 1.4MB），
     // 避免玩家第一次点击选项 / 结算按钮时才拉图，导致界面切换卡顿。

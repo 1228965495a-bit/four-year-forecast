@@ -2,9 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { gameStore, useGameState, currentSemesterLabel } from "@/lib/gameStore";
-import { pickEnding, totalSemesters } from "@/lib/scriptEngine";
+import { totalSemesters } from "@/data/script/semesterMeta";
 import { STAT_META, HUD_STATS } from "@/lib/statsMeta";
-import { majorById, achievementsByMajorId } from "@/data/script/gameData";
+import { majorById } from "@/data/script/majorCatalog";
 import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
 import { deriveResultTags } from "@/lib/resultTags";
 import {
@@ -33,20 +33,31 @@ function ResultPage() {
   const navigate = useNavigate();
   const major = game.majorId ? majorById[game.majorId] : null;
   const [detailOpen, setDetailOpen] = useState(false);
+  const [ending, setEnding] = useState<any | null>(null);
+  const [achMap, setAchMap] = useState<Record<string, any>>({});
 
   useEffect(() => {
     if (!major) navigate({ to: "/major" });
   }, [major, navigate]);
 
-  const ending = useMemo(() => (major ? pickEnding(game) : null), [game, major]);
-  const tags   = useMemo(() => deriveResultTags(game, "final"), [game]);
+  useEffect(() => {
+    if (!major) return;
+    let alive = true;
+    (async () => {
+      const [{ pickEnding }, { achievementsByMajorId }] = await Promise.all([
+        import("@/lib/scriptEngine"),
+        import("@/data/script/gameData"),
+      ]);
+      if (!alive) return;
+      setEnding(pickEnding(game));
+      const map: Record<string, any> = {};
+      for (const a of achievementsByMajorId[major.id] ?? []) map[a.id] = a;
+      setAchMap(map);
+    })();
+    return () => { alive = false; };
+  }, [game, major]);
 
-  const achMap = useMemo(() => {
-    if (!major) return {};
-    const map: Record<string, any> = {};
-    for (const a of achievementsByMajorId[major.id] ?? []) map[a.id] = a;
-    return map;
-  }, [major]);
+  const tags   = useMemo(() => deriveResultTags(game, "final"), [game]);
 
   if (!major) return null;
 

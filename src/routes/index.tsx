@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { CampusScene, GlyphPlay, GlyphBook, GlyphPerson, GlyphDisk } from "@/components/game/PixelIcon";
 import { useGameState, gameStore } from "@/lib/gameStore";
-import { majorById } from "@/data/script/gameData";
+import { majorById } from "@/data/script/majorCatalog";
 import { PixelButton } from "@/components/ui/PixelButton";
 import { PixelPanel } from "@/components/ui/PixelPanel";
 import { PixelButton3 } from "@/components/pixel/PixelSkin";

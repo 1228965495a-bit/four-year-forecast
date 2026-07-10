@@ -3,7 +3,7 @@ import { PixelPanel } from "./PixelPanel";
 import { StatBar } from "./StatBar";
 import { useGameState } from "@/lib/gameStore";
 import { HUD_STATS } from "@/lib/statsMeta";
-import { majorById } from "@/data/script/gameData";
+import { majorById } from "@/data/script/majorCatalog";
 
 /** 角色档案面板 */
 export function CharacterPanel({ compact = false }: { compact?: boolean }) {

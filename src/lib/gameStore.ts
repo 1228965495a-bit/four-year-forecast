@@ -3,15 +3,51 @@
 // 水合流程：SSR 与客户端首帧都渲染 emptyState → 挂载后 hydrateFromStorage() 触发一次更新。
 
 import { useEffect, useSyncExternalStore } from "react";
-import {
-  initEngineForMajor,
-  applyChoice as engineApplyChoice,
-  getCurrentEvent,
-  currentSemesterLabel,
-  SEMESTER_KEYS,
-  type EngineState,
-} from "./scriptEngine";
+import type { EngineState } from "./scriptEngine";
+import { SEMESTER_KEYS, currentSemesterLabelFromIndex } from "@/data/script/semesterMeta";
+import { majorById } from "@/data/script/majorCatalog";
 import { checkMidGG, applyRevivePenalties } from "./midGgRules";
+
+type EngineModule = typeof import("./scriptEngine");
+
+let enginePromise: Promise<EngineModule> | null = null;
+function loadEngine() {
+  enginePromise ??= import("./scriptEngine");
+  return enginePromise;
+}
+
+export function warmGameEngine() {
+  void loadEngine();
+}
+
+function initEngineShellForMajor(majorId: string): EngineState {
+  const major = majorById[majorId];
+  if (!major) throw new Error(`unknown major: ${majorId}`);
+  const firstId = major.timeline?.find((x: any) => x.key === "y1s1" || x.semester === "y1s1")?.mainEventIds?.[0] ?? null;
+  return {
+    majorId,
+    semesterIdx: 0,
+    stats: { ...(major.initialStats ?? {}) },
+    majorStats: Object.fromEntries((major.majorStats ?? []).map((s: any) => [s.key, s.initialValue ?? 0])),
+    hiddenStats: {},
+    flags: [],
+    routes: [],
+    seenEvents: firstId ? [firstId] : [],
+    achievements: [],
+    currentEventId: firstId,
+    ggRisk: 0,
+    finished: false,
+    endingId: null,
+    semesterRandomShown: false,
+    usedRevive: false,
+    midGgReason: null,
+    midGgTitle: null,
+    midGgSubtitle: null,
+    midGgConclusion: null,
+    midGgTags: [],
+    pendingReviveReason: null,
+  };
+}
 
 
 export interface HistoryItem {
@@ -22,6 +58,8 @@ export interface HistoryItem {
 }
 
 export interface GameState extends EngineState {
+  /** 当前事件的运行时数据；避免首页/选专业页为了查事件把完整脚本包提前加载进来 */
+  currentEventData: any | null;
   characterName: string;
   school: string;
   history: HistoryItem[];
@@ -45,6 +83,7 @@ function emptyState(): GameState {
     seenEvents: [],
     achievements: [],
     currentEventId: null,
+    currentEventData: null,
     ggRisk: 0,
     finished: false,
     endingId: null,
@@ -107,19 +146,22 @@ export const gameStore = {
   reset() { state = emptyState(); emit(); },
 
   selectMajor(id: string) {
-    const engine = initEngineForMajor(id);
+    const engine = initEngineShellForMajor(id);
     state = {
       ...emptyState(),
       ...engine,
+      currentEventData: null,
       characterName: state.characterName,
       school: state.school,
     };
     emit();
   },
 
-  applyChoice(choice: any) {
+  async applyChoice(choice: any) {
     const before = state;
-    const { state: next, event, newAchievements } = engineApplyChoice(state, choice);
+    const engineRuntime = await loadEngine();
+    const { state: next, event, newAchievements } = engineRuntime.applyChoice(state, choice);
+    const currentEventData = engineRuntime.getCurrentEvent(next);
     const history: HistoryItem = {
       semester: currentSemesterLabel(before),
       title: event?.title ?? "",
@@ -129,6 +171,7 @@ export const gameStore = {
     let merged: GameState = {
       ...state,
       ...next,
+      currentEventData,
       history: [history, ...state.history].slice(0, 60),
       pendingAchievement: newAchievements[0] ?? state.pendingAchievement,
     };
@@ -153,6 +196,14 @@ export const gameStore = {
 
     state = merged;
     emit();
+  },
+
+  /** 从旧存档恢复时补齐当前事件详情；只在游戏页需要时加载完整脚本包。 */
+  async ensureRuntimeData() {
+    if (!state.majorId || !state.currentEventId || state.currentEventData) return;
+    const engineRuntime = await loadEngine();
+    state = { ...state, currentEventData: engineRuntime.getCurrentEvent(state) };
+    listeners.forEach((l) => l());
   },
 
   /** 玩家接受嘴硬续命 —— 扣属性、清除续命窗口 */
@@ -233,8 +284,12 @@ export function useGameState(): GameState {
 }
 
 export function currentEventOf(g: GameState) {
-  return getCurrentEvent(g);
+  return g.currentEventData ?? null;
 }
 
-export { SEMESTER_KEYS, currentSemesterLabel };
+export function currentSemesterLabel(state: Pick<GameState, "semesterIdx">) {
+  return currentSemesterLabelFromIndex(state.semesterIdx);
+}
+
+export { SEMESTER_KEYS };
 
