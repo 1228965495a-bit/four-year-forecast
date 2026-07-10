@@ -44,14 +44,12 @@ function ResultPage() {
     if (!major) return;
     let alive = true;
     (async () => {
-      const [{ pickEnding }, { achievementsByMajorId }] = await Promise.all([
-        import("@/lib/scriptEngine"),
-        import("@/data/script/gameData"),
-      ]);
+      const { loadMajorRuntime, pickEnding, getAchievementsForMajor } = await import("@/lib/scriptEngine");
+      await loadMajorRuntime(major.id);
       if (!alive) return;
       setEnding(pickEnding(game));
       const map: Record<string, any> = {};
-      for (const a of achievementsByMajorId[major.id] ?? []) map[a.id] = a;
+      for (const a of await getAchievementsForMajor(major.id)) map[a.id] = a;
       setAchMap(map);
     })();
     return () => { alive = false; };
