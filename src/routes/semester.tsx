@@ -30,8 +30,8 @@ function SemesterPage() {
   const [drawer, setDrawer] = useState<"none" | "profile" | "log">("none");
 
   useEffect(() => {
-    if (!game.majorId) navigate({ to: "/major" });
-  }, [game.majorId, navigate]);
+    if (game.hydrated && !game.majorId) navigate({ to: "/major" });
+  }, [game.hydrated, game.majorId, navigate]);
   useEffect(() => {
     void gameStore.ensureRuntimeData();
   }, [game.majorId, game.currentEventId, game.currentEventData]);

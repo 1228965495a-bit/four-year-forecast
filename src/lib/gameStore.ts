@@ -20,10 +20,17 @@ export function warmGameEngine() {
   void loadEngine();
 }
 
+function firstEventIdFromCatalog(majorId: string, semesterIdx = 0): string | null {
+  const major = majorById[majorId];
+  const sem = SEMESTER_KEYS[semesterIdx];
+  return major?.timeline?.find((x: any) => x.key === sem || x.semester === sem)?.mainEventIds?.[0]
+    ?? `${majorId}_main_${sem}`;
+}
+
 function initEngineShellForMajor(majorId: string): EngineState {
   const major = majorById[majorId];
   if (!major) throw new Error(`unknown major: ${majorId}`);
-  const firstId = major.timeline?.find((x: any) => x.key === "y1s1" || x.semester === "y1s1")?.mainEventIds?.[0] ?? null;
+  const firstId = firstEventIdFromCatalog(majorId, 0);
   return {
     majorId,
     semesterIdx: 0,
@@ -58,6 +65,8 @@ export interface HistoryItem {
 }
 
 export interface GameState extends EngineState {
+  /** 客户端是否已经从本地存档完成水合；避免 /semester 首帧空状态误跳转 */
+  hydrated: boolean;
   /** 当前事件的运行时数据；避免首页/选专业页为了查事件把完整脚本包提前加载进来 */
   currentEventData: any | null;
   characterName: string;
@@ -74,6 +83,7 @@ const STORAGE_KEY = "cszmg_save_v3";
 function emptyState(): GameState {
   return {
     majorId: "",
+    hydrated: false,
     semesterIdx: 0,
     stats: {},
     majorStats: {},
@@ -130,11 +140,11 @@ function hydrateFromStorage() {
   hydrated = true;
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return;
-    state = { ...emptyState(), ...JSON.parse(raw) };
+    state = raw ? { ...emptyState(), ...JSON.parse(raw), hydrated: true } : { ...state, hydrated: true };
     listeners.forEach((l) => l());
   } catch {
-    /* ignore */
+    state = { ...state, hydrated: true };
+    listeners.forEach((l) => l());
   }
 }
 
@@ -143,22 +153,31 @@ export const gameStore = {
   getServerSnapshot(): GameState { return SERVER_SNAPSHOT; },
   subscribe(l: () => void) { listeners.add(l); return () => listeners.delete(l); },
   set(patch: Partial<GameState>) { state = { ...state, ...patch }; emit(); },
-  reset() { state = emptyState(); emit(); },
+  reset() { state = { ...emptyState(), hydrated: hydrated || typeof window !== "undefined" }; emit(); },
 
   selectMajor(id: string) {
     const engine = initEngineShellForMajor(id);
     state = {
       ...emptyState(),
       ...engine,
+      hydrated: true,
       currentEventData: null,
       characterName: state.characterName,
       school: state.school,
     };
     emit();
     // 立刻在后台把完整脚本包拉起来，等玩家看完 intro 到 /semester 时已就绪
-    void loadEngine().then((engineRuntime) => {
+    void loadEngine().then(async (engineRuntime) => {
+      await engineRuntime.loadMajorRuntime(id);
       if (state.majorId !== id || state.currentEventData) return;
-      state = { ...state, currentEventData: engineRuntime.getCurrentEvent(state) };
+      const existingEvent = engineRuntime.getCurrentEvent(state);
+      const currentEventId = existingEvent ? state.currentEventId : engineRuntime.firstEventIdForSemester(id, state.semesterIdx);
+      state = {
+        ...state,
+        currentEventId,
+        seenEvents: currentEventId && !state.seenEvents.includes(currentEventId) ? [...state.seenEvents, currentEventId] : state.seenEvents,
+        currentEventData: existingEvent ?? engineRuntime.getCurrentEvent({ ...state, currentEventId }),
+      };
       emit();
     });
   },
@@ -166,6 +185,7 @@ export const gameStore = {
   async applyChoice(choice: any) {
     const before = state;
     const engineRuntime = await loadEngine();
+    await engineRuntime.loadMajorRuntime(state.majorId);
     const { state: next, event, newAchievements } = engineRuntime.applyChoice(state, choice);
     const currentEventData = engineRuntime.getCurrentEvent(next);
     const history: HistoryItem = {
@@ -206,10 +226,18 @@ export const gameStore = {
 
   /** 从旧存档恢复时补齐当前事件详情；只在游戏页需要时加载完整脚本包。 */
   async ensureRuntimeData() {
-    if (!state.majorId || !state.currentEventId || state.currentEventData) return;
+    if (!state.majorId || state.currentEventData) return;
     const engineRuntime = await loadEngine();
-    state = { ...state, currentEventData: engineRuntime.getCurrentEvent(state) };
-    listeners.forEach((l) => l());
+    await engineRuntime.loadMajorRuntime(state.majorId);
+    const existingEvent = engineRuntime.getCurrentEvent(state);
+    const currentEventId = existingEvent ? state.currentEventId : engineRuntime.firstEventIdForSemester(state.majorId, state.semesterIdx);
+    const nextState = { ...state, currentEventId };
+    state = {
+      ...nextState,
+      seenEvents: currentEventId && !nextState.seenEvents.includes(currentEventId) ? [...nextState.seenEvents, currentEventId] : nextState.seenEvents,
+      currentEventData: existingEvent ?? engineRuntime.getCurrentEvent(nextState),
+    };
+    emit();
   },
 
   /** 玩家接受嘴硬续命 —— 扣属性、清除续命窗口 */

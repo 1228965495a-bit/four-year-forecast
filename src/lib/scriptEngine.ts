@@ -1,16 +1,50 @@
 // 脚本引擎：条件求值 / 效果应用 / 事件推进 / 结局匹配 / 成就扫描。
 // 与数据形态强绑定，源数据在 src/data/script/*.json。
 
-import {
-  eventById,
-  eventsByMajorId,
-  endingsByMajorId,
-  achievementsByMajorId,
-} from "@/data/script/gameData";
 import { majorById } from "@/data/script/majorCatalog";
+import { majorDataLoaders } from "@/data/script/majorDataLoaders";
 import { SEMESTER_KEYS, SEMESTER_LABEL } from "@/data/script/semesterMeta";
 export { SEMESTER_KEYS } from "@/data/script/semesterMeta";
 export type { SemesterKey } from "@/data/script/semesterMeta";
+
+interface MajorRuntimeData {
+  events: any[];
+  endings: any[];
+  achievements: any[];
+  eventById: Record<string, any>;
+}
+
+const runtimeCache = new Map<string, Promise<MajorRuntimeData>>();
+const loadedRuntime = new Map<string, MajorRuntimeData>();
+
+export function hasMajorRuntime(majorId: string) {
+  return loadedRuntime.has(majorId);
+}
+
+export function loadMajorRuntime(majorId: string) {
+  let promise = runtimeCache.get(majorId);
+  if (!promise) {
+    const loader = majorDataLoaders[majorId];
+    promise = (loader ? loader() : Promise.resolve({ events: [], endings: [], achievements: [] })).then((bundle) => {
+      const data: MajorRuntimeData = {
+        events: bundle.events ?? [],
+        endings: bundle.endings ?? [],
+        achievements: bundle.achievements ?? [],
+        eventById: Object.fromEntries((bundle.events ?? []).map((e: any) => [e.id, e])),
+      };
+      loadedRuntime.set(majorId, data);
+      return data;
+    });
+    runtimeCache.set(majorId, promise);
+  }
+  return promise;
+}
+
+function runtimeOf(majorId: string) {
+  const data = loadedRuntime.get(majorId);
+  if (!data) throw new Error(`runtime data not loaded: ${majorId}`);
+  return data;
+}
 
 export interface EngineState {
   majorId: string;
@@ -92,8 +126,15 @@ function firstEventOfSemester(majorId: string, semIdx: number): string | null {
   const sem = SEMESTER_KEYS[semIdx];
   const t = major?.timeline?.find((x: any) => x.key === sem || x.semester === sem);
   const ids: string[] = t?.mainEventIds ?? [];
-  for (const id of ids) if (eventById[id]) return id;
-  return null;
+  const loaded = loadedRuntime.get(majorId);
+  for (const id of ids) if (!loaded || loaded.eventById[id]) return id;
+  const namedMain = `${majorId}_main_${sem}`;
+  if (!loaded || loaded.eventById[namedMain]) return namedMain;
+  return loaded.events.find((e: any) => e.semester === sem && e.type === "main")?.id ?? null;
+}
+
+export function firstEventIdForSemester(majorId: string, semIdx: number) {
+  return firstEventOfSemester(majorId, semIdx);
 }
 
 // ============= 条件求值 =============
@@ -161,7 +202,8 @@ export interface ApplyResult {
 }
 
 export function applyChoice(prev: EngineState, choice: any): ApplyResult {
-  const event = eventById[prev.currentEventId ?? ""];
+  const runtime = runtimeOf(prev.majorId);
+  const event = runtime.eventById[prev.currentEventId ?? ""];
   if (!event || !choice) return { state: prev, event, choice, newAchievements: [] };
 
   const state: EngineState = {
@@ -202,7 +244,7 @@ export function applyChoice(prev: EngineState, choice: any): ApplyResult {
 
   // 决定下一事件
   const nextId = normalizeId(choice.nextEventId ?? choice.nextEvent);
-  if (nextId && eventById[nextId]) {
+  if (nextId && runtime.eventById[nextId]) {
     state.currentEventId = nextId;
     if (!state.seenEvents.includes(nextId)) state.seenEvents.push(nextId);
   } else {
@@ -266,9 +308,10 @@ function advanceSemester(state: EngineState) {
 
 function pickRandomEvent(state: EngineState): string | null {
   const major = majorById[state.majorId];
+  const runtime = runtimeOf(state.majorId);
   const pool = (major?.randomEvents ?? []) as string[];
   const eligible = pool
-    .map((id) => eventById[id])
+    .map((id) => runtime.eventById[id])
     .filter((e): e is any => !!e && !state.seenEvents.includes(e.id))
     .filter((e) => evalCond(state, e.triggerCondition) && evalCond(state, e.conditions));
   if (!eligible.length) return null;
@@ -286,7 +329,7 @@ function pickRandomEvent(state: EngineState): string | null {
 // ============= 结局 =============
 
 export function pickEnding(state: EngineState): any | null {
-  const pool = (endingsByMajorId[state.majorId] ?? []).slice()
+  const pool = runtimeOf(state.majorId).endings.slice()
     .sort((a: any, b: any) => (b.priority ?? 0) - (a.priority ?? 0));
   for (const e of pool) {
     const cond = e.conditions ?? e.condition;
@@ -298,7 +341,7 @@ export function pickEnding(state: EngineState): any | null {
 // ============= 成就扫描 =============
 
 export function scanAchievements(state: EngineState): string[] {
-  const pool = achievementsByMajorId[state.majorId] ?? [];
+  const pool = runtimeOf(state.majorId).achievements;
   const hit: string[] = [];
   for (const a of pool) {
     if (state.achievements.includes(a.id)) continue;
@@ -311,7 +354,12 @@ export function scanAchievements(state: EngineState): string[] {
 // ============= 查询辅助 =============
 
 export function getCurrentEvent(state: EngineState): any | null {
-  return state.currentEventId ? eventById[state.currentEventId] : null;
+  if (!state.currentEventId || !hasMajorRuntime(state.majorId)) return null;
+  return runtimeOf(state.majorId).eventById[state.currentEventId] ?? null;
+}
+
+export async function getAchievementsForMajor(majorId: string) {
+  return (await loadMajorRuntime(majorId)).achievements;
 }
 
 export function currentSemesterLabel(state: EngineState): string {
@@ -322,4 +370,4 @@ export function totalSemesters() {
   return SEMESTER_KEYS.length;
 }
 
-export { eventById, majorById, endingsByMajorId, achievementsByMajorId, eventsByMajorId };
+export { majorById };
