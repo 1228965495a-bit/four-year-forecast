@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { majors as ALL_MAJORS } from "@/data/script/majorCatalog";
-import { gameStore, warmGameEngine } from "@/lib/gameStore";
+import { gameStore } from "@/lib/gameStore";
 import { cn } from "@/lib/utils";
 import { PixelButton } from "@/components/ui/PixelButton";
 import { PixelPanel } from "@/components/ui/PixelPanel";
@@ -144,11 +144,6 @@ function MajorSelectPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [sortDesc, setSortDesc] = useState(true);
-
-  useEffect(() => {
-    const t = window.setTimeout(() => warmGameEngine(), 250);
-    return () => window.clearTimeout(t);
-  }, []);
 
   const toggleRec = (label: string) => {
     setRecSet((prev) => {
