@@ -1366,9 +1366,9 @@
       ]
     },
     "intro": {
-      "title": "欢迎进入临床医学副本",
-      "body": "你带着白大褂滤镜、家长期待和一点救死扶伤的热血进入临床医学。系统提醒：本副本主打长学制、高压课程、见习实习、考研规培和临床责任。",
-      "startButton": "开始本科四年"
+      "title": "你被临床医学录取了！",
+      "body": "你带着一点白衣滤镜、一点救死扶伤的理想，以及一点“医生这个职业应该很稳定”的朴素想象，来到了临床医学副本。\n\n本科四年内，你将依次遭遇解剖、生理、生化、病理、病生、药理、诊断、见习、考研经验贴、规培传说和无数个“这章也要背吗”的夜晚。\n\n临床医学不是一个“学完就能立刻治病”的专业。它更像一个长线副本：前期背书，中期见习，后期考试，毕业后还会有人告诉你——真正的路才刚开始。",
+      "startButton": "进入大学 · 大一上"
     },
     "tags": [
       "长学制",
@@ -1408,122 +1408,143 @@
     ],
     "initialStats": {
       "obsession": 76,
-      "energy": 76,
-      "filter": 88,
+      "energy": 74,
+      "filter": 86,
       "gpaWill": 72,
-      "careerFantasy": 84,
-      "escapeImpulse": 12,
+      "careerFantasy": 68,
+      "escapeImpulse": 18,
       "stubbornness": 42,
       "hairline": 90
     },
     "majorStats": [
       {
         "key": "medicalLoad",
-        "name": "医学负荷",
-        "description": "基础医学、临床课程和考试叠加的负荷。",
-        "initialValue": 20
+        "name": "背诵负荷",
+        "description": "基础医学、病理药理和长期背诵带来的负荷。",
+        "initialValue": 24
       },
       {
         "key": "clinicalRespect",
-        "name": "临床敬畏",
-        "description": "面对患者、责任和真实临床情境时形成的敬畏。",
-        "initialValue": 0
+        "name": "临床敬畏值",
+        "description": "面对人体、病房和真实责任时形成的敬畏。",
+        "initialValue": 18
       },
       {
         "key": "examPressure",
-        "name": "考试压力",
-        "description": "期末、考研、执医和规培相关压力。",
-        "initialValue": 15
+        "name": "规培阴影",
+        "description": "考研、科室选择、长线培养和规培传说带来的阴影。",
+        "initialValue": 10
       }
     ],
     "timeline": [
       {
         "semester": "y1s1",
         "label": "大一上",
-        "theme": "医学滤镜启动",
+        "theme": "亲戚眼里的未来名医",
         "coreEvents": "医学导论、解剖预热和基础课登场。",
         "statTrend": "滤镜高位波动，医学负荷启动。",
         "routeForeshadow": "确认医学不是白大褂拍照副本。",
         "key": "y1s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "clinical_medicine_y1s1_main_001"
+        ]
       },
       {
         "semester": "y1s2",
         "label": "大一下",
-        "theme": "基础医学上强度",
+        "theme": "第一次走进解剖实验室",
         "coreEvents": "解剖、生理、生化开始证明存在感。",
         "statTrend": "精神电量下降，绩点求生欲上升。",
         "routeForeshadow": "转专业暗线可被触发。",
         "key": "y1s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "clinical_medicine_y1s2_main_002"
+        ]
       },
       {
         "semester": "y2s1",
         "label": "大二上",
-        "theme": "病理药理进场",
+        "theme": "生化告诉你，背书只是入门",
         "coreEvents": "病理、药理、微生物等课程并发。",
         "statTrend": "考试压力上升。",
         "routeForeshadow": "医学负荷继续增加。",
         "key": "y2s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "clinical_medicine_y2s1_main_003"
+        ]
       },
       {
         "semester": "y2s2",
         "label": "大二下",
-        "theme": "系统课程展开",
+        "theme": "病理病生药理联合会诊",
         "coreEvents": "内外妇儿等临床前课程预热。",
         "statTrend": "专业上头值分化。",
         "routeForeshadow": "临床责任开始靠近。",
         "key": "y2s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "clinical_medicine_y2s2_main_004"
+        ]
       },
       {
         "semester": "y3s1",
         "label": "大三上",
-        "theme": "临床课程显形",
+        "theme": "诊断学让你第一次像医生一样问问题",
         "coreEvents": "诊断学、内外科基础、技能训练出现。",
         "statTrend": "临床敬畏上升。",
         "routeForeshadow": "考研/临床路线预热。",
         "key": "y3s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "clinical_medicine_y3s1_main_005"
+        ]
       },
       {
         "semester": "y3s2",
         "label": "大三下",
-        "theme": "见习与现实感",
+        "theme": "课本走进病房",
         "coreEvents": "医院见习、病历和患者沟通进入视野。",
         "statTrend": "滤镜被现实修正。",
         "routeForeshadow": "路线事件池开启。",
         "key": "y3s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "clinical_medicine_y3s2_main_006"
+        ]
       },
       {
         "semester": "y4s1",
         "label": "大四上",
-        "theme": "考研实习并发",
+        "theme": "你开始听见规培的脚步声",
         "coreEvents": "考研、实习、技能和毕业压力叠加。",
         "statTrend": "精神电量高压。",
         "routeForeshadow": "中途 GG 风险上升。",
         "key": "y4s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "clinical_medicine_y4s1_main_007"
+        ]
       },
       {
         "semester": "y4s2",
         "label": "大四下",
-        "theme": "医学长线结算",
+        "theme": "你终于不再只看白大褂",
         "coreEvents": "毕业、升学、规培和职业路径确认。",
         "statTrend": "医学滤镜重塑。",
         "routeForeshadow": "生成临床医学人格鉴定书。",
         "key": "y4s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "clinical_medicine_y4s2_main_008"
+        ]
       }
     ],
     "randomEvents": [
-      "clinical_medicine_random_01",
-      "clinical_medicine_random_02",
-      "clinical_medicine_random_03",
-      "clinical_medicine_random_04",
-      "clinical_medicine_random_05"
+      "clinical_medicine_random_001",
+      "clinical_medicine_random_002",
+      "clinical_medicine_random_003",
+      "clinical_medicine_random_004",
+      "clinical_medicine_random_005",
+      "clinical_medicine_random_006",
+      "clinical_medicine_random_007",
+      "clinical_medicine_random_008",
+      "clinical_medicine_random_009",
+      "clinical_medicine_random_010"
     ],
     "hiddenEvents": [
       "clinical_medicine_hidden_01",
@@ -1538,22 +1559,40 @@
       "clinical_medicine_route_civil_service"
     ],
     "achievements": [
-      "ach_clinical_medicine_clinical_respect",
-      "ach_clinical_medicine_skill_pass",
-      "ach_clinical_medicine_long_track",
-      "ach_clinical_medicine_exam_survivor",
-      "ach_clinical_medicine_whitecoat_filter_broken"
+      "ach_clinical_medicine_doc_001",
+      "ach_clinical_medicine_doc_002",
+      "ach_clinical_medicine_doc_003",
+      "ach_clinical_medicine_doc_004",
+      "ach_clinical_medicine_doc_005",
+      "ach_clinical_medicine_doc_006",
+      "ach_clinical_medicine_doc_007",
+      "ach_clinical_medicine_doc_008",
+      "ach_clinical_medicine_doc_009",
+      "ach_clinical_medicine_doc_010",
+      "ach_clinical_medicine_doc_011",
+      "ach_clinical_medicine_doc_012"
     ],
     "endings": [
-      "ending_clinical_medicine_long_track",
-      "ending_clinical_medicine_exam_survivor",
-      "ending_clinical_medicine_clinical_respect",
-      "ending_clinical_medicine_public_health"
+      "clinical_medicine_ending_001",
+      "clinical_medicine_ending_002",
+      "clinical_medicine_ending_003",
+      "clinical_medicine_ending_004",
+      "clinical_medicine_ending_005",
+      "clinical_medicine_ending_006"
     ],
     "shareTexts": [
-      "我用 5 分钟读完这个本科副本，系统说这不是劝退，是提前摘滤镜。",
-      "转发给那个只看白大褂滤镜想报临床的人。",
-      "临床医学副本提醒我：热血重要，耐久更重要。"
+      "我在临床医学副本里活成了：临床长跑型幸存者。白衣滤镜没了，但敬畏值拉满。",
+      "我在临床医学副本里活成了：白衣滤镜破碎型误入者。建议报之前先看看课程表。",
+      "我在临床医学副本里活成了：背诵机器临时成型。知识没背完，人先快缓存满了。",
+      "我在临床医学副本里活成了：规培阴影提前感染者。还没上岸，已经看见下一关。",
+      "我在临床医学副本里活成了：医学敬畏型清醒玩家。敬畏是真的，谨慎也是真的。",
+      "我在临床医学副本里活成了：转向但不否定型幸存者。不是不尊重医学，是终于尊重了自己的适配度。",
+      "我在临床医学副本里活成了：临床长跑型幸存者。白衣滤镜没了，但敬畏值拉满。",
+      "临床医学副本体验报告：不是不能报，是别只看白大褂。你以为是稳定职业，系统给你加载了解剖、生化、病理、考研和规培。",
+      "我终于明白，医学不是电视剧滤镜，是一个长期训练副本。能不能冲，先问问自己的电量够不够。",
+      "临床医学：一个让你从“以后我当医生”进化成“建议咨询专业医生”的专业。",
+      "我在临床医学里学到的第一件事：乱说病情不如沉默，硬背到天亮不如先保命。",
+      "白衣滤镜进入副本，规培阴影跟着加载。医学真香，但它真的不短。"
     ],
     "majorId": "clinical_medicine"
   },

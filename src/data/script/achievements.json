@@ -1071,78 +1071,6 @@
     "shareText": "没跑成的人"
   },
   {
-    "id": "ach_clinical_medicine_clinical_respect",
-    "achievementId": "ach_clinical_medicine_clinical_respect",
-    "majorId": "clinical_medicine",
-    "title": "临床敬畏形成",
-    "description": "临床医学副本成就：临床敬畏形成。",
-    "condition": {
-      "type": "flag",
-      "key": "ach_clinical_medicine_clinical_respect"
-    },
-    "shareText": "我在临床医学副本解锁了「临床敬畏形成」。"
-  },
-  {
-    "id": "ach_clinical_medicine_skill_pass",
-    "achievementId": "ach_clinical_medicine_skill_pass",
-    "majorId": "clinical_medicine",
-    "title": "技能操作通过",
-    "description": "临床医学副本成就：技能操作通过。",
-    "condition": {
-      "type": "flag",
-      "key": "ach_clinical_medicine_skill_pass"
-    },
-    "shareText": "我在临床医学副本解锁了「技能操作通过」。"
-  },
-  {
-    "id": "ach_clinical_medicine_long_track",
-    "achievementId": "ach_clinical_medicine_long_track",
-    "majorId": "clinical_medicine",
-    "title": "医学长线玩家",
-    "description": "临床医学副本成就：医学长线玩家。",
-    "condition": {
-      "type": "flag",
-      "key": "ach_clinical_medicine_long_track"
-    },
-    "shareText": "我在临床医学副本解锁了「医学长线玩家」。"
-  },
-  {
-    "id": "ach_clinical_medicine_exam_survivor",
-    "achievementId": "ach_clinical_medicine_exam_survivor",
-    "majorId": "clinical_medicine",
-    "title": "医学考试幸存者",
-    "description": "临床医学副本成就：医学考试幸存者。",
-    "condition": {
-      "type": "flag",
-      "key": "ach_clinical_medicine_exam_survivor"
-    },
-    "shareText": "我在临床医学副本解锁了「医学考试幸存者」。"
-  },
-  {
-    "id": "ach_clinical_medicine_whitecoat_filter_broken",
-    "achievementId": "ach_clinical_medicine_whitecoat_filter_broken",
-    "majorId": "clinical_medicine",
-    "title": "白大褂滤镜拆封",
-    "description": "临床医学副本成就：白大褂滤镜拆封。",
-    "condition": {
-      "type": "flag",
-      "key": "ach_clinical_medicine_whitecoat_filter_broken"
-    },
-    "shareText": "我在临床医学副本解锁了「白大褂滤镜拆封」。"
-  },
-  {
-    "id": "ach_clinical_medicine_stubborn_revive",
-    "achievementId": "ach_clinical_medicine_stubborn_revive",
-    "majorId": "clinical_medicine",
-    "title": "嘴硬续命成功",
-    "description": "中途 GG 前靠嘴硬和一点现实调整续了一口气。",
-    "condition": {
-      "type": "flag",
-      "key": "clinical_medicine_flag_stubborn_revive"
-    },
-    "shareText": "我在临床医学副本差点 GG，但嘴硬续命成功。"
-  },
-  {
     "id": "ach_accounting_entry_balanced",
     "achievementId": "ach_accounting_entry_balanced",
     "majorId": "accounting",
@@ -3237,5 +3165,149 @@
       "key": "ach_finance_risk_return_repriced"
     },
     "shareText": "我在金融学副本里解锁了：风险收益重估者。"
+  },
+  {
+    "id": "ach_clinical_medicine_doc_001",
+    "achievementId": "ach_clinical_medicine_doc_001",
+    "majorId": "clinical_medicine",
+    "title": "解剖课幸存者",
+    "description": "在临床医学副本中解锁「解剖课幸存者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_clinical_medicine_doc_001"
+    },
+    "shareText": "我在临床医学副本里解锁了：解剖课幸存者。"
+  },
+  {
+    "id": "ach_clinical_medicine_doc_002",
+    "achievementId": "ach_clinical_medicine_doc_002",
+    "majorId": "clinical_medicine",
+    "title": "生化地图绘制员",
+    "description": "在临床医学副本中解锁「生化地图绘制员」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_clinical_medicine_doc_002"
+    },
+    "shareText": "我在临床医学副本里解锁了：生化地图绘制员。"
+  },
+  {
+    "id": "ach_clinical_medicine_doc_003",
+    "achievementId": "ach_clinical_medicine_doc_003",
+    "majorId": "clinical_medicine",
+    "title": "病理切片观察员",
+    "description": "在临床医学副本中解锁「病理切片观察员」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_clinical_medicine_doc_003"
+    },
+    "shareText": "我在临床医学副本里解锁了：病理切片观察员。"
+  },
+  {
+    "id": "ach_clinical_medicine_doc_004",
+    "achievementId": "ach_clinical_medicine_doc_004",
+    "majorId": "clinical_medicine",
+    "title": "问诊模板背诵者",
+    "description": "在临床医学副本中解锁「问诊模板背诵者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_clinical_medicine_doc_004"
+    },
+    "shareText": "我在临床医学副本里解锁了：问诊模板背诵者。"
+  },
+  {
+    "id": "ach_clinical_medicine_doc_005",
+    "achievementId": "ach_clinical_medicine_doc_005",
+    "majorId": "clinical_medicine",
+    "title": "病例记录员",
+    "description": "在临床医学副本中解锁「病例记录员」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_clinical_medicine_doc_005"
+    },
+    "shareText": "我在临床医学副本里解锁了：病例记录员。"
+  },
+  {
+    "id": "ach_clinical_medicine_doc_006",
+    "achievementId": "ach_clinical_medicine_doc_006",
+    "majorId": "clinical_medicine",
+    "title": "医学敬畏型玩家",
+    "description": "在临床医学副本中解锁「医学敬畏型玩家」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_clinical_medicine_doc_006"
+    },
+    "shareText": "我在临床医学副本里解锁了：医学敬畏型玩家。"
+  },
+  {
+    "id": "ach_clinical_medicine_doc_007",
+    "achievementId": "ach_clinical_medicine_doc_007",
+    "majorId": "clinical_medicine",
+    "title": "临床长跑预备役",
+    "description": "在临床医学副本中解锁「临床长跑预备役」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_clinical_medicine_doc_007"
+    },
+    "shareText": "我在临床医学副本里解锁了：临床长跑预备役。"
+  },
+  {
+    "id": "ach_clinical_medicine_doc_008",
+    "achievementId": "ach_clinical_medicine_doc_008",
+    "majorId": "clinical_medicine",
+    "title": "白衣滤镜粉碎机",
+    "description": "在临床医学副本中解锁「白衣滤镜粉碎机」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_clinical_medicine_doc_008"
+    },
+    "shareText": "我在临床医学副本里解锁了：白衣滤镜粉碎机。"
+  },
+  {
+    "id": "ach_clinical_medicine_doc_009",
+    "achievementId": "ach_clinical_medicine_doc_009",
+    "majorId": "clinical_medicine",
+    "title": "不难PTSD患者",
+    "description": "在临床医学副本中解锁「不难PTSD患者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_clinical_medicine_doc_009"
+    },
+    "shareText": "我在临床医学副本里解锁了：不难PTSD患者。"
+  },
+  {
+    "id": "ach_clinical_medicine_doc_010",
+    "achievementId": "ach_clinical_medicine_doc_010",
+    "majorId": "clinical_medicine",
+    "title": "报告已读不乱回",
+    "description": "在临床医学副本中解锁「报告已读不乱回」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_clinical_medicine_doc_010"
+    },
+    "shareText": "我在临床医学副本里解锁了：报告已读不乱回。"
+  },
+  {
+    "id": "ach_clinical_medicine_doc_011",
+    "achievementId": "ach_clinical_medicine_doc_011",
+    "majorId": "clinical_medicine",
+    "title": "暑假消失术见证者",
+    "description": "在临床医学副本中解锁「暑假消失术见证者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_clinical_medicine_doc_011"
+    },
+    "shareText": "我在临床医学副本里解锁了：暑假消失术见证者。"
+  },
+  {
+    "id": "ach_clinical_medicine_doc_012",
+    "achievementId": "ach_clinical_medicine_doc_012",
+    "majorId": "clinical_medicine",
+    "title": "规培阴影观察员",
+    "description": "在临床医学副本中解锁「规培阴影观察员」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_clinical_medicine_doc_012"
+    },
+    "shareText": "我在临床医学副本里解锁了：规培阴影观察员。"
   }
 ]
