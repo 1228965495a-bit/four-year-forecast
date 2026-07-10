@@ -71,11 +71,20 @@ let state: GameState = SERVER_SNAPSHOT;
 let hydrated = false;
 const listeners = new Set<() => void>();
 
+let persistScheduled = false;
 function persist() {
   if (typeof window === "undefined") return;
-  try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+  if (persistScheduled) return;
+  persistScheduled = true;
+  // 把 JSON.stringify + localStorage 写入延后到下一个空闲，避免阻塞点击 → 界面切换
+  const flush = () => {
+    persistScheduled = false;
+    try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+  };
+  const ric = (window as any).requestIdleCallback as undefined | ((cb: () => void) => void);
+  if (ric) ric(flush); else setTimeout(flush, 0);
 }
-function emit() { persist(); listeners.forEach((l) => l()); }
+function emit() { listeners.forEach((l) => l()); persist(); }
 
 function hydrateFromStorage() {
   if (hydrated || typeof window === "undefined") return;
