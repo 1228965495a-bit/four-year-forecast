@@ -65,6 +65,8 @@ export interface HistoryItem {
 }
 
 export interface GameState extends EngineState {
+  /** 客户端是否已经从本地存档完成水合；避免 /semester 首帧空状态误跳转 */
+  hydrated: boolean;
   /** 当前事件的运行时数据；避免首页/选专业页为了查事件把完整脚本包提前加载进来 */
   currentEventData: any | null;
   characterName: string;
@@ -81,6 +83,7 @@ const STORAGE_KEY = "cszmg_save_v3";
 function emptyState(): GameState {
   return {
     majorId: "",
+    hydrated: false,
     semesterIdx: 0,
     stats: {},
     majorStats: {},
@@ -137,11 +140,11 @@ function hydrateFromStorage() {
   hydrated = true;
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return;
-    state = { ...emptyState(), ...JSON.parse(raw) };
+    state = raw ? { ...emptyState(), ...JSON.parse(raw), hydrated: true } : { ...state, hydrated: true };
     listeners.forEach((l) => l());
   } catch {
-    /* ignore */
+    state = { ...state, hydrated: true };
+    listeners.forEach((l) => l());
   }
 }
 
@@ -157,6 +160,7 @@ export const gameStore = {
     state = {
       ...emptyState(),
       ...engine,
+      hydrated: true,
       currentEventData: null,
       characterName: state.characterName,
       school: state.school,
