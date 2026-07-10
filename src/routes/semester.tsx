@@ -54,7 +54,7 @@ function SemesterPage() {
     setFeedback(null);
   };
 
-  if (!major || !currentEvent) return null;
+  if (!major) return null;
 
   const total = totalSemesters();
 
@@ -113,20 +113,31 @@ function SemesterPage() {
           </div>
         </div>
 
-        {/* 主场景（素材位） */}
-        <div className="semester-scene-wrap">
-          <SceneStage
-            scene={sceneKey}
-            badge={currentEvent.tags?.[0]}
-            title={currentEvent.title}
-            caption={currentEvent.description}
-          />
-        </div>
+        {currentEvent ? (
+          <>
+            {/* 主场景（素材位） */}
+            <div className="semester-scene-wrap">
+              <SceneStage
+                scene={sceneKey}
+                badge={currentEvent.tags?.[0]}
+                title={currentEvent.title}
+                caption={currentEvent.description}
+              />
+            </div>
 
-        {/* 事件卡（含选项按钮） */}
-        <div className="semester-event-wrap">
-          <EventCard event={currentEvent} onPick={onPick} />
-        </div>
+            {/* 事件卡（含选项按钮） */}
+            <div className="semester-event-wrap">
+              <EventCard event={currentEvent} onPick={onPick} />
+            </div>
+          </>
+        ) : (
+          <div className="semester-event-wrap mt-8">
+            <PixelPanel9 variant="event" padding="px-4 py-6" className="text-center">
+              <div className="font-display text-[14px] tracking-wider">正在加载课程表…</div>
+              <div className="mt-2 text-[11px] text-ink/60">教务系统正在缓慢开机</div>
+            </PixelPanel9>
+          </div>
+        )}
       </div>
 
 
