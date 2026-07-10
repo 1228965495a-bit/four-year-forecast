@@ -122,6 +122,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
 
   useEffect(() => {
     // 预加载重资源面板 PNG（border-image 素材，单张最大 1.4MB），
@@ -141,6 +142,17 @@ function RootComponent() {
       } catch {}
     })();
   }, []);
+
+  useEffect(() => {
+    // 空闲时预取常用页面代码，避免点按钮后才下载/解析下一个页面 chunk。
+    const t = window.setTimeout(() => {
+      void router.preloadRoute({ to: "/major" });
+      void router.preloadRoute({ to: "/intro" });
+      void router.preloadRoute({ to: "/semester" });
+      void router.preloadRoute({ to: "/midway-result" });
+    }, 300);
+    return () => window.clearTimeout(t);
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>
