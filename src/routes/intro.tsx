@@ -70,7 +70,6 @@ function IntroPage() {
   const major = game.majorId ? majorById[game.majorId] : null;
 
   useEffect(() => {
-    warmGameEngine();
     if (major) return;
     // 首帧 SSR 快照可能 majorId 为空，等 localStorage 水合一次；
     // 若存档里也没有 majorId 才回到选专业。
@@ -86,14 +85,14 @@ function IntroPage() {
     navigate({ to: "/major" });
   }, [major, navigate]);
 
-  if (!major) return null;
-
-  const tier = (major.tier ?? "B") as "S" | "A" | "B" | "C";
-
   useEffect(() => {
     const t = window.setTimeout(() => warmGameEngine(), 300);
     return () => window.clearTimeout(t);
   }, []);
+
+  if (!major) return null;
+
+  const tier = (major.tier ?? "B") as "S" | "A" | "B" | "C";
 
   const topBar = (
     <div
