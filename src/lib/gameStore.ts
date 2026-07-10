@@ -153,7 +153,7 @@ export const gameStore = {
   getServerSnapshot(): GameState { return SERVER_SNAPSHOT; },
   subscribe(l: () => void) { listeners.add(l); return () => listeners.delete(l); },
   set(patch: Partial<GameState>) { state = { ...state, ...patch }; emit(); },
-  reset() { state = emptyState(); emit(); },
+  reset() { state = { ...emptyState(), hydrated: hydrated || typeof window !== "undefined" }; emit(); },
 
   selectMajor(id: string) {
     const engine = initEngineShellForMajor(id);
