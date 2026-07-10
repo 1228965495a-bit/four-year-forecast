@@ -140,7 +140,8 @@ function hydrateFromStorage() {
   hydrated = true;
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
-    state = raw ? { ...emptyState(), ...JSON.parse(raw), hydrated: true } : { ...state, hydrated: true };
+    const saved = raw ? JSON.parse(raw) : null;
+    state = saved ? { ...emptyState(), ...saved, currentEventData: null, hydrated: true } : { ...state, hydrated: true };
     listeners.forEach((l) => l());
   } catch {
     state = { ...state, hydrated: true };
@@ -326,4 +327,3 @@ export function currentSemesterLabel(state: Pick<GameState, "semesterIdx">) {
 }
 
 export { SEMESTER_KEYS };
-
