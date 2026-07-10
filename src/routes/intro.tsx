@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
-import { useGameState, warmGameEngine } from "@/lib/gameStore";
+import { useGameState } from "@/lib/gameStore";
 import { majorById } from "@/data/script/majorCatalog";
 import { HUD_STATS } from "@/lib/statsMeta";
 import {
@@ -84,11 +84,6 @@ function IntroPage() {
     }
     navigate({ to: "/major" });
   }, [major, navigate]);
-
-  useEffect(() => {
-    const t = window.setTimeout(() => warmGameEngine(), 300);
-    return () => window.clearTimeout(t);
-  }, []);
 
   if (!major) return null;
 
