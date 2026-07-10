@@ -90,6 +90,11 @@ function IntroPage() {
 
   const tier = (major.tier ?? "B") as "S" | "A" | "B" | "C";
 
+  useEffect(() => {
+    const t = window.setTimeout(() => warmGameEngine(), 300);
+    return () => window.clearTimeout(t);
+  }, []);
+
   const topBar = (
     <div
       className="flex items-center gap-3 px-3 pt-3 pb-3 border-b-[3px] border-ink"
