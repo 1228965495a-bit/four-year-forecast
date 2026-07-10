@@ -155,6 +155,12 @@ export const gameStore = {
       school: state.school,
     };
     emit();
+    // 立刻在后台把完整脚本包拉起来，等玩家看完 intro 到 /semester 时已就绪
+    void loadEngine().then((engineRuntime) => {
+      if (state.majorId !== id || state.currentEventData) return;
+      state = { ...state, currentEventData: engineRuntime.getCurrentEvent(state) };
+      emit();
+    });
   },
 
   async applyChoice(choice: any) {
