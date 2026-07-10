@@ -1143,78 +1143,6 @@
     "shareText": "我在临床医学副本差点 GG，但嘴硬续命成功。"
   },
   {
-    "id": "ach_finance_intern_reply",
-    "achievementId": "ach_finance_intern_reply",
-    "majorId": "finance",
-    "title": "实习申请有回音",
-    "description": "金融学副本成就：实习申请有回音。",
-    "condition": {
-      "type": "flag",
-      "key": "ach_finance_intern_reply"
-    },
-    "shareText": "我在金融学副本解锁了「实习申请有回音」。"
-  },
-  {
-    "id": "ach_finance_model_understood",
-    "achievementId": "ach_finance_model_understood",
-    "majorId": "finance",
-    "title": "模型短暂听懂",
-    "description": "金融学副本成就：模型短暂听懂。",
-    "condition": {
-      "type": "flag",
-      "key": "ach_finance_model_understood"
-    },
-    "shareText": "我在金融学副本解锁了「模型短暂听懂」。"
-  },
-  {
-    "id": "ach_finance_route_clarity",
-    "achievementId": "ach_finance_route_clarity",
-    "majorId": "finance",
-    "title": "金融路线表成型",
-    "description": "金融学副本成就：金融路线表成型。",
-    "condition": {
-      "type": "flag",
-      "key": "ach_finance_route_clarity"
-    },
-    "shareText": "我在金融学副本解锁了「金融路线表成型」。"
-  },
-  {
-    "id": "ach_finance_certificate_survivor",
-    "achievementId": "ach_finance_certificate_survivor",
-    "majorId": "finance",
-    "title": "证书焦虑幸存者",
-    "description": "金融学副本成就：证书焦虑幸存者。",
-    "condition": {
-      "type": "flag",
-      "key": "ach_finance_certificate_survivor"
-    },
-    "shareText": "我在金融学副本解锁了「证书焦虑幸存者」。"
-  },
-  {
-    "id": "ach_finance_filter_repriced",
-    "achievementId": "ach_finance_filter_repriced",
-    "majorId": "finance",
-    "title": "金融滤镜重估",
-    "description": "金融学副本成就：金融滤镜重估。",
-    "condition": {
-      "type": "flag",
-      "key": "ach_finance_filter_repriced"
-    },
-    "shareText": "我在金融学副本解锁了「金融滤镜重估」。"
-  },
-  {
-    "id": "ach_finance_stubborn_revive",
-    "achievementId": "ach_finance_stubborn_revive",
-    "majorId": "finance",
-    "title": "嘴硬续命成功",
-    "description": "中途 GG 前靠嘴硬和一点现实调整续了一口气。",
-    "condition": {
-      "type": "flag",
-      "key": "finance_flag_stubborn_revive"
-    },
-    "shareText": "我在金融学副本差点 GG，但嘴硬续命成功。"
-  },
-  {
     "id": "ach_accounting_entry_balanced",
     "achievementId": "ach_accounting_entry_balanced",
     "majorId": "accounting",
@@ -3189,5 +3117,125 @@
       "key": "pharmacy_flag_stubborn_revive"
     },
     "shareText": "我在药学副本差点 GG，但嘴硬续命成功。"
+  },
+  {
+    "id": "ach_finance_cultivation_plan",
+    "achievementId": "ach_finance_cultivation_plan",
+    "majorId": "finance",
+    "title": "培养方案冷静派",
+    "description": "在金融学副本中解锁「培养方案冷静派」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_finance_cultivation_plan"
+    },
+    "shareText": "我在金融学副本里解锁了：培养方案冷静派。"
+  },
+  {
+    "id": "ach_finance_math_foundation",
+    "achievementId": "ach_finance_math_foundation",
+    "majorId": "finance",
+    "title": "高数补基础的人",
+    "description": "在金融学副本中解锁「高数补基础的人」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_finance_math_foundation"
+    },
+    "shareText": "我在金融学副本里解锁了：高数补基础的人。"
+  },
+  {
+    "id": "ach_finance_variable_awareness",
+    "achievementId": "ach_finance_variable_awareness",
+    "majorId": "finance",
+    "title": "变量意识觉醒者",
+    "description": "在金融学副本中解锁「变量意识觉醒者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_finance_variable_awareness"
+    },
+    "shareText": "我在金融学副本里解锁了：变量意识觉醒者。"
+  },
+  {
+    "id": "ach_finance_econometrics_survivor",
+    "achievementId": "ach_finance_econometrics_survivor",
+    "majorId": "finance",
+    "title": "计量入门幸存者",
+    "description": "在金融学副本中解锁「计量入门幸存者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_finance_econometrics_survivor"
+    },
+    "shareText": "我在金融学副本里解锁了：计量入门幸存者。"
+  },
+  {
+    "id": "ach_finance_research_report",
+    "achievementId": "ach_finance_research_report",
+    "majorId": "finance",
+    "title": "研报拆解者",
+    "description": "在金融学副本中解锁「研报拆解者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_finance_research_report"
+    },
+    "shareText": "我在金融学副本里解锁了：研报拆解者。"
+  },
+  {
+    "id": "ach_finance_internship_mass_apply",
+    "achievementId": "ach_finance_internship_mass_apply",
+    "majorId": "finance",
+    "title": "实习海投人",
+    "description": "在金融学副本中解锁「实习海投人」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_finance_internship_mass_apply"
+    },
+    "shareText": "我在金融学副本里解锁了：实习海投人。"
+  },
+  {
+    "id": "ach_finance_route_converged",
+    "achievementId": "ach_finance_route_converged",
+    "majorId": "finance",
+    "title": "路线收敛者",
+    "description": "在金融学副本中解锁「路线收敛者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_finance_route_converged"
+    },
+    "shareText": "我在金融学副本里解锁了：路线收敛者。"
+  },
+  {
+    "id": "ach_finance_autumn_review",
+    "achievementId": "ach_finance_autumn_review",
+    "majorId": "finance",
+    "title": "秋招复盘型选手",
+    "description": "在金融学副本中解锁「秋招复盘型选手」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_finance_autumn_review"
+    },
+    "shareText": "我在金融学副本里解锁了：秋招复盘型选手。"
+  },
+  {
+    "id": "ach_finance_market_radar",
+    "achievementId": "ach_finance_market_radar",
+    "majorId": "finance",
+    "title": "市场雷达型玩家",
+    "description": "在金融学副本中解锁「市场雷达型玩家」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_finance_market_radar"
+    },
+    "shareText": "我在金融学副本里解锁了：市场雷达型玩家。"
+  },
+  {
+    "id": "ach_finance_risk_return_repriced",
+    "achievementId": "ach_finance_risk_return_repriced",
+    "majorId": "finance",
+    "title": "风险收益重估者",
+    "description": "在金融学副本中解锁「风险收益重估者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_finance_risk_return_repriced"
+    },
+    "shareText": "我在金融学副本里解锁了：风险收益重估者。"
   }
 ]

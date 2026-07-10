@@ -1575,9 +1575,9 @@
       ]
     },
     "intro": {
-      "title": "欢迎进入金融学副本",
-      "body": "你带着金融精英滤镜进入副本。系统提醒：本科四年会遇到数学、经济学、金融市场、计量、证书、实习、考研和就业分层。",
-      "startButton": "开始本科四年"
+      "title": "你被金融学录取了！",
+      "body": "你带着一点精英滤镜、一点高薪想象，以及一点“金融听起来很体面”的朴素判断，进入了金融学副本。系统提醒：本科四年内，你将依次遭遇高数、统计、计量、研报、实习、证书、秋招、行业周期和无数个“金融到底还香不香”的深夜问题。\n\n金融学不保证你财富自由，它更擅长让你知道：收益从来不会脱离风险，风口从来不会只吹向普通人。",
+      "startButton": "进入大学 · 大一上"
     },
     "tags": [
       "投行滤镜",
@@ -1615,11 +1615,11 @@
       "精英滤镜碎得很贵"
     ],
     "initialStats": {
-      "obsession": 68,
+      "obsession": 74,
       "energy": 76,
       "filter": 88,
-      "gpaWill": 66,
-      "careerFantasy": 90,
+      "gpaWill": 70,
+      "careerFantasy": 82,
       "escapeImpulse": 16,
       "stubbornness": 44,
       "hairline": 92
@@ -1627,111 +1627,132 @@
     "majorStats": [
       {
         "key": "quantPressure",
-        "name": "数理压强",
-        "description": "数学、计量和模型带来的压强。",
-        "initialValue": 15
+        "name": "市场敏感度",
+        "description": "理解市场、价格、周期和信息变化的敏感度。",
+        "initialValue": 24
       },
       {
         "key": "certificateAnxiety",
         "name": "证书焦虑",
-        "description": "CFA、CPA、从业资格和简历门槛带来的焦虑。",
-        "initialValue": 10
+        "description": "证书、考试和路线选择带来的焦虑。",
+        "initialValue": 12
       },
       {
         "key": "internshipCompetition",
-        "name": "实习竞争",
-        "description": "金融实习、暑期项目和城市资源竞争强度。",
-        "initialValue": 20
+        "name": "风险感知",
+        "description": "识别风险、门槛和行业周期的能力。",
+        "initialValue": 18
       }
     ],
     "timeline": [
       {
         "semester": "y1s1",
         "label": "大一上",
-        "theme": "金融精英滤镜启动",
+        "theme": "你收到金融学录取通知书",
         "coreEvents": "高数、经济学和专业导论登场。",
         "statTrend": "滤镜高，数理压强启动。",
         "routeForeshadow": "投行滤镜埋点。",
         "key": "y1s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "finance_y1s1_main_001"
+        ]
       },
       {
         "semester": "y1s2",
         "label": "大一下",
-        "theme": "宏微观与会计基础",
+        "theme": "高数开始拆金融滤镜",
         "coreEvents": "经济学、会计和统计开始搭底座。",
         "statTrend": "绩点求生欲上升。",
         "routeForeshadow": "专业不是只聊钱。",
         "key": "y1s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "finance_y1s2_main_001"
+        ]
       },
       {
         "semester": "y2s1",
         "label": "大二上",
-        "theme": "金融市场与公司金融",
+        "theme": "微观、宏观和统计开始合围",
         "coreEvents": "课程开始接近金融主线。",
         "statTrend": "职业幻想波动。",
         "routeForeshadow": "证书意识出现。",
         "key": "y2s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "finance_y2s1_main_001"
+        ]
       },
       {
         "semester": "y2s2",
         "label": "大二下",
-        "theme": "计量和证书焦虑",
+        "theme": "计量经济学让 Excel 沉默",
         "coreEvents": "计量、投资学和证书经验帖并发。",
         "statTrend": "数理压强和证书焦虑上升。",
         "routeForeshadow": "转专业暗线出现。",
         "key": "y2s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "finance_y2s2_main_001"
+        ]
       },
       {
         "semester": "y3s1",
         "label": "大三上",
-        "theme": "实习竞争上线",
+        "theme": "第一份金融实习把精英滤镜打薄",
         "coreEvents": "券商、银行、基金、咨询等路径进入视野。",
         "statTrend": "实习竞争成为核心数值。",
         "routeForeshadow": "路线事件池预热。",
         "key": "y3s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "finance_y3s1_main_001"
+        ]
       },
       {
         "semester": "y3s2",
         "label": "大三下",
-        "theme": "路线分化",
+        "theme": "CFA、FRM、CPA 和考研同时出现",
         "coreEvents": "考研、投行、银行、基金、考公和跨行分化。",
         "statTrend": "就业幻觉被现实校准。",
         "routeForeshadow": "路线事件池开启。",
         "key": "y3s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "finance_y3s2_main_001"
+        ]
       },
       {
         "semester": "y4s1",
         "label": "大四上",
-        "theme": "秋招考研并发",
+        "theme": "秋招行情比课本更冷",
         "coreEvents": "秋招、考研、证书和论文一起上桌。",
         "statTrend": "精神电量下降。",
         "routeForeshadow": "中途 GG 风险上升。",
         "key": "y4s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "finance_y4s1_main_001"
+        ]
       },
       {
         "semester": "y4s2",
         "label": "大四下",
-        "theme": "金融本科结算",
+        "theme": "毕业前，你重新理解金融",
         "coreEvents": "精英滤镜被就业分层重写。",
         "statTrend": "根据路线与实习结算。",
         "routeForeshadow": "生成金融人格鉴定书。",
         "key": "y4s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "finance_y4s2_main_001"
+        ]
       }
     ],
     "randomEvents": [
-      "finance_random_01",
-      "finance_random_02",
-      "finance_random_03",
-      "finance_random_04",
-      "finance_random_05"
+      "finance_random_001",
+      "finance_random_002",
+      "finance_random_003",
+      "finance_random_004",
+      "finance_random_005",
+      "finance_random_006",
+      "finance_random_007",
+      "finance_random_008",
+      "finance_random_009",
+      "finance_random_010"
     ],
     "hiddenEvents": [
       "finance_hidden_01",
@@ -1746,17 +1767,24 @@
       "finance_route_civil_service"
     ],
     "achievements": [
-      "ach_finance_intern_reply",
-      "ach_finance_model_understood",
-      "ach_finance_route_clarity",
-      "ach_finance_certificate_survivor",
-      "ach_finance_filter_repriced"
+      "ach_finance_cultivation_plan",
+      "ach_finance_math_foundation",
+      "ach_finance_variable_awareness",
+      "ach_finance_econometrics_survivor",
+      "ach_finance_research_report",
+      "ach_finance_internship_mass_apply",
+      "ach_finance_route_converged",
+      "ach_finance_autumn_review",
+      "ach_finance_market_radar",
+      "ach_finance_risk_return_repriced"
     ],
     "endings": [
-      "ending_finance_realist",
-      "ending_finance_ib_edge",
-      "ending_finance_banking",
-      "ending_finance_quant_survivor"
+      "finance_ending_clear_holder",
+      "finance_ending_filter_broken",
+      "finance_ending_certificate_collector",
+      "finance_ending_stable_track",
+      "finance_ending_market_radar",
+      "finance_ending_clear_exit"
     ],
     "shareTexts": [
       "我用 5 分钟读完这个本科副本，系统说这不是劝退，是提前摘滤镜。",
