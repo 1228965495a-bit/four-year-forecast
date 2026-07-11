@@ -4747,9 +4747,9 @@
       ]
     },
     "intro": {
-      "title": "欢迎进入电子信息副本",
-      "body": "系统检测到：你对热门工科有明显好感，并可能默认它“像计算机一样好就业”。请注意，电子信息副本的特色是软硬都来，逃不掉实验，也绕不开信号。",
-      "startButton": "开始本科四年"
+      "title": "你被电子信息录取了！",
+      "body": "你带着一点芯片滤镜、一点高科技想象，以及一点“这个专业应该很硬核也很好就业”的朴素判断，进入了电子信息副本。系统提醒：本科四年内，你将依次遭遇电路分析、模电数电、信号与系统、通信原理、单片机、嵌入式、FPGA、实验报告、示波器和无数个“昨天还亮，今天怎么不亮了”的夜晚。\n\n电子信息不是一个只靠热血点亮芯片梦的专业。它更像一场软硬结合的长期调试：代码可能错，电路可能错，线可能接反，板子可能没坏但你快坏了。",
+      "startButton": "进入大学 · 大一上"
     },
     "tags": [
       "热门工科",
@@ -4795,16 +4795,34 @@
       "模电听不懂但考试要会"
     ],
     "initialStats": {
-      "obsession": 62,
+      "obsession": 72,
       "energy": 76,
-      "filter": 80,
-      "gpaWill": 60,
+      "filter": 82,
+      "gpaWill": 70,
       "careerFantasy": 70,
       "escapeImpulse": 20,
       "stubbornness": 42,
       "hairline": 90
     },
     "majorStats": [
+      {
+        "key": "circuitFaith",
+        "name": "电路信仰",
+        "description": "面对 KCL、KVL、模电、数电和各种负号背刺时仍愿意相信电路能讲通的程度。",
+        "initialValue": 25
+      },
+      {
+        "key": "hardwarePatience",
+        "name": "硬件耐心",
+        "description": "面对 LED 不亮、板子沉默、杜邦线背刺时继续排查的耐受度。",
+        "initialValue": 24
+      },
+      {
+        "key": "noiseTolerance",
+        "name": "噪声容忍度",
+        "description": "面对信号、频域、通信实验和示波器波形时不被噪声击穿的能力。",
+        "initialValue": 18
+      },
       {
         "key": "circuitUnderstanding",
         "name": "电路理解度",
@@ -4828,91 +4846,121 @@
       {
         "semester": "y1s1",
         "label": "大一上",
-        "theme": "热门工科滤镜与高数开局",
+        "theme": "亲戚眼里的“修手机预备役”",
         "coreEvents": "专业导论、高数、C语言基础出现，用户觉得自己离技术行业很近。",
         "statTrend": "滤镜厚度高，就业幻觉值高；数学耐受开始影响后续。",
         "routeForeshadow": "为“半个计算机”误解埋雷。",
         "key": "y1s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "electronic_information_y1s1_main_001"
+        ]
       },
       {
         "semester": "y1s2",
         "label": "大一下",
-        "theme": "电路基础与第一次实验",
+        "theme": "电路分析：人生第一次正式短路",
         "coreEvents": "电路理论、实验箱、万用表登场。用户第一次发现“电”不是概念，是会不亮的现实。",
         "statTrend": "电路理解度上升或精神电量下降；板子点亮率开始记录。",
         "routeForeshadow": "适合埋转计算机/自动化/电气兴趣。",
         "key": "y1s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "electronic_information_y1s2_main_001"
+        ]
       },
       {
         "semester": "y2s1",
         "label": "大二上",
-        "theme": "模电数电双重夹击",
+        "theme": "模电数电双开：左手玄学，右手逻辑门",
         "coreEvents": "模拟电路、数字电路、信号基础出现，课程抽象度提高。",
         "statTrend": "信号清晰度成为关键；滤镜厚度下降。",
         "routeForeshadow": "形成电子信息第一波分化。",
         "key": "y2s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "electronic_information_y2s1_main_001"
+        ]
       },
       {
         "semester": "y2s2",
         "label": "大二下",
-        "theme": "信号与系统让世界变成频域",
+        "theme": "信号与系统：傅里叶把你展开了",
         "coreEvents": "傅里叶、系统响应、通信基础让用户重新认识“听懂”。",
         "statTrend": "精神电量下降；数学耐受高者专业上头值提升。",
         "routeForeshadow": "转专业隐藏入口和方向分流同时出现。",
         "key": "y2s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "electronic_information_y2s2_main_001",
+          "electronic_information_transfer_window"
+        ]
       },
       {
         "semester": "y3s1",
         "label": "大三上",
-        "theme": "通信/嵌入式/芯片方向试探",
+        "theme": "单片机实验：灯不亮，人也不亮",
         "coreEvents": "用户开始接触嵌入式、通信原理、微机原理、FPGA或相关课程。",
         "statTrend": "就业幻觉值受方向影响；板子点亮率决定成就。",
         "routeForeshadow": "开始思考考研、就业、转码或硬件路线。",
         "key": "y3s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "electronic_information_y3s1_main_001",
+          "electronic_information_route_postgrad",
+          "electronic_information_route_embedded"
+        ]
       },
       {
         "semester": "y3s2",
         "label": "大三下",
-        "theme": "项目实验与实习焦虑",
+        "theme": "通信原理与实验报告：信号没传出去，怨气传出去了",
         "coreEvents": "课程设计、项目、竞赛、实验报告、实习投递并发。",
         "statTrend": "高压上升，信号清晰度和板子点亮率影响结果。",
         "routeForeshadow": "选择考研、嵌入式、通信、芯片、转码或考公国企。",
         "key": "y3s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "electronic_information_y3s2_main_001",
+          "electronic_information_route_communication_chip",
+          "electronic_information_route_software_transfer",
+          "midgg_electronic_information_002",
+          "midgg_electronic_information_003"
+        ]
       },
       {
         "semester": "y4s1",
         "label": "大四上",
-        "theme": "秋招/考研/毕设同频干扰",
+        "theme": "秋招现场：硬件慢热，简历先凉",
         "coreEvents": "用户在简历、项目、考研、毕设和方向选择之间拉扯。",
         "statTrend": "就业幻觉值波动大；GG风险上升。",
         "routeForeshadow": "技术路径和稳定路线开始结算。",
         "key": "y4s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "electronic_information_y4s1_main_001",
+          "electronic_information_route_state_owned_operator",
+          "midgg_electronic_information_001"
+        ]
       },
       {
         "semester": "y4s2",
         "label": "大四下",
-        "theme": "毕设调试与工程人格成型",
+        "theme": "毕设答辩：板子能跑，人也算能跑",
         "coreEvents": "毕设可能涉及硬件调试、代码、论文和演示。用户终于理解“能跑起来”三个字的价值。",
         "statTrend": "生成电子信息人格：硬件真香、转码成功、考研深造或板子不亮型幸存。",
         "routeForeshadow": "结果页强调：电子信息不是计算机替代品，而是软硬结合的真实工科。",
         "key": "y4s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "electronic_information_y4s2_main_001",
+          "electronic_information_settlement"
+        ]
       }
     ],
     "randomEvents": [
-      "electronic_information_random_01",
-      "electronic_information_random_02",
-      "electronic_information_random_03",
-      "electronic_information_random_04",
-      "electronic_information_random_05",
-      "electronic_information_random_06"
+      "electronic_information_random_001",
+      "electronic_information_random_002",
+      "electronic_information_random_003",
+      "electronic_information_random_004",
+      "electronic_information_random_005",
+      "electronic_information_random_006",
+      "electronic_information_random_007",
+      "electronic_information_random_008",
+      "electronic_information_random_009",
+      "electronic_information_random_010"
     ],
     "hiddenEvents": [
       "electronic_information_hidden_01",
@@ -4931,18 +4979,33 @@
       "ach_electronic_information_oscilloscope_gazer",
       "ach_electronic_information_analog_survivor",
       "ach_electronic_information_frequency_crossing",
-      "ach_electronic_information_hardware_software_beginner"
+      "ach_electronic_information_hardware_software_beginner",
+      "ach_electronic_information_stubborn_revive",
+      "ach_electronic_information_doc_001",
+      "ach_electronic_information_doc_002",
+      "ach_electronic_information_doc_003",
+      "ach_electronic_information_doc_004",
+      "ach_electronic_information_doc_005",
+      "ach_electronic_information_doc_006",
+      "ach_electronic_information_doc_007",
+      "ach_electronic_information_doc_008",
+      "ach_electronic_information_doc_009",
+      "ach_electronic_information_doc_010"
     ],
     "endings": [
-      "ending_electronic_information_board_survivor",
-      "ending_electronic_information_hybrid_realist",
-      "ending_electronic_information_software_transfer",
-      "ending_electronic_information_frequency_lost"
+      "ending_electronic_information_001",
+      "ending_electronic_information_002",
+      "ending_electronic_information_003",
+      "ending_electronic_information_004",
+      "ending_electronic_information_005",
+      "ending_electronic_information_006"
     ],
     "shareTexts": [
-      "我玩完电子信息副本，系统说我的板子点亮率很玄学。",
-      "转发给那个以为电子信息就是计算机平替的人。",
-      "电子信息提醒我：热门工科也会让人看着波形沉默。"
+      "我在电子信息副本里活成了：LED 不亮陪跑人。代码没错，接线没错，板子沉默，我也沉默。",
+      "电子信息专业体验报告：亲戚以为我会修手机，老师以为我会傅里叶，板子以为我会通灵。",
+      "我终于明白电子信息为什么硬核：不是专业硬，是人必须硬着头皮调到凌晨。",
+      "我的电子信息副本结论：仿真是理想世界，实物是现实毒打，示波器是命运占卜。",
+      "如果你看到一个电子信息学生盯着不亮的 LED 发呆，不要打扰，他正在和人生底层协议握手。"
     ],
     "majorId": "electronic_information"
   },

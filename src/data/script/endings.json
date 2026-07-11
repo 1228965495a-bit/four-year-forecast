@@ -1462,68 +1462,6 @@
     "majorId": "artificial_intelligence"
   },
   {
-    "id": "ending_electronic_information_board_survivor",
-    "endingId": "ending_electronic_information_board_survivor",
-    "majorId": "electronic_information",
-    "title": "电子信息·板子点亮型幸存者",
-    "description": "你被电路和信号折磨过，但当板子真的亮起来，你又短暂相信工程有光。",
-    "condition": {
-      "type": "majorStat",
-      "key": "boardLightingRate",
-      "op": ">=",
-      "value": 55
-    },
-    "priority": 50,
-    "shareText": "我玩完电子信息副本，系统说我的板子点亮率很玄学。 系统判定：电子信息·板子点亮型幸存者",
-    "advice": "你被电路和信号折磨过，但当板子真的亮起来，你又短暂相信工程有光。"
-  },
-  {
-    "id": "ending_electronic_information_hybrid_realist",
-    "endingId": "ending_electronic_information_hybrid_realist",
-    "majorId": "electronic_information",
-    "title": "电子信息·软硬双修现实主义者",
-    "description": "你终于明白这个专业不是计算机平替，而是软件、硬件、信号和实验的混合修炼。",
-    "condition": {
-      "type": "majorStat",
-      "key": "circuitUnderstanding",
-      "op": ">=",
-      "value": 55
-    },
-    "priority": 50,
-    "shareText": "我玩完电子信息副本，系统说我的板子点亮率很玄学。 系统判定：电子信息·软硬双修现实主义者",
-    "advice": "你终于明白这个专业不是计算机平替，而是软件、硬件、信号和实验的混合修炼。"
-  },
-  {
-    "id": "ending_electronic_information_software_transfer",
-    "endingId": "ending_electronic_information_software_transfer",
-    "majorId": "electronic_information",
-    "title": "电子信息·转码但带硬件前世的人",
-    "description": "你最终走向软件方向，但保留了硬件后遗症：代码报错不可怕，板子不亮才是真的沉默。",
-    "condition": {
-      "type": "route",
-      "key": "electronic_information_route_software_transfer"
-    },
-    "priority": 50,
-    "shareText": "我玩完电子信息副本，系统说我的板子点亮率很玄学。 系统判定：电子信息·转码但带硬件前世的人",
-    "advice": "你最终走向软件方向，但保留了硬件后遗症：代码报错不可怕，板子不亮才是真的沉默。"
-  },
-  {
-    "id": "ending_electronic_information_frequency_lost",
-    "endingId": "ending_electronic_information_frequency_lost",
-    "majorId": "electronic_information",
-    "title": "电子信息·频域迷失型玩家",
-    "description": "你没完全失败，只是和信号系统长期处于相互不理解状态。建议报考前先确认数学耐受。",
-    "condition": {
-      "type": "majorStat",
-      "key": "signalClarity",
-      "op": "<=",
-      "value": 25
-    },
-    "priority": 50,
-    "shareText": "我玩完电子信息副本，系统说我的板子点亮率很玄学。 系统判定：电子信息·频域迷失型玩家",
-    "advice": "你没完全失败，只是和信号系统长期处于相互不理解状态。建议报考前先确认数学耐受。"
-  },
-  {
     "id": "ending_mechanical_engineering_old_engineering_survivor",
     "endingId": "ending_mechanical_engineering_old_engineering_survivor",
     "majorId": "mechanical_engineering",
@@ -3856,5 +3794,167 @@
     "description": "你观察了别人，也把自己观察到快没电。",
     "advice": "你在心理学里看见了很多解释工具，也一度把这些工具全部照向自己。好消息是，你最终学会把理论放回理论，把生活还给生活。",
     "shareText": "我在心理学副本里活成了：自我观察过载但还算清醒。学心理学后最大的成长：停止把自己当期末案例分析。"
+  },
+  {
+    "id": "ending_electronic_information_001",
+    "endingId": "ending_electronic_information_001",
+    "majorId": "electronic_information",
+    "priority": 90,
+    "title": "电子信息·嵌入式续命工程师",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 65
+        },
+        {
+          "type": "majorStat",
+          "key": "hardwarePatience",
+          "op": ">=",
+          "value": 70
+        }
+      ]
+    },
+    "rank": "能跑，但别乱碰",
+    "description": "能跑，但别乱碰",
+    "advice": "你终于接受了电子信息的基本现实：代码要写，板子要调，文档要看，bug 要熬。你不再幻想一次成功，但开始具备把系统救回来的能力。",
+    "shareText": "我的电子信息结局：嵌入式续命工程师。人生信条：能跑就别乱碰，能备份就别嘴硬。"
+  },
+  {
+    "id": "ending_electronic_information_002",
+    "endingId": "ending_electronic_information_002",
+    "majorId": "electronic_information",
+    "priority": 85,
+    "title": "电子信息·示波器占卜师",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "noiseTolerance",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": "<=",
+          "value": 45
+        }
+      ]
+    },
+    "rank": "波形在，人在",
+    "description": "波形在，人在",
+    "advice": "你已经能从示波器里读出一点命运。别人看见的是波形，你看见的是系统有没有活着、板子有没有脾气、自己今晚能不能睡。",
+    "shareText": "我在电子信息副本里活成了示波器占卜师：波形一出来，我差点和实验室和解。"
+  },
+  {
+    "id": "ending_electronic_information_003",
+    "endingId": "ending_electronic_information_003",
+    "majorId": "electronic_information",
+    "priority": 80,
+    "title": "电子信息·芯片滤镜幸存者",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": ">=",
+          "value": 45
+        },
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 70
+        }
+      ]
+    },
+    "rank": "滤镜没全碎，但现实感上来了",
+    "description": "滤镜没全碎，但现实感上来了",
+    "advice": "你没有只剩热血，也没有完全被现实打倒。你知道半导体、通信、硬件都不容易，但仍然愿意往前看一看。",
+    "shareText": "电子信息副本报告：芯片滤镜还在，但已经加了现实滤波器。"
+  },
+  {
+    "id": "ending_electronic_information_004",
+    "endingId": "ending_electronic_information_004",
+    "majorId": "electronic_information",
+    "priority": 75,
+    "title": "电子信息·实验报告文学家",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": "<=",
+          "value": 40
+        }
+      ]
+    },
+    "rank": "实验三小时，报告一生",
+    "description": "实验三小时，报告一生",
+    "advice": "你用图注、误差分析和格式规范撑过了无数次实验。你的工程能力不一定最强，但报告生存能力已经点满。",
+    "shareText": "我在电子信息里活成了实验报告文学家：做实验两小时，写报告到天亮。"
+  },
+  {
+    "id": "ending_electronic_information_005",
+    "endingId": "ending_electronic_information_005",
+    "majorId": "electronic_information",
+    "priority": 70,
+    "title": "电子信息·转码但带电路阴影的人",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "escapeImpulse",
+          "op": ">=",
+          "value": 65
+        },
+        {
+          "type": "stat",
+          "key": "careerFantasy",
+          "op": ">=",
+          "value": 55
+        }
+      ]
+    },
+    "rank": "人走向软件，心留在板子",
+    "description": "人走向软件，心留在板子",
+    "advice": "你最终把路线转向软件、产品或更轻硬件方向。但你知道，那些电路、信号和实验室夜晚没有白费，它们让你对“系统”两个字有了真实阴影。",
+    "shareText": "我从电子信息副本转码了，但一看到“硬件接口”四个字还是会沉默。"
+  },
+  {
+    "id": "ending_electronic_information_006",
+    "endingId": "ending_electronic_information_006",
+    "majorId": "electronic_information",
+    "priority": 65,
+    "title": "电子信息·硬件祛魅清醒玩家",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 25
+        },
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": "<=",
+          "value": 45
+        }
+      ]
+    },
+    "rank": "不一定继续硬刚，但终于看清楚",
+    "description": "不一定继续硬刚，但终于看清楚",
+    "advice": "你不一定适合继续硬件主线，但你已经看清电子信息的真实样子。清醒不是失败，及时换轨也是一种工程决策。",
+    "shareText": "电子信息副本教会我的事：有些板子救得回来，有些人生路线需要换电源。"
   }
 ]
