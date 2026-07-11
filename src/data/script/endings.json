@@ -1462,394 +1462,6 @@
     "majorId": "artificial_intelligence"
   },
   {
-    "id": "ending_electrical_engineering_mid_gg",
-    "title": "电气工程·本科人生紧急中止",
-    "type": "mid_gg",
-    "priority": 100,
-    "conditions": {
-      "all": [
-        {
-          "type": "flag",
-          "key": "electrical_engineering_flag_mid_gg"
-        }
-      ]
-    },
-    "summary": "系统提示：嘴硬已经无法覆盖事实。",
-    "afterEffects": [
-      "对“其实还行”产生免疫",
-      "看到高压节点会自动静音"
-    ],
-    "advice": "能求助、能降目标、能换路，都比原地硬碎更像成年人。",
-    "shareText": "我用 5 分钟读完电气工程本科，系统提示嘴硬已经无法覆盖事实。",
-    "resultTags": [
-      "中途GG"
-    ],
-    "endingId": "ending_electrical_engineering_mid_gg",
-    "description": "",
-    "condition": {},
-    "majorId": "electrical_engineering"
-  },
-  {
-    "id": "ending_electrical_engineering_transfer_success",
-    "title": "电气工程 → 新专业·半路重开型玩家",
-    "type": "transfer_success",
-    "priority": 90,
-    "conditions": {
-      "all": [
-        {
-          "type": "flag",
-          "key": "electrical_engineering_flag_transfer_success"
-        }
-      ]
-    },
-    "summary": "你不是从新手村重新开始的，你是带着原专业后遗症半路冲进新副本。",
-    "afterEffects": [
-      "原专业 PTSD 残留",
-      "对培养方案异常警觉"
-    ],
-    "advice": "转向并不可耻，但转专业不是后悔药。",
-    "shareText": "我从电气工程半路重开，系统说我只是换了一种痛苦皮肤。",
-    "resultTags": [
-      "转专业成功"
-    ],
-    "endingId": "ending_electrical_engineering_transfer_success",
-    "description": "",
-    "condition": {},
-    "majorId": "electrical_engineering"
-  },
-  {
-    "id": "ending_electrical_engineering_transfer_fail",
-    "title": "转专业失败·电气工程滞留型幸存者",
-    "type": "transfer_fail",
-    "priority": 88,
-    "conditions": {
-      "all": [
-        {
-          "type": "flag",
-          "key": "electrical_engineering_flag_transfer_failed"
-        }
-      ]
-    },
-    "summary": "你曾经看见过逃生门，也认真走过去拧了门把手。遗憾的是，门后面写着：名额已满。",
-    "afterEffects": [
-      "嘴硬浓度显著上升"
-    ],
-    "advice": "不要把转专业当作默认退路。",
-    "shareText": "我在电气工程逃生门前失败了，但系统说人还在。",
-    "resultTags": [
-      "转专业失败"
-    ],
-    "endingId": "ending_electrical_engineering_transfer_fail",
-    "description": "",
-    "condition": {},
-    "majorId": "electrical_engineering"
-  },
-  {
-    "id": "ending_electrical_engineering_hidden",
-    "title": "隐藏结局——电气·人形电网调度器",
-    "type": "hidden",
-    "priority": 80,
-    "conditions": {
-      "all": [
-        {
-          "type": "majorStat",
-          "key": "circuitControl",
-          "op": ">=",
-          "value": 90
-        },
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": ">=",
-          "value": 80
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">=",
-          "value": 35
-        }
-      ]
-    },
-    "summary": "你已经进化到看世界都会想系统、负载、稳定性和调度。",
-    "afterEffects": [
-      "专业人格外溢",
-      "看世界的方式被永久改变"
-    ],
-    "advice": "如果你打出这个结局，说明你可能真的适合。请保持热爱，也记得保养精神电量。",
-    "shareText": "我打出了电气工程隐藏结局：电气·人形电网调度器。",
-    "resultTags": [
-      "隐藏神人"
-    ],
-    "endingId": "ending_electrical_engineering_hidden",
-    "description": "",
-    "condition": {},
-    "majorId": "electrical_engineering"
-  },
-  {
-    "id": "ending_electrical_engineering_overachiever",
-    "title": "电气工程·卷王飞升型选手",
-    "type": "overachiever",
-    "priority": 70,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "gpaWill",
-          "op": ">=",
-          "value": 85
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">=",
-          "value": 30
-        },
-        {
-          "type": "majorStat",
-          "key": "circuitControl",
-          "op": ">=",
-          "value": 70
-        }
-      ]
-    },
-    "summary": "你不是没有崩溃过，只是每次崩溃完还能回到任务面前。",
-    "afterEffects": [
-      "待办清单异常整齐"
-    ],
-    "advice": "适合冲，但请注意维护精神电量。",
-    "shareText": "系统说我是电气工程卷王飞升型选手。",
-    "resultTags": [
-      "卷王"
-    ],
-    "endingId": "ending_electrical_engineering_overachiever",
-    "description": "",
-    "condition": {},
-    "majorId": "electrical_engineering"
-  },
-  {
-    "id": "ending_electrical_engineering_true_love",
-    "title": "电气工程·真香型玩家",
-    "type": "true_love",
-    "priority": 65,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": ">=",
-          "value": 80
-        },
-        {
-          "type": "majorStat",
-          "key": "circuitControl",
-          "op": ">=",
-          "value": 70
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">=",
-          "value": 35
-        }
-      ]
-    },
-    "summary": "你不是没有被电气工程副本拷打过，只是拷打到最后，真的从里面找到了一点乐趣。",
-    "afterEffects": [
-      "滤镜碎了一些，热爱更耐用"
-    ],
-    "advice": "适合报。前提是你知道它不是无痛副本。",
-    "shareText": "我竟然在电气工程副本里真香了。",
-    "resultTags": [
-      "真香"
-    ],
-    "endingId": "ending_electrical_engineering_true_love",
-    "description": "",
-    "condition": {},
-    "majorId": "electrical_engineering"
-  },
-  {
-    "id": "ending_electrical_engineering_route",
-    "title": "电气工程·路线现实型玩家",
-    "type": "route",
-    "priority": 55,
-    "conditions": {
-      "any": [
-        {
-          "type": "route",
-          "key": "electrical_engineering_route_state_grid"
-        },
-        {
-          "type": "route",
-          "key": "electrical_engineering_route_postgrad"
-        },
-        {
-          "type": "route",
-          "key": "electrical_engineering_route_new_energy"
-        },
-        {
-          "type": "route",
-          "key": "electrical_engineering_route_cross"
-        }
-      ]
-    },
-    "summary": "你把专业能力接到了一条更现实的路线里。它不一定浪漫，但开始能被行动支撑。",
-    "afterEffects": [
-      "路线感变强",
-      "滤镜变薄"
-    ],
-    "advice": "路线不是逃避，前提是你真的开始行动。",
-    "shareText": "我在电气工程副本里打出了现实路线结局。",
-    "resultTags": [
-      "路线结局"
-    ],
-    "endingId": "ending_electrical_engineering_route",
-    "description": "",
-    "condition": {},
-    "majorId": "electrical_engineering"
-  },
-  {
-    "id": "ending_electrical_engineering_survivor",
-    "title": "电气·国网滤镜幸存者",
-    "type": "survivor",
-    "priority": 45,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": ">=",
-          "value": 45
-        },
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": "<=",
-          "value": 75
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">=",
-          "value": 20
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": "<=",
-          "value": 60
-        },
-        {
-          "type": "hiddenStat",
-          "key": "stubbornness",
-          "op": ">=",
-          "value": 65
-        }
-      ]
-    },
-    "summary": "你嘴上说电气也就那样，但看到国网招聘和电力系统还是会下意识点进去。",
-    "afterEffects": [
-      "专业人格初步形成"
-    ],
-    "advice": "可以冲，但别只看滤镜。",
-    "shareText": "我用 5 分钟读完电气本科，系统说我进入国网滤镜幸存结局。",
-    "resultTags": [
-      "嘴硬幸存"
-    ],
-    "endingId": "ending_electrical_engineering_survivor",
-    "description": "",
-    "condition": {},
-    "majorId": "electrical_engineering"
-  },
-  {
-    "id": "ending_electrical_engineering_filter_broken",
-    "title": "电气工程·滤镜破碎型误入者",
-    "type": "filter_broken",
-    "priority": 40,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "filter",
-          "op": "<=",
-          "value": 15
-        },
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": "<=",
-          "value": 35
-        },
-        {
-          "type": "stat",
-          "key": "escapeImpulse",
-          "op": ">=",
-          "value": 70
-        }
-      ]
-    },
-    "summary": "你当初报电气工程时想象的是滤镜里的样子，后来发现本科生活更多是课程、作业、路线和现实。",
-    "afterEffects": [
-      "看到热门专业会先查培养方案"
-    ],
-    "advice": "慎重。不是不能报，而是不要只看外壳。",
-    "shareText": "我体验完电气工程本科，系统把我的滤镜拆没了。",
-    "resultTags": [
-      "滤镜破碎"
-    ],
-    "endingId": "ending_electrical_engineering_filter_broken",
-    "description": "",
-    "condition": {},
-    "majorId": "electrical_engineering"
-  },
-  {
-    "id": "ending_electrical_engineering_layflat",
-    "title": "电气工程·摆烂毕业型幸存者",
-    "type": "layflat",
-    "priority": 10,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": "<=",
-          "value": 55
-        },
-        {
-          "type": "stat",
-          "key": "gpaWill",
-          "op": "<=",
-          "value": 50
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">",
-          "value": 20
-        }
-      ],
-      "none": [
-        {
-          "type": "flag",
-          "key": "electrical_engineering_flag_mid_gg"
-        }
-      ]
-    },
-    "summary": "你没有成为卷王，也没有彻底跑路。你以一种能交、能过、能毕业的姿态穿过本科四年。",
-    "afterEffects": [
-      "最低可交付标准熟练"
-    ],
-    "advice": "苟住和适合不是一回事。",
-    "shareText": "我在电气工程副本里摆烂毕业了。",
-    "resultTags": [
-      "摆烂毕业"
-    ],
-    "endingId": "ending_electrical_engineering_layflat",
-    "description": "",
-    "condition": {},
-    "majorId": "electrical_engineering"
-  },
-  {
     "id": "ending_english_mid_gg",
     "title": "英语·本科人生紧急中止",
     "type": "mid_gg",
@@ -4159,5 +3771,286 @@
     "advice": "这是一个很新传的结局：你没有完全相信滤镜，也没有彻底放弃表达。你知道内容行业有很多疲惫和妥协，但仍然相信把一些事情说清楚是有意义的。",
     "shareText": "我在新闻传播学副本里活成了：理想主义打折但未清仓。滤镜碎了，但表达欲还没下架。",
     "majorId": "journalism_communication"
+  },
+  {
+    "id": "ending_electrical_engineering_mid_gg",
+    "title": "电气工程·本科人生紧急中止",
+    "type": "mid_gg",
+    "priority": 100,
+    "conditions": {
+      "all": [
+        {
+          "type": "flag",
+          "key": "electrical_engineering_flag_mid_gg"
+        }
+      ]
+    },
+    "summary": "系统提示：嘴硬已经无法覆盖事实。",
+    "afterEffects": [
+      "对“其实还行”产生免疫",
+      "看到高压节点会自动静音"
+    ],
+    "advice": "能求助、能降目标、能换路，都比原地硬碎更像成年人。",
+    "shareText": "我用 5 分钟读完电气工程本科，系统提示嘴硬已经无法覆盖事实。",
+    "resultTags": [
+      "中途GG"
+    ],
+    "endingId": "ending_electrical_engineering_mid_gg",
+    "description": "",
+    "condition": {},
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "ending_electrical_engineering_transfer_success",
+    "title": "电气工程 → 新专业·半路重开型玩家",
+    "type": "transfer_success",
+    "priority": 90,
+    "conditions": {
+      "all": [
+        {
+          "type": "flag",
+          "key": "electrical_engineering_flag_transfer_success"
+        }
+      ]
+    },
+    "summary": "你不是从新手村重新开始的，你是带着原专业后遗症半路冲进新副本。",
+    "afterEffects": [
+      "原专业 PTSD 残留",
+      "对培养方案异常警觉"
+    ],
+    "advice": "转向并不可耻，但转专业不是后悔药。",
+    "shareText": "我从电气工程半路重开，系统说我只是换了一种痛苦皮肤。",
+    "resultTags": [
+      "转专业成功"
+    ],
+    "endingId": "ending_electrical_engineering_transfer_success",
+    "description": "",
+    "condition": {},
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "ending_electrical_engineering_transfer_fail",
+    "title": "转专业失败·电气工程滞留型幸存者",
+    "type": "transfer_fail",
+    "priority": 88,
+    "conditions": {
+      "all": [
+        {
+          "type": "flag",
+          "key": "electrical_engineering_flag_transfer_failed"
+        }
+      ]
+    },
+    "summary": "你曾经看见过逃生门，也认真走过去拧了门把手。遗憾的是，门后面写着：名额已满。",
+    "afterEffects": [
+      "嘴硬浓度显著上升"
+    ],
+    "advice": "不要把转专业当作默认退路。",
+    "shareText": "我在电气工程逃生门前失败了，但系统说人还在。",
+    "resultTags": [
+      "转专业失败"
+    ],
+    "endingId": "ending_electrical_engineering_transfer_fail",
+    "description": "",
+    "condition": {},
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "ending_electrical_engineering_hidden",
+    "title": "隐藏结局——电气·人形电网调度器",
+    "type": "hidden",
+    "priority": 80,
+    "conditions": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "circuitControl",
+          "op": ">=",
+          "value": 90
+        },
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 80
+        },
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": ">=",
+          "value": 35
+        }
+      ]
+    },
+    "summary": "你已经进化到看世界都会想系统、负载、稳定性和调度。",
+    "afterEffects": [
+      "专业人格外溢",
+      "看世界的方式被永久改变"
+    ],
+    "advice": "如果你打出这个结局，说明你可能真的适合。请保持热爱，也记得保养精神电量。",
+    "shareText": "我打出了电气工程隐藏结局：电气·人形电网调度器。",
+    "resultTags": [
+      "隐藏神人"
+    ],
+    "endingId": "ending_electrical_engineering_hidden",
+    "description": "",
+    "condition": {},
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "electrical_engineering_ending_001",
+    "endingId": "electrical_engineering_ending_001",
+    "priority": 80,
+    "title": "电气工程·国网执念型稳定玩家",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "stateGridObsession",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "description": "你终于明白，“稳定”不是躺平，而是先通过一整套筛选。",
+    "advice": "你没有被亲戚的一句“以后进电网”骗到底，而是把国网路线拆成考试、岗位、地区和长期职业选择。你适合继续冲，但别把稳定误解成无痛人生。",
+    "shareText": "我在电气工程副本里活成了：国网执念型稳定玩家。亲戚只看见铁饭碗，我看见了题海和岗位表。",
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "electrical_engineering_ending_002",
+    "endingId": "electrical_engineering_ending_002",
+    "priority": 75,
+    "title": "电气工程·模电玄学幸存者",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "circuitControl",
+          "op": ">=",
+          "value": 65
+        },
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": "<=",
+          "value": 45
+        }
+      ]
+    },
+    "description": "你没有完全搞懂模电，但你和它和平共处到了毕业。",
+    "advice": "你经历了三极管、反馈、波形和无数次“为什么这样也能算”。你不一定爱模电，但你已经拥有电气人的共同暗号：模电不挂就是胜利。",
+    "shareText": "我在电气工程副本里活成了：模电玄学幸存者。科学学了一半，玄学也信了一点。",
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "electrical_engineering_ending_003",
+    "endingId": "electrical_engineering_ending_003",
+    "priority": 70,
+    "title": "电气工程·强电敬畏型硬核选手",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "powerRespect",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "description": "你不再把电气看成“稳定专业”，而是看成复杂系统里的责任。",
+    "advice": "从电路到电机，从继保到电力系统，你逐渐理解强电的危险、秩序和工程美感。你适合继续走硬核电力路线，但请定期给自己降温。",
+    "shareText": "我在电气工程副本里活成了：强电敬畏型硬核选手。电网稳定了，我本人差点不稳定。",
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "electrical_engineering_ending_004",
+    "endingId": "electrical_engineering_ending_004",
+    "priority": 65,
+    "title": "电气工程·新能源真香分流者",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 65
+        },
+        {
+          "type": "majorStat",
+          "key": "stateGridObsession",
+          "op": "<=",
+          "value": 60
+        }
+      ]
+    },
+    "description": "你发现电气不只有国网，还有新能源、储能、电力电子和智能电网。",
+    "advice": "你没有把电气工程锁死在单一出路里。你开始看见这个专业在新方向里的可能性，也接受了它仍然很难这个事实。",
+    "shareText": "我在电气工程副本里活成了：新能源真香分流者。原来电气不是老专业，是现代生活的隐藏主线。",
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "electrical_engineering_ending_005",
+    "endingId": "electrical_engineering_ending_005",
+    "priority": 60,
+    "title": "电气工程·电路图事故现场艺术家",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "circuitControl",
+          "op": "<=",
+          "value": 45
+        },
+        {
+          "type": "majorStat",
+          "key": "smokeRisk",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "description": "你画不出最优雅的电路图，但你居然一路活到了结算。",
+    "advice": "你的笔记像事故现场，实验报告像推理小说，但你还是靠万用表、同组同学和顽强求生能力撑过来了。系统评价：不够优雅，但很真实。",
+    "shareText": "我在电气工程副本里活成了：电路图事故现场艺术家。别人画电路，我画案发现场。",
+    "majorId": "electrical_engineering"
+  },
+  {
+    "id": "electrical_engineering_ending_006",
+    "endingId": "electrical_engineering_ending_006",
+    "priority": 55,
+    "title": "电气工程·稳定祛魅型清醒毕业生",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 35
+        },
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": ">=",
+          "value": 35
+        }
+      ]
+    },
+    "description": "你终于不神化稳定，也不羞辱自己。",
+    "advice": "你看清了电气的难，也看见了它的用处。稳定不是天降福利，而是一条需要考试、技能、责任和长期维护的路线。你可以继续走，也可以分流，但至少不是糊里糊涂。",
+    "shareText": "我在电气工程副本里活成了：稳定祛魅型清醒毕业生。稳定不是躺着，是系统运行时不能崩。",
+    "majorId": "electrical_engineering"
   }
 ]

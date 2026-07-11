@@ -2535,9 +2535,9 @@
       "riskWarning": "别只看国网滤镜，先看看你能不能让电路和实验报告听话。"
     },
     "intro": {
-      "title": "欢迎进入电气工程副本",
-      "body": "你带着一点稳定想象、一点国网滤镜，以及一点“工科不愁就业”的安全感，进入电气工程副本。\n系统提醒：本科四年内，你将遭遇高数、大物、电路、模电数电、电机、电力系统、实验报告、考研、国网和毕业设计。\n如果你知道这些还想继续，说明你可能真的愿意在电流里修炼。",
-      "startButton": "开始本科四年"
+      "title": "你被电气工程录取了！",
+      "body": "你带着一点“以后进国家电网”的稳定想象，一点“工科应该比较好就业”的朴素判断，以及一点“电气应该就是和电有关吧”的模糊认知，来到了电气工程副本。\n\n本科四年内，你将依次遭遇高数、大物、电路、模电、数电、电机、电力系统、继电保护、实验报告、国网经验贴、新能源岗位介绍，以及无数个“波形为什么不对”的夜晚。\n\n电气工程不是修电灯，也不是自动进电网。它更像一个强电长线副本：前期电路把你接入，中期模电把你击穿，后期电力系统告诉你，稳定从来不是嘴上说说。",
+      "startButton": "进入大学 · 大一上"
     },
     "tags": [
       "国网滤镜",
@@ -2577,51 +2577,55 @@
       "系统思维成型"
     ],
     "initialStats": {
-      "obsession": 64,
-      "energy": 78,
-      "filter": 80,
-      "gpaWill": 64,
-      "careerFantasy": 82,
+      "obsession": 72,
+      "energy": 76,
+      "filter": 84,
+      "gpaWill": 70,
+      "careerFantasy": 78,
       "escapeImpulse": 16,
-      "stubbornness": 42,
+      "stubbornness": 45,
       "hairline": 90
     },
     "majorStats": [
       {
         "key": "circuitControl",
-        "name": "电路驯服度",
+        "name": "电路脑",
         "initialValue": 20,
-        "description": "理解电路、模电数电、电机和电力系统的稳定程度。"
+        "description": "理解电路、电机、电力系统等硬核内容的能力。"
       },
       {
         "key": "stateGridObsession",
         "name": "国网执念",
-        "initialValue": 28,
-        "description": "对国家电网、稳定就业和电气主线的执念程度。"
+        "initialValue": 48,
+        "description": "对国家电网、稳定路线和铁饭碗叙事的执念程度。"
       },
       {
         "key": "smokeRisk",
-        "name": "实验冒烟风险",
-        "initialValue": 8,
-        "description": "实验、接线、调参、仿真崩盘带来的风险指数。"
+        "name": "实验存活率",
+        "initialValue": 25,
+        "description": "在接线、测量、看波形、写报告中不崩溃的概率。"
       },
       {
         "key": "thesisPressure",
         "name": "毕设压力",
         "initialValue": 0,
         "description": "大四毕设和电气系统设计相关风险值。"
+      },
+      {
+        "key": "powerRespect",
+        "name": "强电敬畏",
+        "initialValue": 18,
+        "description": "对强电安全、电网系统和电力工程责任的真实敬畏。"
       }
     ],
     "timeline": [
       {
         "key": "y1s1",
         "label": "大一上",
-        "theme": "国网滤镜与工科新手村",
+        "theme": "亲戚眼里的国家电网预备役",
         "pressureLevel": 0.6,
         "mainEventIds": [
-          "electrical_engineering_y1s1_main_001",
-          "electrical_engineering_y1s1_main_002",
-          "electrical_engineering_y1s1_main_003"
+          "electrical_engineering_y1s1_main_001"
         ],
         "randomSlots": [
           {
@@ -2644,12 +2648,11 @@
       {
         "key": "y1s2",
         "label": "大一下",
-        "theme": "电路原理与转专业暗线",
+        "theme": "电路课把你接入真实电气副本",
         "pressureLevel": 0.7,
         "mainEventIds": [
-          "electrical_engineering_y1s2_main_004",
-          "electrical_engineering_y1s2_transfer_005",
-          "electrical_engineering_y1s2_main_006"
+          "electrical_engineering_y1s2_main_002",
+          "electrical_engineering_y1s2_transfer_005"
         ],
         "randomSlots": [
           {
@@ -2672,12 +2675,10 @@
       {
         "key": "y2s1",
         "label": "大二上",
-        "theme": "模电数电与方向意识",
+        "theme": "模电出现后，你开始相信玄学",
         "pressureLevel": 0.85,
         "mainEventIds": [
-          "electrical_engineering_y2s1_main_007",
-          "electrical_engineering_y2s1_main_008",
-          "electrical_engineering_y2s1_main_009"
+          "electrical_engineering_y2s1_main_003"
         ],
         "randomSlots": [
           {
@@ -2700,12 +2701,11 @@
       {
         "key": "y2s2",
         "label": "大二下",
-        "theme": "电机学与转专业窗口",
+        "theme": "实验室里，示波器成了祖宗",
         "pressureLevel": 1.0,
         "mainEventIds": [
-          "electrical_engineering_y2s2_main_010",
-          "electrical_engineering_y2s2_transfer_011",
-          "electrical_engineering_y2s2_main_012"
+          "electrical_engineering_y2s2_main_004",
+          "electrical_engineering_y2s2_transfer_011"
         ],
         "randomSlots": [
           {
@@ -2728,11 +2728,10 @@
       {
         "key": "y3s1",
         "label": "大三上",
-        "theme": "电力系统、实验报告与实习",
+        "theme": "电机学让你听见转子在梦里旋转",
         "pressureLevel": 1.2,
         "mainEventIds": [
-          "electrical_engineering_y3s1_main_013",
-          "electrical_engineering_y3s1_main_014",
+          "electrical_engineering_y3s1_main_005",
           "electrical_engineering_y3s1_route_015"
         ],
         "randomSlots": [
@@ -2756,12 +2755,12 @@
       {
         "key": "y3s2",
         "label": "大三下",
-        "theme": "国网/考研/新能源路线分化",
+        "theme": "电力系统告诉你，稳定不是嘴上说说",
         "pressureLevel": 1.35,
         "mainEventIds": [
+          "electrical_engineering_y3s2_main_006",
           "electrical_engineering_y3s2_route_016",
-          "electrical_engineering_y3s2_route_017",
-          "electrical_engineering_y3s2_main_018"
+          "electrical_engineering_y3s2_route_017"
         ],
         "randomSlots": [
           {
@@ -2784,10 +2783,10 @@
       {
         "key": "y4s1",
         "label": "大四上",
-        "theme": "路线结算与毕设压力",
+        "theme": "国网、考研和秋招开始三相并联",
         "pressureLevel": 1.5,
         "mainEventIds": [
-          "electrical_engineering_y4s1_main_019",
+          "electrical_engineering_y4s1_main_007",
           "electrical_engineering_y4s1_route_020",
           "electrical_engineering_y4s1_gg_check_021"
         ],
@@ -2812,10 +2811,10 @@
       {
         "key": "y4s2",
         "label": "大四下",
-        "theme": "毕业结算",
+        "theme": "毕业前，你终于不再把稳定想得太简单",
         "pressureLevel": 1.4,
         "mainEventIds": [
-          "electrical_engineering_y4s2_main_022",
+          "electrical_engineering_y4s2_main_008",
           "electrical_engineering_y4s2_settlement_023"
         ],
         "randomSlots": [
@@ -2917,34 +2916,38 @@
       "ach_electrical_engineering_hidden_002",
       "ach_electrical_engineering_hidden_003",
       "ach_electrical_engineering_hidden_004",
-      "ach_electrical_engineering_hidden_005"
+      "ach_electrical_engineering_hidden_005",
+      "ach_electrical_engineering_doc_001",
+      "ach_electrical_engineering_doc_002",
+      "ach_electrical_engineering_doc_003",
+      "ach_electrical_engineering_doc_004",
+      "ach_electrical_engineering_doc_005",
+      "ach_electrical_engineering_doc_006",
+      "ach_electrical_engineering_doc_007",
+      "ach_electrical_engineering_doc_008",
+      "ach_electrical_engineering_doc_009",
+      "ach_electrical_engineering_doc_010"
     ],
     "endings": [
       "ending_electrical_engineering_mid_gg",
       "ending_electrical_engineering_transfer_success",
       "ending_electrical_engineering_transfer_fail",
       "ending_electrical_engineering_hidden",
-      "ending_electrical_engineering_overachiever",
-      "ending_electrical_engineering_true_love",
-      "ending_electrical_engineering_route",
-      "ending_electrical_engineering_survivor",
-      "ending_electrical_engineering_filter_broken",
-      "ending_electrical_engineering_layflat"
+      "electrical_engineering_ending_001",
+      "electrical_engineering_ending_002",
+      "electrical_engineering_ending_003",
+      "electrical_engineering_ending_004",
+      "electrical_engineering_ending_005",
+      "electrical_engineering_ending_006"
     ],
-    "shareTexts": {
-      "hooks": [
-        "我用 5 分钟读完电气本科，系统说我进入国网滤镜幸存结局。",
-        "别急着报电气工程，先进副本活一遍。",
-        "这不是劝退，这是提前摘滤镜。",
-        "转发给那个想报电气工程的人。"
-      ],
-      "buttons": [
-        "换个专业继续受苦",
-        "截图发给想报电气工程的人",
-        "不服，重开一次电气工程副本",
-        "看看系统会推荐我读什么专业"
-      ]
-    },
+    "shareTexts": [
+      "我在电气工程副本里活成了：电气不修灯宣讲员。亲戚以为我会修灯，我本人正在被模电修理。",
+      "电气工程体验报告：稳定是真的，轻松是假的。国网不是传送门，模电不是人间，示波器波形是神迹。",
+      "我终于明白电气所谓的稳定：不是我稳定，是电网必须稳定；不是我不崩，是系统不允许崩。",
+      "学电气后最大的变化：看到电线杆会多看两眼，看到亲戚家的灯坏了会少说两句。",
+      "我以为电气是铁饭碗，结果本科四年先端上来电路、模电、数电、电机和实验报告文学。",
+      "电气工程副本建议：报之前先确认你对“强电敬畏、模电玄学、国网题海、波形失踪”有基本心理准备。"
+    ],
     "majorId": "electrical_engineering"
   },
   {
