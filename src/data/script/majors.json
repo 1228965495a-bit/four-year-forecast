@@ -1850,9 +1850,9 @@
       ]
     },
     "intro": {
-      "title": "欢迎进入会计学副本",
-      "body": "你带着稳定就业滤镜进入会计学。系统提醒：本科四年会遇到基础会计、中财、成本、审计、税法、实习、考证和职业分化。",
-      "startButton": "开始本科四年"
+      "title": "你被会计学录取了！",
+      "body": "你带着一点“稳定专业”的想象、一点“越老越吃香”的传说，以及一点“会计应该就是算算账吧”的天真，进入了会计学副本。\n\n本科四年内，你将依次遭遇借贷记账法、财务会计、成本会计、税法、审计、财管、Excel、证书焦虑、事务所实习、月末结账和无数个“为什么差一分钱”的夜晚。\n\n会计学不是记流水账。它更像一种数字世界的秩序训练：表可以不漂亮，但必须平；人可以不稳定，但最好不要月末崩盘。",
+      "startButton": "进入大学 · 大一上"
     },
     "tags": [
       "稳定滤镜",
@@ -1903,110 +1903,131 @@
       {
         "key": "entryBalance",
         "name": "借贷平衡感",
-        "description": "写分录、看报表和理解准则的稳定程度。",
-        "initialValue": 25
+        "description": "理解分录、报表、对账和会计等式的能力。",
+        "initialValue": 18
       },
       {
         "key": "cpaShadow",
         "name": "CPA阴影",
-        "description": "证书、审计、税法和职业门槛带来的长期阴影。",
+        "description": "证书焦虑与长期备考压力。",
         "initialValue": 10
       },
       {
         "key": "auditPressure",
         "name": "审计压力",
-        "description": "审计、底稿、实习和细节核对带来的压力。",
-        "initialValue": 0
+        "description": "审计、税法、底稿、证据和风险意识带来的压力。",
+        "initialValue": 8
       }
     ],
     "timeline": [
       {
         "semester": "y1s1",
         "label": "大一上",
-        "theme": "稳定滤镜与基础会计",
+        "theme": "你收到会计学录取通知书",
         "coreEvents": "会计导论和基础分录登场。",
         "statTrend": "借贷平衡感启动。",
         "routeForeshadow": "确认会计不是只按计算器。",
         "key": "y1s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "accounting_y1s1_main_001"
+        ]
       },
       {
         "semester": "y1s2",
         "label": "大一下",
-        "theme": "财管经济法预热",
+        "theme": "借贷记账法把你按在桌上摩擦",
         "coreEvents": "经济学、管理学和财务基础铺开。",
         "statTrend": "绩点求生欲上升。",
         "routeForeshadow": "商科底座建立。",
         "key": "y1s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "accounting_y1s2_main_001"
+        ]
       },
       {
         "semester": "y2s1",
         "label": "大二上",
-        "theme": "中财上强度",
+        "theme": "财务会计开始教你“确认”的艺术",
         "coreEvents": "中级财务会计开始拉开差距。",
         "statTrend": "借贷平衡感分化。",
         "routeForeshadow": "专业上头或沉默。",
         "key": "y2s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "accounting_y2s1_main_001"
+        ]
       },
       {
         "semester": "y2s2",
         "label": "大二下",
-        "theme": "成本税法审计预热",
+        "theme": "成本会计把你送进制造费用迷宫",
         "coreEvents": "成本会计、税法和审计意识出现。",
         "statTrend": "CPA阴影启动。",
         "routeForeshadow": "证书路线埋点。",
         "key": "y2s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "accounting_y2s2_main_001"
+        ]
       },
       {
         "semester": "y3s1",
         "label": "大三上",
-        "theme": "实务和实习靠近",
+        "theme": "税法和审计同时上线",
         "coreEvents": "财务软件、审计、实习投递进入视野。",
         "statTrend": "职业幻想被现实校准。",
         "routeForeshadow": "路线事件池预热。",
         "key": "y3s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "accounting_y3s1_main_001"
+        ]
       },
       {
         "semester": "y3s2",
         "label": "大三下",
-        "theme": "路线分化",
+        "theme": "CPA 的影子提前投到你脸上",
         "coreEvents": "事务所、企业财务、考研、考公、CPA路线分化。",
         "statTrend": "审计压力上升。",
         "routeForeshadow": "路线事件池开启。",
         "key": "y3s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "accounting_y3s2_main_001"
+        ]
       },
       {
         "semester": "y4s1",
         "label": "大四上",
-        "theme": "秋招考证论文并发",
+        "theme": "事务所实习让你理解什么叫底稿人生",
         "coreEvents": "秋招、CPA、论文和实习经验一起上桌。",
         "statTrend": "精神电量下降。",
         "routeForeshadow": "中途 GG 风险上升。",
         "key": "y4s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "accounting_y4s1_main_001"
+        ]
       },
       {
         "semester": "y4s2",
         "label": "大四下",
-        "theme": "会计本科结算",
+        "theme": "毕业前，你终于和资产负债表对视",
         "coreEvents": "你带着借贷平衡和证书阴影走向出口。",
         "statTrend": "根据路线与证书结算。",
         "routeForeshadow": "生成会计学人格鉴定书。",
         "key": "y4s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "accounting_y4s2_main_001"
+        ]
       }
     ],
     "randomEvents": [
-      "accounting_random_01",
-      "accounting_random_02",
-      "accounting_random_03",
-      "accounting_random_04",
-      "accounting_random_05"
+      "accounting_random_001",
+      "accounting_random_002",
+      "accounting_random_003",
+      "accounting_random_004",
+      "accounting_random_005",
+      "accounting_random_006",
+      "accounting_random_007",
+      "accounting_random_008",
+      "accounting_random_009",
+      "accounting_random_010"
     ],
     "hiddenEvents": [
       "accounting_hidden_01",
@@ -2021,22 +2042,38 @@
       "accounting_route_civil_service"
     ],
     "achievements": [
-      "ach_accounting_entry_balanced",
-      "ach_accounting_intern_reply",
-      "ach_accounting_report_understood",
-      "ach_accounting_cpa_shadow",
-      "ach_accounting_audit_survivor"
+      "ach_accounting_doc_001",
+      "ach_accounting_doc_002",
+      "ach_accounting_doc_003",
+      "ach_accounting_doc_004",
+      "ach_accounting_doc_005",
+      "ach_accounting_doc_006",
+      "ach_accounting_doc_007",
+      "ach_accounting_doc_008",
+      "ach_accounting_doc_009",
+      "ach_accounting_doc_010"
     ],
     "endings": [
-      "ending_accounting_stable_realist",
-      "ending_accounting_cpa_track",
-      "ending_accounting_audit",
-      "ending_accounting_entry_master"
+      "accounting_ending_001",
+      "accounting_ending_002",
+      "accounting_ending_003",
+      "accounting_ending_004",
+      "accounting_ending_005",
+      "accounting_ending_006"
     ],
     "shareTexts": [
-      "我用 5 分钟读完这个本科副本，系统说这不是劝退，是提前摘滤镜。",
-      "转发给那个以为会计只是算账的人。",
-      "会计学副本提醒我：稳定是真的，细是真的，证书也是真的。"
+      "我在会计学副本里活成了：借贷人间清醒者。表平了，人也快平了。",
+      "我在会计学副本里活成了：CPA在逃预备役。不是不考，是正在进行精神预提。",
+      "我在会计学副本里活成了：事务所底稿战士。别人青春疼痛，我青春抽凭。",
+      "我在会计学副本里活成了：国企财务稳定型选手。人生可以不暴富，但最好别账实不符。",
+      "我在会计学副本里活成了：税法迷宫幸存者。不是我敏感，是税法真的会变。",
+      "我在会计学副本里活成了：会计祛魅但不后悔的人。会计不简单，我也不想装简单。",
+      "我在会计学副本里活成了：借贷人间清醒者。表平了，人也快平了。",
+      "会计学体验报告：不是不能报，是别以为它只是算账。你以为自己来学稳定，系统给你加载了借贷、税法、审计、CPA 和月末结账。",
+      "我终于明白，会计人的人生信条不是赚大钱，是有借必有贷，借贷必相等。差一分钱都不行，差一口气可以。",
+      "我在会计学副本里获得标签：CPA在逃预备役、Excel续命选手、月末结账幸存者。建议转发给那个说会计很轻松的人。",
+      "这专业最恐怖的不是考试，是当你发现资产负债表平了，但你本人还没平。",
+      "会计学副本通关后遗症：看到任何数字都想问依据，看到任何月底都想请假。"
     ],
     "majorId": "accounting"
   },
