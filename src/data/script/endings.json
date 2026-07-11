@@ -1462,82 +1462,6 @@
     "majorId": "artificial_intelligence"
   },
   {
-    "id": "ending_chinese_language_literature_filter_alive",
-    "endingId": "ending_chinese_language_literature_filter_alive",
-    "majorId": "chinese_language_literature",
-    "title": "汉语言文学·文学滤镜未死型玩家",
-    "description": "你被文学史和论文折磨过，但仍然会在某个句子里重新上头。适合报，但请接受浪漫旁边永远站着文献综述。",
-    "condition": {
-      "type": "majorStat",
-      "key": "literaryFilter",
-      "op": ">=",
-      "value": 55
-    },
-    "priority": 50,
-    "shareText": "我体验完中文系，系统说我的文学滤镜还没死。 系统判定：汉语言文学·文学滤镜未死型玩家",
-    "advice": "你被文学史和论文折磨过，但仍然会在某个句子里重新上头。适合报，但请接受浪漫旁边永远站着文献综述。"
-  },
-  {
-    "id": "ending_chinese_language_literature_classical_damage",
-    "endingId": "ending_chinese_language_literature_classical_damage",
-    "majorId": "chinese_language_literature",
-    "title": "汉语言文学·古汉语伤害型幸存者",
-    "description": "你不是不爱中文，只是古代汉语曾经认真爱过你。毕业后你看到句读仍会短暂安静。",
-    "condition": {
-      "type": "majorStat",
-      "key": "classicalChineseDamage",
-      "op": ">=",
-      "value": 70
-    },
-    "priority": 50,
-    "shareText": "我体验完中文系，系统说我的文学滤镜还没死。 系统判定：汉语言文学·古汉语伤害型幸存者",
-    "advice": "你不是不爱中文，只是古代汉语曾经认真爱过你。毕业后你看到句读仍会短暂安静。"
-  },
-  {
-    "id": "ending_chinese_language_literature_teaching_exam",
-    "endingId": "ending_chinese_language_literature_teaching_exam",
-    "majorId": "chinese_language_literature",
-    "title": "汉语言文学·考编收束型选手",
-    "description": "你把中文系训练转化成讲台和编制路线。稳定不是白送的，但这条路至少有清晰目标。",
-    "condition": {
-      "type": "route",
-      "key": "chinese_language_literature_route_teaching"
-    },
-    "priority": 50,
-    "shareText": "我体验完中文系，系统说我的文学滤镜还没死。 系统判定：汉语言文学·考编收束型选手",
-    "advice": "你把中文系训练转化成讲台和编制路线。稳定不是白送的，但这条路至少有清晰目标。"
-  },
-  {
-    "id": "ending_chinese_language_literature_content_worker",
-    "endingId": "ending_chinese_language_literature_content_worker",
-    "majorId": "chinese_language_literature",
-    "title": "汉语言文学·新媒体转向型内容人",
-    "description": "你从“写得好”走向“有人看”。文学不一定消失，只是被标题、数据和热点重新包装。",
-    "condition": {
-      "type": "route",
-      "key": "chinese_language_literature_route_content"
-    },
-    "priority": 50,
-    "shareText": "我体验完中文系，系统说我的文学滤镜还没死。 系统判定：汉语言文学·新媒体转向型内容人",
-    "advice": "你从“写得好”走向“有人看”。文学不一定消失，只是被标题、数据和热点重新包装。"
-  },
-  {
-    "id": "ending_chinese_language_literature_thesis_overload",
-    "endingId": "ending_chinese_language_literature_thesis_overload",
-    "majorId": "chinese_language_literature",
-    "title": "汉语言文学·论文浓度爆表型玩家",
-    "description": "你终于明白中文系的终极副本不是读书，而是把读过的东西变成一个能答辩的选题。",
-    "condition": {
-      "type": "majorStat",
-      "key": "thesisDensity",
-      "op": ">=",
-      "value": 80
-    },
-    "priority": 50,
-    "shareText": "我体验完中文系，系统说我的文学滤镜还没死。 系统判定：汉语言文学·论文浓度爆表型玩家",
-    "advice": "你终于明白中文系的终极副本不是读书，而是把读过的东西变成一个能答辩的选题。"
-  },
-  {
     "id": "ending_architecture_overnight_survivor",
     "endingId": "ending_architecture_overnight_survivor",
     "majorId": "architecture",
@@ -3878,5 +3802,189 @@
     "advice": "你没有把学生当试错工具，也没有把“稳定”当成唯一理由。知道自己不适合讲台，是一种成熟判断。这个结局不失败，它只是诚实。",
     "shareText": "我在师范类副本里活成了：清醒退场但有师德的人。不是谁都适合上讲台，知道不适合也是一种负责。",
     "majorId": "teacher_education"
+  },
+  {
+    "id": "chinese_literature_ending_001",
+    "endingId": "chinese_literature_ending_001",
+    "priority": 80,
+    "title": "汉语言文学·清醒中文系玩家",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 70
+        },
+        {
+          "type": "majorStat",
+          "key": "writingImpulse",
+          "op": ">=",
+          "value": 70
+        },
+        {
+          "type": "majorStat",
+          "key": "theoryDizziness",
+          "op": "<=",
+          "value": 70
+        }
+      ]
+    },
+    "description": "你没有把文学当饭碗神话，也没有把它贬成无用浪漫。",
+    "advice": "你读过文本，也被现实追问过；写过论文，也搜索过就业。最后你明白，中文系不保证一种体面人生，但它会训练你把话说清楚，把人看复杂，把世界解释得不那么粗糙。",
+    "shareText": "我在汉语言文学副本里活成了：清醒中文系玩家。没有日更小说，也没有天天吟诗，但确实学会了把话说清楚。",
+    "majorId": "chinese_language_literature"
+  },
+  {
+    "id": "chinese_literature_ending_002",
+    "endingId": "chinese_literature_ending_002",
+    "priority": 75,
+    "title": "汉语言文学·文论黑话翻译官",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "theoryDizziness",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "description": "你曾经在概念里溺水，后来学会把黑话翻译成人话。",
+    "advice": "能指、所指、他者、主体、现代性，这些词曾经把你打到沉默。后来你发现，真正的能力不是把话说复杂，而是知道复杂话背后到底在说什么。",
+    "shareText": "我在汉语言文学副本里活成了：文论黑话翻译官。能指所指没把我淹死，反而让我学会说人话。",
+    "majorId": "chinese_language_literature"
+  },
+  {
+    "id": "chinese_literature_ending_003",
+    "endingId": "chinese_literature_ending_003",
+    "priority": 70,
+    "title": "汉语言文学·语文老师预备役",
+    "condition": {
+      "any": [
+        {
+          "type": "route",
+          "key": "chinese_language_literature_route_teaching"
+        },
+        {
+          "all": [
+            {
+              "type": "majorStat",
+              "key": "civilServiceCall",
+              "op": ">=",
+              "value": 60
+            },
+            {
+              "type": "majorStat",
+              "key": "writingImpulse",
+              "op": ">=",
+              "value": 55
+            }
+          ]
+        }
+      ]
+    },
+    "description": "亲戚的预言未必全错，但你不是被迫走向讲台。",
+    "advice": "你经历过文本细读、文学史背诵、教资报名和试讲想象。未来如果站上讲台，你不只是教中心思想，也会试着让学生知道：文字不是标准答案，文字也可以救命。",
+    "shareText": "我在汉语言文学副本里活成了：语文老师预备役。亲戚的预言先别急着笑，可能真的有点准。",
+    "majorId": "chinese_language_literature"
+  },
+  {
+    "id": "chinese_literature_ending_004",
+    "endingId": "chinese_literature_ending_004",
+    "priority": 65,
+    "title": "汉语言文学·内容打工型表达选手",
+    "condition": {
+      "any": [
+        {
+          "type": "route",
+          "key": "chinese_language_literature_route_content"
+        },
+        {
+          "all": [
+            {
+              "type": "majorStat",
+              "key": "writingImpulse",
+              "op": ">=",
+              "value": 75
+            },
+            {
+              "type": "stat",
+              "key": "careerFantasy",
+              "op": "<=",
+              "value": 60
+            }
+          ]
+        }
+      ]
+    },
+    "description": "你把“喜欢文字”翻译成“能写、能改、能策划、能熬需求”。",
+    "advice": "你终于知道，表达变现不是风花雪月，而是标题、选题、改稿、甲方、热点和 deadline 的复合训练。中文系给了你语言敏感，也给了你被“稍微润色一下”支配的命运。",
+    "shareText": "我在汉语言文学副本里活成了：内容打工型表达选手。曾经想写文学，后来学会了写需求。",
+    "majorId": "chinese_language_literature"
+  },
+  {
+    "id": "chinese_literature_ending_005",
+    "endingId": "chinese_literature_ending_005",
+    "priority": 60,
+    "title": "汉语言文学·宇宙尽头上岸预备役",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "civilServiceCall",
+          "op": ">=",
+          "value": 80
+        },
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": ">=",
+          "value": 35
+        }
+      ]
+    },
+    "description": "你没有放弃文学，只是先把申论打开了。",
+    "advice": "中文系的阅读理解、材料概括和表达能力，在宇宙尽头突然显得很有用。你不一定热爱行测，但你已经能把“稳定”二字读出复杂层次。",
+    "shareText": "我在汉语言文学副本里活成了：宇宙尽头上岸预备役。文学还在心里，申论已经在桌上。",
+    "majorId": "chinese_language_literature"
+  },
+  {
+    "id": "chinese_literature_ending_006",
+    "endingId": "chinese_literature_ending_006",
+    "priority": 55,
+    "title": "汉语言文学·文学滤镜碎裂但没退坑的人",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "literaryFilter",
+          "op": "<=",
+          "value": 25
+        },
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 45
+        },
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": ">=",
+          "value": 25
+        }
+      ]
+    },
+    "description": "你不再相信中文系天然浪漫，但你还是没有彻底离开文字。",
+    "advice": "滤镜碎掉以后，剩下的东西反而更真实。你知道这个专业不能自动解决就业，也不会让人生变高级，但在某些瞬间，一句话、一段文本、一个问题，仍然会把你拉回来。",
+    "shareText": "我在汉语言文学副本里活成了：文学滤镜碎裂但没退坑的人。浪漫没了很多，但文字还是有点用。",
+    "majorId": "chinese_language_literature"
   }
 ]

@@ -3870,9 +3870,9 @@
       ]
     },
     "intro": {
-      "title": "欢迎进入汉语言文学副本",
-      "body": "你带着一点文学理想、一点“我语文还不错”的自信，以及一点“不想被数学追杀”的庆幸进入中文系。系统提醒：诗和远方会来，但它们通常会和文学史、古代汉语、论文选题一起出现。",
-      "startButton": "开始本科四年"
+      "title": "你被汉语言文学录取了！",
+      "body": "你带着一点文学滤镜、一点“我从小语文还行”的自信，以及一点“这个专业应该不用学高数吧”的朴素快乐，来到了汉语言文学副本。系统提醒：本科四年内，你将依次遭遇古代文学、现代文学、文学理论、语言学、论文选题、教资报名、考研经验贴、考公群消息和亲戚那句“以后是不是当语文老师”。\n\n汉语言文学不是每天坐在树下看书写诗。更常见的画面是：你在凌晨背唐宋文学流派，在课堂上假装理解能指与所指，在论文里试图把“感觉很有意思”翻译成“具有较高研究价值”。",
+      "startButton": "进入大学 · 大一上"
     },
     "tags": [
       "文学滤镜",
@@ -3928,7 +3928,7 @@
       {
         "key": "literaryFilter",
         "name": "文学滤镜",
-        "description": "看到诗、小说、作家就上头的程度。高了很浪漫，低了会开始问“这能就业吗”。",
+        "description": "对“我将拥有一个很文学的人生”的幻想浓度。",
         "initialValue": 86
       },
       {
@@ -3954,101 +3954,150 @@
         "name": "作品集进度",
         "description": "文字作品、内容案例、实习成果等可展示积累。",
         "initialValue": 0
+      },
+      {
+        "key": "memorizationLoad",
+        "name": "背诵负荷",
+        "initialValue": 0,
+        "description": "古代文学、文学史、作品选、作家作品、名词解释共同制造的记忆压力。"
+      },
+      {
+        "key": "theoryDizziness",
+        "name": "文论眩晕",
+        "initialValue": 0,
+        "description": "能指、所指、主体、他者、现代性、文本间性等概念造成的精神雾霾。"
+      },
+      {
+        "key": "writingImpulse",
+        "name": "表达冲动",
+        "initialValue": 0,
+        "description": "想写点什么、讲点什么、做内容、写论文、发朋友圈小作文的冲动。"
+      },
+      {
+        "key": "civilServiceCall",
+        "name": "考公召唤",
+        "initialValue": 0,
+        "description": "宇宙尽头向中文系发来的低频但持续的召唤。"
       }
     ],
     "timeline": [
       {
         "semester": "y1s1",
         "label": "大一上",
-        "theme": "文学滤镜启动",
+        "theme": "你收到汉语言文学录取通知书",
         "coreEvents": "现代文学导论、第一次中文系课堂、读书报告初体验",
         "statTrend": "滤镜厚度先升后降；专业上头值波动；论文浓度启动",
         "routeForeshadow": "埋下“中文系不等于自由写作”的认知。",
         "key": "y1s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "chinese_literature_y1s1_main_001"
+        ]
       },
       {
         "semester": "y1s2",
         "label": "大一下",
-        "theme": "文学史和古代汉语初见",
+        "theme": "古代文学史开始点名你的记忆力",
         "coreEvents": "古代文学史、现代汉语、第一次被句法分析打断浪漫",
         "statTrend": "文学滤镜下降；绩点求生欲上升；古汉语伤害出现",
         "routeForeshadow": "可出现转专业经验帖/隔壁专业突然很实用。",
         "key": "y1s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "chinese_literature_y1s2_main_002"
+        ]
       },
       {
         "semester": "y2s1",
         "label": "大二上",
-        "theme": "语言学开始重塑大脑",
+        "theme": "文学理论让你怀疑自己会不会读书",
         "coreEvents": "古代汉语、语言学概论、文学理论入门",
         "statTrend": "精神电量下降；论文浓度上升；专业上头值分化",
         "routeForeshadow": "喜欢理论者真香，不喜欢抽象者开始怀疑。",
         "key": "y2s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "chinese_literature_y2s1_main_003"
+        ]
       },
       {
         "semester": "y2s2",
         "label": "大二下",
-        "theme": "专业分化和逃生门",
+        "theme": "语言学告诉你，汉语也会背刺中文系",
         "coreEvents": "文学理论、写作训练、考研/考编/编辑出版初听闻",
         "statTrend": "就业幻觉值下降；跑路冲动上升；绩点筹码可积累",
         "routeForeshadow": "大二下若条件满足可触发转专业隐藏入口。",
         "key": "y2s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "chinese_literature_y2s2_main_004",
+          "chinese_language_literature_transfer_window"
+        ]
       },
       {
         "semester": "y3s1",
         "label": "大三上",
-        "theme": "论文意识和就业问题靠近",
+        "theme": "重读鲁迅后，你发现他好像也在看你",
         "coreEvents": "专题论文、经典重读、实习/教师资格证/新媒体方向出现",
         "statTrend": "论文浓度上升；就业幻觉值波动；路线标签出现",
         "routeForeshadow": "开始选择考研、教资、编辑、新媒体、考公等路线。",
         "key": "y3s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "chinese_literature_y3s1_main_005",
+          "chinese_language_literature_route_postgrad",
+          "chinese_language_literature_route_teaching"
+        ]
       },
       {
         "semester": "y3s2",
         "label": "大三下",
-        "theme": "路线分化",
+        "theme": "论文选题让你从“我有想法”变成“我没有证据”",
         "coreEvents": "考研专业课、教资、编辑实习、新媒体内容实习",
         "statTrend": "精神电量下降；文学滤镜被现实重写",
         "routeForeshadow": "路线事件池开启，坏结局风险提高。",
         "key": "y3s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "chinese_literature_y3s2_main_006",
+          "chinese_language_literature_route_editing",
+          "chinese_language_literature_route_content",
+          "chinese_language_literature_gg_02"
+        ]
       },
       {
         "semester": "y4s1",
         "label": "大四上",
-        "theme": "论文与未来并发",
+        "theme": "宇宙尽头向中文系发来多条消息",
         "coreEvents": "毕业论文选题、秋招/考研/考编倒计时",
         "statTrend": "论文浓度高压；就业幻觉值大幅波动",
         "routeForeshadow": "可能触发“选题太大事故”“就业问题沉默”。",
         "key": "y4s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "chinese_literature_y4s1_main_007",
+          "chinese_language_literature_route_civil_service",
+          "chinese_language_literature_gg_01"
+        ]
       },
       {
         "semester": "y4s2",
         "label": "大四下",
-        "theme": "毕业结算",
+        "theme": "毕业论文答辩前，你终于学会把话说清楚",
         "coreEvents": "论文定稿、答辩、路径确认",
         "statTrend": "专业上头值回望；论文浓度归零或爆炸",
         "routeForeshadow": "生成“中文系人格鉴定书”。",
         "key": "y4s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "chinese_literature_y4s2_main_008",
+          "chinese_language_literature_settlement"
+        ]
       }
     ],
     "randomEvents": [
-      "chinese_language_literature_random_01",
-      "chinese_language_literature_random_02",
-      "chinese_language_literature_random_03",
-      "chinese_language_literature_random_04",
-      "chinese_language_literature_random_05",
-      "chinese_language_literature_random_06",
-      "chinese_language_literature_random_07",
-      "chinese_language_literature_random_08",
-      "chinese_language_literature_random_09",
-      "chinese_language_literature_random_10"
+      "chinese_literature_random_001",
+      "chinese_literature_random_002",
+      "chinese_literature_random_003",
+      "chinese_literature_random_004",
+      "chinese_literature_random_005",
+      "chinese_literature_random_006",
+      "chinese_literature_random_007",
+      "chinese_literature_random_008",
+      "chinese_literature_random_009",
+      "chinese_literature_random_010"
     ],
     "hiddenEvents": [
       "chinese_language_literature_hidden_01",
@@ -4069,19 +4118,33 @@
       "ach_chinese_language_literature_thesis_shrinker",
       "ach_chinese_language_literature_filter_alive",
       "ach_chinese_language_literature_exam_track",
-      "ach_chinese_language_literature_reading_report"
+      "ach_chinese_language_literature_reading_report",
+      "ach_chinese_language_literature_stubborn_revive",
+      "ach_chinese_language_literature_doc_001",
+      "ach_chinese_language_literature_doc_002",
+      "ach_chinese_language_literature_doc_003",
+      "ach_chinese_language_literature_doc_004",
+      "ach_chinese_language_literature_doc_005",
+      "ach_chinese_language_literature_doc_006",
+      "ach_chinese_language_literature_doc_007",
+      "ach_chinese_language_literature_doc_008",
+      "ach_chinese_language_literature_doc_009",
+      "ach_chinese_language_literature_doc_010"
     ],
     "endings": [
-      "ending_chinese_language_literature_filter_alive",
-      "ending_chinese_language_literature_classical_damage",
-      "ending_chinese_language_literature_teaching_exam",
-      "ending_chinese_language_literature_content_worker",
-      "ending_chinese_language_literature_thesis_overload"
+      "chinese_literature_ending_001",
+      "chinese_literature_ending_002",
+      "chinese_literature_ending_003",
+      "chinese_literature_ending_004",
+      "chinese_literature_ending_005",
+      "chinese_literature_ending_006"
     ],
     "shareTexts": [
-      "我体验完中文系，系统说我的文学滤镜还没死。",
-      "转发给那个以为汉语言就是读小说的人。",
-      "中文系不是逃避数学，是换一种方式被文字拷打。"
+      "我在汉语言文学副本里活成了：清醒中文系玩家。没有天天吟诗作对，但确实学会了把话说清楚。",
+      "汉语言文学体验报告：你以为是读书写诗，系统给你加载了文学史、文论、语言学、论文格式和就业搜索。",
+      "中文系不是没用，是它的用处经常要你自己翻译给别人听。翻译失败时，建议直接发这个结局。",
+      "我终于明白，中文系最强技能不是背名句，而是把“我觉得很有意思”改成“这个问题值得讨论”。",
+      "文学滤镜碎了，但文字还在。中文系四年：一边破防，一边把破防写成分析。"
     ],
     "majorId": "chinese_language_literature"
   },
