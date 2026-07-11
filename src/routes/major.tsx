@@ -31,22 +31,15 @@ import financeSceneAsset from "@/assets/majors/finance-scene.png.asset.json";
 import csSceneAsset from "@/assets/majors/cs-scene.png.asset.json";
 import accountingSceneAsset from "@/assets/majors/accounting-scene.png.asset.json";
 import electronicInfoCardAsset from "@/assets/majors/electronic-info-card.png.asset.json";
-import civilCardAsset from "@/assets/majors/civil-card.png.asset.json";
 import electricalCardAsset from "@/assets/majors/electrical-card.png.asset.json";
-import architectureCardAsset from "@/assets/majors/architecture-card.png.asset.json";
-import architectureSceneAsset from "@/assets/majors/architecture-scene.png.asset.json";
 import teacherEducationSceneAsset from "@/assets/majors/teacher-education-scene.png.asset.json";
 import chineseLanguageLiteratureSceneAsset from "@/assets/majors/chinese-language-literature-scene.png.asset.json";
-import designSceneAsset from "@/assets/majors/design-scene.png.asset.json";
 import businessAdministrationSceneAsset from "@/assets/majors/business-administration-scene.png.asset.json";
 import journalismCommunicationSceneAsset from "@/assets/majors/journalism-communication-scene.png.asset.json";
 import electronicInformationSceneAsset from "@/assets/majors/electronic-information-scene.png.asset.json";
 import psychologySceneAsset from "@/assets/majors/psychology-scene.png.asset.json";
 import stomatologySceneAsset from "@/assets/majors/stomatology-scene.png.asset.json";
-import nursingSceneAsset from "@/assets/majors/nursing-scene.png.asset.json";
 import mechanicalEngineeringSceneAsset from "@/assets/majors/mechanical-engineering-scene.png.asset.json";
-import pharmacySceneAsset from "@/assets/majors/pharmacy-scene.png.asset.json";
-import civilEngineeringSceneAsset from "@/assets/majors/civil-engineering-scene.png.asset.json";
 import englishSceneAsset from "@/assets/majors/english-scene.png.asset.json";
 import electricalEngineeringSceneAsset from "@/assets/majors/electrical-engineering-scene.png.asset.json";
 
@@ -65,9 +58,7 @@ const MAJOR_CARD: Record<string, string> = {
   computer_science: csCardAsset.url,
   clinical_medicine: clinicalCardAsset.url,
   electronic_information: electronicInfoCardAsset.url,
-  civil_engineering: civilCardAsset.url,
   electrical_engineering: electricalCardAsset.url,
-  architecture: architectureCardAsset.url,
 };
 
 
@@ -78,21 +69,16 @@ const MAJOR_SCENE: Record<string, string> = {
   artificial_intelligence: aiSceneAsset.url,
   clinical_medicine: clinicalSceneAsset.url,
   finance: financeSceneAsset.url,
-  architecture: architectureSceneAsset.url,
   computer_science: csSceneAsset.url,
   accounting: accountingSceneAsset.url,
   teacher_education: teacherEducationSceneAsset.url,
   chinese_language_literature: chineseLanguageLiteratureSceneAsset.url,
-  design: designSceneAsset.url,
   business_administration: businessAdministrationSceneAsset.url,
   journalism_communication: journalismCommunicationSceneAsset.url,
   electronic_information: electronicInformationSceneAsset.url,
   psychology: psychologySceneAsset.url,
   stomatology: stomatologySceneAsset.url,
-  nursing: nursingSceneAsset.url,
   mechanical_engineering: mechanicalEngineeringSceneAsset.url,
-  pharmacy: pharmacySceneAsset.url,
-  civil_engineering: civilEngineeringSceneAsset.url,
   english: englishSceneAsset.url,
   electrical_engineering: electricalEngineeringSceneAsset.url,
 };

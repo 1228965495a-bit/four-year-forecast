@@ -60,11 +60,6 @@ export const majorDataLoaders: Record<string, () => Promise<MajorDataBundle>> = 
     endings: (await import("./byMajor/chinese_language_literature.endings.json")).default,
     achievements: (await import("./byMajor/chinese_language_literature.achievements.json")).default,
   }),
-  architecture: async () => ({
-    events: (await import("./byMajor/architecture.events.json")).default,
-    endings: (await import("./byMajor/architecture.endings.json")).default,
-    achievements: (await import("./byMajor/architecture.achievements.json")).default,
-  }),
   stomatology: async () => ({
     events: (await import("./byMajor/stomatology.events.json")).default,
     endings: (await import("./byMajor/stomatology.endings.json")).default,
@@ -75,25 +70,10 @@ export const majorDataLoaders: Record<string, () => Promise<MajorDataBundle>> = 
     endings: (await import("./byMajor/psychology.endings.json")).default,
     achievements: (await import("./byMajor/psychology.achievements.json")).default,
   }),
-  civil_engineering: async () => ({
-    events: (await import("./byMajor/civil_engineering.events.json")).default,
-    endings: (await import("./byMajor/civil_engineering.endings.json")).default,
-    achievements: (await import("./byMajor/civil_engineering.achievements.json")).default,
-  }),
   electronic_information: async () => ({
     events: (await import("./byMajor/electronic_information.events.json")).default,
     endings: (await import("./byMajor/electronic_information.endings.json")).default,
     achievements: (await import("./byMajor/electronic_information.achievements.json")).default,
-  }),
-  design: async () => ({
-    events: (await import("./byMajor/design.events.json")).default,
-    endings: (await import("./byMajor/design.endings.json")).default,
-    achievements: (await import("./byMajor/design.achievements.json")).default,
-  }),
-  nursing: async () => ({
-    events: (await import("./byMajor/nursing.events.json")).default,
-    endings: (await import("./byMajor/nursing.endings.json")).default,
-    achievements: (await import("./byMajor/nursing.achievements.json")).default,
   }),
   mechanical_engineering: async () => ({
     events: (await import("./byMajor/mechanical_engineering.events.json")).default,
@@ -104,10 +84,5 @@ export const majorDataLoaders: Record<string, () => Promise<MajorDataBundle>> = 
     events: (await import("./byMajor/business_administration.events.json")).default,
     endings: (await import("./byMajor/business_administration.endings.json")).default,
     achievements: (await import("./byMajor/business_administration.achievements.json")).default,
-  }),
-  pharmacy: async () => ({
-    events: (await import("./byMajor/pharmacy.events.json")).default,
-    endings: (await import("./byMajor/pharmacy.endings.json")).default,
-    achievements: (await import("./byMajor/pharmacy.achievements.json")).default,
   }),
 };

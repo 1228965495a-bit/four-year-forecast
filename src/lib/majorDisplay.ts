@@ -11,16 +11,11 @@ const MAJOR_EMOJI: Record<string, string> = {
   english: "",
   teacher_education: "",
   chinese_language_literature: "",
-  architecture: "",
   stomatology: "",
   psychology: "",
-  civil_engineering: "",
   electronic_information: "",
-  design: "",
-  nursing: "",
   mechanical_engineering: "",
   business_administration: "",
-  pharmacy: "",
 };
 
 export function majorEmoji(id: string): string {

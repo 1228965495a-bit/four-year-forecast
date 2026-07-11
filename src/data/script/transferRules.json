@@ -297,28 +297,6 @@
       }
     },
     {
-      "majorId": "architecture",
-      "transferEventIds": [
-        "architecture_transfer_window"
-      ],
-      "defaultCondition": {
-        "all": [
-          {
-            "type": "stat",
-            "key": "escapeImpulse",
-            "op": ">=",
-            "value": 35
-          },
-          {
-            "type": "stat",
-            "key": "gpaWill",
-            "op": ">=",
-            "value": 40
-          }
-        ]
-      }
-    },
-    {
       "majorId": "stomatology",
       "transferEventIds": [
         "stomatology_transfer_window"
@@ -363,75 +341,9 @@
       }
     },
     {
-      "majorId": "civil_engineering",
-      "transferEventIds": [
-        "civil_engineering_transfer_window"
-      ],
-      "defaultCondition": {
-        "all": [
-          {
-            "type": "stat",
-            "key": "escapeImpulse",
-            "op": ">=",
-            "value": 35
-          },
-          {
-            "type": "stat",
-            "key": "gpaWill",
-            "op": ">=",
-            "value": 40
-          }
-        ]
-      }
-    },
-    {
       "majorId": "electronic_information",
       "transferEventIds": [
         "electronic_information_transfer_window"
-      ],
-      "defaultCondition": {
-        "all": [
-          {
-            "type": "stat",
-            "key": "escapeImpulse",
-            "op": ">=",
-            "value": 35
-          },
-          {
-            "type": "stat",
-            "key": "gpaWill",
-            "op": ">=",
-            "value": 40
-          }
-        ]
-      }
-    },
-    {
-      "majorId": "design",
-      "transferEventIds": [
-        "design_transfer_window"
-      ],
-      "defaultCondition": {
-        "all": [
-          {
-            "type": "stat",
-            "key": "escapeImpulse",
-            "op": ">=",
-            "value": 35
-          },
-          {
-            "type": "stat",
-            "key": "gpaWill",
-            "op": ">=",
-            "value": 40
-          }
-        ]
-      }
-    },
-    {
-      "majorId": "nursing",
-      "transferEventIds": [
-        "nursing_transfer_window"
       ],
       "defaultCondition": {
         "all": [
@@ -476,28 +388,6 @@
       "majorId": "business_administration",
       "transferEventIds": [
         "business_administration_transfer_window"
-      ],
-      "defaultCondition": {
-        "all": [
-          {
-            "type": "stat",
-            "key": "escapeImpulse",
-            "op": ">=",
-            "value": 35
-          },
-          {
-            "type": "stat",
-            "key": "gpaWill",
-            "op": ">=",
-            "value": 40
-          }
-        ]
-      }
-    },
-    {
-      "majorId": "pharmacy",
-      "transferEventIds": [
-        "pharmacy_transfer_window"
       ],
       "defaultCondition": {
         "all": [

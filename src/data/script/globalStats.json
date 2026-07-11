@@ -392,38 +392,6 @@
         "initialValue": 0
       }
     ],
-    "architecture": [
-      {
-        "key": "overnightDrawing",
-        "name": "熬夜画图值",
-        "description": "为图纸、模型和方案消耗睡眠的程度。",
-        "initialValue": 0
-      },
-      {
-        "key": "revisionRate",
-        "name": "方案返工率",
-        "description": "作品被推翻、重画、重做的频率。",
-        "initialValue": 0
-      },
-      {
-        "key": "aestheticBurnout",
-        "name": "审美消耗",
-        "description": "你对空间、比例、材质和老师一句“感觉不对”的耐受度。",
-        "initialValue": 0
-      },
-      {
-        "key": "portfolioProgress",
-        "name": "作品集进度",
-        "description": "作品集、竞赛和项目叙事的成型程度。",
-        "initialValue": 0
-      },
-      {
-        "key": "industryReality",
-        "name": "行业现实感",
-        "description": "设计院、地产、甲方、周期和预算带来的现实修正。",
-        "initialValue": 0
-      }
-    ],
     "stomatology": [
       {
         "key": "dentalFilter",
@@ -488,26 +456,6 @@
         "initialValue": 0
       }
     ],
-    "civil_engineering": [
-      {
-        "key": "structureBearing",
-        "name": "结构承重值",
-        "description": "面对力学、结构计算和工程图纸时的承重能力。",
-        "initialValue": 35
-      },
-      {
-        "key": "siteAdaptability",
-        "name": "工地适应度",
-        "description": "对测量实习、施工现场、户外环境和工程现场的适应程度。",
-        "initialValue": 20
-      },
-      {
-        "key": "pitImmunity",
-        "name": "天坑免疫力",
-        "description": "刷到劝退帖、行业周期和就业落差后仍能理性判断的能力。",
-        "initialValue": 18
-      }
-    ],
     "electronic_information": [
       {
         "key": "circuitUnderstanding",
@@ -526,46 +474,6 @@
         "name": "信号清晰度",
         "description": "面对信号与系统、通信原理和频域世界时的清晰程度。",
         "initialValue": 20
-      }
-    ],
-    "design": [
-      {
-        "key": "aestheticBattery",
-        "name": "审美电量",
-        "description": "被评价、比较和反复修改后仍能保持审美判断的电量。",
-        "initialValue": 55
-      },
-      {
-        "key": "revisionTolerance",
-        "name": "改稿耐受",
-        "description": "听到再改一版时还能继续工作的耐受程度。",
-        "initialValue": 25
-      },
-      {
-        "key": "portfolioThickness",
-        "name": "作品集厚度",
-        "description": "作业、项目、实习和个人作品累积成作品集的程度。",
-        "initialValue": 0
-      }
-    ],
-    "nursing": [
-      {
-        "key": "operationSkill",
-        "name": "操作熟练度",
-        "description": "护理操作、实训考核和临床技能的熟练程度。",
-        "initialValue": 25
-      },
-      {
-        "key": "clinicalStamina",
-        "name": "临床体力条",
-        "description": "面对见习、实习、夜班想象和临床节奏时的体力储备。",
-        "initialValue": 70
-      },
-      {
-        "key": "emotionalLabor",
-        "name": "情绪劳动值",
-        "description": "沟通、解释、安抚和压力事件累积的精神消耗。",
-        "initialValue": 0
       }
     ],
     "mechanical_engineering": [
@@ -606,26 +514,6 @@
         "name": "职业迷雾",
         "description": "宽口径专业带来的就业定位迷雾。",
         "initialValue": 20
-      }
-    ],
-    "pharmacy": [
-      {
-        "key": "drugNameLoad",
-        "name": "药名负荷",
-        "description": "药名、分类、机制、副作用一起带来的记忆负荷。",
-        "initialValue": 0
-      },
-      {
-        "key": "labReportDebt",
-        "name": "实验报告债",
-        "description": "实验完成后仍然追着你的报告债务。",
-        "initialValue": 0
-      },
-      {
-        "key": "pharmacologyDizziness",
-        "name": "药理眩晕",
-        "description": "药理机制、适应症和副作用混在一起的眩晕程度。",
-        "initialValue": 0
       }
     ]
   },
