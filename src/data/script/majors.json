@@ -3425,9 +3425,9 @@
       "riskWarning": "别只因为“当老师稳定”就冲进来，先看看你能不能站上讲台还保住嗓子。"
     },
     "intro": {
-      "title": "欢迎进入师范类副本",
-      "body": "你带着一点稳定想象、一点教师滤镜，以及一点“以后有寒暑假”的朴素期待，进入师范类副本。\n系统提醒：本科四年内，你将遭遇教育学、普通话、教资、微格教学、试讲、实习带班、考编、论文和嗓子耐久度测试。\n如果你知道这些还想继续，说明你可能真的愿意面对讲台和人类幼崽。",
-      "startButton": "开始本科四年"
+      "title": "你被师范类录取了！",
+      "body": "你带着一点“老师应该很稳定”的想象、一点“寒暑假应该很爽”的幻觉，以及一点“我好像还挺会讲题”的自信，进入了师范类副本。\n\n本科四年内，你将依次遭遇教育学、心理学、普通话、粉笔字、教资、微格试讲、教育实习、家长群震撼、考编焦虑和嗓子冒烟。\n\n师范类不是“毕业自动当老师”的专业，也不是“寒暑假自动到账”的传说。它更像一个长期训练副本：你先学会被讲台盯着，再学会面对学生、家长、岗位表和自己的电量。",
+      "startButton": "进入大学 · 大一上"
     },
     "tags": [
       "稳定滤镜",
@@ -3468,11 +3468,11 @@
       "人形课堂稳定器"
     ],
     "initialStats": {
-      "obsession": 68,
-      "energy": 78,
+      "obsession": 72,
+      "energy": 76,
       "filter": 84,
-      "gpaWill": 64,
-      "careerFantasy": 80,
+      "gpaWill": 68,
+      "careerFantasy": 72,
       "escapeImpulse": 16,
       "stubbornness": 42,
       "hairline": 93
@@ -3480,45 +3480,49 @@
     "majorStats": [
       {
         "key": "teachingSkill",
-        "name": "讲台熟练度",
+        "name": "讲台掌控",
         "initialValue": 18,
-        "description": "站上讲台、设计课堂、处理反馈和组织表达的熟练程度。"
+        "description": "能不能站稳讲台、控住节奏、把知识讲清楚。"
       },
       {
         "key": "certPressure",
-        "name": "教资压力值",
-        "initialValue": 12,
-        "description": "普通话、教资、笔面试和证书带来的压力。"
+        "name": "教资进度",
+        "initialValue": 0,
+        "description": "普通话、教资笔试、面试、试讲等证书副本推进程度。"
       },
       {
         "key": "voiceDurability",
-        "name": "嗓子耐久度",
-        "initialValue": 80,
-        "description": "一天多节课、答疑和班会后还能不能保持人类声音。"
+        "name": "嗓子耐久",
+        "initialValue": 86,
+        "description": "连续讲课、试讲、答辩、面试后的物理续航。"
       },
       {
         "key": "examPressure",
-        "name": "考编压力",
-        "initialValue": 0,
-        "description": "大三大四考编和岗位选择压力。"
+        "name": "编制执念",
+        "initialValue": 30,
+        "description": "对稳定、岗位表、考编、上岸的执念强度。"
       },
       {
         "key": "thesisPressure",
         "name": "论文压力",
         "initialValue": 0,
         "description": "大四论文压力。"
+      },
+      {
+        "key": "teachingConscience",
+        "name": "教学良心",
+        "initialValue": 52,
+        "description": "是否真的在乎学生听没听懂、学没学会。"
       }
     ],
     "timeline": [
       {
         "key": "y1s1",
         "label": "大一上",
-        "theme": "稳定滤镜与教育学入门",
+        "theme": "你收到师范类录取通知书",
         "pressureLevel": 0.6,
         "mainEventIds": [
-          "teacher_education_y1s1_main_001",
-          "teacher_education_y1s1_main_002",
-          "teacher_education_y1s1_main_003"
+          "education_y1s1_main_001"
         ],
         "randomSlots": [
           {
@@ -3541,12 +3545,11 @@
       {
         "key": "y1s2",
         "label": "大一下",
-        "theme": "教育心理、教资流程与模拟讲课",
+        "theme": "教育学告诉你，学生不是 PPT 动画",
         "pressureLevel": 0.7,
         "mainEventIds": [
-          "teacher_education_y1s2_main_004",
-          "teacher_education_y1s2_transfer_005",
-          "teacher_education_y1s2_main_006"
+          "education_y1s2_main_002",
+          "teacher_education_y1s2_transfer_005"
         ],
         "randomSlots": [
           {
@@ -3569,12 +3572,10 @@
       {
         "key": "y2s1",
         "label": "大二上",
-        "theme": "教学法、板书与证书意识",
+        "theme": "普通话二甲和粉笔字开始抓人",
         "pressureLevel": 0.85,
         "mainEventIds": [
-          "teacher_education_y2s1_main_007",
-          "teacher_education_y2s1_main_008",
-          "teacher_education_y2s1_main_009"
+          "education_y2s1_main_003"
         ],
         "randomSlots": [
           {
@@ -3597,12 +3598,11 @@
       {
         "key": "y2s2",
         "label": "大二下",
-        "theme": "微格教学与转专业窗口",
+        "theme": "教资报名，人生突然进入背诵频道",
         "pressureLevel": 1.0,
         "mainEventIds": [
-          "teacher_education_y2s2_main_010",
-          "teacher_education_y2s2_transfer_011",
-          "teacher_education_y2s2_main_012"
+          "education_y2s2_main_004",
+          "teacher_education_y2s2_transfer_011"
         ],
         "randomSlots": [
           {
@@ -3625,11 +3625,10 @@
       {
         "key": "y3s1",
         "label": "大三上",
-        "theme": "教资与实习预警",
+        "theme": "第一次试讲，对着空气喊同学们看黑板",
         "pressureLevel": 1.2,
         "mainEventIds": [
-          "teacher_education_y3s1_main_013",
-          "teacher_education_y3s1_main_014",
+          "education_y3s1_main_005",
           "teacher_education_y3s1_route_015"
         ],
         "randomSlots": [
@@ -3653,12 +3652,12 @@
       {
         "key": "y3s2",
         "label": "大三下",
-        "theme": "教育实习与路线分化",
+        "theme": "教育实习第一天，你真的被叫老师了",
         "pressureLevel": 1.35,
         "mainEventIds": [
+          "education_y3s2_main_006",
           "teacher_education_y3s2_route_016",
-          "teacher_education_y3s2_route_017",
-          "teacher_education_y3s2_main_018"
+          "teacher_education_y3s2_route_017"
         ],
         "randomSlots": [
           {
@@ -3681,10 +3680,10 @@
       {
         "key": "y4s1",
         "label": "大四上",
-        "theme": "考编、论文与上岸焦虑",
+        "theme": "考编、考研、校招一起敲门",
         "pressureLevel": 1.5,
         "mainEventIds": [
-          "teacher_education_y4s1_main_019",
+          "education_y4s1_main_007",
           "teacher_education_y4s1_route_020",
           "teacher_education_y4s1_gg_check_021"
         ],
@@ -3709,10 +3708,10 @@
       {
         "key": "y4s2",
         "label": "大四下",
-        "theme": "毕业结算",
+        "theme": "毕业前最后一次站上讲台",
         "pressureLevel": 1.4,
         "mainEventIds": [
-          "teacher_education_y4s2_main_022",
+          "education_y4s2_main_008",
           "teacher_education_y4s2_settlement_023"
         ],
         "randomSlots": [
@@ -3735,16 +3734,16 @@
       }
     ],
     "randomEvents": [
-      "teacher_education_random_001",
-      "teacher_education_random_002",
-      "teacher_education_random_003",
-      "teacher_education_random_004",
-      "teacher_education_random_005",
-      "teacher_education_random_006",
-      "teacher_education_random_007",
-      "teacher_education_random_008",
-      "teacher_education_random_009",
-      "teacher_education_random_010"
+      "education_random_001",
+      "education_random_002",
+      "education_random_003",
+      "education_random_004",
+      "education_random_005",
+      "education_random_006",
+      "education_random_007",
+      "education_random_008",
+      "education_random_009",
+      "education_random_010"
     ],
     "hiddenEvents": [
       "teacher_education_hidden_001",
@@ -3814,34 +3813,43 @@
       "ach_teacher_education_hidden_002",
       "ach_teacher_education_hidden_003",
       "ach_teacher_education_hidden_004",
-      "ach_teacher_education_hidden_005"
+      "ach_teacher_education_hidden_005",
+      "ach_teacher_education_doc_001",
+      "ach_teacher_education_doc_002",
+      "ach_teacher_education_doc_003",
+      "ach_teacher_education_doc_004",
+      "ach_teacher_education_doc_005",
+      "ach_teacher_education_doc_006",
+      "ach_teacher_education_doc_007",
+      "ach_teacher_education_doc_008",
+      "ach_teacher_education_doc_009",
+      "ach_teacher_education_doc_010"
     ],
     "endings": [
       "ending_teacher_education_mid_gg",
       "ending_teacher_education_transfer_success",
       "ending_teacher_education_transfer_fail",
       "ending_teacher_education_hidden",
-      "ending_teacher_education_overachiever",
-      "ending_teacher_education_true_love",
-      "ending_teacher_education_route",
-      "ending_teacher_education_survivor",
-      "ending_teacher_education_filter_broken",
-      "ending_teacher_education_layflat"
+      "education_ending_001",
+      "education_ending_002",
+      "education_ending_003",
+      "education_ending_004",
+      "education_ending_005",
+      "education_ending_006"
     ],
-    "shareTexts": {
-      "hooks": [
-        "我用 5 分钟读完师范本科，系统给我判了这个结局。",
-        "别急着报师范类，先进副本活一遍。",
-        "这不是劝退，这是提前摘滤镜。",
-        "转发给那个想报师范类的人。"
-      ],
-      "buttons": [
-        "换个专业继续受苦",
-        "截图发给想报师范类的人",
-        "不服，重开一次师范类副本",
-        "看看系统会推荐我读什么专业"
-      ]
-    },
+    "shareTexts": [
+      "分享文案：我在师范类副本里活成了：编制上岸型幸存者。铁饭碗没从天上掉下来，是我从岗位表里抠出来的。",
+      "分享文案：我在师范类副本里活成了：温柔但脆皮班主任。学生一句“老师你讲得好清楚”，我能续命到下周。",
+      "分享文案：我在师范类副本里活成了：教资PTSD背诵机。学生观教师观背会了，自己的电量没保住。",
+      "分享文案：我在师范类副本里活成了：公开课PPT战神。所谓自然流畅，就是我昨晚排练到凌晨两点。",
+      "分享文案：我在师范类副本里活成了：教育相关转向选手。不站讲台了，但一开口还是想说“同学们请看这里”。",
+      "分享文案：我在师范类副本里活成了：清醒退场但有师德的人。不是谁都适合上讲台，知道不适合也是一种负责。",
+      "我在师范类副本里活成了：寒暑假传说受害者。以为毕业自动稳定，结果先被教资、试讲、岗位表和家长群轮流教育。",
+      "师范类副本体验报告：寒暑假不是免费皮肤，编制不是新手礼包，嗓子也不是无限耐久。",
+      "我终于明白，当老师不是“会讲题就行”，是要把知识、情绪、课堂、家长群和自己的电量一起管理好。",
+      "我在师范类副本里最真实的瞬间：学生一句“老师你讲得好清楚”，直接把我从精神电量 12% 充到 60%。",
+      "报师范前请确认：你能接受普通话、教资、试讲、实习、考编和“老师在吗”的联合副本吗？"
+    ],
     "majorId": "teacher_education"
   },
   {
