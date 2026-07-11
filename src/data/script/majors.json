@@ -2968,9 +2968,9 @@
       "riskWarning": "别只因为英语成绩不错就冲进来，先看看你能不能和语言细节长期相处。"
     },
     "intro": {
-      "title": "欢迎进入英语副本",
-      "body": "你带着一点语言自信、一点外语滤镜，以及一点“我英语还不错”的安全感，进入英语专业副本。\n系统提醒：本科四年内，你将遭遇精读、语音、口语展示、语言学、文学、翻译、专四专八、实习、就业工具化和毕业论文。\n如果你知道这些还想继续，说明你可能真的对语言有点敏感。",
-      "startButton": "开始本科四年"
+      "title": "你被英语专业录取了！",
+      "body": "你带着一点美剧滤镜、一点外企幻想、一点“我英语还不错”的自信，以及一点“英专应该不用学数学”的侥幸，走进了英语专业副本。\n\n本科四年内，你将依次遭遇精读、泛读、听力、语音学、语言学、英美文学、翻译理论、口译模拟、二外、专四、专八、教资、外贸实习、考研经验贴和“英语专业到底算不算天坑”的灵魂拷问。\n\n英专不是“把英语学好就完事”的专业。它更像一台大型滤镜粉碎机：亲戚以为你能同传，朋友以为你能改论文，招聘以为英语只是加分项，而你本人正在背单词背到 abandon。",
+      "startButton": "进入大学 · 大一上"
     },
     "tags": [
       "语言滤镜",
@@ -3011,12 +3011,12 @@
       "英语到底还能不能算核心竞争力"
     ],
     "initialStats": {
-      "obsession": 68,
-      "energy": 78,
-      "filter": 80,
-      "gpaWill": 62,
-      "careerFantasy": 70,
-      "escapeImpulse": 18,
+      "obsession": 78,
+      "energy": 76,
+      "filter": 82,
+      "gpaWill": 70,
+      "careerFantasy": 72,
+      "escapeImpulse": 16,
       "stubbornness": 43,
       "hairline": 94
     },
@@ -3029,21 +3029,21 @@
       },
       {
         "key": "oralCourage",
-        "name": "口语胆量",
-        "initialValue": 22,
-        "description": "面对口语展示、试讲和真实交流时的胆量。"
+        "name": "语言自信值",
+        "initialValue": 66,
+        "description": "越高越敢开口、越相信自己能靠语言吃饭。"
       },
       {
         "key": "translationTangle",
-        "name": "翻译纠结值",
-        "initialValue": 10,
-        "description": "为一个词、一个语气、一个文化负载纠结的程度。"
+        "name": "翻译腔浓度",
+        "initialValue": 18,
+        "description": "越高越容易写出“进行一个学习”的译文。"
       },
       {
         "key": "tem8Shadow",
-        "name": "专八阴影面积",
-        "initialValue": 8,
-        "description": "专四专八、证书和语言能力认证对精神状态的影响。"
+        "name": "专四专八焦虑",
+        "initialValue": 12,
+        "description": "越高越容易进入英专大型渡劫状态。"
       },
       {
         "key": "teachingFit",
@@ -3056,18 +3056,28 @@
         "name": "论文压力",
         "initialValue": 0,
         "description": "大四论文压力。"
+      },
+      {
+        "key": "toolDisillusion",
+        "name": "工具论祛魅值",
+        "initialValue": 15,
+        "description": "越高越意识到英语本身很难单独当饭吃。"
+      },
+      {
+        "key": "careerBranchPressure",
+        "name": "就业分流压力",
+        "initialValue": 20,
+        "description": "越高越容易在教资、考研、外贸、跨境、考公、转行之间反复横跳。"
       }
     ],
     "timeline": [
       {
         "key": "y1s1",
         "label": "大一上",
-        "theme": "语言滤镜与精读新手村",
+        "theme": "你收到英语专业录取通知书",
         "pressureLevel": 0.6,
         "mainEventIds": [
-          "english_y1s1_main_001",
-          "english_y1s1_main_002",
-          "english_y1s1_main_003"
+          "english_01_main"
         ],
         "randomSlots": [
           {
@@ -3090,12 +3100,11 @@
       {
         "key": "y1s2",
         "label": "大一下",
-        "theme": "语音、天坑帖与期末",
+        "theme": "精读课把你的“英语还不错”重新定义了",
         "pressureLevel": 0.7,
         "mainEventIds": [
-          "english_y1s2_main_004",
-          "english_y1s2_transfer_005",
-          "english_y1s2_main_006"
+          "english_02_main",
+          "english_y1s2_transfer_005"
         ],
         "randomSlots": [
           {
@@ -3118,12 +3127,10 @@
       {
         "key": "y2s1",
         "label": "大二上",
-        "theme": "语言学、文学与证书意识",
+        "theme": "语音学和听力精听联合施法",
         "pressureLevel": 0.85,
         "mainEventIds": [
-          "english_y2s1_main_007",
-          "english_y2s1_main_008",
-          "english_y2s1_main_009"
+          "english_03_main"
         ],
         "randomSlots": [
           {
@@ -3146,12 +3153,11 @@
       {
         "key": "y2s2",
         "label": "大二下",
-        "theme": "翻译作业、转专业与专四阴影",
+        "theme": "二外降临：不止英语能伤害你",
         "pressureLevel": 1.0,
         "mainEventIds": [
-          "english_y2s2_main_010",
-          "english_y2s2_transfer_011",
-          "english_y2s2_main_012"
+          "english_04_main",
+          "english_y2s2_transfer_011"
         ],
         "randomSlots": [
           {
@@ -3174,11 +3180,10 @@
       {
         "key": "y3s1",
         "label": "大三上",
-        "theme": "专四、实习与工具化预警",
+        "theme": "专四：英专人的第一次大型渡劫",
         "pressureLevel": 1.2,
         "mainEventIds": [
-          "english_y3s1_main_013",
-          "english_y3s1_main_014",
+          "english_05_main",
           "english_y3s1_route_015"
         ],
         "randomSlots": [
@@ -3202,12 +3207,12 @@
       {
         "key": "y3s2",
         "label": "大三下",
-        "theme": "考研/教资/就业路线分化",
+        "theme": "翻译课告诉你：会英语不等于会翻译",
         "pressureLevel": 1.35,
         "mainEventIds": [
+          "english_06_main",
           "english_y3s2_route_016",
-          "english_y3s2_route_017",
-          "english_y3s2_main_018"
+          "english_y3s2_route_017"
         ],
         "randomSlots": [
           {
@@ -3230,10 +3235,10 @@
       {
         "key": "y4s1",
         "label": "大四上",
-        "theme": "专八、论文与就业现实",
+        "theme": "教资、考研、外贸、跨境、考公、转行同时出现",
         "pressureLevel": 1.5,
         "mainEventIds": [
-          "english_y4s1_main_019",
+          "english_07_main",
           "english_y4s1_route_020",
           "english_y4s1_gg_check_021"
         ],
@@ -3258,10 +3263,10 @@
       {
         "key": "y4s2",
         "label": "大四下",
-        "theme": "毕业结算",
+        "theme": "专八、论文和“英语只是工具”同时收尾",
         "pressureLevel": 1.4,
         "mainEventIds": [
-          "english_y4s2_main_022",
+          "english_08_main",
           "english_y4s2_settlement_023"
         ],
         "randomSlots": [
@@ -3363,34 +3368,43 @@
       "ach_english_hidden_002",
       "ach_english_hidden_003",
       "ach_english_hidden_004",
-      "ach_english_hidden_005"
+      "ach_english_hidden_005",
+      "ach_english_doc_001",
+      "ach_english_doc_002",
+      "ach_english_doc_003",
+      "ach_english_doc_004",
+      "ach_english_doc_005",
+      "ach_english_doc_006",
+      "ach_english_doc_007",
+      "ach_english_doc_008",
+      "ach_english_doc_009",
+      "ach_english_doc_010"
     ],
     "endings": [
       "ending_english_mid_gg",
       "ending_english_transfer_success",
       "ending_english_transfer_fail",
       "ending_english_hidden",
-      "ending_english_overachiever",
-      "ending_english_true_love",
-      "ending_english_route",
-      "ending_english_survivor",
-      "ending_english_filter_broken",
-      "ending_english_layflat"
+      "english_ending_001",
+      "english_ending_002",
+      "english_ending_003",
+      "english_ending_004",
+      "english_ending_005",
+      "english_ending_006"
     ],
-    "shareTexts": {
-      "hooks": [
-        "我用 5 分钟读完英语本科，系统给我判了这个结局。",
-        "别急着报英语，先进副本活一遍。",
-        "这不是劝退，这是提前摘滤镜。",
-        "转发给那个想报英语的人。"
-      ],
-      "buttons": [
-        "换个专业继续受苦",
-        "截图发给想报英语的人",
-        "不服，重开一次英语副本",
-        "看看系统会推荐我读什么专业"
-      ]
-    },
+    "shareTexts": [
+      "我在英语专业副本里活成了：专八幸存体面人。不是我优雅，是专四专八把我训练得很能忍。",
+      "我在英语专业副本里活成了：教资编制潜伏者。英专尽头不一定是同传，也可能是试讲十分钟。",
+      "我在英语专业副本里活成了：外贸时差打工人。英语是门票，进门以后才发现里面是 Excel 和客户。",
+      "我在英语专业副本里活成了：翻译腔自救成功者。会英语不等于会翻译，这句话我用四年才消化。",
+      "我在英语专业副本里活成了：英语工具人清醒玩家。不破防了，英语是工具，但我决定把工具磨锋利。",
+      "我在英语专业副本里活成了：英美文学浪漫残党。就业很现实，但我还是会被一个好句子骗到。",
+      "我在英语专业副本里活成了：英语工具人清醒玩家。不破防了，英语是工具，但我决定把工具磨锋利。",
+      "英专副本体验报告：亲戚以为我能同传，朋友以为我能润色，招聘以为英语只是加分项，而我本人还在和 abandon 和解。",
+      "我以为英语专业是美剧、外企和咖啡馆，系统给我加载了精读、语音学、二外、专四、专八和“英语只是工具吗”。",
+      "会英语不等于会翻译，会翻译不等于会同传，会同传不等于不用找工作。英专四年，主打一个滤镜分层脱落。",
+      "英语专业不是没用，是不能只靠“我英语还不错”通关。建议报之前先问自己：能不能忍专四专八、翻译腔和亲戚免费家教。"
+    ],
     "majorId": "english"
   },
   {

@@ -1462,394 +1462,6 @@
     "majorId": "artificial_intelligence"
   },
   {
-    "id": "ending_english_mid_gg",
-    "title": "英语·本科人生紧急中止",
-    "type": "mid_gg",
-    "priority": 100,
-    "conditions": {
-      "all": [
-        {
-          "type": "flag",
-          "key": "english_flag_mid_gg"
-        }
-      ]
-    },
-    "summary": "系统提示：嘴硬已经无法覆盖事实。",
-    "afterEffects": [
-      "对“其实还行”产生免疫",
-      "看到高压节点会自动静音"
-    ],
-    "advice": "能求助、能降目标、能换路，都比原地硬碎更像成年人。",
-    "shareText": "我用 5 分钟读完英语本科，系统提示嘴硬已经无法覆盖事实。",
-    "resultTags": [
-      "中途GG"
-    ],
-    "endingId": "ending_english_mid_gg",
-    "description": "",
-    "condition": {},
-    "majorId": "english"
-  },
-  {
-    "id": "ending_english_transfer_success",
-    "title": "英语 → 新专业·半路重开型玩家",
-    "type": "transfer_success",
-    "priority": 90,
-    "conditions": {
-      "all": [
-        {
-          "type": "flag",
-          "key": "english_flag_transfer_success"
-        }
-      ]
-    },
-    "summary": "你不是从新手村重新开始的，你是带着原专业后遗症半路冲进新副本。",
-    "afterEffects": [
-      "原专业 PTSD 残留",
-      "对培养方案异常警觉"
-    ],
-    "advice": "转向并不可耻，但转专业不是后悔药。",
-    "shareText": "我从英语半路重开，系统说我只是换了一种痛苦皮肤。",
-    "resultTags": [
-      "转专业成功"
-    ],
-    "endingId": "ending_english_transfer_success",
-    "description": "",
-    "condition": {},
-    "majorId": "english"
-  },
-  {
-    "id": "ending_english_transfer_fail",
-    "title": "转专业失败·英语滞留型幸存者",
-    "type": "transfer_fail",
-    "priority": 88,
-    "conditions": {
-      "all": [
-        {
-          "type": "flag",
-          "key": "english_flag_transfer_failed"
-        }
-      ]
-    },
-    "summary": "你曾经看见过逃生门，也认真走过去拧了门把手。遗憾的是，门后面写着：名额已满。",
-    "afterEffects": [
-      "嘴硬浓度显著上升"
-    ],
-    "advice": "不要把转专业当作默认退路。",
-    "shareText": "我在英语逃生门前失败了，但系统说人还在。",
-    "resultTags": [
-      "转专业失败"
-    ],
-    "endingId": "ending_english_transfer_fail",
-    "description": "",
-    "condition": {},
-    "majorId": "english"
-  },
-  {
-    "id": "ending_english_hidden",
-    "title": "隐藏结局——英语·跨文化文本雷达",
-    "type": "hidden",
-    "priority": 80,
-    "conditions": {
-      "all": [
-        {
-          "type": "majorStat",
-          "key": "languageSensitivity",
-          "op": ">=",
-          "value": 90
-        },
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": ">=",
-          "value": 80
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">=",
-          "value": 35
-        }
-      ]
-    },
-    "summary": "你已经进化到看到一句话会同时分析语境、语气、文化背景和表达策略。",
-    "afterEffects": [
-      "专业人格外溢",
-      "看世界的方式被永久改变"
-    ],
-    "advice": "如果你打出这个结局，说明你可能真的适合。请保持热爱，也记得保养精神电量。",
-    "shareText": "我打出了英语隐藏结局：英语·跨文化文本雷达。",
-    "resultTags": [
-      "隐藏神人"
-    ],
-    "endingId": "ending_english_hidden",
-    "description": "",
-    "condition": {},
-    "majorId": "english"
-  },
-  {
-    "id": "ending_english_overachiever",
-    "title": "英语·卷王飞升型选手",
-    "type": "overachiever",
-    "priority": 70,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "gpaWill",
-          "op": ">=",
-          "value": 85
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">=",
-          "value": 30
-        },
-        {
-          "type": "majorStat",
-          "key": "languageSensitivity",
-          "op": ">=",
-          "value": 70
-        }
-      ]
-    },
-    "summary": "你不是没有崩溃过，只是每次崩溃完还能回到任务面前。",
-    "afterEffects": [
-      "待办清单异常整齐"
-    ],
-    "advice": "适合冲，但请注意维护精神电量。",
-    "shareText": "系统说我是英语卷王飞升型选手。",
-    "resultTags": [
-      "卷王"
-    ],
-    "endingId": "ending_english_overachiever",
-    "description": "",
-    "condition": {},
-    "majorId": "english"
-  },
-  {
-    "id": "ending_english_true_love",
-    "title": "英语·真香型玩家",
-    "type": "true_love",
-    "priority": 65,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": ">=",
-          "value": 80
-        },
-        {
-          "type": "majorStat",
-          "key": "languageSensitivity",
-          "op": ">=",
-          "value": 70
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">=",
-          "value": 35
-        }
-      ]
-    },
-    "summary": "你不是没有被英语副本拷打过，只是拷打到最后，真的从里面找到了一点乐趣。",
-    "afterEffects": [
-      "滤镜碎了一些，热爱更耐用"
-    ],
-    "advice": "适合报。前提是你知道它不是无痛副本。",
-    "shareText": "我竟然在英语副本里真香了。",
-    "resultTags": [
-      "真香"
-    ],
-    "endingId": "ending_english_true_love",
-    "description": "",
-    "condition": {},
-    "majorId": "english"
-  },
-  {
-    "id": "ending_english_route",
-    "title": "英语·路线现实型玩家",
-    "type": "route",
-    "priority": 55,
-    "conditions": {
-      "any": [
-        {
-          "type": "route",
-          "key": "english_route_postgrad"
-        },
-        {
-          "type": "route",
-          "key": "english_route_teaching"
-        },
-        {
-          "type": "route",
-          "key": "english_route_job"
-        },
-        {
-          "type": "route",
-          "key": "english_route_cross"
-        }
-      ]
-    },
-    "summary": "你把专业能力接到了一条更现实的路线里。它不一定浪漫，但开始能被行动支撑。",
-    "afterEffects": [
-      "路线感变强",
-      "滤镜变薄"
-    ],
-    "advice": "路线不是逃避，前提是你真的开始行动。",
-    "shareText": "我在英语副本里打出了现实路线结局。",
-    "resultTags": [
-      "路线结局"
-    ],
-    "endingId": "ending_english_route",
-    "description": "",
-    "condition": {},
-    "majorId": "english"
-  },
-  {
-    "id": "ending_english_survivor",
-    "title": "英语·语言工具人觉醒型玩家",
-    "type": "survivor",
-    "priority": 45,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": ">=",
-          "value": 45
-        },
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": "<=",
-          "value": 75
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">=",
-          "value": 20
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": "<=",
-          "value": 60
-        },
-        {
-          "type": "hiddenStat",
-          "key": "stubbornness",
-          "op": ">=",
-          "value": 65
-        }
-      ]
-    },
-    "summary": "你不再执着于“英专到底能干什么”，而是开始问：我能用英语连接什么场景、行业和能力。",
-    "afterEffects": [
-      "专业人格初步形成"
-    ],
-    "advice": "可以冲，但别只看滤镜。",
-    "shareText": "我用 5 分钟读完英语本科，系统给我判了这个结局。",
-    "resultTags": [
-      "嘴硬幸存"
-    ],
-    "endingId": "ending_english_survivor",
-    "description": "",
-    "condition": {},
-    "majorId": "english"
-  },
-  {
-    "id": "ending_english_filter_broken",
-    "title": "英语·滤镜破碎型误入者",
-    "type": "filter_broken",
-    "priority": 40,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "filter",
-          "op": "<=",
-          "value": 15
-        },
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": "<=",
-          "value": 35
-        },
-        {
-          "type": "stat",
-          "key": "escapeImpulse",
-          "op": ">=",
-          "value": 70
-        }
-      ]
-    },
-    "summary": "你当初报英语时想象的是滤镜里的样子，后来发现本科生活更多是课程、作业、路线和现实。",
-    "afterEffects": [
-      "看到热门专业会先查培养方案"
-    ],
-    "advice": "慎重。不是不能报，而是不要只看外壳。",
-    "shareText": "我体验完英语本科，系统把我的滤镜拆没了。",
-    "resultTags": [
-      "滤镜破碎"
-    ],
-    "endingId": "ending_english_filter_broken",
-    "description": "",
-    "condition": {},
-    "majorId": "english"
-  },
-  {
-    "id": "ending_english_layflat",
-    "title": "英语·摆烂毕业型幸存者",
-    "type": "layflat",
-    "priority": 10,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": "<=",
-          "value": 55
-        },
-        {
-          "type": "stat",
-          "key": "gpaWill",
-          "op": "<=",
-          "value": 50
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">",
-          "value": 20
-        }
-      ],
-      "none": [
-        {
-          "type": "flag",
-          "key": "english_flag_mid_gg"
-        }
-      ]
-    },
-    "summary": "你没有成为卷王，也没有彻底跑路。你以一种能交、能过、能毕业的姿态穿过本科四年。",
-    "afterEffects": [
-      "最低可交付标准熟练"
-    ],
-    "advice": "苟住和适合不是一回事。",
-    "shareText": "我在英语副本里摆烂毕业了。",
-    "resultTags": [
-      "摆烂毕业"
-    ],
-    "endingId": "ending_english_layflat",
-    "description": "",
-    "condition": {},
-    "majorId": "english"
-  },
-  {
     "id": "ending_teacher_education_mid_gg",
     "title": "师范类·本科人生紧急中止",
     "type": "mid_gg",
@@ -4052,5 +3664,296 @@
     "advice": "你看清了电气的难，也看见了它的用处。稳定不是天降福利，而是一条需要考试、技能、责任和长期维护的路线。你可以继续走，也可以分流，但至少不是糊里糊涂。",
     "shareText": "我在电气工程副本里活成了：稳定祛魅型清醒毕业生。稳定不是躺着，是系统运行时不能崩。",
     "majorId": "electrical_engineering"
+  },
+  {
+    "id": "ending_english_mid_gg",
+    "title": "英语·本科人生紧急中止",
+    "type": "mid_gg",
+    "priority": 100,
+    "conditions": {
+      "all": [
+        {
+          "type": "flag",
+          "key": "english_flag_mid_gg"
+        }
+      ]
+    },
+    "summary": "系统提示：嘴硬已经无法覆盖事实。",
+    "afterEffects": [
+      "对“其实还行”产生免疫",
+      "看到高压节点会自动静音"
+    ],
+    "advice": "能求助、能降目标、能换路，都比原地硬碎更像成年人。",
+    "shareText": "我用 5 分钟读完英语本科，系统提示嘴硬已经无法覆盖事实。",
+    "resultTags": [
+      "中途GG"
+    ],
+    "endingId": "ending_english_mid_gg",
+    "description": "",
+    "condition": {},
+    "majorId": "english"
+  },
+  {
+    "id": "ending_english_transfer_success",
+    "title": "英语 → 新专业·半路重开型玩家",
+    "type": "transfer_success",
+    "priority": 90,
+    "conditions": {
+      "all": [
+        {
+          "type": "flag",
+          "key": "english_flag_transfer_success"
+        }
+      ]
+    },
+    "summary": "你不是从新手村重新开始的，你是带着原专业后遗症半路冲进新副本。",
+    "afterEffects": [
+      "原专业 PTSD 残留",
+      "对培养方案异常警觉"
+    ],
+    "advice": "转向并不可耻，但转专业不是后悔药。",
+    "shareText": "我从英语半路重开，系统说我只是换了一种痛苦皮肤。",
+    "resultTags": [
+      "转专业成功"
+    ],
+    "endingId": "ending_english_transfer_success",
+    "description": "",
+    "condition": {},
+    "majorId": "english"
+  },
+  {
+    "id": "ending_english_transfer_fail",
+    "title": "转专业失败·英语滞留型幸存者",
+    "type": "transfer_fail",
+    "priority": 88,
+    "conditions": {
+      "all": [
+        {
+          "type": "flag",
+          "key": "english_flag_transfer_failed"
+        }
+      ]
+    },
+    "summary": "你曾经看见过逃生门，也认真走过去拧了门把手。遗憾的是，门后面写着：名额已满。",
+    "afterEffects": [
+      "嘴硬浓度显著上升"
+    ],
+    "advice": "不要把转专业当作默认退路。",
+    "shareText": "我在英语逃生门前失败了，但系统说人还在。",
+    "resultTags": [
+      "转专业失败"
+    ],
+    "endingId": "ending_english_transfer_fail",
+    "description": "",
+    "condition": {},
+    "majorId": "english"
+  },
+  {
+    "id": "ending_english_hidden",
+    "title": "隐藏结局——英语·跨文化文本雷达",
+    "type": "hidden",
+    "priority": 80,
+    "conditions": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "languageSensitivity",
+          "op": ">=",
+          "value": 90
+        },
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 80
+        },
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": ">=",
+          "value": 35
+        }
+      ]
+    },
+    "summary": "你已经进化到看到一句话会同时分析语境、语气、文化背景和表达策略。",
+    "afterEffects": [
+      "专业人格外溢",
+      "看世界的方式被永久改变"
+    ],
+    "advice": "如果你打出这个结局，说明你可能真的适合。请保持热爱，也记得保养精神电量。",
+    "shareText": "我打出了英语隐藏结局：英语·跨文化文本雷达。",
+    "resultTags": [
+      "隐藏神人"
+    ],
+    "endingId": "ending_english_hidden",
+    "description": "",
+    "condition": {},
+    "majorId": "english"
+  },
+  {
+    "id": "english_ending_001",
+    "endingId": "english_ending_001",
+    "priority": 80,
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "tem8Shadow",
+          "op": ">=",
+          "value": 60
+        },
+        {
+          "type": "majorStat",
+          "key": "oralCourage",
+          "op": ">=",
+          "value": 60
+        },
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": ">=",
+          "value": 30
+        }
+      ]
+    },
+    "title": "英语·专八幸存体面人",
+    "description": "你不一定优雅，但你真的活过了专四专八。",
+    "advice": "你经历了精读、听力、二外、翻译课和专八压力，滤镜没有全碎，语言能力也不是虚的。你适合继续走语言相关路线，但必须把英语和具体领域绑定起来。",
+    "shareText": "我在英语专业副本里活成了：专八幸存体面人。不是我优雅，是专四专八把我训练得很能忍。",
+    "majorId": "english"
+  },
+  {
+    "id": "english_ending_002",
+    "endingId": "english_ending_002",
+    "priority": 75,
+    "condition": {
+      "all": [
+        {
+          "type": "route",
+          "key": "english_route_teaching"
+        },
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 65
+        }
+      ]
+    },
+    "title": "英语·教资编制潜伏者",
+    "description": "你把英专滤镜落地成了教资、试讲和嗓子管理。",
+    "advice": "你没有把英语专业浪漫化到底，而是选择了一条更现实的稳定路线。接下来真正的副本可能是试讲、面试、编制竞争和嗓子续航。",
+    "shareText": "我在英语专业副本里活成了：教资编制潜伏者。英专尽头不一定是同传，也可能是试讲十分钟。",
+    "majorId": "english"
+  },
+  {
+    "id": "english_ending_003",
+    "endingId": "english_ending_003",
+    "priority": 70,
+    "condition": {
+      "any": [
+        {
+          "type": "route",
+          "key": "english_route_foreign_trade"
+        },
+        {
+          "all": [
+            {
+              "type": "majorStat",
+              "key": "toolDisillusion",
+              "op": ">=",
+              "value": 60
+            },
+            {
+              "type": "stat",
+              "key": "careerFantasy",
+              "op": "<=",
+              "value": 50
+            }
+          ]
+        }
+      ]
+    },
+    "title": "英语·外贸时差打工人",
+    "description": "你终于明白：英语是门票，工作才是副本。",
+    "advice": "外贸、跨境、运营路线让你看见了英语的现实用法：客户、报价、邮件、时差、表格和情绪稳定。你没有白学，但也不能只靠语言滤镜吃饭。",
+    "shareText": "我在英语专业副本里活成了：外贸时差打工人。英语是门票，进门以后才发现里面是 Excel 和客户。",
+    "majorId": "english"
+  },
+  {
+    "id": "english_ending_004",
+    "endingId": "english_ending_004",
+    "priority": 65,
+    "condition": {
+      "all": [
+        {
+          "type": "route",
+          "key": "english_route_translation"
+        },
+        {
+          "type": "majorStat",
+          "key": "translationTangle",
+          "op": "<=",
+          "value": 35
+        }
+      ]
+    },
+    "title": "英语·翻译腔自救成功者",
+    "description": "你终于把“会英语”和“会翻译”分开了。",
+    "advice": "你经历过机器翻译心梗、口译蓝屏和翻译腔羞耻，但也逐渐学会判断语境、风格和人话感。你适合继续做语言服务相关路线，但要和技术、行业知识一起升级。",
+    "shareText": "我在英语专业副本里活成了：翻译腔自救成功者。会英语不等于会翻译，这句话我用四年才消化。",
+    "majorId": "english"
+  },
+  {
+    "id": "english_ending_005",
+    "endingId": "english_ending_005",
+    "priority": 60,
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "toolDisillusion",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "stat",
+          "key": "escapeImpulse",
+          "op": "<=",
+          "value": 60
+        }
+      ]
+    },
+    "title": "英语·英语工具人清醒玩家",
+    "description": "你不再问英语有没有用，而是开始问它和什么一起有用。",
+    "advice": "这是一个成熟结局。你承认英语很难单独成为职业护城河，也承认语言训练确实留下了阅读、表达、检索和跨文化理解能力。你不会再用滤镜报志愿，也不会轻易贬低这四年。",
+    "shareText": "我在英语专业副本里活成了：英语工具人清醒玩家。不破防了，英语是工具，但我决定把工具磨锋利。",
+    "majorId": "english"
+  },
+  {
+    "id": "english_ending_006",
+    "endingId": "english_ending_006",
+    "priority": 55,
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "majorStat",
+          "key": "toolDisillusion",
+          "op": "<=",
+          "value": 55
+        }
+      ]
+    },
+    "title": "英语·英美文学浪漫残党",
+    "description": "你在工具论的世界里，还保留了一点语言和文学的浪漫。",
+    "advice": "你喜欢文本、表达、文学和语言本身。这个结局很可贵，但系统提醒：浪漫最好配一个可落地路线，比如教育、出版、传媒、研究、留学或复合技能。",
+    "shareText": "我在英语专业副本里活成了：英美文学浪漫残党。就业很现实，但我还是会被一个好句子骗到。",
+    "majorId": "english"
   }
 ]
