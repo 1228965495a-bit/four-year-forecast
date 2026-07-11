@@ -4166,9 +4166,9 @@
       ]
     },
     "intro": {
-      "title": "欢迎进入口腔医学副本",
-      "body": "你带着高分专业的光环、家长满意的眼神，以及一点“口腔是不是医学里比较香”的期待进入副本。系统提醒：香不香另说，牙是真的小，要求是真的细，医学基础课也不会因为你学口腔就放过你。",
-      "startButton": "开始本科四年"
+      "title": "你被口腔医学录取了！",
+      "body": "你带着一点白大褂滤镜、一点“牙医是不是很赚钱”的朴素想象，以及一点“学口腔应该不用面对太复杂的人生疾苦吧”的侥幸，来到了口腔医学副本。系统提醒：本科四年内，你将依次遭遇全身解剖、牙体形态、雕牙蜡块、牙周、牙体牙髓、口外、修复、正畸、实习、执业医传说和亲戚发来的各种口腔照片。\n\n口腔医学不是“看牙顺便暴富”的爽文专业。它更像一个把审美、手稳、体力、沟通、洁癖和颈椎一起打包训练的精细活副本。你以为自己会成为诊所老板，系统先让你雕一颗牙。",
+      "startButton": "进入大学 · 大一上"
     },
     "tags": [
       "热门高分",
@@ -4217,7 +4217,7 @@
       "filter": 88,
       "gpaWill": 70,
       "careerFantasy": 82,
-      "escapeImpulse": 12,
+      "escapeImpulse": 16,
       "stubbornness": 40,
       "hairline": 92
     },
@@ -4225,14 +4225,32 @@
       {
         "key": "dentalFilter",
         "name": "牙科滤镜",
-        "description": "对“口腔很香”的想象厚度。",
+        "description": "对“牙医是不是很赚钱、是不是轻松香”的想象厚度。",
         "initialValue": 88
       },
       {
         "key": "handStability",
-        "name": "手稳指数",
-        "description": "面对实操、模型、临床操作时的手部和心态稳定程度。",
-        "initialValue": 45
+        "name": "手稳值",
+        "description": "雕牙、备洞、根管、修复等精细操作时手和心态的稳定程度。",
+        "initialValue": 42
+      },
+      {
+        "key": "dentalRadar",
+        "name": "牙齿雷达",
+        "description": "看到别人说话、笑、自拍时自动扫描牙列、牙龈和咬合的程度。",
+        "initialValue": 18
+      },
+      {
+        "key": "cervicalBalance",
+        "name": "颈椎余额",
+        "description": "长期低头、悬腕、盯模型、看口内操作后剩余的颈椎耐久度。",
+        "initialValue": 95
+      },
+      {
+        "key": "patientCommunication",
+        "name": "患者沟通值",
+        "description": "把专业判断讲成人话、让患者安心并保持边界感的能力。",
+        "initialValue": 15
       },
       {
         "key": "clinicalPressure",
@@ -4257,95 +4275,121 @@
       {
         "semester": "y1s1",
         "label": "大一上",
-        "theme": "医学新手村",
+        "theme": "亲戚眼里的未来牙科老板",
         "coreEvents": "医学导论、解剖/生物基础、口腔滤镜启动",
         "statTrend": "牙科滤镜高；绩点求生欲上升",
         "routeForeshadow": "建立“口腔也是医学”的现实。",
         "key": "y1s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "stomatology_y1s1_main_001"
+        ]
       },
       {
         "semester": "y1s2",
         "label": "大一下",
-        "theme": "基础课开始证明存在感",
+        "theme": "牙医也要学全身解剖",
         "coreEvents": "解剖、生理、生化等基础压力",
         "statTrend": "精神电量下降；滤镜厚度下降",
         "routeForeshadow": "转专业暗线从医学强度不适开始。",
         "key": "y1s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "stomatology_y1s2_main_002"
+        ]
       },
       {
         "semester": "y2s1",
         "label": "大二上",
-        "theme": "口腔专业课入场",
+        "theme": "第一颗蜡牙把你雕清醒了",
         "coreEvents": "口腔解剖生理、材料学、牙体基础",
         "statTrend": "手稳指数启动；专业上头值分化",
         "routeForeshadow": "第一次意识到牙齿世界非常细。",
         "key": "y2s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "stomatology_y2s1_main_003"
+        ]
       },
       {
         "semester": "y2s2",
         "label": "大二下",
-        "theme": "实操训练和高分竞争",
+        "theme": "你开始看所有人的牙",
         "coreEvents": "模型训练、操作课、同学卷度",
         "statTrend": "临床操作压力上升；绩点求生欲高",
         "routeForeshadow": "大二下可触发转专业隐藏入口。",
         "key": "y2s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "stomatology_y2s2_main_004",
+          "stomatology_transfer_window"
+        ]
       },
       {
         "semester": "y3s1",
         "label": "大三上",
-        "theme": "牙体牙髓和临床意识",
+        "theme": "牙体牙髓让你理解什么叫细节地狱",
         "coreEvents": "牙体牙髓、修复、牙周等课程",
         "statTrend": "专业上头值上升或崩；精神电量下降",
         "routeForeshadow": "路线预热：考研、医院、专科方向。",
         "key": "y3s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "stomatology_y3s1_main_005",
+          "stomatology_route_postgrad",
+          "stomatology_route_hospital"
+        ]
       },
       {
         "semester": "y3s2",
         "label": "大三下",
-        "theme": "见习与责任感",
+        "theme": "第一次见习：患者张嘴后，世界安静了",
         "coreEvents": "见习、患者沟通、病例意识",
         "statTrend": "临床敬畏上升；就业幻觉被现实修正",
         "routeForeshadow": "路线分化开启。",
         "key": "y3s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "stomatology_y3s2_main_006",
+          "stomatology_route_specialty",
+          "stomatology_route_private_clinic",
+          "stomatology_midgg_003"
+        ]
       },
       {
         "semester": "y4s1",
         "label": "大四上",
-        "theme": "考研/规培/实习并发",
+        "theme": "修复正畸种植把富贵滤镜打成算盘珠",
         "coreEvents": "考研备考、临床技能、毕业压力",
         "statTrend": "精神电量高压；就业幻觉波动",
         "routeForeshadow": "可能触发实操崩盘或真香。",
         "key": "y4s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "stomatology_y4s1_main_007",
+          "stomatology_route_medical_related",
+          "stomatology_midgg_001",
+          "stomatology_midgg_002"
+        ]
       },
       {
         "semester": "y4s2",
         "label": "大四下",
-        "theme": "毕业与路径确认",
+        "theme": "毕业前，你终于承认牙不只是牙",
         "coreEvents": "毕业考核、实习总结、未来路径",
         "statTrend": "临床操作压力结算；牙科滤镜重塑",
         "routeForeshadow": "生成口腔人格鉴定书。",
         "key": "y4s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "stomatology_y4s2_main_008",
+          "stomatology_settlement"
+        ]
       }
     ],
     "randomEvents": [
-      "stomatology_random_01",
-      "stomatology_random_02",
-      "stomatology_random_03",
-      "stomatology_random_04",
-      "stomatology_random_05",
-      "stomatology_random_06",
-      "stomatology_random_07",
-      "stomatology_random_08",
-      "stomatology_random_09",
-      "stomatology_random_10"
+      "stomatology_random_001",
+      "stomatology_random_002",
+      "stomatology_random_003",
+      "stomatology_random_004",
+      "stomatology_random_005",
+      "stomatology_random_006",
+      "stomatology_random_007",
+      "stomatology_random_008",
+      "stomatology_random_009",
+      "stomatology_random_010"
     ],
     "hiddenEvents": [
       "stomatology_hidden_01",
@@ -4361,24 +4405,36 @@
       "stomatology_route_medical_related"
     ],
     "achievements": [
-      "ach_stomatology_hand_certified",
-      "ach_stomatology_model_obeyed",
-      "ach_stomatology_filter_corrected",
-      "ach_stomatology_clinical_respect",
-      "ach_stomatology_hot_major_survivor",
-      "ach_stomatology_experience_post_reader"
+      "ach_stomatology_doc_001",
+      "ach_stomatology_doc_002",
+      "ach_stomatology_doc_003",
+      "ach_stomatology_doc_004",
+      "ach_stomatology_doc_005",
+      "ach_stomatology_doc_006",
+      "ach_stomatology_doc_007",
+      "ach_stomatology_doc_008",
+      "ach_stomatology_doc_009",
+      "ach_stomatology_doc_010"
     ],
     "endings": [
-      "ending_stomatology_hand_training",
-      "ending_stomatology_filter_broken",
-      "ending_stomatology_postgrad_training",
-      "ending_stomatology_clinical_respect",
-      "ending_stomatology_medical_related"
+      "stomatology_ending_001",
+      "stomatology_ending_002",
+      "stomatology_ending_003",
+      "stomatology_ending_004",
+      "stomatology_ending_005",
+      "stomatology_ending_006"
     ],
     "shareTexts": [
-      "我体验完口腔医学，系统说牙很小但副本不小。",
-      "转发给那个只因为“口腔很香”就想报的人。",
-      "口腔医学不是医学甜品区，是精细操作修行区。"
+      "我在口腔医学副本里活成了：口腔长跑型幸存者。牙没看几颗，颈椎先成熟了。",
+      "我在口腔医学副本里活成了：牙线传教型口腔人。朋友张嘴前，我已经在脑内建档。",
+      "我在口腔医学副本里活成了：根管冷静战神。人生很复杂，根管也是。",
+      "我在口腔医学副本里活成了：牙科富贵滤镜破碎者。报之前别只看种植牙价格，也看看雕牙作业。",
+      "我在口腔医学副本里活成了：正畸审美雷达持有者。别人看脸，我看中线。",
+      "我在口腔医学副本里活成了：清醒转向型牙科幸存者。不是不尊重牙，是终于尊重了自己的颈椎。",
+      "我在口腔医学副本里活成了：口腔长跑型幸存者。牙没看几颗，颈椎先成熟了。",
+      "口腔医学体验报告：别人以为你以后开诊所发财，系统先让你雕一颗像地质灾害现场的蜡牙。",
+      "我终于明白，牙医不是“洗牙补牙暴富职业”，是手稳、审美、沟通、设备、责任和颈椎一起上强度。",
+      "口腔医学副作用：别人笑起来我已经自动分析牙列，中线，牙龈和疑似智齿风险。"
     ],
     "majorId": "stomatology"
   },

@@ -1462,82 +1462,6 @@
     "majorId": "artificial_intelligence"
   },
   {
-    "id": "ending_stomatology_hand_training",
-    "endingId": "ending_stomatology_hand_training",
-    "majorId": "stomatology",
-    "title": "口腔医学·手稳修行型玩家",
-    "description": "你不是只看到了口腔的香，也看到了小空间里的精细、责任和长期训练。适合报，但别只看收入截图。",
-    "condition": {
-      "type": "majorStat",
-      "key": "handStability",
-      "op": ">=",
-      "value": 70
-    },
-    "priority": 50,
-    "shareText": "我体验完口腔医学，系统说牙很小但副本不小。 系统判定：口腔医学·手稳修行型玩家",
-    "advice": "你不是只看到了口腔的香，也看到了小空间里的精细、责任和长期训练。适合报，但别只看收入截图。"
-  },
-  {
-    "id": "ending_stomatology_filter_broken",
-    "endingId": "ending_stomatology_filter_broken",
-    "majorId": "stomatology",
-    "title": "口腔医学·牙科滤镜破碎型误入者",
-    "description": "你以为口腔比医学轻松很多，后来发现它只是把痛苦缩小到更精细的尺度。",
-    "condition": {
-      "type": "stat",
-      "key": "escapeImpulse",
-      "op": ">=",
-      "value": 70
-    },
-    "priority": 50,
-    "shareText": "我体验完口腔医学，系统说牙很小但副本不小。 系统判定：口腔医学·牙科滤镜破碎型误入者",
-    "advice": "你以为口腔比医学轻松很多，后来发现它只是把痛苦缩小到更精细的尺度。"
-  },
-  {
-    "id": "ending_stomatology_postgrad_training",
-    "endingId": "ending_stomatology_postgrad_training",
-    "majorId": "stomatology",
-    "title": "口腔医学·考研继续修炼型选手",
-    "description": "热门专业的下一关仍然热门。你带着手稳指数和竞争焦虑继续升级。",
-    "condition": {
-      "type": "route",
-      "key": "stomatology_route_postgrad"
-    },
-    "priority": 50,
-    "shareText": "我体验完口腔医学，系统说牙很小但副本不小。 系统判定：口腔医学·考研继续修炼型选手",
-    "advice": "热门专业的下一关仍然热门。你带着手稳指数和竞争焦虑继续升级。"
-  },
-  {
-    "id": "ending_stomatology_clinical_respect",
-    "endingId": "ending_stomatology_clinical_respect",
-    "majorId": "stomatology",
-    "title": "口腔医学·临床敬畏型幸存者",
-    "description": "你学会了敬畏患者，也学会了敬畏细节。系统判断：你已经不再只用“香不香”理解口腔。",
-    "condition": {
-      "type": "majorStat",
-      "key": "clinicalPressure",
-      "op": ">=",
-      "value": 60
-    },
-    "priority": 50,
-    "shareText": "我体验完口腔医学，系统说牙很小但副本不小。 系统判定：口腔医学·临床敬畏型幸存者",
-    "advice": "你学会了敬畏患者，也学会了敬畏细节。系统判断：你已经不再只用“香不香”理解口腔。"
-  },
-  {
-    "id": "ending_stomatology_medical_related",
-    "endingId": "ending_stomatology_medical_related",
-    "majorId": "stomatology",
-    "title": "口腔医学·半路转向医学相关路线",
-    "description": "你没有否定口腔，只是把医学训练带到另一个更适合自己的位置。",
-    "condition": {
-      "type": "route",
-      "key": "stomatology_route_medical_related"
-    },
-    "priority": 50,
-    "shareText": "我体验完口腔医学，系统说牙很小但副本不小。 系统判定：口腔医学·半路转向医学相关路线",
-    "advice": "你没有否定口腔，只是把医学训练带到另一个更适合自己的位置。"
-  },
-  {
     "id": "ending_psychology_mind_reading_broken",
     "endingId": "ending_psychology_mind_reading_broken",
     "majorId": "psychology",
@@ -3666,5 +3590,179 @@
     "advice": "滤镜碎掉以后，剩下的东西反而更真实。你知道这个专业不能自动解决就业，也不会让人生变高级，但在某些瞬间，一句话、一段文本、一个问题，仍然会把你拉回来。",
     "shareText": "我在汉语言文学副本里活成了：文学滤镜碎裂但没退坑的人。浪漫没了很多，但文字还是有点用。",
     "majorId": "chinese_language_literature"
+  },
+  {
+    "id": "stomatology_ending_001",
+    "endingId": "stomatology_ending_001",
+    "majorId": "stomatology",
+    "priority": 90,
+    "title": "口腔医学·口腔长跑型幸存者",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 70
+        },
+        {
+          "type": "majorStat",
+          "key": "handStability",
+          "op": ">=",
+          "value": 60
+        },
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": ">=",
+          "value": 35
+        }
+      ]
+    },
+    "rank": "S",
+    "description": "你没有只靠牙科富贵滤镜活到最后，而是真的练出了一点手稳、耐心和职业理解。",
+    "advice": "你经历了蜡牙、牙体牙髓、见习、修复正畸和颈椎预警，终于知道口腔医学不是爽文副本，而是长期技术训练。你适合继续冲，但请给颈椎买一份体面。",
+    "shareText": "我在口腔医学副本里活成了：口腔长跑型幸存者。牙没看几颗，颈椎先成熟了。"
+  },
+  {
+    "id": "stomatology_ending_002",
+    "endingId": "stomatology_ending_002",
+    "majorId": "stomatology",
+    "priority": 85,
+    "title": "口腔医学·牙线传教型口腔人",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "dentalRadar",
+          "op": ">=",
+          "value": 80
+        },
+        {
+          "type": "majorStat",
+          "key": "patientCommunication",
+          "op": ">=",
+          "value": 50
+        }
+      ]
+    },
+    "rank": "A",
+    "description": "你已经不是普通同学了，你是饭桌上最克制的牙周健康提醒器。",
+    "advice": "你看到别人笑会先看牙龈，看到室友刷牙会想递牙线。你不是扫兴，你只是被专业训练成了口腔健康 NPC。",
+    "shareText": "我在口腔医学副本里活成了：牙线传教型口腔人。朋友张嘴前，我已经在脑内建档。"
+  },
+  {
+    "id": "stomatology_ending_003",
+    "endingId": "stomatology_ending_003",
+    "majorId": "stomatology",
+    "priority": 80,
+    "title": "口腔医学·根管冷静战神",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "handStability",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 75
+        }
+      ]
+    },
+    "rank": "S",
+    "description": "面对弯曲根管和细节地狱，你没有崩，只是眼神逐渐失去人类情绪。",
+    "advice": "你适合处理复杂、细碎、需要耐心的任务。代价是你会对“钻一钻就好”这句话产生强烈反应。",
+    "shareText": "我在口腔医学副本里活成了：根管冷静战神。人生很复杂，根管也是。"
+  },
+  {
+    "id": "stomatology_ending_004",
+    "endingId": "stomatology_ending_004",
+    "majorId": "stomatology",
+    "priority": 75,
+    "title": "口腔医学·牙科富贵滤镜破碎者",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 25
+        },
+        {
+          "type": "stat",
+          "key": "careerFantasy",
+          "op": "<=",
+          "value": 35
+        }
+      ]
+    },
+    "rank": "B",
+    "description": "你曾经以为口腔医学是暴富捷径，后来发现每一分钱背后都写着技术、设备、责任和颈椎。",
+    "advice": "你的清醒来得有点痛，但很必要。你看见了诊所梦背后的成本，也看见了专业训练的门槛。",
+    "shareText": "我在口腔医学副本里活成了：牙科富贵滤镜破碎者。报之前别只看种植牙价格，也看看雕牙作业。"
+  },
+  {
+    "id": "stomatology_ending_005",
+    "endingId": "stomatology_ending_005",
+    "majorId": "stomatology",
+    "priority": 70,
+    "title": "口腔医学·正畸审美雷达持有者",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "dentalRadar",
+          "op": ">=",
+          "value": 70
+        },
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "rank": "A",
+    "description": "你已经无法正常看自拍了，因为你会自动分析牙列、中线、笑线和侧貌。",
+    "advice": "你的审美雷达被口腔医学永久改写。你不一定会走正畸，但你已经很难把牙齿只当牙齿。",
+    "shareText": "我在口腔医学副本里活成了：正畸审美雷达持有者。别人看脸，我看中线。"
+  },
+  {
+    "id": "stomatology_ending_006",
+    "endingId": "stomatology_ending_006",
+    "majorId": "stomatology",
+    "priority": 65,
+    "title": "口腔医学·清醒转向型牙科幸存者",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "escapeImpulse",
+          "op": ">=",
+          "value": 60
+        },
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 40
+        },
+        {
+          "type": "majorStat",
+          "key": "handStability",
+          "op": "<=",
+          "value": 45
+        }
+      ]
+    },
+    "rank": "B",
+    "description": "你没有否定口腔医学，只是承认喜欢牙科爽文和适合口腔临床，是两件不同的事。",
+    "advice": "清醒转向不是失败。至少你在真正投入长期训练前，识别了自己的适配度。你保留了牙齿雷达，也保住了自己的脖子。",
+    "shareText": "我在口腔医学副本里活成了：清醒转向型牙科幸存者。不是不尊重牙，是终于尊重了自己的颈椎。"
   }
 ]
