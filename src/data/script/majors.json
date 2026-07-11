@@ -2095,9 +2095,9 @@
       "riskWarning": "别只因为喜欢刷热点就冲进来，先看看你能不能把热点做成选题。"
     },
     "intro": {
-      "title": "欢迎进入新闻传播学副本",
-      "body": "你带着一点表达欲、一点媒体理想，以及一点“这个专业应该很有趣”的滤镜，进入了新闻传播学副本。\n系统提醒：本科四年内，你将遭遇传播理论、新闻写作、采访、摄影摄像、公众号运营、剪辑、实习、就业身份迷茫和论文选题。\n如果你知道这些还想继续，说明你可能真的对内容和表达有点执念。",
-      "startButton": "开始本科四年"
+      "title": "你被新闻传播学录取了！",
+      "body": "你带着一点表达欲、一点镜头感、一点“我以后是不是能做出爆款内容”的天真想象，来到了新闻传播学副本。系统提醒：本科四年内，你将依次遭遇选题会、采访对象已读不回、公众号推文、短视频剪辑、热点过气、实习白干、作品集焦虑、秋招转行和亲戚持续追问“你以后是不是上电视”。\n\n新闻传播学不是“每天刷手机也算学习”的专业。它更像一个互联网情绪翻译器训练营：你要会写、会拍、会剪、会问、会改、会解释数据为什么又不行，还要在被说“新传是不是天坑”时保持体面微笑。",
+      "startButton": "进入大学 · 大一上"
     },
     "tags": [
       "表达滤镜",
@@ -2139,33 +2139,33 @@
       "新传天坑争议"
     ],
     "initialStats": {
-      "obsession": 72,
-      "energy": 78,
-      "filter": 84,
+      "obsession": 78,
+      "energy": 72,
+      "filter": 82,
       "gpaWill": 62,
-      "careerFantasy": 70,
-      "escapeImpulse": 16,
+      "careerFantasy": 74,
+      "escapeImpulse": 22,
       "stubbornness": 44,
       "hairline": 92
     },
     "majorStats": [
       {
         "key": "topicSensitivity",
-        "name": "选题敏感度",
-        "initialValue": 24,
-        "description": "把普通信息拆成角度、受众和传播路径的能力。"
+        "name": "内容嗅觉",
+        "initialValue": 28,
+        "description": "发现选题、理解平台和用户情绪的能力。"
       },
       {
         "key": "hotspotChase",
-        "name": "热点追逐值",
-        "initialValue": 18,
-        "description": "被热点、平台节奏和数据反馈牵引的程度。"
+        "name": "平台焦虑",
+        "initialValue": 20,
+        "description": "被数据、算法、热搜、流量和甲方需求牵引的程度。"
       },
       {
         "key": "portfolioProgress",
-        "name": "作品集进度",
-        "initialValue": 8,
-        "description": "稿件、视频、账号、实习成果等可展示积累。"
+        "name": "作品集热度",
+        "initialValue": 12,
+        "description": "稿件、视频、策划、实习成果等可展示积累。"
       },
       {
         "key": "careerNihility",
@@ -2184,12 +2184,10 @@
       {
         "key": "y1s1",
         "label": "大一上",
-        "theme": "新传滤镜与传播学新手村",
+        "theme": "你收到新闻传播学录取通知书",
         "pressureLevel": 0.6,
         "mainEventIds": [
-          "journalism_communication_y1s1_main_001",
-          "journalism_communication_y1s1_main_002",
-          "journalism_communication_y1s1_main_003"
+          "journalism_communication_y1s1_main_001"
         ],
         "randomSlots": [
           {
@@ -2212,12 +2210,11 @@
       {
         "key": "y1s2",
         "label": "大一下",
-        "theme": "采访、期末作品与劝退帖",
+        "theme": "第一次选题会：万物皆可传播学视角",
         "pressureLevel": 0.7,
         "mainEventIds": [
-          "journalism_communication_y1s2_main_004",
-          "journalism_communication_y1s2_transfer_005",
-          "journalism_communication_y1s2_main_006"
+          "journalism_communication_y1s2_main_001",
+          "journalism_communication_y1s2_transfer_005"
         ],
         "randomSlots": [
           {
@@ -2240,12 +2237,10 @@
       {
         "key": "y2s1",
         "label": "大二上",
-        "theme": "理论上强度与作品集预警",
+        "theme": "小组作业进入剪片地狱",
         "pressureLevel": 0.85,
         "mainEventIds": [
-          "journalism_communication_y2s1_main_007",
-          "journalism_communication_y2s1_main_008",
-          "journalism_communication_y2s1_main_009"
+          "journalism_communication_y2s1_main_001"
         ],
         "randomSlots": [
           {
@@ -2268,12 +2263,11 @@
       {
         "key": "y2s2",
         "label": "大二下",
-        "theme": "公众号运营与转专业隐藏入口",
+        "theme": "你开始幻想十万加，现实只给你十个赞",
         "pressureLevel": 1.0,
         "mainEventIds": [
-          "journalism_communication_y2s2_main_010",
-          "journalism_communication_y2s2_transfer_011",
-          "journalism_communication_y2s2_main_012"
+          "journalism_communication_y2s2_main_001",
+          "journalism_communication_y2s2_transfer_011"
         ],
         "randomSlots": [
           {
@@ -2296,11 +2290,10 @@
       {
         "key": "y3s1",
         "label": "大三上",
-        "theme": "实习、作品与现实感",
+        "theme": "实习投递：媒体、公关、运营，哪个看起来都像坑",
         "pressureLevel": 1.2,
         "mainEventIds": [
-          "journalism_communication_y3s1_main_013",
-          "journalism_communication_y3s1_main_014",
+          "journalism_communication_y3s1_main_001",
           "journalism_communication_y3s1_route_015"
         ],
         "randomSlots": [
@@ -2324,12 +2317,12 @@
       {
         "key": "y3s2",
         "label": "大三下",
-        "theme": "路线分化",
+        "theme": "实习第一周，你发现理想和 KPI 坐在同一张工位上",
         "pressureLevel": 1.35,
         "mainEventIds": [
+          "journalism_communication_y3s2_main_001",
           "journalism_communication_y3s2_route_016",
-          "journalism_communication_y3s2_route_017",
-          "journalism_communication_y3s2_main_018"
+          "journalism_communication_y3s2_route_017"
         ],
         "randomSlots": [
           {
@@ -2352,10 +2345,10 @@
       {
         "key": "y4s1",
         "label": "大四上",
-        "theme": "秋招、论文与职业身份审判",
+        "theme": "秋招、考研、考公三线混战",
         "pressureLevel": 1.5,
         "mainEventIds": [
-          "journalism_communication_y4s1_main_019",
+          "journalism_communication_y4s1_main_001",
           "journalism_communication_y4s1_route_020",
           "journalism_communication_y4s1_gg_check_021"
         ],
@@ -2380,10 +2373,10 @@
       {
         "key": "y4s2",
         "label": "大四下",
-        "theme": "毕业结算",
+        "theme": "毕业前，你终于给自己写了一篇结案报道",
         "pressureLevel": 1.4,
         "mainEventIds": [
-          "journalism_communication_y4s2_main_022",
+          "journalism_communication_y4s2_main_001",
           "journalism_communication_y4s2_settlement_023"
         ],
         "randomSlots": [
@@ -2485,34 +2478,43 @@
       "ach_journalism_communication_hidden_002",
       "ach_journalism_communication_hidden_003",
       "ach_journalism_communication_hidden_004",
-      "ach_journalism_communication_hidden_005"
+      "ach_journalism_communication_hidden_005",
+      "ach_journalism_communication_doc_001",
+      "ach_journalism_communication_doc_002",
+      "ach_journalism_communication_doc_003",
+      "ach_journalism_communication_doc_004",
+      "ach_journalism_communication_doc_005",
+      "ach_journalism_communication_doc_006",
+      "ach_journalism_communication_doc_007",
+      "ach_journalism_communication_doc_008",
+      "ach_journalism_communication_doc_009",
+      "ach_journalism_communication_doc_010"
     ],
     "endings": [
       "ending_journalism_communication_mid_gg",
       "ending_journalism_communication_transfer_success",
       "ending_journalism_communication_transfer_fail",
       "ending_journalism_communication_hidden",
-      "ending_journalism_communication_overachiever",
-      "ending_journalism_communication_true_love",
-      "ending_journalism_communication_route",
-      "ending_journalism_communication_survivor",
-      "ending_journalism_communication_filter_broken",
-      "ending_journalism_communication_layflat"
+      "journalism_communication_ending_001",
+      "journalism_communication_ending_002",
+      "journalism_communication_ending_003",
+      "journalism_communication_ending_004",
+      "journalism_communication_ending_005",
+      "journalism_communication_ending_006"
     ],
-    "shareTexts": {
-      "hooks": [
-        "我用 5 分钟读完新传本科，系统给我判了这个结局。",
-        "别急着报新闻传播学，先进副本活一遍。",
-        "这不是劝退，这是提前摘滤镜。",
-        "转发给那个想报新闻传播学的人。"
-      ],
-      "buttons": [
-        "换个专业继续受苦",
-        "截图发给想报新闻传播学的人",
-        "不服，重开一次新闻传播学副本",
-        "看看系统会推荐我读什么专业"
-      ]
-    },
+    "shareTexts": [
+      "我在新闻传播学副本里活成了：爆款标题冷静操盘手。不是我爱追热点，是热点先动手的。",
+      "我在新闻传播学副本里活成了：选题雷达常驻型新传人。我的人生不是日常，是待开发选题池。",
+      "我在新闻传播学副本里活成了：乙方工位预备役。我的技能是把“感觉不太对”翻译成 27 条修改意见。",
+      "我在新闻传播学副本里活成了：热点追逐疲惫人。不是我不想爆，是互联网换情绪太快。",
+      "我在新闻传播学副本里活成了：考公考研安全撤离者。不是新传白学，是我把表达能力打包带走。",
+      "我在新闻传播学副本里活成了：理想主义打折但未清仓。滤镜碎了，但表达欲还没下架。",
+      "我在新闻传播学副本里活成了：爆款标题冷静操盘手。不是我爱追热点，是热点先动手的。",
+      "新传副本体验报告：你以为是表达欲，系统给你加载了选题会、剪片地狱、采访已读不回和甲方“感觉不太对”。",
+      "我终于明白，新传不是每天刷手机也算学习，而是刷完手机还要解释为什么大家都在刷。",
+      "我在新闻传播学里学到最稳定的技能：把“再改一版”翻译成“今晚别睡”。",
+      "滤镜碎了，但表达欲没死。新闻传播学：一个让你一边说天坑，一边继续写标题的专业。"
+    ],
     "majorId": "journalism_communication"
   },
   {

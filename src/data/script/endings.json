@@ -1462,394 +1462,6 @@
     "majorId": "artificial_intelligence"
   },
   {
-    "id": "ending_journalism_communication_mid_gg",
-    "title": "新闻传播学·本科人生紧急中止",
-    "type": "mid_gg",
-    "priority": 100,
-    "conditions": {
-      "all": [
-        {
-          "type": "flag",
-          "key": "journalism_communication_flag_mid_gg"
-        }
-      ]
-    },
-    "summary": "系统提示：嘴硬已经无法覆盖事实。",
-    "afterEffects": [
-      "对“其实还行”产生免疫",
-      "看到高压节点会自动静音"
-    ],
-    "advice": "能求助、能降目标、能换路，都比原地硬碎更像成年人。",
-    "shareText": "我用 5 分钟读完新闻传播学本科，系统提示嘴硬已经无法覆盖事实。",
-    "resultTags": [
-      "中途GG"
-    ],
-    "endingId": "ending_journalism_communication_mid_gg",
-    "description": "",
-    "condition": {},
-    "majorId": "journalism_communication"
-  },
-  {
-    "id": "ending_journalism_communication_transfer_success",
-    "title": "新闻传播学 → 新专业·半路重开型玩家",
-    "type": "transfer_success",
-    "priority": 90,
-    "conditions": {
-      "all": [
-        {
-          "type": "flag",
-          "key": "journalism_communication_flag_transfer_success"
-        }
-      ]
-    },
-    "summary": "你不是从新手村重新开始的，你是带着原专业后遗症半路冲进新副本。",
-    "afterEffects": [
-      "原专业 PTSD 残留",
-      "对培养方案异常警觉"
-    ],
-    "advice": "转向并不可耻，但转专业不是后悔药。",
-    "shareText": "我从新闻传播学半路重开，系统说我只是换了一种痛苦皮肤。",
-    "resultTags": [
-      "转专业成功"
-    ],
-    "endingId": "ending_journalism_communication_transfer_success",
-    "description": "",
-    "condition": {},
-    "majorId": "journalism_communication"
-  },
-  {
-    "id": "ending_journalism_communication_transfer_fail",
-    "title": "转专业失败·新闻传播学滞留型幸存者",
-    "type": "transfer_fail",
-    "priority": 88,
-    "conditions": {
-      "all": [
-        {
-          "type": "flag",
-          "key": "journalism_communication_flag_transfer_failed"
-        }
-      ]
-    },
-    "summary": "你曾经看见过逃生门，也认真走过去拧了门把手。遗憾的是，门后面写着：名额已满。",
-    "afterEffects": [
-      "嘴硬浓度显著上升"
-    ],
-    "advice": "不要把转专业当作默认退路。",
-    "shareText": "我在新闻传播学逃生门前失败了，但系统说人还在。",
-    "resultTags": [
-      "转专业失败"
-    ],
-    "endingId": "ending_journalism_communication_transfer_fail",
-    "description": "",
-    "condition": {},
-    "majorId": "journalism_communication"
-  },
-  {
-    "id": "ending_journalism_communication_hidden",
-    "title": "隐藏结局——新闻传播学·热点雷达本达",
-    "type": "hidden",
-    "priority": 80,
-    "conditions": {
-      "all": [
-        {
-          "type": "majorStat",
-          "key": "topicSensitivity",
-          "op": ">=",
-          "value": 90
-        },
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": ">=",
-          "value": 80
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">=",
-          "value": 35
-        }
-      ]
-    },
-    "summary": "你已经进化到刷到普通新闻都能想到角度、受众、平台、标题和传播路径。",
-    "afterEffects": [
-      "专业人格外溢",
-      "看世界的方式被永久改变"
-    ],
-    "advice": "如果你打出这个结局，说明你可能真的适合。请保持热爱，也记得保养精神电量。",
-    "shareText": "我打出了新闻传播学隐藏结局：新闻传播学·热点雷达本达。",
-    "resultTags": [
-      "隐藏神人"
-    ],
-    "endingId": "ending_journalism_communication_hidden",
-    "description": "",
-    "condition": {},
-    "majorId": "journalism_communication"
-  },
-  {
-    "id": "ending_journalism_communication_overachiever",
-    "title": "新闻传播学·卷王飞升型选手",
-    "type": "overachiever",
-    "priority": 70,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "gpaWill",
-          "op": ">=",
-          "value": 85
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">=",
-          "value": 30
-        },
-        {
-          "type": "majorStat",
-          "key": "topicSensitivity",
-          "op": ">=",
-          "value": 70
-        }
-      ]
-    },
-    "summary": "你不是没有崩溃过，只是每次崩溃完还能回到任务面前。",
-    "afterEffects": [
-      "待办清单异常整齐"
-    ],
-    "advice": "适合冲，但请注意维护精神电量。",
-    "shareText": "系统说我是新闻传播学卷王飞升型选手。",
-    "resultTags": [
-      "卷王"
-    ],
-    "endingId": "ending_journalism_communication_overachiever",
-    "description": "",
-    "condition": {},
-    "majorId": "journalism_communication"
-  },
-  {
-    "id": "ending_journalism_communication_true_love",
-    "title": "新闻传播学·真香型玩家",
-    "type": "true_love",
-    "priority": 65,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": ">=",
-          "value": 80
-        },
-        {
-          "type": "majorStat",
-          "key": "topicSensitivity",
-          "op": ">=",
-          "value": 70
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">=",
-          "value": 35
-        }
-      ]
-    },
-    "summary": "你不是没有被新闻传播学副本拷打过，只是拷打到最后，真的从里面找到了一点乐趣。",
-    "afterEffects": [
-      "滤镜碎了一些，热爱更耐用"
-    ],
-    "advice": "适合报。前提是你知道它不是无痛副本。",
-    "shareText": "我竟然在新闻传播学副本里真香了。",
-    "resultTags": [
-      "真香"
-    ],
-    "endingId": "ending_journalism_communication_true_love",
-    "description": "",
-    "condition": {},
-    "majorId": "journalism_communication"
-  },
-  {
-    "id": "ending_journalism_communication_route",
-    "title": "新闻传播学·路线现实型玩家",
-    "type": "route",
-    "priority": 55,
-    "conditions": {
-      "any": [
-        {
-          "type": "route",
-          "key": "journalism_communication_route_postgrad"
-        },
-        {
-          "type": "route",
-          "key": "journalism_communication_route_civil_service"
-        },
-        {
-          "type": "route",
-          "key": "journalism_communication_route_job"
-        },
-        {
-          "type": "route",
-          "key": "journalism_communication_route_content"
-        }
-      ]
-    },
-    "summary": "你把专业能力接到了一条更现实的路线里。它不一定浪漫，但开始能被行动支撑。",
-    "afterEffects": [
-      "路线感变强",
-      "滤镜变薄"
-    ],
-    "advice": "路线不是逃避，前提是你真的开始行动。",
-    "shareText": "我在新闻传播学副本里打出了现实路线结局。",
-    "resultTags": [
-      "路线结局"
-    ],
-    "endingId": "ending_journalism_communication_route",
-    "description": "",
-    "condition": {},
-    "majorId": "journalism_communication"
-  },
-  {
-    "id": "ending_journalism_communication_survivor",
-    "title": "新闻传播学·表达欲过剩型幸存者",
-    "type": "survivor",
-    "priority": 45,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": ">=",
-          "value": 45
-        },
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": "<=",
-          "value": 75
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">=",
-          "value": 20
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": "<=",
-          "value": 60
-        },
-        {
-          "type": "hiddenStat",
-          "key": "stubbornness",
-          "op": ">=",
-          "value": 65
-        }
-      ]
-    },
-    "summary": "你嘴上说新传很累，但看到热点还是会下意识想：这个能不能做个选题？",
-    "afterEffects": [
-      "专业人格初步形成"
-    ],
-    "advice": "可以冲，但别只看滤镜。",
-    "shareText": "我用 5 分钟读完新传本科，系统给我判了这个结局。",
-    "resultTags": [
-      "嘴硬幸存"
-    ],
-    "endingId": "ending_journalism_communication_survivor",
-    "description": "",
-    "condition": {},
-    "majorId": "journalism_communication"
-  },
-  {
-    "id": "ending_journalism_communication_filter_broken",
-    "title": "新闻传播学·滤镜破碎型误入者",
-    "type": "filter_broken",
-    "priority": 40,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "filter",
-          "op": "<=",
-          "value": 15
-        },
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": "<=",
-          "value": 35
-        },
-        {
-          "type": "stat",
-          "key": "escapeImpulse",
-          "op": ">=",
-          "value": 70
-        }
-      ]
-    },
-    "summary": "你当初报新闻传播学时想象的是滤镜里的样子，后来发现本科生活更多是课程、作业、路线和现实。",
-    "afterEffects": [
-      "看到热门专业会先查培养方案"
-    ],
-    "advice": "慎重。不是不能报，而是不要只看外壳。",
-    "shareText": "我体验完新闻传播学本科，系统把我的滤镜拆没了。",
-    "resultTags": [
-      "滤镜破碎"
-    ],
-    "endingId": "ending_journalism_communication_filter_broken",
-    "description": "",
-    "condition": {},
-    "majorId": "journalism_communication"
-  },
-  {
-    "id": "ending_journalism_communication_layflat",
-    "title": "新闻传播学·摆烂毕业型幸存者",
-    "type": "layflat",
-    "priority": 10,
-    "conditions": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": "<=",
-          "value": 55
-        },
-        {
-          "type": "stat",
-          "key": "gpaWill",
-          "op": "<=",
-          "value": 50
-        },
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": ">",
-          "value": 20
-        }
-      ],
-      "none": [
-        {
-          "type": "flag",
-          "key": "journalism_communication_flag_mid_gg"
-        }
-      ]
-    },
-    "summary": "你没有成为卷王，也没有彻底跑路。你以一种能交、能过、能毕业的姿态穿过本科四年。",
-    "afterEffects": [
-      "最低可交付标准熟练"
-    ],
-    "advice": "苟住和适合不是一回事。",
-    "shareText": "我在新闻传播学副本里摆烂毕业了。",
-    "resultTags": [
-      "摆烂毕业"
-    ],
-    "endingId": "ending_journalism_communication_layflat",
-    "description": "",
-    "condition": {},
-    "majorId": "journalism_communication"
-  },
-  {
     "id": "ending_electrical_engineering_mid_gg",
     "title": "电气工程·本科人生紧急中止",
     "type": "mid_gg",
@@ -4254,5 +3866,298 @@
     "advice": "你看清了月末、证书、审计、实习和职业分流，也理解了会计训练的价值。你可以继续，也可以转向，至少你不会再被一句“做账很简单”骗到。",
     "shareText": "我在会计学副本里活成了：会计祛魅但不后悔的人。会计不简单，我也不想装简单。",
     "majorId": "accounting"
+  },
+  {
+    "id": "ending_journalism_communication_mid_gg",
+    "title": "新闻传播学·本科人生紧急中止",
+    "type": "mid_gg",
+    "priority": 100,
+    "conditions": {
+      "all": [
+        {
+          "type": "flag",
+          "key": "journalism_communication_flag_mid_gg"
+        }
+      ]
+    },
+    "summary": "系统提示：嘴硬已经无法覆盖事实。",
+    "afterEffects": [
+      "对“其实还行”产生免疫",
+      "看到高压节点会自动静音"
+    ],
+    "advice": "能求助、能降目标、能换路，都比原地硬碎更像成年人。",
+    "shareText": "我用 5 分钟读完新闻传播学本科，系统提示嘴硬已经无法覆盖事实。",
+    "resultTags": [
+      "中途GG"
+    ],
+    "endingId": "ending_journalism_communication_mid_gg",
+    "description": "",
+    "condition": {},
+    "majorId": "journalism_communication"
+  },
+  {
+    "id": "ending_journalism_communication_transfer_success",
+    "title": "新闻传播学 → 新专业·半路重开型玩家",
+    "type": "transfer_success",
+    "priority": 90,
+    "conditions": {
+      "all": [
+        {
+          "type": "flag",
+          "key": "journalism_communication_flag_transfer_success"
+        }
+      ]
+    },
+    "summary": "你不是从新手村重新开始的，你是带着原专业后遗症半路冲进新副本。",
+    "afterEffects": [
+      "原专业 PTSD 残留",
+      "对培养方案异常警觉"
+    ],
+    "advice": "转向并不可耻，但转专业不是后悔药。",
+    "shareText": "我从新闻传播学半路重开，系统说我只是换了一种痛苦皮肤。",
+    "resultTags": [
+      "转专业成功"
+    ],
+    "endingId": "ending_journalism_communication_transfer_success",
+    "description": "",
+    "condition": {},
+    "majorId": "journalism_communication"
+  },
+  {
+    "id": "ending_journalism_communication_transfer_fail",
+    "title": "转专业失败·新闻传播学滞留型幸存者",
+    "type": "transfer_fail",
+    "priority": 88,
+    "conditions": {
+      "all": [
+        {
+          "type": "flag",
+          "key": "journalism_communication_flag_transfer_failed"
+        }
+      ]
+    },
+    "summary": "你曾经看见过逃生门，也认真走过去拧了门把手。遗憾的是，门后面写着：名额已满。",
+    "afterEffects": [
+      "嘴硬浓度显著上升"
+    ],
+    "advice": "不要把转专业当作默认退路。",
+    "shareText": "我在新闻传播学逃生门前失败了，但系统说人还在。",
+    "resultTags": [
+      "转专业失败"
+    ],
+    "endingId": "ending_journalism_communication_transfer_fail",
+    "description": "",
+    "condition": {},
+    "majorId": "journalism_communication"
+  },
+  {
+    "id": "ending_journalism_communication_hidden",
+    "title": "隐藏结局——新闻传播学·热点雷达本达",
+    "type": "hidden",
+    "priority": 80,
+    "conditions": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "topicSensitivity",
+          "op": ">=",
+          "value": 90
+        },
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 80
+        },
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": ">=",
+          "value": 35
+        }
+      ]
+    },
+    "summary": "你已经进化到刷到普通新闻都能想到角度、受众、平台、标题和传播路径。",
+    "afterEffects": [
+      "专业人格外溢",
+      "看世界的方式被永久改变"
+    ],
+    "advice": "如果你打出这个结局，说明你可能真的适合。请保持热爱，也记得保养精神电量。",
+    "shareText": "我打出了新闻传播学隐藏结局：新闻传播学·热点雷达本达。",
+    "resultTags": [
+      "隐藏神人"
+    ],
+    "endingId": "ending_journalism_communication_hidden",
+    "description": "",
+    "condition": {},
+    "majorId": "journalism_communication"
+  },
+  {
+    "priority": 80,
+    "id": "journalism_communication_ending_001",
+    "endingId": "journalism_communication_ending_001",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "topicSensitivity",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "majorStat",
+          "key": "portfolioProgress",
+          "op": ">=",
+          "value": 70
+        },
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": ">=",
+          "value": 35
+        }
+      ]
+    },
+    "title": "新闻传播学·爆款标题冷静操盘手",
+    "description": "你已经不只是会写东西，而是知道内容为什么会被看见。",
+    "advice": "你经历了选题会、标题十二改、剪片地狱和实习 KPI，终于学会在表达欲和平台逻辑之间保持一点清醒。你能做内容，也能解释内容为什么有效；能追热点，也知道什么时候该慢下来。",
+    "shareText": "我在新闻传播学副本里活成了：爆款标题冷静操盘手。不是我爱追热点，是热点先动手的。",
+    "majorId": "journalism_communication"
+  },
+  {
+    "priority": 75,
+    "id": "journalism_communication_ending_002",
+    "endingId": "journalism_communication_ending_002",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "topicSensitivity",
+          "op": ">=",
+          "value": 80
+        },
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 70
+        }
+      ]
+    },
+    "title": "新闻传播学·选题雷达常驻型新传人",
+    "description": "你已经把生活训练成了选题库，万物路过你都要被传播学解释一下。",
+    "advice": "你的内容嗅觉很强，能从校园、平台、情绪和公共议题里找到表达入口。副作用是你很难单纯刷手机，因为每个热搜都像在向你递选题。",
+    "shareText": "我在新闻传播学副本里活成了：选题雷达常驻型新传人。我的人生不是日常，是待开发选题池。",
+    "majorId": "journalism_communication"
+  },
+  {
+    "priority": 70,
+    "id": "journalism_communication_ending_003",
+    "endingId": "journalism_communication_ending_003",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "hotspotChase",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "majorStat",
+          "key": "portfolioProgress",
+          "op": ">=",
+          "value": 55
+        }
+      ]
+    },
+    "title": "新闻传播学·乙方工位预备役",
+    "description": "你学会了把甲方梦话翻译成人话，也学会了把崩溃写进排期表。",
+    "advice": "你适合品牌、公关、广告、运营等内容岗位，但需要记住：收到我调整一下，不等于你没有情绪；再来一版，也不代表你的人生需要无限返工。",
+    "shareText": "我在新闻传播学副本里活成了：乙方工位预备役。我的技能是把“感觉不太对”翻译成 27 条修改意见。",
+    "majorId": "journalism_communication"
+  },
+  {
+    "priority": 65,
+    "id": "journalism_communication_ending_004",
+    "endingId": "journalism_communication_ending_004",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "hotspotChase",
+          "op": ">=",
+          "value": 85
+        },
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": "<=",
+          "value": 30
+        }
+      ]
+    },
+    "title": "新闻传播学·热点追逐疲惫人",
+    "description": "你不是没有表达欲，只是被热点速度和平台数据追得有点累。",
+    "advice": "你被训练得很敏感，能捕捉热点，也能感知情绪，但长期被数据牵着跑会让你消耗很快。你需要找到内容节奏，而不是把自己活成实时热榜插件。",
+    "shareText": "我在新闻传播学副本里活成了：热点追逐疲惫人。不是我不想爆，是互联网换情绪太快。",
+    "majorId": "journalism_communication"
+  },
+  {
+    "priority": 60,
+    "id": "journalism_communication_ending_005",
+    "endingId": "journalism_communication_ending_005",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "stat",
+          "key": "escapeImpulse",
+          "op": ">=",
+          "value": 45
+        }
+      ]
+    },
+    "title": "新闻传播学·考公考研安全撤离者",
+    "description": "你不再把新传理解成唯一职业路线，而是把它变成一套表达和理解社会的工具。",
+    "advice": "你可能走向考研、考公、编制、品牌、运营或别的方向。这个结局不代表新传白学，恰恰说明你学会了不被专业名绑架。",
+    "shareText": "我在新闻传播学副本里活成了：考公考研安全撤离者。不是新传白学，是我把表达能力打包带走。",
+    "majorId": "journalism_communication"
+  },
+  {
+    "priority": 55,
+    "id": "journalism_communication_ending_006",
+    "endingId": "journalism_communication_ending_006",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 60
+        },
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 45
+        },
+        {
+          "type": "majorStat",
+          "key": "topicSensitivity",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "title": "新闻传播学·理想主义打折但未清仓",
+    "description": "你的新闻理想没有消失，只是学会了看预算、看平台、看现实。",
+    "advice": "这是一个很新传的结局：你没有完全相信滤镜，也没有彻底放弃表达。你知道内容行业有很多疲惫和妥协，但仍然相信把一些事情说清楚是有意义的。",
+    "shareText": "我在新闻传播学副本里活成了：理想主义打折但未清仓。滤镜碎了，但表达欲还没下架。",
+    "majorId": "journalism_communication"
   }
 ]

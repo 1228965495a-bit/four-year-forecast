@@ -1071,272 +1071,6 @@
     "shareText": "没跑成的人"
   },
   {
-    "id": "ach_journalism_communication_stubborn_revive",
-    "name": "嘴硬续命",
-    "description": "第一次使用嘴硬续命。",
-    "trigger": {
-      "all": [
-        {
-          "type": "flag",
-          "key": "journalism_communication_flag_stubborn_revive_used"
-        }
-      ]
-    },
-    "popupText": "你已经学会用“其实还行”暂时覆盖现实。",
-    "resultText": "嘴硬让你多撑了一学期。",
-    "hidden": false,
-    "majorId": "journalism_communication",
-    "achievementId": "ach_journalism_communication_stubborn_revive",
-    "title": "ach_journalism_communication_stubborn_revive",
-    "condition": {},
-    "shareText": "第一次使用嘴硬续命。"
-  },
-  {
-    "id": "ach_journalism_communication_experience_collector",
-    "name": "经验贴收藏家",
-    "description": "连续两次选择收藏但没有行动。",
-    "trigger": {
-      "all": [
-        {
-          "type": "flag",
-          "key": "journalism_communication_flag_saved_but_no_action_twice"
-        }
-      ]
-    },
-    "popupText": "你的收藏夹很努力，但你本人还没有开始。",
-    "resultText": "收藏夹替你上过半个大学。",
-    "hidden": false,
-    "majorId": "journalism_communication",
-    "achievementId": "ach_journalism_communication_experience_collector",
-    "title": "ach_journalism_communication_experience_collector",
-    "condition": {},
-    "shareText": "连续两次选择收藏但没有行动。"
-  },
-  {
-    "id": "ach_journalism_communication_final_week_survivor",
-    "name": "期末周幸存者",
-    "description": "精神电量低位通过高压节点。",
-    "trigger": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "energy",
-          "op": "<",
-          "value": 30
-        },
-        {
-          "type": "flag",
-          "key": "journalism_communication_flag_final_week_passed"
-        }
-      ]
-    },
-    "popupText": "你活过了一场高压结算。",
-    "resultText": "至少这次没有被期末击穿。",
-    "hidden": false,
-    "majorId": "journalism_communication",
-    "achievementId": "ach_journalism_communication_final_week_survivor",
-    "title": "ach_journalism_communication_final_week_survivor",
-    "condition": {},
-    "shareText": "精神电量低位通过高压节点。"
-  },
-  {
-    "id": "ach_journalism_communication_escape_door",
-    "name": "发现逃生门",
-    "description": "触发转专业隐藏入口。",
-    "trigger": {
-      "all": [
-        {
-          "type": "eventSeen",
-          "eventId": "journalism_communication_y2s2_transfer_011"
-        }
-      ]
-    },
-    "popupText": "你在教务系统角落里发现了一扇门。",
-    "resultText": "门存在，但门槛不低。",
-    "hidden": false,
-    "majorId": "journalism_communication",
-    "achievementId": "ach_journalism_communication_escape_door",
-    "title": "ach_journalism_communication_escape_door",
-    "condition": {},
-    "shareText": "触发转专业隐藏入口。"
-  },
-  {
-    "id": "ach_journalism_communication_halfway_restart",
-    "name": "半路重开的人",
-    "description": "转专业成功。",
-    "trigger": {
-      "all": [
-        {
-          "type": "flag",
-          "key": "journalism_communication_flag_transfer_success"
-        }
-      ]
-    },
-    "popupText": "你成功更换痛苦皮肤。",
-    "resultText": "半路重开不是无痛重开。",
-    "hidden": false,
-    "majorId": "journalism_communication",
-    "achievementId": "ach_journalism_communication_halfway_restart",
-    "title": "ach_journalism_communication_halfway_restart",
-    "condition": {},
-    "shareText": "转专业成功。"
-  },
-  {
-    "id": "ach_journalism_communication_failed_escape",
-    "name": "没跑成的人",
-    "description": "转专业失败。",
-    "trigger": {
-      "all": [
-        {
-          "type": "flag",
-          "key": "journalism_communication_flag_transfer_failed"
-        }
-      ]
-    },
-    "popupText": "你见过逃生门，但门没有为你打开。",
-    "resultText": "名额已满也是本科人生的一部分。",
-    "hidden": false,
-    "majorId": "journalism_communication",
-    "achievementId": "ach_journalism_communication_failed_escape",
-    "title": "ach_journalism_communication_failed_escape",
-    "condition": {},
-    "shareText": "转专业失败。"
-  },
-  {
-    "id": "ach_journalism_communication_realist",
-    "name": "现实主义新闻传播学生",
-    "description": "滤镜很低但专业上头值仍然不低。",
-    "trigger": {
-      "all": [
-        {
-          "type": "stat",
-          "key": "filter",
-          "op": "<=",
-          "value": 25
-        },
-        {
-          "type": "stat",
-          "key": "obsession",
-          "op": ">=",
-          "value": 50
-        }
-      ]
-    },
-    "popupText": "你已经不再幻想，但仍然愿意继续。",
-    "resultText": "滤镜碎了，工具还在。",
-    "hidden": false,
-    "majorId": "journalism_communication",
-    "achievementId": "ach_journalism_communication_realist",
-    "title": "ach_journalism_communication_realist",
-    "condition": {},
-    "shareText": "滤镜很低但专业上头值仍然不低。"
-  },
-  {
-    "id": "ach_journalism_communication_hidden_001",
-    "name": "选题终于活了",
-    "description": "触发隐藏事件：选题终于活了。",
-    "trigger": {
-      "all": [
-        {
-          "type": "eventSeen",
-          "eventId": "journalism_communication_hidden_001"
-        }
-      ]
-    },
-    "popupText": "选题终于活了",
-    "resultText": "选题终于活了",
-    "hidden": true,
-    "majorId": "journalism_communication",
-    "achievementId": "ach_journalism_communication_hidden_001",
-    "title": "ach_journalism_communication_hidden_001",
-    "condition": {},
-    "shareText": "触发隐藏事件：选题终于活了。"
-  },
-  {
-    "id": "ach_journalism_communication_hidden_002",
-    "name": "小爆款体验卡",
-    "description": "触发隐藏事件：小爆款体验卡。",
-    "trigger": {
-      "all": [
-        {
-          "type": "eventSeen",
-          "eventId": "journalism_communication_hidden_002"
-        }
-      ]
-    },
-    "popupText": "小爆款体验卡",
-    "resultText": "小爆款体验卡",
-    "hidden": true,
-    "majorId": "journalism_communication",
-    "achievementId": "ach_journalism_communication_hidden_002",
-    "title": "ach_journalism_communication_hidden_002",
-    "condition": {},
-    "shareText": "触发隐藏事件：小爆款体验卡。"
-  },
-  {
-    "id": "ach_journalism_communication_hidden_003",
-    "name": "小组作业奇迹",
-    "description": "触发隐藏事件：小组作业奇迹。",
-    "trigger": {
-      "all": [
-        {
-          "type": "eventSeen",
-          "eventId": "journalism_communication_hidden_003"
-        }
-      ]
-    },
-    "popupText": "小组作业奇迹",
-    "resultText": "小组作业奇迹",
-    "hidden": true,
-    "majorId": "journalism_communication",
-    "achievementId": "ach_journalism_communication_hidden_003",
-    "title": "ach_journalism_communication_hidden_003",
-    "condition": {},
-    "shareText": "触发隐藏事件：小组作业奇迹。"
-  },
-  {
-    "id": "ach_journalism_communication_hidden_004",
-    "name": "简历没有石沉大海",
-    "description": "触发隐藏事件：简历没有石沉大海。",
-    "trigger": {
-      "all": [
-        {
-          "type": "eventSeen",
-          "eventId": "journalism_communication_hidden_004"
-        }
-      ]
-    },
-    "popupText": "简历没有石沉大海",
-    "resultText": "简历没有石沉大海",
-    "hidden": true,
-    "majorId": "journalism_communication",
-    "achievementId": "ach_journalism_communication_hidden_004",
-    "title": "ach_journalism_communication_hidden_004",
-    "condition": {},
-    "shareText": "触发隐藏事件：简历没有石沉大海。"
-  },
-  {
-    "id": "ach_journalism_communication_hidden_005",
-    "name": "问题意识觉醒",
-    "description": "触发隐藏事件：问题意识觉醒。",
-    "trigger": {
-      "all": [
-        {
-          "type": "eventSeen",
-          "eventId": "journalism_communication_hidden_005"
-        }
-      ]
-    },
-    "popupText": "问题意识觉醒",
-    "resultText": "问题意识觉醒",
-    "hidden": true,
-    "majorId": "journalism_communication",
-    "achievementId": "ach_journalism_communication_hidden_005",
-    "title": "ach_journalism_communication_hidden_005",
-    "condition": {},
-    "shareText": "触发隐藏事件：问题意识觉醒。"
-  },
-  {
     "id": "ach_electrical_engineering_stubborn_revive",
     "name": "嘴硬续命",
     "description": "第一次使用嘴硬续命。",
@@ -3357,5 +3091,391 @@
       "key": "ach_accounting_doc_010"
     },
     "shareText": "我在会计学副本里解锁了：会计祛魅但不后悔。"
+  },
+  {
+    "id": "ach_journalism_communication_stubborn_revive",
+    "name": "嘴硬续命",
+    "description": "第一次使用嘴硬续命。",
+    "trigger": {
+      "all": [
+        {
+          "type": "flag",
+          "key": "journalism_communication_flag_stubborn_revive_used"
+        }
+      ]
+    },
+    "popupText": "你已经学会用“其实还行”暂时覆盖现实。",
+    "resultText": "嘴硬让你多撑了一学期。",
+    "hidden": false,
+    "majorId": "journalism_communication",
+    "achievementId": "ach_journalism_communication_stubborn_revive",
+    "title": "ach_journalism_communication_stubborn_revive",
+    "condition": {},
+    "shareText": "第一次使用嘴硬续命。"
+  },
+  {
+    "id": "ach_journalism_communication_experience_collector",
+    "name": "经验贴收藏家",
+    "description": "连续两次选择收藏但没有行动。",
+    "trigger": {
+      "all": [
+        {
+          "type": "flag",
+          "key": "journalism_communication_flag_saved_but_no_action_twice"
+        }
+      ]
+    },
+    "popupText": "你的收藏夹很努力，但你本人还没有开始。",
+    "resultText": "收藏夹替你上过半个大学。",
+    "hidden": false,
+    "majorId": "journalism_communication",
+    "achievementId": "ach_journalism_communication_experience_collector",
+    "title": "ach_journalism_communication_experience_collector",
+    "condition": {},
+    "shareText": "连续两次选择收藏但没有行动。"
+  },
+  {
+    "id": "ach_journalism_communication_final_week_survivor",
+    "name": "期末周幸存者",
+    "description": "精神电量低位通过高压节点。",
+    "trigger": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": "<",
+          "value": 30
+        },
+        {
+          "type": "flag",
+          "key": "journalism_communication_flag_final_week_passed"
+        }
+      ]
+    },
+    "popupText": "你活过了一场高压结算。",
+    "resultText": "至少这次没有被期末击穿。",
+    "hidden": false,
+    "majorId": "journalism_communication",
+    "achievementId": "ach_journalism_communication_final_week_survivor",
+    "title": "ach_journalism_communication_final_week_survivor",
+    "condition": {},
+    "shareText": "精神电量低位通过高压节点。"
+  },
+  {
+    "id": "ach_journalism_communication_escape_door",
+    "name": "发现逃生门",
+    "description": "触发转专业隐藏入口。",
+    "trigger": {
+      "all": [
+        {
+          "type": "eventSeen",
+          "eventId": "journalism_communication_y2s2_transfer_011"
+        }
+      ]
+    },
+    "popupText": "你在教务系统角落里发现了一扇门。",
+    "resultText": "门存在，但门槛不低。",
+    "hidden": false,
+    "majorId": "journalism_communication",
+    "achievementId": "ach_journalism_communication_escape_door",
+    "title": "ach_journalism_communication_escape_door",
+    "condition": {},
+    "shareText": "触发转专业隐藏入口。"
+  },
+  {
+    "id": "ach_journalism_communication_halfway_restart",
+    "name": "半路重开的人",
+    "description": "转专业成功。",
+    "trigger": {
+      "all": [
+        {
+          "type": "flag",
+          "key": "journalism_communication_flag_transfer_success"
+        }
+      ]
+    },
+    "popupText": "你成功更换痛苦皮肤。",
+    "resultText": "半路重开不是无痛重开。",
+    "hidden": false,
+    "majorId": "journalism_communication",
+    "achievementId": "ach_journalism_communication_halfway_restart",
+    "title": "ach_journalism_communication_halfway_restart",
+    "condition": {},
+    "shareText": "转专业成功。"
+  },
+  {
+    "id": "ach_journalism_communication_failed_escape",
+    "name": "没跑成的人",
+    "description": "转专业失败。",
+    "trigger": {
+      "all": [
+        {
+          "type": "flag",
+          "key": "journalism_communication_flag_transfer_failed"
+        }
+      ]
+    },
+    "popupText": "你见过逃生门，但门没有为你打开。",
+    "resultText": "名额已满也是本科人生的一部分。",
+    "hidden": false,
+    "majorId": "journalism_communication",
+    "achievementId": "ach_journalism_communication_failed_escape",
+    "title": "ach_journalism_communication_failed_escape",
+    "condition": {},
+    "shareText": "转专业失败。"
+  },
+  {
+    "id": "ach_journalism_communication_realist",
+    "name": "现实主义新闻传播学生",
+    "description": "滤镜很低但专业上头值仍然不低。",
+    "trigger": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 25
+        },
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 50
+        }
+      ]
+    },
+    "popupText": "你已经不再幻想，但仍然愿意继续。",
+    "resultText": "滤镜碎了，工具还在。",
+    "hidden": false,
+    "majorId": "journalism_communication",
+    "achievementId": "ach_journalism_communication_realist",
+    "title": "ach_journalism_communication_realist",
+    "condition": {},
+    "shareText": "滤镜很低但专业上头值仍然不低。"
+  },
+  {
+    "id": "ach_journalism_communication_hidden_001",
+    "name": "选题终于活了",
+    "description": "触发隐藏事件：选题终于活了。",
+    "trigger": {
+      "all": [
+        {
+          "type": "eventSeen",
+          "eventId": "journalism_communication_hidden_001"
+        }
+      ]
+    },
+    "popupText": "选题终于活了",
+    "resultText": "选题终于活了",
+    "hidden": true,
+    "majorId": "journalism_communication",
+    "achievementId": "ach_journalism_communication_hidden_001",
+    "title": "ach_journalism_communication_hidden_001",
+    "condition": {},
+    "shareText": "触发隐藏事件：选题终于活了。"
+  },
+  {
+    "id": "ach_journalism_communication_hidden_002",
+    "name": "小爆款体验卡",
+    "description": "触发隐藏事件：小爆款体验卡。",
+    "trigger": {
+      "all": [
+        {
+          "type": "eventSeen",
+          "eventId": "journalism_communication_hidden_002"
+        }
+      ]
+    },
+    "popupText": "小爆款体验卡",
+    "resultText": "小爆款体验卡",
+    "hidden": true,
+    "majorId": "journalism_communication",
+    "achievementId": "ach_journalism_communication_hidden_002",
+    "title": "ach_journalism_communication_hidden_002",
+    "condition": {},
+    "shareText": "触发隐藏事件：小爆款体验卡。"
+  },
+  {
+    "id": "ach_journalism_communication_hidden_003",
+    "name": "小组作业奇迹",
+    "description": "触发隐藏事件：小组作业奇迹。",
+    "trigger": {
+      "all": [
+        {
+          "type": "eventSeen",
+          "eventId": "journalism_communication_hidden_003"
+        }
+      ]
+    },
+    "popupText": "小组作业奇迹",
+    "resultText": "小组作业奇迹",
+    "hidden": true,
+    "majorId": "journalism_communication",
+    "achievementId": "ach_journalism_communication_hidden_003",
+    "title": "ach_journalism_communication_hidden_003",
+    "condition": {},
+    "shareText": "触发隐藏事件：小组作业奇迹。"
+  },
+  {
+    "id": "ach_journalism_communication_hidden_004",
+    "name": "简历没有石沉大海",
+    "description": "触发隐藏事件：简历没有石沉大海。",
+    "trigger": {
+      "all": [
+        {
+          "type": "eventSeen",
+          "eventId": "journalism_communication_hidden_004"
+        }
+      ]
+    },
+    "popupText": "简历没有石沉大海",
+    "resultText": "简历没有石沉大海",
+    "hidden": true,
+    "majorId": "journalism_communication",
+    "achievementId": "ach_journalism_communication_hidden_004",
+    "title": "ach_journalism_communication_hidden_004",
+    "condition": {},
+    "shareText": "触发隐藏事件：简历没有石沉大海。"
+  },
+  {
+    "id": "ach_journalism_communication_hidden_005",
+    "name": "问题意识觉醒",
+    "description": "触发隐藏事件：问题意识觉醒。",
+    "trigger": {
+      "all": [
+        {
+          "type": "eventSeen",
+          "eventId": "journalism_communication_hidden_005"
+        }
+      ]
+    },
+    "popupText": "问题意识觉醒",
+    "resultText": "问题意识觉醒",
+    "hidden": true,
+    "majorId": "journalism_communication",
+    "achievementId": "ach_journalism_communication_hidden_005",
+    "title": "ach_journalism_communication_hidden_005",
+    "condition": {},
+    "shareText": "触发隐藏事件：问题意识觉醒。"
+  },
+  {
+    "id": "ach_journalism_communication_doc_001",
+    "achievementId": "ach_journalism_communication_doc_001",
+    "majorId": "journalism_communication",
+    "title": "第一次选题会幸存者",
+    "description": "在新闻传播学副本中解锁「第一次选题会幸存者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_journalism_communication_doc_001"
+    },
+    "shareText": "我在新闻传播学副本里解锁了：第一次选题会幸存者。"
+  },
+  {
+    "id": "ach_journalism_communication_doc_002",
+    "achievementId": "ach_journalism_communication_doc_002",
+    "majorId": "journalism_communication",
+    "title": "再聚焦执行者",
+    "description": "在新闻传播学副本中解锁「再聚焦执行者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_journalism_communication_doc_002"
+    },
+    "shareText": "我在新闻传播学副本里解锁了：再聚焦执行者。"
+  },
+  {
+    "id": "ach_journalism_communication_doc_003",
+    "achievementId": "ach_journalism_communication_doc_003",
+    "majorId": "journalism_communication",
+    "title": "剪片地狱幸存者",
+    "description": "在新闻传播学副本中解锁「剪片地狱幸存者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_journalism_communication_doc_003"
+    },
+    "shareText": "我在新闻传播学副本里解锁了：剪片地狱幸存者。"
+  },
+  {
+    "id": "ach_journalism_communication_doc_004",
+    "achievementId": "ach_journalism_communication_doc_004",
+    "majorId": "journalism_communication",
+    "title": "标题十二改达成者",
+    "description": "在新闻传播学副本中解锁「标题十二改达成者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_journalism_communication_doc_004"
+    },
+    "shareText": "我在新闻传播学副本里解锁了：标题十二改达成者。"
+  },
+  {
+    "id": "ach_journalism_communication_doc_005",
+    "achievementId": "ach_journalism_communication_doc_005",
+    "majorId": "journalism_communication",
+    "title": "采访已读不回承受者",
+    "description": "在新闻传播学副本中解锁「采访已读不回承受者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_journalism_communication_doc_005"
+    },
+    "shareText": "我在新闻传播学副本里解锁了：采访已读不回承受者。"
+  },
+  {
+    "id": "ach_journalism_communication_doc_006",
+    "achievementId": "ach_journalism_communication_doc_006",
+    "majorId": "journalism_communication",
+    "title": "甲方梦境翻译官",
+    "description": "在新闻传播学副本中解锁「甲方梦境翻译官」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_journalism_communication_doc_006"
+    },
+    "shareText": "我在新闻传播学副本里解锁了：甲方梦境翻译官。"
+  },
+  {
+    "id": "ach_journalism_communication_doc_007",
+    "achievementId": "ach_journalism_communication_doc_007",
+    "majorId": "journalism_communication",
+    "title": "作品集自救者",
+    "description": "在新闻传播学副本中解锁「作品集自救者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_journalism_communication_doc_007"
+    },
+    "shareText": "我在新闻传播学副本里解锁了：作品集自救者。"
+  },
+  {
+    "id": "ach_journalism_communication_doc_008",
+    "achievementId": "ach_journalism_communication_doc_008",
+    "majorId": "journalism_communication",
+    "title": "热点尾气收集者",
+    "description": "在新闻传播学副本中解锁「热点尾气收集者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_journalism_communication_doc_008"
+    },
+    "shareText": "我在新闻传播学副本里解锁了：热点尾气收集者。"
+  },
+  {
+    "id": "ach_journalism_communication_doc_009",
+    "achievementId": "ach_journalism_communication_doc_009",
+    "majorId": "journalism_communication",
+    "title": "传播学解释人生",
+    "description": "在新闻传播学副本中解锁「传播学解释人生」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_journalism_communication_doc_009"
+    },
+    "shareText": "我在新闻传播学副本里解锁了：传播学解释人生。"
+  },
+  {
+    "id": "ach_journalism_communication_doc_010",
+    "achievementId": "ach_journalism_communication_doc_010",
+    "majorId": "journalism_communication",
+    "title": "理想主义打折但未清仓",
+    "description": "在新闻传播学副本中解锁「理想主义打折但未清仓」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_journalism_communication_doc_010"
+    },
+    "shareText": "我在新闻传播学副本里解锁了：理想主义打折但未清仓。"
   }
 ]
