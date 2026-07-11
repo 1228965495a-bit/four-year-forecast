@@ -5311,9 +5311,9 @@
       ]
     },
     "intro": {
-      "title": "欢迎进入工商管理副本",
-      "body": "欢迎进入工商管理副本。你带着专业滤镜和一点点对未来的想象来到这里。系统提醒：本副本不会自动发放体面人生，只会逐步解锁课程、作业、实习、路线分化和毕业结算。如果你知道这些还想继续，说明你可能真的有点适合。",
-      "startButton": "开始本科四年"
+      "title": "你被工商管理录取了！",
+      "body": "你带着一点“以后当领导”的朴素幻想、一点“商科听起来很体面”的滤镜，以及一点“这个专业应该不用太硬核吧”的侥幸，进入了工商管理副本。\n\n本科四年内，你将依次遭遇管理学原理、会计学、统计学、市场营销、组织行为学、战略管理、小组作业、商赛路演、实习焦虑、管培生幻觉和无处不在的 PPT。\n\n工商管理不是教你毕业就当老板。它更像一个大型现实主义训练场：你先学会管理ddl、管理小组、管理情绪，最后才发现最难管理的是自己的就业预期。",
+      "startButton": "进入大学 · 大一上"
     },
     "tags": [
       "名字高级",
@@ -5354,16 +5354,34 @@
       "案例分析像职场剧但作业先到"
     ],
     "initialStats": {
-      "obsession": 55,
-      "energy": 80,
-      "filter": 76,
-      "gpaWill": 58,
-      "careerFantasy": 65,
-      "escapeImpulse": 22,
-      "stubbornness": 48,
-      "hairline": 95
+      "obsession": 72,
+      "energy": 76,
+      "filter": 84,
+      "gpaWill": 60,
+      "careerFantasy": 82,
+      "escapeImpulse": 16,
+      "stubbornness": 50,
+      "hairline": 96
     },
     "majorStats": [
+      {
+        "key": "pptSurvival",
+        "name": "PPT求生力",
+        "description": "把普通观点包装成战略路径、把小组材料整成能讲清楚的PPT的能力。",
+        "initialValue": 38
+      },
+      {
+        "key": "businessJargon",
+        "name": "管理黑话浓度",
+        "description": "抓手、闭环、赋能、沉淀、颗粒度、方法论等词汇在脑内自动生成的浓度。",
+        "initialValue": 22
+      },
+      {
+        "key": "internshipAnxiety",
+        "name": "实习焦虑值",
+        "description": "意识到“管理”岗位不是入职第一天就让你管理别人后的现实焦虑。",
+        "initialValue": 18
+      },
       {
         "key": "managementFilter",
         "name": "管理滤镜",
@@ -5387,90 +5405,123 @@
       {
         "semester": "y1s1",
         "label": "大一上",
-        "theme": "管理学原理开局",
+        "theme": "亲戚眼里的未来老板",
         "coreEvents": "听起来都懂，考试时发现“会听”和“会答”不是一回事。",
         "statTrend": "管理滤镜微降，PPT浓度开始发育。",
         "routeForeshadow": "先管理自己的迷茫。",
         "key": "y1s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "business_administration_y1s1_main_001"
+        ]
       },
       {
         "semester": "y1s2",
         "label": "大一下",
-        "theme": "宽口径开始变宽",
+        "theme": "管理学原理第一课",
         "coreEvents": "经济学、会计学、市场营销轮流出现，专业边界开始变得很宽。",
         "statTrend": "职业迷雾上升，就业幻觉值波动。",
         "routeForeshadow": "万金油争议预热。",
         "key": "y1s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "business_administration_y1s2_main_001"
+        ]
       },
       {
         "semester": "y2s1",
         "label": "大二上",
-        "theme": "管理不是喊口号",
+        "theme": "会计和统计突然敲门",
         "coreEvents": "组织行为、人力资源、运营管理进入主线。",
         "statTrend": "专业上头值分化，绩点求生欲上升。",
         "routeForeshadow": "喜欢商业的人开始找方向。",
         "key": "y2s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "business_administration_y2s1_main_001"
+        ]
       },
       {
         "semester": "y2s2",
         "label": "大二下",
-        "theme": "案例分析和小组展示",
+        "theme": "小组作业CEO大战",
         "coreEvents": "案例分析、小组展示和实习焦虑出现。",
         "statTrend": "PPT浓度上升，跑路冲动可能增加。",
         "routeForeshadow": "转专业/转方向暗线开始埋。",
         "key": "y2s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "business_administration_y2s2_main_001",
+          "business_administration_transfer_window"
+        ]
       },
       {
         "semester": "y3s1",
         "label": "大三上",
-        "theme": "同学开始分化",
+        "theme": "商业计划书让你短暂相信自己能融资",
         "coreEvents": "有人实习、有人考研、有人做运营、有人准备考公。",
         "statTrend": "职业迷雾决定路线选择。",
         "routeForeshadow": "路线意识启动。",
         "key": "y3s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "business_administration_y3s1_main_001",
+          "business_administration_route_operation_market",
+          "business_administration_route_hr",
+          "business_administration_route_consulting_edge",
+          "business_administration_route_cross_major"
+        ]
       },
       {
         "semester": "y3s2",
         "label": "大三下",
-        "theme": "岗位路线分化",
+        "theme": "第一份实习：从管理别人到管理Excel",
         "coreEvents": "市场、人力、运营、咨询、考研、考公路线分化。",
         "statTrend": "就业幻觉值被实习和招聘要求校准。",
         "routeForeshadow": "路线事件池开启。",
         "key": "y3s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "business_administration_y3s2_main_001",
+          "business_administration_route_management_trainee",
+          "business_administration_route_postgrad",
+          "business_administration_midgg_002",
+          "business_administration_midgg_003"
+        ]
       },
       {
         "semester": "y4s1",
         "label": "大四上",
-        "theme": "秋招考研考公并行",
+        "theme": "秋招入口全部打开，但每个都像迷宫",
         "coreEvents": "毕业论文和工商管理的“万金油”属性开始接受现实检验。",
         "statTrend": "精神电量下降，路线成败显著影响结局。",
         "routeForeshadow": "中途 GG 风险上升。",
         "key": "y4s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "business_administration_y4s1_main_001",
+          "business_administration_route_civil_service",
+          "business_administration_midgg_001"
+        ]
       },
       {
         "semester": "y4s2",
         "label": "大四下",
-        "theme": "本科结算",
+        "theme": "毕业论文：某企业战略优化研究",
         "coreEvents": "你要么把宽口径变成主动选择，要么被宽口径变成迷茫。",
         "statTrend": "根据职业迷雾、PPT浓度、路线标签结算。",
         "routeForeshadow": "生成工商管理人格鉴定书。",
         "key": "y4s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "business_administration_y4s2_main_001",
+          "business_administration_settlement"
+        ]
       }
     ],
     "randomEvents": [
-      "business_administration_random_01",
-      "business_administration_random_02",
-      "business_administration_random_03",
-      "business_administration_random_04",
-      "business_administration_random_05"
+      "business_administration_random_001",
+      "business_administration_random_002",
+      "business_administration_random_003",
+      "business_administration_random_004",
+      "business_administration_random_005",
+      "business_administration_random_006",
+      "business_administration_random_007",
+      "business_administration_random_008",
+      "business_administration_random_009",
+      "business_administration_random_010"
     ],
     "hiddenEvents": [
       "business_administration_hidden_01",
@@ -5491,18 +5542,33 @@
       "ach_business_administration_ppt_labor",
       "ach_business_administration_group_ceo",
       "ach_business_administration_career_fog_explorer",
-      "ach_business_administration_generalist_survivor"
+      "ach_business_administration_generalist_survivor",
+      "ach_business_administration_stubborn_revive",
+      "ach_business_administration_doc_001",
+      "ach_business_administration_doc_002",
+      "ach_business_administration_doc_003",
+      "ach_business_administration_doc_004",
+      "ach_business_administration_doc_005",
+      "ach_business_administration_doc_006",
+      "ach_business_administration_doc_007",
+      "ach_business_administration_doc_008",
+      "ach_business_administration_doc_009",
+      "ach_business_administration_doc_010"
     ],
     "endings": [
-      "ending_business_administration_group_ceo",
-      "ending_business_administration_generalist_survivor",
-      "ending_business_administration_career_fog",
-      "ending_business_administration_civil_service"
+      "business_administration_ending_001",
+      "business_administration_ending_002",
+      "business_administration_ending_003",
+      "business_administration_ending_004",
+      "business_administration_ending_005",
+      "business_administration_ending_006"
     ],
     "shareTexts": [
-      "我用 5 分钟读完了工商管理本科，系统说这不是劝退，是提前摘滤镜。",
-      "转发给那个想报工商管理的人，让他先体验一下副本强度。",
-      "我的工商管理结局出来了，专业滤镜当场重算。"
+      "我在工商管理副本里活成了：PPT战略型管培生。毕业前没管理别人，但已经管理了四年的ddl。",
+      "工商管理体验报告：报志愿时以为以后当领导，读完发现最难管理的是自己。",
+      "我以为工商管理教我管理企业，系统却先让我管理小组作业、PPT格式、秋招焦虑和人生预期。",
+      "我的工商管理后遗症：任何问题都想SWOT，任何汇报都想闭环，任何小组作业都想先问谁整合。",
+      "工商管理副本通关感想：什么都学一点不是原罪，关键是别把自己也活成“待优化方案”。"
     ],
     "majorId": "business_administration"
   }

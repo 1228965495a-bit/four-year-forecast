@@ -1143,6 +1143,126 @@
     "shareText": "我在工商管理副本差点 GG，但嘴硬续命成功。"
   },
   {
+    "id": "ach_business_administration_doc_001",
+    "achievementId": "ach_business_administration_doc_001",
+    "majorId": "business_administration",
+    "title": "培养方案冷静者",
+    "description": "在工商管理副本中解锁「培养方案冷静者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_business_administration_doc_001"
+    },
+    "shareText": "我在工商管理副本里解锁了：培养方案冷静者。"
+  },
+  {
+    "id": "ach_business_administration_doc_002",
+    "achievementId": "ach_business_administration_doc_002",
+    "majorId": "business_administration",
+    "title": "管理学入门信徒",
+    "description": "在工商管理副本中解锁「管理学入门信徒」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_business_administration_doc_002"
+    },
+    "shareText": "我在工商管理副本里解锁了：管理学入门信徒。"
+  },
+  {
+    "id": "ach_business_administration_doc_003",
+    "achievementId": "ach_business_administration_doc_003",
+    "majorId": "business_administration",
+    "title": "数字管理入门",
+    "description": "在工商管理副本中解锁「数字管理入门」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_business_administration_doc_003"
+    },
+    "shareText": "我在工商管理副本里解锁了：数字管理入门。"
+  },
+  {
+    "id": "ach_business_administration_doc_004",
+    "achievementId": "ach_business_administration_doc_004",
+    "majorId": "business_administration",
+    "title": "小组作业项目经理",
+    "description": "在工商管理副本中解锁「小组作业项目经理」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_business_administration_doc_004"
+    },
+    "shareText": "我在工商管理副本里解锁了：小组作业项目经理。"
+  },
+  {
+    "id": "ach_business_administration_doc_005",
+    "achievementId": "ach_business_administration_doc_005",
+    "majorId": "business_administration",
+    "title": "SWOT补位选手",
+    "description": "在工商管理副本中解锁「SWOT补位选手」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_business_administration_doc_005"
+    },
+    "shareText": "我在工商管理副本里解锁了：SWOT补位选手。"
+  },
+  {
+    "id": "ach_business_administration_doc_006",
+    "achievementId": "ach_business_administration_doc_006",
+    "majorId": "business_administration",
+    "title": "生态闭环发明家",
+    "description": "在工商管理副本中解锁「生态闭环发明家」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_business_administration_doc_006"
+    },
+    "shareText": "我在工商管理副本里解锁了：生态闭环发明家。"
+  },
+  {
+    "id": "ach_business_administration_doc_007",
+    "achievementId": "ach_business_administration_doc_007",
+    "majorId": "business_administration",
+    "title": "业务流程观察员",
+    "description": "在工商管理副本中解锁「业务流程观察员」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_business_administration_doc_007"
+    },
+    "shareText": "我在工商管理副本里解锁了：业务流程观察员。"
+  },
+  {
+    "id": "ach_business_administration_doc_008",
+    "achievementId": "ach_business_administration_doc_008",
+    "majorId": "business_administration",
+    "title": "黑话词库维护者",
+    "description": "在工商管理副本中解锁「黑话词库维护者」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_business_administration_doc_008"
+    },
+    "shareText": "我在工商管理副本里解锁了：黑话词库维护者。"
+  },
+  {
+    "id": "ach_business_administration_doc_009",
+    "achievementId": "ach_business_administration_doc_009",
+    "majorId": "business_administration",
+    "title": "管培盲盒玩家",
+    "description": "在工商管理副本中解锁「管培盲盒玩家」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_business_administration_doc_009"
+    },
+    "shareText": "我在工商管理副本里解锁了：管培盲盒玩家。"
+  },
+  {
+    "id": "ach_business_administration_doc_010",
+    "achievementId": "ach_business_administration_doc_010",
+    "majorId": "business_administration",
+    "title": "自我管理毕业生",
+    "description": "在工商管理副本中解锁「自我管理毕业生」。",
+    "condition": {
+      "type": "flag",
+      "key": "ach_business_administration_doc_010"
+    },
+    "shareText": "我在工商管理副本里解锁了：自我管理毕业生。"
+  },
+  {
     "id": "ach_finance_cultivation_plan",
     "achievementId": "ach_finance_cultivation_plan",
     "majorId": "finance",

@@ -1462,66 +1462,166 @@
     "majorId": "artificial_intelligence"
   },
   {
-    "id": "ending_business_administration_group_ceo",
-    "endingId": "ending_business_administration_group_ceo",
+    "id": "business_administration_ending_001",
+    "endingId": "business_administration_ending_001",
     "majorId": "business_administration",
-    "title": "工商管理·小组作业CEO",
-    "description": "你没有管理公司，但管理过失踪队友、混乱PPT和自己的迷茫。报考建议：适合主动型玩家，不适合等专业自动给饭吃的人。",
+    "priority": 90,
+    "title": "工商管理·PPT战略型管培生",
     "condition": {
-      "type": "majorStat",
-      "key": "pptDensity",
-      "op": ">=",
-      "value": 55
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "pptSurvival",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "majorStat",
+          "key": "internshipAnxiety",
+          "op": "<=",
+          "value": 65
+        }
+      ]
     },
-    "priority": 50,
-    "shareText": "我用 5 分钟读完了工商管理本科，系统说这不是劝退，是提前摘滤镜。 系统判定：工商管理·小组作业CEO",
-    "advice": "你没有管理公司，但管理过失踪队友、混乱PPT和自己的迷茫。报考建议：适合主动型玩家，不适合等专业自动给饭吃的人。"
+    "rank": "能冲，但别只会包装",
+    "description": "你把四年的小组作业、商赛路演和实习表格，熬成了一套还算能讲清楚的商业叙事。",
+    "advice": "你没有真的毕业就管理别人，但你学会了把混乱信息整理成结构，把模糊任务拆成步骤，把普通经历讲成故事。只要别被黑话带跑，你确实适合往管培、运营或项目管理方向试一试。",
+    "shareText": "我在工商管理副本里活成了：PPT战略型管培生。还没管理别人，先把自己的ddl管理明白了。"
   },
   {
-    "id": "ending_business_administration_generalist_survivor",
-    "endingId": "ending_business_administration_generalist_survivor",
+    "id": "business_administration_ending_002",
+    "endingId": "business_administration_ending_002",
     "majorId": "business_administration",
-    "title": "工商管理·万金油求生者",
-    "description": "你什么都碰过一点，最后靠实习和自救把宽口径捏成了方向。",
+    "priority": 85,
+    "title": "工商管理·SWOT毕业战神",
     "condition": {
-      "type": "stat",
-      "key": "gpaWill",
-      "op": ">=",
-      "value": 55
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "businessJargon",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 65
+        }
+      ]
     },
-    "priority": 50,
-    "shareText": "我用 5 分钟读完了工商管理本科，系统说这不是劝退，是提前摘滤镜。 系统判定：工商管理·万金油求生者",
-    "advice": "你什么都碰过一点，最后靠实习和自救把宽口径捏成了方向。"
+    "rank": "学术求生能力强",
+    "description": "你用SWOT、PEST和波特五力撑过了无数案例分析，也撑到了毕业。",
+    "advice": "你深知框架不是万能的，但没有框架是万万不能的。你的风险在于容易把复杂现实压成四宫格，优势在于任何混乱问题到你手里都能先整理出一版可汇报结构。",
+    "shareText": "我在工商管理副本里活成了：SWOT毕业战神。优势劣势机会威胁，分析完了但人生还在加载。"
   },
   {
-    "id": "ending_business_administration_career_fog",
-    "endingId": "ending_business_administration_career_fog",
+    "id": "business_administration_ending_003",
+    "endingId": "business_administration_ending_003",
     "majorId": "business_administration",
-    "title": "工商管理·职业迷雾滞留者",
-    "description": "你一直以为选择很多，直到秋招发现选择多也会让人迷路。",
+    "priority": 80,
+    "title": "工商管理·宽口径清醒打工人",
     "condition": {
-      "type": "majorStat",
-      "key": "careerFog",
-      "op": ">=",
-      "value": 70
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "internshipAnxiety",
+          "op": ">=",
+          "value": 65
+        },
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 45
+        }
+      ]
     },
-    "priority": 50,
-    "shareText": "我用 5 分钟读完了工商管理本科，系统说这不是劝退，是提前摘滤镜。 系统判定：工商管理·职业迷雾滞留者",
-    "advice": "你一直以为选择很多，直到秋招发现选择多也会让人迷路。"
+    "rank": "清醒但不丧",
+    "description": "你终于承认工商管理不是万能钥匙，但它至少给了你几把能试的钥匙。",
+    "advice": "你不再幻想毕业就当领导，也不再因为“什么都学一点”而全盘否定自己。你开始把宽口径变成试错能力，把迷茫变成路径筛选。",
+    "shareText": "我在工商管理副本里活成了：宽口径清醒打工人。什么都学一点不可怕，可怕的是不把它翻译成能力。"
   },
   {
-    "id": "ending_business_administration_civil_service",
-    "endingId": "ending_business_administration_civil_service",
+    "id": "business_administration_ending_004",
+    "endingId": "business_administration_ending_004",
     "majorId": "business_administration",
-    "title": "工商管理·考公收编型玩家",
-    "description": "管理别人之前，你先把自己交给了稳定路线。",
+    "priority": 75,
+    "title": "工商管理·商赛融资梦醒者",
     "condition": {
-      "type": "route",
-      "key": "business_administration_route_civil_service"
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "pptSurvival",
+          "op": ">=",
+          "value": 70
+        },
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 35
+        }
+      ]
     },
-    "priority": 50,
-    "shareText": "我用 5 分钟读完了工商管理本科，系统说这不是劝退，是提前摘滤镜。 系统判定：工商管理·考公收编型玩家",
-    "advice": "管理别人之前，你先把自己交给了稳定路线。"
+    "rank": "梦醒但手艺还在",
+    "description": "你曾经用一页PPT改变行业，后来发现第一步是先找到真实用户。",
+    "advice": "商赛给过你创业滤镜，也给过你路演拷打。你不一定会创业，但你至少明白了商业想法和商业现实之间隔着调研、执行、现金流和无数细节。",
+    "shareText": "我在工商管理副本里活成了：商赛融资梦醒者。产品还没上线，愿景已经全国复制。"
+  },
+  {
+    "id": "business_administration_ending_005",
+    "endingId": "business_administration_ending_005",
+    "majorId": "business_administration",
+    "priority": 70,
+    "title": "工商管理·人力组织温柔观察员",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 60
+        },
+        {
+          "type": "majorStat",
+          "key": "businessJargon",
+          "op": "<=",
+          "value": 60
+        }
+      ]
+    },
+    "rank": "适合走人力/组织方向",
+    "description": "你没有把管理理解成发号施令，而是开始观察人如何在组织里协作、内耗和自救。",
+    "advice": "你对人的兴趣高于对口号的兴趣，这让你更适合人力资源、组织发展、培训或校园招聘相关方向。你的优势不是会说黑话，而是能把人的状态看进眼里。",
+    "shareText": "我在工商管理副本里活成了：人力组织温柔观察员。管理不是管人，是先看懂人为什么不想干。"
+  },
+  {
+    "id": "business_administration_ending_006",
+    "endingId": "business_administration_ending_006",
+    "majorId": "business_administration",
+    "priority": 65,
+    "title": "工商管理·稳定路线重启玩家",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "escapeImpulse",
+          "op": ">=",
+          "value": 55
+        },
+        {
+          "type": "stat",
+          "key": "gpaWill",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "rank": "转向合理，不算失败",
+    "description": "你从商科体面滤镜里走出来，转头开始研究考研、考公和稳定生活。",
+    "advice": "你没有被工商管理打败，只是发现自己更想要确定性。学过的管理、组织、沟通和案例分析，依然能变成你理解现实的一套工具。",
+    "shareText": "我在工商管理副本里活成了：稳定路线重启玩家。商科滤镜可以碎，生活方向可以重选。"
   },
   {
     "title": "金融学·清醒持有型金融人",
