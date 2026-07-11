@@ -1462,82 +1462,6 @@
     "majorId": "artificial_intelligence"
   },
   {
-    "id": "ending_psychology_mind_reading_broken",
-    "endingId": "ending_psychology_mind_reading_broken",
-    "majorId": "psychology",
-    "title": "心理学·读心术滤镜粉碎型玩家",
-    "description": "你不再相信心理学能读心，但开始真正理解它如何研究人。恭喜，滤镜碎了，专业感来了。",
-    "condition": {
-      "type": "majorStat",
-      "key": "mindReadingFilter",
-      "op": "<=",
-      "value": 35
-    },
-    "priority": 50,
-    "shareText": "我体验完心理学，系统先打碎了我的读心术滤镜。 系统判定：心理学·读心术滤镜粉碎型玩家",
-    "advice": "你不再相信心理学能读心，但开始真正理解它如何研究人。恭喜，滤镜碎了，专业感来了。"
-  },
-  {
-    "id": "ending_psychology_statistics_survivor",
-    "endingId": "ending_psychology_statistics_survivor",
-    "majorId": "psychology",
-    "title": "心理学·统计阴影幸存者",
-    "description": "你被 p 值和实验设计追过，但最后还是从数据里捡回了一点尊严。",
-    "condition": {
-      "type": "majorStat",
-      "key": "statisticsShadow",
-      "op": ">=",
-      "value": 60
-    },
-    "priority": 50,
-    "shareText": "我体验完心理学，系统先打碎了我的读心术滤镜。 系统判定：心理学·统计阴影幸存者",
-    "advice": "你被 p 值和实验设计追过，但最后还是从数据里捡回了一点尊严。"
-  },
-  {
-    "id": "ending_psychology_counseling_long",
-    "endingId": "ending_psychology_counseling_long",
-    "majorId": "psychology",
-    "title": "心理学·咨询长线预备役",
-    "description": "你没有把心理学当成速成治愈术，而是开始尊重边界、伦理和训练。",
-    "condition": {
-      "type": "route",
-      "key": "psychology_route_counseling_long"
-    },
-    "priority": 50,
-    "shareText": "我体验完心理学，系统先打碎了我的读心术滤镜。 系统判定：心理学·咨询长线预备役",
-    "advice": "你没有把心理学当成速成治愈术，而是开始尊重边界、伦理和训练。"
-  },
-  {
-    "id": "ending_psychology_user_research",
-    "endingId": "ending_psychology_user_research",
-    "majorId": "psychology",
-    "title": "心理学·用户研究转向型玩家",
-    "description": "你把对人的好奇带进产品和商业场景，心理学没有消失，只是换了表达方式。",
-    "condition": {
-      "type": "route",
-      "key": "psychology_route_user_research"
-    },
-    "priority": 50,
-    "shareText": "我体验完心理学，系统先打碎了我的读心术滤镜。 系统判定：心理学·用户研究转向型玩家",
-    "advice": "你把对人的好奇带进产品和商业场景，心理学没有消失，只是换了表达方式。"
-  },
-  {
-    "id": "ending_psychology_employment_fog",
-    "endingId": "ending_psychology_employment_fog",
-    "majorId": "psychology",
-    "title": "心理学·就业迷雾型幸存者",
-    "description": "你学会理解别人，也学会理解一个现实：本科心理学出口需要自己一点点搭。",
-    "condition": {
-      "type": "majorStat",
-      "key": "employmentFog",
-      "op": ">=",
-      "value": 5
-    },
-    "priority": 50,
-    "shareText": "我体验完心理学，系统先打碎了我的读心术滤镜。 系统判定：心理学·就业迷雾型幸存者",
-    "advice": "你学会理解别人，也学会理解一个现实：本科心理学出口需要自己一点点搭。"
-  },
-  {
     "id": "ending_electronic_information_board_survivor",
     "endingId": "ending_electronic_information_board_survivor",
     "majorId": "electronic_information",
@@ -3764,5 +3688,173 @@
     "description": "你没有否定口腔医学，只是承认喜欢牙科爽文和适合口腔临床，是两件不同的事。",
     "advice": "清醒转向不是失败。至少你在真正投入长期训练前，识别了自己的适配度。你保留了牙齿雷达，也保住了自己的脖子。",
     "shareText": "我在口腔医学副本里活成了：清醒转向型牙科幸存者。不是不尊重牙，是终于尊重了自己的颈椎。"
+  },
+  {
+    "id": "psychology_ending_001",
+    "endingId": "psychology_ending_001",
+    "majorId": "psychology",
+    "priority": 90,
+    "title": "心理学·人类观察员满级",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "majorStat",
+          "key": "boundarySense",
+          "op": ">=",
+          "value": 65
+        },
+        {
+          "type": "majorStat",
+          "key": "statisticsTolerance",
+          "op": ">=",
+          "value": 50
+        }
+      ]
+    },
+    "rank": "S",
+    "description": "你没有学会读心，但学会了更认真地看人。",
+    "advice": "你从读心术误会一路走到研究设计、测量、统计和伦理边界。你最强的地方不是“分析别人”，而是知道人很复杂，所以不轻易下结论。",
+    "shareText": "我在心理学副本里活成了：人类观察员满级。不会读心，但会提醒你别乱给人贴标签。"
+  },
+  {
+    "id": "psychology_ending_002",
+    "endingId": "psychology_ending_002",
+    "majorId": "psychology",
+    "priority": 85,
+    "title": "心理学·p值不显著幸存者",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "statisticsTolerance",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "majorStat",
+          "key": "researchObsession",
+          "op": ">=",
+          "value": 70
+        }
+      ]
+    },
+    "rank": "A",
+    "description": "你的研究不一定显著，但你的精神已经显著受损后又显著恢复。",
+    "advice": "你经历了问卷、被试、数据清洗和 0.051 的凝视。这个结局的核心不是做出漂亮结果，而是没有为了漂亮结果背叛现实。",
+    "shareText": "我在心理学副本里活成了：p值不显著幸存者。结果不显著，但我活下来了，已经很显著。"
+  },
+  {
+    "id": "psychology_ending_003",
+    "endingId": "psychology_ending_003",
+    "majorId": "psychology",
+    "priority": 80,
+    "title": "心理学·共情但不乱分析的人",
+    "condition": {
+      "all": [
+        {
+          "type": "majorStat",
+          "key": "boundarySense",
+          "op": ">=",
+          "value": 80
+        },
+        {
+          "type": "majorStat",
+          "key": "clinicalRespect",
+          "op": ">=",
+          "value": 65
+        }
+      ]
+    },
+    "rank": "S",
+    "description": "你学会了倾听，也学会了闭嘴。",
+    "advice": "你理解共情不是“嗯嗯嗯”，更不是随便给别人贴标签。你适合继续走咨询或助人相关方向，但前提是始终保留伦理、训练和边界。",
+    "shareText": "我在心理学副本里活成了：共情但不乱分析的人。心理学第一神技：知道什么时候别分析。"
+  },
+  {
+    "id": "psychology_ending_004",
+    "endingId": "psychology_ending_004",
+    "majorId": "psychology",
+    "priority": 75,
+    "title": "心理学·咨询师滤镜退烧玩家",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "filter",
+          "op": "<=",
+          "value": 25
+        },
+        {
+          "type": "majorStat",
+          "key": "clinicalRespect",
+          "op": ">=",
+          "value": 70
+        }
+      ]
+    },
+    "rank": "A",
+    "description": "香薰房间只是背景，长期训练才是正片。",
+    "advice": "你没有把心理咨询想得太简单，也没有因此否定它。你开始明白，助人不是温柔人格的自动延伸，而是一套严肃的专业训练。",
+    "shareText": "我在心理学副本里活成了：咨询师滤镜退烧玩家。不是不热爱，是终于知道这行不能靠想象上岗。"
+  },
+  {
+    "id": "psychology_ending_005",
+    "endingId": "psychology_ending_005",
+    "majorId": "psychology",
+    "priority": 70,
+    "title": "心理学·用户研究转向型幸存者",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "careerFantasy",
+          "op": ">=",
+          "value": 65
+        },
+        {
+          "type": "majorStat",
+          "key": "statisticsTolerance",
+          "op": ">=",
+          "value": 55
+        }
+      ]
+    },
+    "rank": "A",
+    "description": "你把心理学从“懂人”翻译成了“懂用户”。",
+    "advice": "你没有把专业困在咨询室里，而是把访谈、问卷、实验设计和行为分析迁移到了更现实的岗位上。系统评价：专业转译能力达标。",
+    "shareText": "我在心理学副本里活成了：用户研究转向型幸存者。心理学没有白学，只是换了个岗位说人话。"
+  },
+  {
+    "id": "psychology_ending_006",
+    "endingId": "psychology_ending_006",
+    "majorId": "psychology",
+    "priority": 65,
+    "title": "心理学·自我观察过载但还算清醒",
+    "condition": {
+      "all": [
+        {
+          "type": "stat",
+          "key": "energy",
+          "op": "<=",
+          "value": 45
+        },
+        {
+          "type": "stat",
+          "key": "obsession",
+          "op": ">=",
+          "value": 50
+        }
+      ]
+    },
+    "rank": "B",
+    "description": "你观察了别人，也把自己观察到快没电。",
+    "advice": "你在心理学里看见了很多解释工具，也一度把这些工具全部照向自己。好消息是，你最终学会把理论放回理论，把生活还给生活。",
+    "shareText": "我在心理学副本里活成了：自我观察过载但还算清醒。学心理学后最大的成长：停止把自己当期末案例分析。"
   }
 ]

@@ -4456,9 +4456,9 @@
       ]
     },
     "intro": {
-      "title": "欢迎进入心理学副本",
-      "body": "你带着一点读心术幻想、一点治愈滤镜，以及一点“我很会共情”的自信进入心理学。系统提醒：共情很重要，但统计学、实验设计、测量量表和职业伦理也会准时到场。",
-      "startButton": "开始本科四年"
+      "title": "你被心理学录取了！",
+      "body": "你带着一点“我很懂人”、一点“以后可以做咨询师”、以及一点“心理学听起来不用学高数吧”的朴素幻想，来到了心理学副本。\n\n本科四年内，你将依次遭遇普通心理学、实验心理学、心理统计、心理测量、异常心理学、咨询技能、被试招募、p 值审判、考研经验贴和无数个“你是不是能看出来我在想什么”的问题。\n\n心理学不是读心术，也不是网红测试合集。它更像一个温柔外壳包着统计内核、伦理边界和长期训练的副本。",
+      "startButton": "进入大学 · 大一上"
     },
     "tags": [
       "读心术滤镜",
@@ -4502,16 +4502,40 @@
       "求你填问卷"
     ],
     "initialStats": {
-      "obsession": 74,
-      "energy": 78,
-      "filter": 84,
-      "gpaWill": 60,
-      "careerFantasy": 58,
-      "escapeImpulse": 18,
+      "obsession": 78,
+      "energy": 76,
+      "filter": 88,
+      "gpaWill": 68,
+      "careerFantasy": 70,
+      "escapeImpulse": 16,
       "stubbornness": 42,
       "hairline": 94
     },
     "majorStats": [
+      {
+        "key": "statisticsTolerance",
+        "name": "统计耐受",
+        "description": "承受统计、SPSS、p 值和数据清洗的能力。",
+        "initialValue": 22
+      },
+      {
+        "key": "boundarySense",
+        "name": "边界感",
+        "description": "拒绝免费咨询、避免乱分析身边人、守住专业伦理边界的能力。",
+        "initialValue": 38
+      },
+      {
+        "key": "clinicalRespect",
+        "name": "临床敬畏",
+        "description": "对咨询、异常心理和助人工作所需训练与伦理的敬畏。",
+        "initialValue": 18
+      },
+      {
+        "key": "researchObsession",
+        "name": "科研执念",
+        "description": "做实验、招被试、查文献、写论文并接受不显著结果的执念。",
+        "initialValue": 20
+      },
       {
         "key": "mindReadingFilter",
         "name": "读心术滤镜",
@@ -4531,12 +4555,6 @@
         "initialValue": 70
       },
       {
-        "key": "boundarySense",
-        "name": "边界感",
-        "description": "面对朋友求免费咨询和自我疗愈滤镜时的专业边界。",
-        "initialValue": 0
-      },
-      {
         "key": "employmentFog",
         "name": "就业迷雾",
         "description": "本科出口不直观带来的路径迷茫。",
@@ -4547,95 +4565,121 @@
       {
         "semester": "y1s1",
         "label": "大一上",
-        "theme": "读心术滤镜启动",
+        "theme": "你收到心理学录取通知书",
         "coreEvents": "普通心理学、心理学导论、第一次被问“你能不能看出我在想什么”",
         "statTrend": "滤镜厚度高；专业上头值上升",
         "routeForeshadow": "建立心理学不是读心术的第一层认知。",
         "key": "y1s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "psychology_y1s1_main_001"
+        ]
       },
       {
         "semester": "y1s2",
         "label": "大一下",
-        "theme": "统计学出现",
+        "theme": "普通心理学把“我懂人性”打回原形",
         "coreEvents": "心理统计、实验入门、SPSS/R 初见",
         "statTrend": "统计阴影启动；精神电量下降",
         "routeForeshadow": "转专业暗线可从统计不适开始。",
         "key": "y1s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "psychology_y1s2_main_001"
+        ]
       },
       {
         "semester": "y2s1",
         "label": "大二上",
-        "theme": "实验和测量上强度",
+        "theme": "心理统计出现，读心术彻底下线",
         "coreEvents": "实验心理学、心理测量、研究方法",
         "statTrend": "读心术滤镜下降；绩点求生欲上升",
         "routeForeshadow": "专业分化：研究型 vs 咨询想象型。",
         "key": "y2s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "psychology_y2s1_main_001"
+        ]
       },
       {
         "semester": "y2s2",
         "label": "大二下",
-        "theme": "咨询滤镜被边界教育",
+        "theme": "心理测量课禁止你迷信网红测试",
         "coreEvents": "发展/社会/人格心理，咨询伦理初识",
         "statTrend": "咨询幻觉值下降；专业上头值分化",
         "routeForeshadow": "大二下可触发转专业隐藏入口。",
         "key": "y2s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "psychology_y2s2_main_001",
+          "psychology_transfer_window"
+        ]
       },
       {
         "semester": "y3s1",
         "label": "大三上",
-        "theme": "方向分化",
+        "theme": "异常心理学让你学会闭嘴",
         "coreEvents": "临床与咨询、教育、人力、用户研究、脑认知方向",
         "statTrend": "就业幻觉值波动；路线标签出现",
         "routeForeshadow": "考研、HR、用户研究、教育心理等路线预热。",
         "key": "y3s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "psychology_y3s1_main_001",
+          "psychology_route_postgrad",
+          "psychology_route_hr"
+        ]
       },
       {
         "semester": "y3s2",
         "label": "大三下",
-        "theme": "研究方法和实习现实",
+        "theme": "咨询技能课教你：共情不是“嗯嗯嗯”",
         "coreEvents": "论文项目、实验数据、实习投递",
         "statTrend": "统计阴影加深；就业迷雾上升",
         "routeForeshadow": "路线事件池开启。",
         "key": "y3s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "psychology_y3s2_main_001",
+          "psychology_route_user_research",
+          "psychology_route_education",
+          "psychology_midgg_002",
+          "psychology_midgg_003"
+        ]
       },
       {
         "semester": "y4s1",
         "label": "大四上",
-        "theme": "考研/就业/论文并发",
+        "theme": "考研、就业和“心理咨询师”滤镜一起冲进来",
         "coreEvents": "毕业论文、考研、HR/用户研究/教育实习",
         "statTrend": "精神电量高压；就业幻觉值波动",
         "routeForeshadow": "可能触发就业迷雾 GG。",
         "key": "y4s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "psychology_y4s1_main_001",
+          "psychology_route_counseling_long",
+          "psychology_midgg_001"
+        ]
       },
       {
         "semester": "y4s2",
         "label": "大四下",
-        "theme": "毕业结算",
+        "theme": "毕业论文的被试，永远差最后十个人",
         "coreEvents": "论文答辩、路径确认、专业边界形成",
         "statTrend": "滤镜被重塑；咨询幻觉归零或修正",
         "routeForeshadow": "生成心理学人格鉴定书。",
         "key": "y4s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "psychology_y4s2_main_001",
+          "psychology_settlement"
+        ]
       }
     ],
     "randomEvents": [
-      "psychology_random_01",
-      "psychology_random_02",
-      "psychology_random_03",
-      "psychology_random_04",
-      "psychology_random_05",
-      "psychology_random_06",
-      "psychology_random_07",
-      "psychology_random_08",
-      "psychology_random_09",
-      "psychology_random_10"
+      "psychology_random_001",
+      "psychology_random_002",
+      "psychology_random_003",
+      "psychology_random_004",
+      "psychology_random_005",
+      "psychology_random_006",
+      "psychology_random_007",
+      "psychology_random_008",
+      "psychology_random_009",
+      "psychology_random_010"
     ],
     "hiddenEvents": [
       "psychology_hidden_01",
@@ -4656,19 +4700,32 @@
       "ach_psychology_mind_reading_destroyer",
       "ach_psychology_questionnaire_survivor",
       "ach_psychology_method_true_love",
-      "ach_psychology_counseling_corrected"
+      "ach_psychology_counseling_corrected",
+      "ach_psychology_stubborn_revive",
+      "ach_psychology_doc_001",
+      "ach_psychology_doc_002",
+      "ach_psychology_doc_003",
+      "ach_psychology_doc_004",
+      "ach_psychology_doc_005",
+      "ach_psychology_doc_006",
+      "ach_psychology_doc_007",
+      "ach_psychology_doc_008",
+      "ach_psychology_reality_application"
     ],
     "endings": [
-      "ending_psychology_mind_reading_broken",
-      "ending_psychology_statistics_survivor",
-      "ending_psychology_counseling_long",
-      "ending_psychology_user_research",
-      "ending_psychology_employment_fog"
+      "psychology_ending_001",
+      "psychology_ending_002",
+      "psychology_ending_003",
+      "psychology_ending_004",
+      "psychology_ending_005",
+      "psychology_ending_006"
     ],
     "shareTexts": [
-      "我体验完心理学，系统先打碎了我的读心术滤镜。",
-      "转发给那个以为心理学本科毕业就能当咨询师的人。",
-      "心理学副本提醒：理解人类之前，先理解统计。"
+      "我在心理学副本里活成了：人类观察员满级。不会读心，但会提醒你别乱给人贴标签。",
+      "心理学副本体验报告：外人以为我在学读心术，实际上我在被 SPSS、p 值和被试招募轮流审判。",
+      "学心理学后最大的变化：不再随便分析别人，也不再相信十道题测出隐藏人格。",
+      "我终于明白，心理学不是“懂人”的捷径，是知道人很复杂所以不轻易下结论。",
+      "我的心理学本科结局：结果不一定显著，但精神状态非常有统计意义。"
     ],
     "majorId": "psychology"
   },
