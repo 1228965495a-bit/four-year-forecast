@@ -5027,9 +5027,9 @@
       ]
     },
     "intro": {
-      "title": "欢迎进入机械工程副本",
-      "body": "欢迎进入机械工程副本。你带着专业滤镜和一点点对未来的想象来到这里。系统提醒：本副本不会自动发放体面人生，只会逐步解锁课程、作业、实习、路线分化和毕业结算。如果你知道这些还想继续，说明你可能真的有点适合。",
-      "startButton": "开始本科四年"
+      "title": "你被机械工程录取了！",
+      "body": "你带着一点工业浪漫、一点“以后是不是能造机器人”的幻想，以及一点“机械应该很硬核很稳”的朴素判断，来到了机械工程副本。\n\n本科四年内，你将依次遭遇机械制图、理论力学、材料力学、机械原理、机械设计、金工实习、机床轰鸣、轴承齿轮、公差配合、毕业设计、车企招聘、考研经验贴和无处不在的转码诱惑。\n\n机械工程不是“本科四年造出高达”。更常见的展开是：大一画线，大二算力，大三拆齿轮，大四改图纸，毕业前终于意识到，螺丝也有自己的尊严。",
+      "startButton": "进入大学 · 大一上"
     },
     "tags": [
       "老牌工科",
@@ -5077,16 +5077,34 @@
       "机械人都在问要不要转码"
     ],
     "initialStats": {
-      "obsession": 58,
-      "energy": 78,
-      "filter": 70,
-      "gpaWill": 62,
-      "careerFantasy": 58,
-      "escapeImpulse": 24,
+      "obsession": 72,
+      "energy": 76,
+      "filter": 82,
+      "gpaWill": 66,
+      "careerFantasy": 64,
+      "escapeImpulse": 20,
       "stubbornness": 45,
       "hairline": 92
     },
     "majorStats": [
+      {
+        "key": "drawingLoad",
+        "name": "制图负荷",
+        "description": "三视图、装配图、尺寸标注、明细表和毕业设计共同堆出来的画图压力。",
+        "initialValue": 18
+      },
+      {
+        "key": "toleranceRespect",
+        "name": "公差敬畏",
+        "description": "对 0.1 毫米、轴承、螺栓、公差配合和机械细节的敬畏程度。",
+        "initialValue": 12
+      },
+      {
+        "key": "factoryAdaptability",
+        "name": "工厂适应度",
+        "description": "面对金工实习、车间、机床、铁味地图和制造现场时的适应程度。",
+        "initialValue": 16
+      },
       {
         "key": "drawingDebt",
         "name": "图纸债务",
@@ -5110,90 +5128,122 @@
       {
         "semester": "y1s1",
         "label": "大一上",
-        "theme": "硬核工科滤镜启动",
+        "theme": "亲戚眼里的未来工程师",
         "coreEvents": "第一次接触工程制图，意识到线条、标注和投影都不是随便画。",
         "statTrend": "滤镜厚度略降，图纸债务开始生成，绩点求生欲上升。",
         "routeForeshadow": "建立机械不是自动造机器人的现实。",
         "key": "y1s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "mechanical_engineering_y1s1_main_001"
+        ]
       },
       {
         "semester": "y1s2",
         "label": "大一下",
-        "theme": "基础课按住动手想象",
+        "theme": "机械制图把你画沉默了",
         "coreEvents": "高数、大学物理和工程基础同时上线。",
         "statTrend": "精神电量下降，力学阴影预热，专业上头值开始分化。",
         "routeForeshadow": "筛出工科耐受。",
         "key": "y1s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "mechanical_engineering_y1s2_main_001"
+        ]
       },
       {
         "semester": "y2s1",
         "label": "大二上",
-        "theme": "理论力学与材料力学登场",
+        "theme": "力学三件套开始围攻",
         "coreEvents": "受力分析和变形计算让你明白“机器动起来”之前人先卡住。",
         "statTrend": "力学阴影明显上升，绩点求生欲决定后续是否能稳住。",
         "routeForeshadow": "力学成为机械人格分水岭。",
         "key": "y2s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "mechanical_engineering_y2s1_main_001"
+        ]
       },
       {
         "semester": "y2s2",
         "label": "大二下",
-        "theme": "机械原理与转码传说",
+        "theme": "金工实习进入铁味地图",
         "coreEvents": "机械原理、机械设计和课程设计出现。",
         "statTrend": "滤镜厚度降低，跑路冲动可能上升，转专业念头与转码幻听累积。",
         "routeForeshadow": "转专业/转码暗线出现。",
         "key": "y2s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "mechanical_engineering_y2s2_main_001",
+          "mechanical_engineering_transfer_window"
+        ]
       },
       {
         "semester": "y3s1",
         "label": "大三上",
-        "theme": "图纸落到现实",
+        "theme": "机械原理让齿轮开始说话",
         "coreEvents": "金工实习、实验、CAD/建模和项目开始增加。",
         "statTrend": "专业上头值可能回升，图纸债务和实验报告压力并发。",
         "routeForeshadow": "制造业现实开始有实体感。",
         "key": "y3s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "mechanical_engineering_y3s1_main_001",
+          "mechanical_engineering_route_postgrad",
+          "mechanical_engineering_route_manufacturing",
+          "mechanical_engineering_route_public_sector"
+        ]
       },
       {
         "semester": "y3s2",
         "label": "大三下",
-        "theme": "路线分化",
+        "theme": "机械设计：轴承和螺栓都有脾气",
         "coreEvents": "考研、就业、转码、制造业、车企/装备/新能源路线分化。",
         "statTrend": "就业幻觉值重新校准，路线标签开始决定结局。",
         "routeForeshadow": "路线事件池开启。",
         "key": "y3s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "mechanical_engineering_y3s2_main_001",
+          "mechanical_engineering_route_vehicle_new_energy",
+          "mechanical_engineering_route_state_owned_equipment",
+          "mechanical_engineering_midgg_002",
+          "mechanical_engineering_midgg_003"
+        ]
       },
       {
         "semester": "y4s1",
         "label": "大四上",
-        "theme": "毕设秋招考研并行",
+        "theme": "秋招把“就业面广”翻译给你听",
         "coreEvents": "毕业设计、秋招和考研冲刺并行，制造业现实与工科情怀正面相遇。",
         "statTrend": "精神电量大幅消耗，稳定路线和转向路线分化。",
         "routeForeshadow": "中途 GG 风险上升。",
         "key": "y4s1",
-        "mainEventIds": []
+        "mainEventIds": [
+          "mechanical_engineering_y4s1_main_001",
+          "mechanical_engineering_route_coding_product",
+          "mechanical_engineering_midgg_001"
+        ]
       },
       {
         "semester": "y4s2",
         "label": "大四下",
-        "theme": "本科结算",
+        "theme": "毕业设计：装配图最后一战",
         "coreEvents": "毕设答辩与本科结算。",
         "statTrend": "根据专业上头值、就业幻觉值、转码幻听结算人格。",
         "routeForeshadow": "机械副本告诉你：老牌工科不一定光鲜，但确实能训练耐久。",
         "key": "y4s2",
-        "mainEventIds": []
+        "mainEventIds": [
+          "mechanical_engineering_y4s2_main_001",
+          "mechanical_engineering_settlement"
+        ]
       }
     ],
     "randomEvents": [
-      "mechanical_engineering_random_01",
-      "mechanical_engineering_random_02",
-      "mechanical_engineering_random_03",
-      "mechanical_engineering_random_04",
-      "mechanical_engineering_random_05"
+      "mechanical_engineering_random_001",
+      "mechanical_engineering_random_002",
+      "mechanical_engineering_random_003",
+      "mechanical_engineering_random_004",
+      "mechanical_engineering_random_005",
+      "mechanical_engineering_random_006",
+      "mechanical_engineering_random_007",
+      "mechanical_engineering_random_008",
+      "mechanical_engineering_random_009",
+      "mechanical_engineering_random_010"
     ],
     "hiddenEvents": [
       "mechanical_engineering_hidden_01",
@@ -5213,18 +5263,33 @@
       "ach_mechanical_engineering_mechanics_shadow",
       "ach_mechanical_engineering_metalworking_survivor",
       "ach_mechanical_engineering_coding_hallucination",
-      "ach_mechanical_engineering_drawing_deified"
+      "ach_mechanical_engineering_drawing_deified",
+      "ach_mechanical_engineering_stubborn_revive",
+      "ach_mechanical_engineering_doc_001",
+      "ach_mechanical_engineering_doc_002",
+      "ach_mechanical_engineering_doc_003",
+      "ach_mechanical_engineering_doc_004",
+      "ach_mechanical_engineering_doc_005",
+      "ach_mechanical_engineering_doc_006",
+      "ach_mechanical_engineering_doc_007",
+      "ach_mechanical_engineering_doc_008",
+      "ach_mechanical_engineering_doc_009",
+      "ach_mechanical_engineering_doc_010"
     ],
     "endings": [
-      "ending_mechanical_engineering_old_engineering_survivor",
-      "ending_mechanical_engineering_coding_edge",
-      "ending_mechanical_engineering_manufacturing_realist",
-      "ending_mechanical_engineering_drawing_debt_overload"
+      "mechanical_engineering_ending_001",
+      "mechanical_engineering_ending_002",
+      "mechanical_engineering_ending_003",
+      "mechanical_engineering_ending_004",
+      "mechanical_engineering_ending_005",
+      "mechanical_engineering_ending_006"
     ],
     "shareTexts": [
-      "我用 5 分钟读完了机械工程本科，系统说这不是劝退，是提前摘滤镜。",
-      "转发给那个想报机械工程的人，让他先体验一下副本强度。",
-      "我的机械工程结局出来了，专业滤镜当场重算。"
+      "我在机械工程副本里活成了：工业浪漫幸存者。报之前以为造高达，读之后开始尊重每一颗螺丝。",
+      "机械工程体验报告：四年下来，高达没造出来，三视图、游标卡尺、轴承寿命和装配图倒是把我造了一遍。",
+      "我以为机械工程是机器人和赛车，系统给我加载了制图、力学、金工实习、机床、螺栓、公差和毕业设计。",
+      "别小看机械人的精神状态：能在装配图里活下来的人，已经不是普通人类。",
+      "我不是不热爱工业浪漫，我只是终于知道工业浪漫里有机油味、实验报告和“这个尺寸再改一下”。"
     ],
     "majorId": "mechanical_engineering"
   },
