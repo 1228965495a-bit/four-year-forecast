@@ -656,19 +656,12 @@ function DetailContent({ major, mode, onConfirm }: { major: any; mode: MajorBrow
         </div>
       </div>
 
-      <div className="diag-note">
-        <div className="text-[10px] font-display tracking-widest text-ink/60 mb-0.5">系统诊断</div>
+      <PixelPanel title="推荐画像 · WHY YOU" size="sm" tone="sage" bodyClassName="p-2.5">
         <ul className="space-y-0.5 text-[12px]">
           {(major.fitProfile ?? []).map((r: string) => (
             <li key={r} className="flex gap-1.5"><span>▸</span><span>{r}</span></li>
           ))}
         </ul>
-      </div>
-
-      <PixelPanel title="推荐画像 · WHY YOU" size="sm" tone="sage" bodyClassName="p-2.5">
-        <div className="text-[12px] leading-snug text-ink">
-          {major.card?.subtitle ?? major.card?.description}
-        </div>
       </PixelPanel>
 
       <PixelPanel title="慎入人群 · AVOID" size="sm" tone="cherry" bodyClassName="p-2.5">
