@@ -232,12 +232,14 @@ export function MajorBrowser({ mode }: { mode: MajorBrowserMode }) {
             </div>
           </div>
 
-          <SelectionPreview
-            major={selected}
-            mode={mode}
-            onOpenDetail={() => selected && setSheetOpen(true)}
-            onConfirm={confirm}
-          />
+          {!isCatalog && (
+            <SelectionPreview
+              major={selected}
+              mode={mode}
+              onOpenDetail={() => selected && setSheetOpen(true)}
+              onConfirm={confirm}
+            />
+          )}
 
           <PagedQuestGrid
             list={list}
@@ -385,6 +387,7 @@ function PagedQuestGrid({
   mode: MajorBrowserMode;
 }) {
   const total = list.length;
+  const usesPaging = mode !== "catalog";
   const pageCount = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const [page, setPage] = useState(0);
 
@@ -396,13 +399,14 @@ function PagedQuestGrid({
 
   // 当前选中若跳到别的页，自动翻过去
   useEffect(() => {
+    if (!usesPaging) return;
     if (!selectedId) return;
     const idx = list.findIndex((m) => m.id === selectedId);
     if (idx < 0) return;
     const p = Math.floor(idx / PAGE_SIZE);
     if (p !== page) setPage(p);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedId]);
+  }, [selectedId, usesPaging]);
 
   const clamp = (p: number) => Math.max(0, Math.min(pageCount - 1, p));
   const prev = () => setPage((p) => clamp(p - 1));
@@ -426,7 +430,7 @@ function PagedQuestGrid({
     }
   };
 
-  const pageItems = list.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+  const visibleItems = usesPaging ? list.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE) : list;
 
   return (
     <div className="flex flex-col gap-2">
@@ -436,9 +440,11 @@ function PagedQuestGrid({
           {mode === "catalog" ? "专业图鉴" : "可选副本"} · {total}
         </span>
         <span className="h-px flex-1 bg-ink/20" />
-        <span className="font-display text-[10px] tabular-nums text-ink/60">
-          {pageCount > 0 ? page + 1 : 0}/{pageCount}
-        </span>
+        {usesPaging && (
+          <span className="font-display text-[10px] tabular-nums text-ink/60">
+            {pageCount > 0 ? page + 1 : 0}/{pageCount}
+          </span>
+        )}
         <button
           onClick={onToggleSort}
           className="flex items-center gap-1 text-[10px] font-display tracking-wider text-ink/70 px-1.5 py-1 border-2 border-ink bg-cream shadow-[1px_1px_0_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
@@ -457,10 +463,10 @@ function PagedQuestGrid({
         <div className="relative">
           <div
             className="grid grid-cols-2 gap-2 select-none touch-pan-y"
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
+            onTouchStart={usesPaging ? onTouchStart : undefined}
+            onTouchMove={usesPaging ? onTouchMove : undefined}
           >
-            {pageItems.map((m: any) => (
+            {visibleItems.map((m: any) => (
               <QuestTile
                 key={m.id}
                 major={m}
@@ -469,54 +475,56 @@ function PagedQuestGrid({
               />
             ))}
             {/* 占位保持每页高度一致 */}
-            {Array.from({ length: PAGE_SIZE - pageItems.length }).map((_, i) => (
-              <div key={`ph-${i}`} aria-hidden className="invisible" />
-            ))}
+            {usesPaging && Array.from({ length: PAGE_SIZE - visibleItems.length }).map((_, i) => (
+                <div key={`ph-${i}`} aria-hidden className="invisible" />
+              ))}
           </div>
 
           {/* 翻页控制 */}
-          <div className="mt-2 flex items-center justify-between gap-2">
-            <button
-              onClick={prev}
-              disabled={page === 0}
-              className={cn(
-                "font-display text-[11px] px-2.5 py-1.5 border-2 border-ink bg-cream shadow-[2px_2px_0_0_var(--ink)]",
-                "active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
-                "disabled:opacity-40 disabled:cursor-not-allowed disabled:active:translate-x-0 disabled:active:translate-y-0 disabled:active:shadow-[2px_2px_0_0_var(--ink)]",
-              )}
-              aria-label="上一页"
-            >
-              ◀ 上一页
-            </button>
+          {usesPaging && (
+            <div className="mt-2 flex items-center justify-between gap-2">
+              <button
+                onClick={prev}
+                disabled={page === 0}
+                className={cn(
+                  "font-display text-[11px] px-2.5 py-1.5 border-2 border-ink bg-cream shadow-[2px_2px_0_0_var(--ink)]",
+                  "active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
+                  "disabled:opacity-40 disabled:cursor-not-allowed disabled:active:translate-x-0 disabled:active:translate-y-0 disabled:active:shadow-[2px_2px_0_0_var(--ink)]",
+                )}
+                aria-label="上一页"
+              >
+                ◀ 上一页
+              </button>
 
-            <div className="flex items-center gap-1.5" aria-label="页码指示">
-              {Array.from({ length: pageCount }).map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setPage(i)}
-                  aria-label={`第 ${i + 1} 页`}
-                  className={cn(
-                    "border-2 border-ink",
-                    i === page ? "bg-cherry" : "bg-cream",
-                  )}
-                  style={{ width: 10, height: 10 }}
-                />
-              ))}
+              <div className="flex items-center gap-1.5" aria-label="页码指示">
+                {Array.from({ length: pageCount }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setPage(i)}
+                    aria-label={`第 ${i + 1} 页`}
+                    className={cn(
+                      "border-2 border-ink",
+                      i === page ? "bg-cherry" : "bg-cream",
+                    )}
+                    style={{ width: 10, height: 10 }}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={next}
+                disabled={page >= pageCount - 1}
+                className={cn(
+                  "font-display text-[11px] px-2.5 py-1.5 border-2 border-ink bg-cream shadow-[2px_2px_0_0_var(--ink)]",
+                  "active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
+                  "disabled:opacity-40 disabled:cursor-not-allowed disabled:active:translate-x-0 disabled:active:translate-y-0 disabled:active:shadow-[2px_2px_0_0_var(--ink)]",
+                )}
+                aria-label="下一页"
+              >
+                下一页 ▶
+              </button>
             </div>
-
-            <button
-              onClick={next}
-              disabled={page >= pageCount - 1}
-              className={cn(
-                "font-display text-[11px] px-2.5 py-1.5 border-2 border-ink bg-cream shadow-[2px_2px_0_0_var(--ink)]",
-                "active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
-                "disabled:opacity-40 disabled:cursor-not-allowed disabled:active:translate-x-0 disabled:active:translate-y-0 disabled:active:shadow-[2px_2px_0_0_var(--ink)]",
-              )}
-              aria-label="下一页"
-            >
-              下一页 ▶
-            </button>
-          </div>
+          )}
         </div>
       )}
     </div>
