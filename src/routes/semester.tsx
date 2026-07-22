@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, BatteryMedium, Compass, GraduationCap, History, UserRound, X } from "lucide-react";
+import { ArrowLeft, BatteryMedium, BookOpenCheck, History, KeyRound, UserRound, X } from "lucide-react";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { EventCampusArt } from "@/components/game/CampusArt";
 import { EventCard } from "@/components/ui/EventCard";
 import { gameStore, useGameState, currentEventOf, currentSemesterLabel } from "@/lib/gameStore";
 import { totalSemesters } from "@/data/script/semesterMeta";
 import { majorById } from "@/data/script/majorCatalog";
+import { getLawTrait } from "@/lib/lawRoguelite";
 
 export const Route = createFileRoute("/semester")({ component: SemesterPage });
 
@@ -35,7 +36,7 @@ function SemesterPage() {
     setFeedback(null);
   };
 
-  const coreStats = getCoreStats(game.stats);
+  const coreStats = getCoreStats(game.stats, game.majorId);
   const topBar = (
     <header className="v4-topbar !items-start">
       <button className="v4-icon-button" aria-label="返回首页" onClick={() => navigate({ to: "/" })}><ArrowLeft size={19} /></button>
@@ -66,6 +67,7 @@ function SemesterPage() {
       </div>
 
       <div className="v4-semester-content">
+        {game.majorId === "law" && game.pendingTrend && <div className="v4-law-trend"><strong>趋势观察</strong><span>{game.pendingTrend}</span></div>}
         {currentEvent ? (
           <>
             <EventCampusArt majorId={major.id} mood={currentEvent.type === "gg_check" ? "crisis" : "thinking"} />
@@ -85,11 +87,18 @@ function SemesterPage() {
   );
 }
 
-function getCoreStats(stats: Record<string, number>) {
+function getCoreStats(stats: Record<string, number>, majorId?: string) {
+  if (majorId === "law") {
+    return [
+      { label: "精力", value: stats.energy ?? 0, color: "var(--v4-blue)", icon: BatteryMedium },
+      { label: "专业积累", value: stats.professionalAccumulation ?? 0, color: "var(--v4-coral)", icon: BookOpenCheck },
+      { label: "机会", value: stats.opportunity ?? 0, color: "var(--v4-mint)", icon: KeyRound },
+    ];
+  }
   return [
     { label: "精力", value: stats.energy ?? 0, color: "var(--v4-blue)", icon: BatteryMedium },
-    { label: "专业认同", value: Math.round(((stats.obsession ?? 0) + (100 - (stats.escapeImpulse ?? 0))) / 2), color: "var(--v4-coral)", icon: Compass },
-    { label: "未来筹码", value: Math.round(((stats.gpaWill ?? 0) + (stats.careerFantasy ?? 0)) / 2), color: "var(--v4-mint)", icon: GraduationCap },
+    { label: "专业认同", value: Math.round(((stats.obsession ?? 0) + (100 - (stats.escapeImpulse ?? 0))) / 2), color: "var(--v4-coral)", icon: BookOpenCheck },
+    { label: "未来筹码", value: Math.round(((stats.gpaWill ?? 0) + (stats.careerFantasy ?? 0)) / 2), color: "var(--v4-mint)", icon: KeyRound },
   ];
 }
 
@@ -140,6 +149,7 @@ function InfoDrawer({ type, onClose }: { type: "profile" | "log"; onClose: () =>
   const discovered = game.discoveries[game.majorId]?.length ?? 0;
   const discoverableTotal = game.discoverableTotals[game.majorId] ?? 0;
   const lawPersona = game.majorId === "law" ? revealedLawPersona(game.hiddenStats) : null;
+  const lawTrait = game.majorId === "law" ? getLawTrait(game.initialTrait) : null;
   return (
     <div className="v4-overlay">
       <div className="v4-sheet">
@@ -151,8 +161,9 @@ function InfoDrawer({ type, onClose }: { type: "profile" | "log"; onClose: () =>
         {type === "profile" ? (
           <div className="mt-4 grid gap-3">
             <div className="v4-save-line"><UserRound size={18} /><span><strong>{game.characterName}</strong> · {major?.name} · {currentSemesterLabel(game)}</span></div>
-            <div className="grid grid-cols-3 gap-2">{getCoreStats(game.stats).map((stat) => <CoreStat key={stat.label} {...stat} />)}</div>
-            {game.majorId === "law" && <div className="v4-detail-section"><div className="text-[10px] font-bold text-[var(--v4-muted)]">法学人格</div><div className="mt-1 text-[13px] font-bold">{lawPersona ?? "尚未定型"}</div><div className="mt-1 text-[11px] leading-relaxed text-[var(--v4-muted)]">{lawPersona ? "你的选择已经形成稳定倾向，后续事件会开始区别对待你。" : "再做几次决定，系统才敢给你下结论。"}</div></div>}
+            <div className="grid grid-cols-3 gap-2">{getCoreStats(game.stats, game.majorId).map((stat) => <CoreStat key={stat.label} {...stat} />)}</div>
+            {lawTrait && <div className="v4-detail-section"><div className="text-[10px] font-bold text-[var(--v4-muted)]">本局入学状态</div><div className="mt-1 text-[13px] font-bold">{lawTrait.title}</div><div className="mt-1 text-[11px] leading-relaxed text-[var(--v4-muted)]">{lawTrait.description}</div></div>}
+            {game.majorId === "law" && <div className="v4-detail-section"><div className="text-[10px] font-bold text-[var(--v4-muted)]">当前趋势</div><div className="mt-1 text-[13px] font-bold">{lawPersona ?? "路线尚未收窄"}</div><div className="mt-1 text-[11px] leading-relaxed text-[var(--v4-muted)]">这里只给模糊提示。最终人格会综合路线、关键选择和特殊经历结算。</div></div>}
             <div className="text-[12px] leading-relaxed text-[var(--v4-muted)]">本局经历 {game.history.length} 个事件，累计发现 {discovered}{discoverableTotal ? ` / ${discoverableTotal}` : ""} 个事件，解锁 {game.achievements.length} 个记录。</div>
           </div>
         ) : (

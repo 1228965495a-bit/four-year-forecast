@@ -7,6 +7,7 @@ import type { EngineState } from "./scriptEngine";
 import { SEMESTER_KEYS, currentSemesterLabelFromIndex } from "@/data/script/semesterMeta";
 import { majorById } from "@/data/script/majorCatalog";
 import { checkMidGG, applyRevivePenalties } from "./midGgRules";
+import { archiveLawResult, createLawRunState, deriveLawResult, EMPTY_LAW_ARCHIVE, LAW_MEMORIES, type LawArchive } from "./lawRoguelite";
 
 type EngineModule = typeof import("./scriptEngine");
 
@@ -42,6 +43,12 @@ function initEngineShellForMajor(majorId: string): EngineState {
     seenEvents: firstId ? [firstId] : [],
     achievements: [],
     currentEventId: firstId,
+    initialTrait: null,
+    legacyMemory: null,
+    routeScores: {},
+    specialExperiences: [],
+    pendingTrend: null,
+    semesterEventCount: 0,
     ggRisk: 0,
     finished: false,
     endingId: null,
@@ -79,6 +86,7 @@ export interface GameState extends EngineState {
   pendingAchievement: string | null;
   /** 中途主动结束游戏（点顶部 结 按钮） */
   midwayFinished: boolean;
+  lawArchive: LawArchive;
 }
 
 const STORAGE_KEY = "cszmg_save_v3";
@@ -96,6 +104,12 @@ function emptyState(): GameState {
     seenEvents: [],
     achievements: [],
     currentEventId: null,
+    initialTrait: null,
+    legacyMemory: null,
+    routeScores: {},
+    specialExperiences: [],
+    pendingTrend: null,
+    semesterEventCount: 0,
     currentEventData: null,
     ggRisk: 0,
     finished: false,
@@ -115,6 +129,7 @@ function emptyState(): GameState {
     discoverableTotals: {},
     pendingAchievement: null,
     midwayFinished: false,
+    lawArchive: { ...EMPTY_LAW_ARCHIVE },
   };
 }
 
@@ -170,13 +185,15 @@ export const gameStore = {
   subscribe(l: () => void) { listeners.add(l); return () => listeners.delete(l); },
   set(patch: Partial<GameState>) { state = { ...state, ...patch }; emit(); },
   reset() {
-    const { discoveries, discoverableTotals } = state;
-    state = { ...emptyState(), discoveries, discoverableTotals, hydrated: hydrated || typeof window !== "undefined" };
+    const { discoveries, discoverableTotals, lawArchive } = state;
+    state = { ...emptyState(), discoveries, discoverableTotals, lawArchive, hydrated: hydrated || typeof window !== "undefined" };
     emit();
   },
 
   selectMajor(id: string) {
     const engine = initEngineShellForMajor(id);
+    const lawArchive = id === "law" ? { ...state.lawArchive, runs: state.lawArchive.runs + 1 } : state.lawArchive;
+    if (id === "law") createLawRunState(engine, lawArchive);
     state = {
       ...emptyState(),
       ...engine,
@@ -186,6 +203,7 @@ export const gameStore = {
       school: state.school,
       discoveries: state.discoveries,
       discoverableTotals: state.discoverableTotals,
+      lawArchive,
     };
     emit();
     // 立刻在后台把完整脚本包拉起来，等玩家看完 intro 到 /semester 时已就绪
@@ -231,6 +249,15 @@ export const gameStore = {
         [state.majorId]: engineRuntime.discoverableEventCount(state.majorId),
       },
     }, state.majorId, next.currentEventId);
+
+    if (merged.majorId === "law" && merged.finished && !merged.hiddenStats.lawRunArchived) {
+      const result = deriveLawResult(merged);
+      merged = {
+        ...merged,
+        hiddenStats: { ...merged.hiddenStats, lawRunArchived: 1 },
+        lawArchive: archiveLawResult(merged.lawArchive, result),
+      };
+    }
 
     // 中途 GG 判定 —— 只在还没进入结局 / 还没排队续命时跑
     if (!merged.finished && !merged.midwayFinished && !merged.pendingReviveReason) {
@@ -330,6 +357,19 @@ export const gameStore = {
     } else {
       state = { ...state, midwayFinished: true };
     }
+    emit();
+  },
+
+  chooseLawMemory(memoryId: string) {
+    if (state.majorId !== "law" || state.legacyMemory) return;
+    const next = { ...state, stats: { ...state.stats }, hiddenStats: { ...state.hiddenStats } };
+    const memory = LAW_MEMORIES.find((item) => item.id === memoryId);
+    if (!memory) return;
+    next.legacyMemory = memory.id;
+    if (memory.id === "exam_notice") next.stats.professionalAccumulation = Math.min(100, (next.stats.professionalAccumulation ?? 0) + 6);
+    if (memory.id === "saved_chance") next.stats.opportunity = Math.min(100, (next.stats.opportunity ?? 0) + 8);
+    if (memory.id === "route_hint") next.hiddenStats.realityPlanning = (next.hiddenStats.realityPlanning ?? 50) + 7;
+    state = next;
     emit();
   },
 

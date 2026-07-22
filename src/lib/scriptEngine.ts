@@ -4,6 +4,7 @@
 import { majorById } from "@/data/script/majorCatalog";
 import { majorDataLoaders } from "@/data/script/majorDataLoaders";
 import { SEMESTER_KEYS, SEMESTER_LABEL } from "@/data/script/semesterMeta";
+import { applyLawChoiceLayer, pickLawCoreEvent, resolveLawEvent, shouldDrawLawOptional, shouldFollowLawEvent } from "@/lib/lawRoguelite";
 export { SEMESTER_KEYS } from "@/data/script/semesterMeta";
 export type { SemesterKey } from "@/data/script/semesterMeta";
 
@@ -63,6 +64,12 @@ export interface EngineState {
   seenEvents: string[];
   achievements: string[];
   currentEventId: string | null;
+  initialTrait: string | null;
+  legacyMemory: string | null;
+  routeScores: Record<string, number>;
+  specialExperiences: string[];
+  pendingTrend: string | null;
+  semesterEventCount: number;
   ggRisk: number;
   finished: boolean;
   endingId: string | null;
@@ -113,6 +120,12 @@ export function initEngineForMajor(majorId: string): EngineState {
     seenEvents: firstId ? [firstId] : [],
     achievements: [],
     currentEventId: firstId,
+    initialTrait: null,
+    legacyMemory: null,
+    routeScores: {},
+    specialExperiences: [],
+    pendingTrend: null,
+    semesterEventCount: 0,
     ggRisk: 0,
     finished: false,
     endingId: null,
@@ -241,6 +254,8 @@ export function applyChoice(prev: EngineState, choice: any): ApplyResult {
     routes: [...prev.routes],
     seenEvents: [...prev.seenEvents],
     achievements: [...prev.achievements],
+    routeScores: { ...prev.routeScores },
+    specialExperiences: [...prev.specialExperiences],
   };
 
   const eff = choice.effects ?? {};
@@ -249,6 +264,7 @@ export function applyChoice(prev: EngineState, choice: any): ApplyResult {
   mergeDelta(state.stats, statDelta, true);
   mergeDelta(state.majorStats, eff.majorStats, true);
   mergeDelta(state.hiddenStats, eff.hiddenStats, false);
+  if (state.majorId === "law") applyLawChoiceLayer(state, event, choice);
 
   if (state.majorId === "law") {
     const rawEnergyCost = Number(eff.stats?.energy ?? 0);
@@ -276,8 +292,12 @@ export function applyChoice(prev: EngineState, choice: any): ApplyResult {
   const newAchievements = state.achievements.filter((a) => !prev.achievements.includes(a));
 
   // 决定下一事件
+  state.semesterEventCount += 1;
   const nextId = normalizeId(choice.nextEventId ?? choice.nextEvent);
-  if (nextId && runtime.eventById[nextId]) {
+  const explicitNext = nextId ? runtime.eventById[nextId] : null;
+  const explicitEligible = explicitNext && evalCond(state, explicitNext.triggerCondition) && evalCond(state, explicitNext.conditions);
+  const shouldFollow = explicitEligible && (state.majorId !== "law" || shouldFollowLawEvent(state, explicitNext));
+  if (nextId && shouldFollow) {
     state.currentEventId = nextId;
     if (!state.seenEvents.includes(nextId)) state.seenEvents.push(nextId);
   } else {
@@ -314,6 +334,20 @@ function balancedStatDelta(majorId: string, delta: any) {
 }
 
 function advanceSemester(state: EngineState) {
+  if (state.majorId === "law") {
+    if (!state.semesterRandomShown && shouldDrawLawOptional(state)) {
+      const optionalId = pickRandomEvent(state);
+      if (optionalId) {
+        state.currentEventId = optionalId;
+        state.semesterRandomShown = true;
+        if (!state.seenEvents.includes(optionalId)) state.seenEvents.push(optionalId);
+        return;
+      }
+    }
+    advanceLawSemester(state);
+    return;
+  }
+
   const nextTimelineId = nextTimelineEventInSemester(state);
   if (nextTimelineId) {
     state.currentEventId = nextTimelineId;
@@ -353,12 +387,36 @@ function advanceSemester(state: EngineState) {
   if (!next) advanceSemester(state); // 空学期继续推进
 }
 
+function advanceLawSemester(state: EngineState) {
+  const nextIdx = state.semesterIdx + 1;
+  if (nextIdx >= SEMESTER_KEYS.length) {
+    const ending = pickEnding(state);
+    state.finished = true;
+    state.endingId = ending?.id ?? null;
+    state.currentEventId = null;
+    return;
+  }
+  state.semesterIdx = nextIdx;
+  state.semesterRandomShown = false;
+  state.semesterEventCount = 0;
+  state.stats.energy = clamp01_100((state.stats.energy ?? 0) + 6);
+  state.stats.escapeImpulse = clamp01_100((state.stats.escapeImpulse ?? 0) - 3);
+  const next = pickLawCoreEvent(state);
+  state.currentEventId = next;
+  if (next && !state.seenEvents.includes(next)) state.seenEvents.push(next);
+  if (!next) advanceLawSemester(state);
+}
+
 // ============= 随机事件 =============
 
 function pickRandomEvent(state: EngineState): string | null {
   const major = majorById[state.majorId];
   const runtime = runtimeOf(state.majorId);
-  const pool = (major?.randomEvents ?? []) as string[];
+  const configuredPool = (major?.randomEvents ?? []) as string[];
+  const lawCallbacks = state.majorId === "law"
+    ? runtime.events.filter((event: any) => event.type === "hidden" && event.semester === SEMESTER_KEYS[state.semesterIdx]).map((event: any) => event.id)
+    : [];
+  const pool = [...new Set([...configuredPool, ...lawCallbacks])];
   const eligible = pool
     .map((id) => runtime.eventById[id])
     .filter((e): e is any => !!e && !state.seenEvents.includes(e.id))
@@ -415,7 +473,8 @@ export function scanAchievements(state: EngineState): string[] {
 
 export function getCurrentEvent(state: EngineState): any | null {
   if (!state.currentEventId || !hasMajorRuntime(state.majorId)) return null;
-  return runtimeOf(state.majorId).eventById[state.currentEventId] ?? null;
+  const event = runtimeOf(state.majorId).eventById[state.currentEventId] ?? null;
+  return state.majorId === "law" ? resolveLawEvent(state, event) : event;
 }
 
 export async function getAchievementsForMajor(majorId: string) {
