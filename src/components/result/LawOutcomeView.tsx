@@ -87,7 +87,7 @@ export function LawOutcomeView({
             <div className="v4-law-codex-list">
               <UnlockRow label="已解锁路线" items={archive.routes.map((id) => LAW_ROUTE_DEFINITIONS.find((route) => route.id === id)?.title).filter(Boolean) as string[]} />
               <UnlockRow label="已解锁人格" items={archive.personas.map((id) => LAW_PERSONAS.find((persona) => persona.id === id)?.title).filter(Boolean) as string[]} />
-              <UnlockRow label="特殊经历卷宗" items={archive.experiences.slice(-6)} />
+              <UnlockRow label="特殊经历卷宗" items={[...new Set(archive.experiences.map(readableExperience))].slice(-6)} />
             </div>
           </section>
 
@@ -112,4 +112,18 @@ function Progress({ label, value, total }: { label: string; value: number; total
 
 function UnlockRow({ label, items }: { label: string; items: string[] }) {
   return <div><strong>{label}</strong><p>{items.length ? items.join(" · ") : "尚未解锁"}</p></div>;
+}
+
+function readableExperience(item: string) {
+  const legacyLabels: Record<string, string> = {
+    dorm_counsel: "宿舍常驻证据保全员",
+    mock_court: "模拟法庭前夜救场王",
+    intern_reply: "第一份实习申请真的有回复",
+    escape_window: "认真查过转专业窗口",
+    exam_box: "法考资料先本人入住宿舍",
+    low_battery: "低电量完成本科强制执行",
+  };
+  if (legacyLabels[item]) return legacyLabels[item];
+  if (item.startsWith("special_")) return "一项早期归档经历";
+  return item;
 }

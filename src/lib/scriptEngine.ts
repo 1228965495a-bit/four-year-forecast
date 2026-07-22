@@ -298,6 +298,15 @@ export function applyChoice(prev: EngineState, choice: any): ApplyResult {
   const explicitEligible = explicitNext && evalCond(state, explicitNext.triggerCondition) && evalCond(state, explicitNext.conditions);
   const shouldFollow = explicitEligible && (state.majorId !== "law" || shouldFollowLawEvent(state, explicitNext));
   if (nextId && shouldFollow) {
+    if (state.majorId === "law" && explicitNext.semester) {
+      const nextSemesterIdx = SEMESTER_KEYS.indexOf(explicitNext.semester);
+      if (nextSemesterIdx > state.semesterIdx) {
+        state.semesterIdx = nextSemesterIdx;
+        state.semesterRandomShown = false;
+        state.semesterEventCount = 0;
+        state.stats.energy = clamp01_100((state.stats.energy ?? 0) + 3);
+      }
+    }
     state.currentEventId = nextId;
     if (!state.seenEvents.includes(nextId)) state.seenEvents.push(nextId);
   } else {
@@ -306,7 +315,11 @@ export function applyChoice(prev: EngineState, choice: any): ApplyResult {
 
   // 提前结局判定
   const endingHit = pickEnding(state);
-  if (endingHit && endingHit.type && ["mid_gg", "transfer_success", "transfer_fail"].includes(endingHit.type)) {
+  const deferLawTransfer = state.majorId === "law" && (
+    endingHit?.type === "transfer_fail"
+      || (endingHit?.type === "transfer_success" && event.id !== "law_transfer_transition_003")
+  );
+  if (!deferLawTransfer && endingHit && endingHit.type && ["mid_gg", "transfer_success", "transfer_fail"].includes(endingHit.type)) {
     state.finished = true;
     state.endingId = endingHit.id;
     state.currentEventId = null;
@@ -399,7 +412,7 @@ function advanceLawSemester(state: EngineState) {
   state.semesterIdx = nextIdx;
   state.semesterRandomShown = false;
   state.semesterEventCount = 0;
-  state.stats.energy = clamp01_100((state.stats.energy ?? 0) + 6);
+  state.stats.energy = clamp01_100((state.stats.energy ?? 0) + 3);
   state.stats.escapeImpulse = clamp01_100((state.stats.escapeImpulse ?? 0) - 3);
   const next = pickLawCoreEvent(state);
   state.currentEventId = next;

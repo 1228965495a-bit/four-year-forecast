@@ -171,9 +171,7 @@ export function shouldFollowLawEvent(state: MutableLawState & { semesterIdx: num
 }
 
 export function shouldDrawLawOptional(state: MutableLawState & { semesterIdx: number; semesterEventCount?: number }) {
-  if ((state.semesterEventCount ?? 0) >= 2 || state.semesterIdx < 2 || state.semesterIdx > 6) return false;
-  const seed = Number(state.hiddenStats.lawRunSeed ?? 1) * 17 + state.semesterIdx * 11 + state.seenEvents.length;
-  return seed % 3 !== 0;
+  return (state.semesterEventCount ?? 0) < 2 && state.semesterIdx >= 0 && state.semesterIdx <= 6;
 }
 
 export function deriveLawResult(game: LawGameLike) {
@@ -232,6 +230,15 @@ export function resolveLawEvent(state: MutableLawState, event: any) {
 
 function deriveRoute(state: MutableLawState) {
   if (state.flags.includes("flag_transfer_success")) return LAW_ROUTE_DEFINITIONS.find((route) => route.id === "transfer")!;
+  if (state.flags.includes("flag_transfer_failed")) {
+    const transfer = LAW_ROUTE_DEFINITIONS.find((route) => route.id === "transfer")!;
+    return {
+      ...transfer,
+      title: "转专业未遂线",
+      ending: "申请驳回，法学继续履行",
+      summary: "你认真查过规则、交过材料，也真的推过那扇门。门没有开，于是你带着一次失败申请回到法学院，把剩下的路重新走完。",
+    };
+  }
   const ranked = LAW_ROUTE_DEFINITIONS.map((route) => ({ route, score: routeScore(state, route.id) })).sort((a, b) => b.score - a.score);
   return ranked[0].score > 0 ? ranked[0].route : LAW_ROUTE_DEFINITIONS.find((route) => route.id === "survival")!;
 }
@@ -266,10 +273,12 @@ function deriveReasons(game: LawGameLike, routeId: string, personaId: string) {
   return reasons.slice(0, 4);
 }
 
-function buildStory(game: LawGameLike, route: (typeof LAW_ROUTE_DEFINITIONS)[number], persona: (typeof LAW_PERSONAS)[number]) {
+function buildStory(game: LawGameLike, route: { id: LawRouteKey; title: string; ending: string; summary: string }, persona: (typeof LAW_PERSONAS)[number]) {
   const trait = getLawTrait(game.initialTrait);
   const firstChoice = [...game.history].reverse()[0]?.choice ?? "先按自己的直觉走进法学院";
-  const finalChapter = route.id === "transfer"
+  const finalChapter = game.flags.includes("flag_transfer_failed")
+    ? `转专业申请没有通过，你带着“${persona.title}”这套新习惯回到法学院。后半程不再是默认留下，而是你重新作出的选择。`
+    : route.id === "transfer"
     ? `转专业结果把本科生活切成了两段。法学院留下的不是一张失败证明，而是“${persona.title}”这套会继续跟着你的思考方式。`
     : `你没有变成入学时想象的标准法律人，却带着“${persona.title}”这套生存方式离开法学院。`;
   return [
@@ -292,6 +301,7 @@ function deriveReplayChallenge(game: LawGameLike, routeId: string) {
   if (dim(game, "responsibility") >= 68) return "上一局你太习惯替别人接锅。这次挑战一次都不主动补位。";
   if (routeId === "firm") return "上一局走了实习就业线。这次试试在大二前攒够一次老师推荐。";
   if (routeId === "academic") return "上一局靠高专业积累毕业。这次挑战低积累生存，看看会偏航到哪里。";
+  if (routeId === "transfer" && game.flags.includes("flag_transfer_failed")) return "上一局认真申请过转专业，但筹码还差一点。这次更早保住专业积累和机会，再推一次那扇门。";
   if (routeId === "transfer") return "上一局成功推开了转专业窗口。这次留在法学院，看看同一套判断力会把你送到哪条路。";
   if (dim(game, "escape") < 2) return "上一局没有触发转专业窗口。这次主动调查两次专业出口。";
   return "使用与你上一局完全相反的选择，再读一次法学。";
