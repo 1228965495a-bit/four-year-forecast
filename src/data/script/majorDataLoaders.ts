@@ -6,7 +6,10 @@ type MajorDataBundle = {
 
 export const majorDataLoaders: Record<string, () => Promise<MajorDataBundle>> = {
   law: async () => ({
-    events: (await import("./byMajor/law.events.json")).default,
+    events: [
+      ...(await import("./byMajor/law.events.json")).default,
+      ...(await import("./byMajor/law.roguelite.events")).LAW_ROGUELITE_EVENTS,
+    ],
     endings: (await import("./byMajor/law.endings.json")).default,
     achievements: (await import("./byMajor/law.achievements.json")).default,
   }),

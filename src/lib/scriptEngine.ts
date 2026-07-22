@@ -4,7 +4,7 @@
 import { majorById } from "@/data/script/majorCatalog";
 import { majorDataLoaders } from "@/data/script/majorDataLoaders";
 import { SEMESTER_KEYS, SEMESTER_LABEL } from "@/data/script/semesterMeta";
-import { applyLawChoiceLayer, pickLawCoreEvent, resolveLawEvent, shouldDrawLawOptional, shouldFollowLawEvent } from "@/lib/lawRoguelite";
+import { applyLawChoiceLayer, pickLawCoreEvent, pickLawResourceEvent, resolveLawEvent, shouldDrawLawOptional, shouldFollowLawEvent } from "@/lib/lawRoguelite";
 export { SEMESTER_KEYS } from "@/data/script/semesterMeta";
 export type { SemesterKey } from "@/data/script/semesterMeta";
 
@@ -348,6 +348,14 @@ function balancedStatDelta(majorId: string, delta: any) {
 
 function advanceSemester(state: EngineState) {
   if (state.majorId === "law") {
+    if (state.semesterEventCount < 3) {
+      const resourceId = pickLawResourceEvent(state);
+      if (resourceId) {
+        state.currentEventId = resourceId;
+        if (!state.seenEvents.includes(resourceId)) state.seenEvents.push(resourceId);
+        return;
+      }
+    }
     if (!state.semesterRandomShown && shouldDrawLawOptional(state)) {
       const optionalId = pickRandomEvent(state);
       if (optionalId) {

@@ -22,7 +22,7 @@ type EventLike = {
 
 const TYPE_LABEL: Record<string, string> = {
   main: "主线事件", major_random: "校园日常", hidden: "隐藏事件",
-  route: "方向选择", transfer: "转专业机会", gg_check: "状态预警", settlement: "学期结算",
+  route: "方向选择", resource: "本周取舍", transfer: "转专业机会", gg_check: "状态预警", settlement: "学期结算",
 };
 
 export function EventCard({ event, onPick }: { event: EventLike; onPick: (opt: Choice) => void }) {

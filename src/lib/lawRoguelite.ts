@@ -1,3 +1,5 @@
+import { LAW_ROGUELITE_EVENTS } from "@/data/script/byMajor/law.roguelite.events";
+
 export type LawRouteKey = "academic" | "firm" | "civil" | "advocacy" | "transfer" | "survival" | "detour";
 
 export type LawArchive = {
@@ -54,12 +56,12 @@ export const LAW_ROUTE_DEFINITIONS = [
 ] as const;
 
 export const LAW_PERSONAS = [
-  { id: "evidence", title: "证据链强迫症患者", verdict: "你已经很久没有单纯听一个故事了，你只会下意识问：原始聊天记录呢？", score: (s: MutableLawState) => dim(s, "evidence") * 16 + dim(s, "ruleSensitivity") * 1.1 + (100 - dim(s, "ambiguityTolerance")) * 0.45 },
-  { id: "advocate", title: "野生法庭辩手", verdict: "别人只是发表意见，你已经默默准备好了正方一辩、反方质询和总结陈词。", score: (s: MutableLawState) => dim(s, "expression") * 1.25 + dim(s, "stressTolerance") * 0.7 + routeScore(s, "advocacy") * 5 },
-  { id: "rule_keeper", title: "法条秩序维护者", verdict: "你不一定记得法条原文，但听见‘大家都这样’时，已经会本能地追问依据。", score: (s: MutableLawState) => dim(s, "ruleSensitivity") * 1.25 + dim(s, "idealDrive") * 0.65 + Number(s.majorStats.legalCloseness ?? 0) * 0.45 },
-  { id: "planner", title: "考公路线规划大师", verdict: "别人焦虑时刷短视频，你焦虑时会打开岗位表，并给未来建立三个备选方案。", score: (s: MutableLawState) => dim(s, "realityPlanning") * 1.35 + routeScore(s, "civil") * 5 + Number(s.stats.opportunity ?? 0) * 0.25 },
-  { id: "escape", title: "三次想转专业仍毕业型", verdict: "你把每一扇逃生门都查过一遍，最后是否离开不重要，重要的是门把手上全是你的指纹。", score: (s: MutableLawState) => dim(s, "escape") * 15 + dim(s, "realityPlanning") * 0.8 + Number(s.stats.escapeImpulse ?? 0) * 0.55 },
-  { id: "mediator", title: "人间纠纷调解器", verdict: "入学时你想主持正义，毕业时你只想让所有小组成员按时交材料并停止互相拉黑。", score: (s: MutableLawState) => dim(s, "responsibility") * 1.15 + dim(s, "idealDrive") * 0.55 + dim(s, "expression") * 0.45 },
+  { id: "evidence", title: "证据链强迫症患者", verdict: "你已经很久没有单纯听一个故事了，你只会下意识问：原始聊天记录呢？", score: (s: MutableLawState) => dim(s, "evidence") * 10 + dim(s, "ruleSensitivity") * 0.6 + (100 - dim(s, "ambiguityTolerance")) * 0.25 + proof(s, "evidence") * 60 },
+  { id: "advocate", title: "野生法庭辩手", verdict: "别人只是发表意见，你已经默默准备好了正方一辩、反方质询和总结陈词。", score: (s: MutableLawState) => dim(s, "expression") * 0.8 + dim(s, "stressTolerance") * 0.35 + routeScore(s, "advocacy") * 3 + proof(s, "advocate") * 60 },
+  { id: "rule_keeper", title: "法条秩序维护者", verdict: "你不一定记得法条原文，但听见‘大家都这样’时，已经会本能地追问依据。", score: (s: MutableLawState) => dim(s, "ruleSensitivity") * 0.8 + dim(s, "idealDrive") * 0.35 + Number(s.majorStats.legalCloseness ?? 0) * 0.2 + proof(s, "rule_keeper") * 60 },
+  { id: "planner", title: "考公路线规划大师", verdict: "别人焦虑时刷短视频，你焦虑时会打开岗位表，并给未来建立三个备选方案。", score: (s: MutableLawState) => dim(s, "realityPlanning") * 0.9 + routeScore(s, "civil") * 3 + Number(s.stats.opportunity ?? 0) * 0.1 + proof(s, "planner") * 60 },
+  { id: "escape", title: "三次想转专业仍毕业型", verdict: "你把每一扇逃生门都查过一遍，最后是否离开不重要，重要的是门把手上全是你的指纹。", score: (s: MutableLawState) => dim(s, "escape") * 10 + dim(s, "realityPlanning") * 0.5 + Number(s.stats.escapeImpulse ?? 0) * 0.3 + proof(s, "escape") * 60 },
+  { id: "mediator", title: "人间纠纷调解器", verdict: "入学时你想主持正义，毕业时你只想让所有小组成员按时交材料并停止互相拉黑。", score: (s: MutableLawState) => dim(s, "responsibility") * 0.8 + dim(s, "idealDrive") * 0.3 + dim(s, "expression") * 0.2 + proof(s, "mediator") * 60 },
 ] as const;
 
 const KEY_IMPACTS: Record<string, any> = {
@@ -129,7 +131,7 @@ export function applyLawChoiceLayer(state: MutableLawState, event: any, choice: 
   const gpaDelta = Number(effects.stats?.gpaWill ?? 0);
   const obsessionDelta = Number(effects.stats?.obsession ?? 0);
   const careerDelta = Number(effects.stats?.careerFantasy ?? 0);
-  const generatedProfessional = Math.round(legalDelta * 0.65 + Math.max(0, gpaDelta) * 0.3 + Math.max(0, obsessionDelta) * 0.2);
+  const generatedProfessional = Math.round(legalDelta * 0.25 + Math.max(0, gpaDelta) * 0.1 + Math.max(0, obsessionDelta) * 0.05);
   const generatedOpportunity = Math.round(Math.max(0, careerDelta) * 0.25 + (effects.routeAdd?.length ?? 0) * 2);
 
   state.stats.professionalAccumulation = clamp(Number(state.stats.professionalAccumulation ?? 24) + generatedProfessional + Number(impact.professional ?? 0));
@@ -139,6 +141,13 @@ export function applyLawChoiceLayer(state: MutableLawState, event: any, choice: 
   for (const [route, value] of Object.entries(impact.routes ?? {})) add(state.routeScores, route, Number(value));
   for (const routeId of effects.routeAdd ?? []) addRouteFromLegacy(state.routeScores, routeId);
   for (const [dimension, value] of Object.entries(impact.persona ?? {})) add(state.hiddenStats, dimension, Number(value));
+  for (const [resource, value] of Object.entries(effects.lawResources ?? {})) {
+    const adjusted = resource === "professionalAccumulation" ? Math.round(Number(value) * 0.45) : Number(value);
+    state.stats[resource] = clamp(Number(state.stats[resource] ?? 0) + adjusted);
+  }
+  for (const [dimension, value] of Object.entries(effects.lawPersona ?? {})) add(state.hiddenStats, dimension, Number(value));
+  for (const [route, value] of Object.entries(effects.lawRoutes ?? {})) add(state.routeScores, route, Number(value));
+  for (const personaId of effects.personaEvidence ?? []) add(state.hiddenStats, `personaEvidence_${personaId}`, 1);
 
   if (Number(effects.hiddenStats?.lawEvidence ?? 0) > 0) add(state.hiddenStats, "evidence", Number(effects.hiddenStats.lawEvidence));
   if (Number(effects.hiddenStats?.lawTheory ?? 0) > 0) add(state.hiddenStats, "ruleSensitivity", Number(effects.hiddenStats.lawTheory) * 3);
@@ -161,6 +170,17 @@ export function pickLawCoreEvent(state: MutableLawState & { semesterIdx: number 
   return unseen[seed % unseen.length];
 }
 
+export function pickLawResourceEvent(state: MutableLawState & { semesterIdx: number }) {
+  const semester = ["y1s1", "y1s2", "y2s1", "y2s2", "y3s1", "y3s2", "y4s1"][state.semesterIdx];
+  if (!semester) return null;
+  const semesterResourceIds = LAW_ROGUELITE_EVENTS.filter((event) => event.semester === semester).map((event) => event.id);
+  if (semesterResourceIds.some((id) => state.seenEvents.includes(id))) return null;
+  const pool = LAW_ROGUELITE_EVENTS.filter((event) => event.semester === semester && !state.seenEvents.includes(event.id));
+  if (!pool.length) return null;
+  const seed = Number(state.hiddenStats.lawRunSeed ?? 1) * 19 + state.semesterIdx * 13;
+  return pool[seed % pool.length].id;
+}
+
 export function shouldFollowLawEvent(state: MutableLawState & { semesterIdx: number; semesterEventCount?: number }, next: any) {
   if (!next) return false;
   if (next.type === "transfer" && next.id.startsWith("law_transfer_apply")) return true;
@@ -171,7 +191,7 @@ export function shouldFollowLawEvent(state: MutableLawState & { semesterIdx: num
 }
 
 export function shouldDrawLawOptional(state: MutableLawState & { semesterIdx: number; semesterEventCount?: number }) {
-  return (state.semesterEventCount ?? 0) < 2 && state.semesterIdx >= 0 && state.semesterIdx <= 6;
+  return (state.semesterEventCount ?? 0) < 3 && state.semesterIdx >= 0 && state.semesterIdx <= 6;
 }
 
 export function deriveLawResult(game: LawGameLike) {
@@ -261,6 +281,10 @@ function deriveExperiences(game: LawGameLike) {
 
 function deriveReasons(game: LawGameLike, routeId: string, personaId: string) {
   const reasons: string[] = [];
+  const decisionTitles = new Set(LAW_ROGUELITE_EVENTS.map((event) => event.title));
+  const tradeoffs = [...game.history].reverse().filter((item) => decisionTitles.has(item.title));
+  const evidenceChoices = tradeoffs.length > 1 ? [tradeoffs[0], tradeoffs[tradeoffs.length - 1]] : tradeoffs;
+  for (const item of evidenceChoices) reasons.push(`在“${item.title}”里，你选择了“${item.choice}”。系统把你保住和放弃的东西同时计入了人格结算。`);
   if (personaId === "evidence") reasons.push("面对争议时，你多次优先核对事实、时间线和原始材料。比如大一那次家庭咨询，你没有直接下结论。");
   if (personaId === "advocate") reasons.push("课堂点名和模拟法庭出现时，你选择把观点说完整，而不是让沉默替你答辩。");
   if (personaId === "rule_keeper") reasons.push("你的规则敏感度持续上升，遇到‘大家都这样’时仍会追问依据。");
@@ -340,6 +364,7 @@ function addRouteFromLegacy(scores: Record<string, number>, route: string) {
 
 function dim(state: MutableLawState, key: string) { return Number(state.hiddenStats[key] ?? 50); }
 function routeScore(state: MutableLawState, key: string) { return Number(state.routeScores?.[key] ?? 0); }
+function proof(state: MutableLawState, personaId: string) { return Number(state.hiddenStats[`personaEvidence_${personaId}`] ?? 0); }
 function add(bag: Record<string, number>, key: string, value: number) { bag[key] = Number(bag[key] ?? 0) + value; }
 function pushUnique(list: string[], item: string) { if (!list.includes(item)) list.push(item); }
 function unique<T>(items: T[]) { return [...new Set(items)]; }
