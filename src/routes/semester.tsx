@@ -1,308 +1,180 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { ArrowLeft, BatteryMedium, Compass, GraduationCap, History, UserRound, X } from "lucide-react";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
-import { SceneStage } from "@/components/game/SceneStage";
-import {
-  gameStore,
-  useGameState,
-  currentEventOf,
-  currentSemesterLabel,
-} from "@/lib/gameStore";
-import { HUD_STATS } from "@/lib/statsMeta";
+import { EventCampusArt } from "@/components/game/CampusArt";
+import { EventCard } from "@/components/ui/EventCard";
+import { gameStore, useGameState, currentEventOf, currentSemesterLabel } from "@/lib/gameStore";
 import { totalSemesters } from "@/data/script/semesterMeta";
 import { majorById } from "@/data/script/majorCatalog";
-import { EventCard } from "@/components/ui/EventCard";
-import { CharacterPanel } from "@/components/ui/CharacterPanel";
-
-import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
-import { PixelButton3 } from "@/components/pixel/PixelSkin";
 
 export const Route = createFileRoute("/semester")({ component: SemesterPage });
-
-const LAYOUT_HEIGHT = "calc(100dvh - 98px)";
 
 function SemesterPage() {
   const game = useGameState();
   const navigate = useNavigate();
   const major = game.majorId ? majorById[game.majorId] : null;
-
   const [feedback, setFeedback] = useState<{ event: any; choice: any } | null>(null);
   const [drawer, setDrawer] = useState<"none" | "profile" | "log">("none");
 
   useEffect(() => {
     if (game.hydrated && !game.majorId) navigate({ to: "/major" });
   }, [game.hydrated, game.majorId, navigate]);
-  useEffect(() => {
-    void gameStore.ensureRuntimeData();
-  }, [game.majorId, game.currentEventId, game.currentEventData]);
+  useEffect(() => { void gameStore.ensureRuntimeData(); }, [game.majorId, game.currentEventId, game.currentEventData]);
   useEffect(() => {
     if (game.finished) navigate({ to: "/result" });
     else if (game.midwayFinished) navigate({ to: "/midway-result" });
   }, [game.finished, game.midwayFinished, navigate]);
 
   const currentEvent = useMemo(() => currentEventOf(game), [game]);
-  const sceneKey = currentEvent?.scene ?? undefined;
+  if (!major) return null;
 
-  const onPick = (choice: any) => {
-    if (!currentEvent) return;
-    setFeedback({ event: currentEvent, choice });
-  };
-
-  const confirmNext = () => {
+  const confirmNext = async () => {
     if (!feedback) return;
-    void gameStore.applyChoice(feedback.choice);
+    await gameStore.applyChoice(feedback.choice);
     setFeedback(null);
   };
 
-  if (!major) return null;
-
-  const total = totalSemesters();
-
+  const coreStats = getCoreStats(game.stats);
   const topBar = (
-    <div className="border-b-[3px] border-ink bg-ink text-cream px-3 py-3 min-h-[58px] flex items-center gap-2">
-      <button
-        onClick={() => navigate({ to: "/" })}
-        className="text-[12px] px-2 py-1 border-2 border-cream leading-none"
-      >
-        ⌂
-      </button>
-      <div className="min-w-0 flex-1">
-        <div className="font-display text-[14px] leading-none truncate">{currentSemesterLabel(game)}</div>
-        <div className="text-[11px] text-cream/70 leading-none mt-1 truncate">
-          {major.name} · {game.school}
+    <header className="v4-topbar !items-start">
+      <button className="v4-icon-button" aria-label="返回首页" onClick={() => navigate({ to: "/" })}><ArrowLeft size={19} /></button>
+      <div className="min-w-0 flex-1 pt-0.5">
+        <div className="flex items-baseline justify-between gap-3">
+          <div className="v4-title truncate text-[18px]">{currentSemesterLabel(game)}</div>
+          <span className="shrink-0 text-[11px] font-bold text-[var(--v4-muted)]">{game.semesterIdx + 1} / {totalSemesters()}</span>
+        </div>
+        <div className="mt-1 truncate text-[11px] text-[var(--v4-muted)]">{major.name} · {game.characterName}</div>
+        <div className="v4-progress mt-2" aria-label="本科四年进度">
+          {Array.from({ length: totalSemesters() }).map((_, index) => <span key={index} className={index < game.semesterIdx ? "is-done" : index === game.semesterIdx ? "is-current" : ""} />)}
         </div>
       </div>
-      <div className="flex items-center gap-2 shrink-0">
-        <span className="font-display text-[12px] tabular-nums">
-          {game.semesterIdx + 1} / {total}
-        </span>
-        <button
-          onClick={() => {
-            gameStore.quitToMidway();
-            navigate({ to: "/midway-result" });
-          }}
-          className="text-[11px] px-2.5 py-1 border-2 border-cream bg-cherry text-cream leading-none"
-        >
-          结
-        </button>
-
-      </div>
-    </div>
+    </header>
   );
 
   const bottomBar = (
-    <div className="border-t-[3px] border-ink bg-cream px-2.5 py-2 grid grid-cols-2 gap-2">
-      <button onClick={() => setDrawer("profile")} className="pixel-tab !justify-center py-1.5">
-        档案
-      </button>
-      <button onClick={() => setDrawer("log")} className="pixel-tab !justify-center py-1.5">
-        事件记录
-      </button>
-    </div>
+    <footer className="grid grid-cols-2 gap-2 border-t border-[var(--v4-line)] bg-[var(--v4-paper)] p-3">
+      <button className="v4-secondary" onClick={() => setDrawer("profile")}><UserRound size={16} />我的状态</button>
+      <button className="v4-secondary" onClick={() => setDrawer("log")}><History size={16} />走过的路</button>
+    </footer>
   );
 
   return (
     <PhoneFrame topBar={topBar} bottomBar={bottomBar}>
-      <div className="semester-screen" style={{ height: LAYOUT_HEIGHT }}>
-        {/* HUD：6 项明面数值 —— 紧凑 3×2 分段像素条 */}
-        <div className="semester-hud">
-          <div className="grid grid-cols-3 gap-x-3 gap-y-2">
-            {HUD_STATS.map((s) => (
-              <HudCell key={s.key} short={s.short} value={game.stats[s.key] ?? 0} color={s.color} />
-            ))}
-          </div>
-        </div>
+      <div className="v4-hud">
+        {coreStats.map((stat) => <CoreStat key={stat.label} {...stat} />)}
+      </div>
 
+      <div className="v4-semester-content">
         {currentEvent ? (
           <>
-            {/* 主场景（素材位） */}
-            <div className="semester-scene-wrap">
-              <SceneStage
-                scene={sceneKey}
-                badge={currentEvent.tags?.[0]}
-                title={currentEvent.title}
-                caption={currentEvent.body ?? currentEvent.description}
-              />
-            </div>
-
-            {/* 事件卡（含选项按钮） */}
-            <div className="semester-event-wrap">
-              <EventCard event={currentEvent} onPick={onPick} />
-            </div>
+            <EventCampusArt majorId={major.id} mood={currentEvent.type === "gg_check" ? "crisis" : "thinking"} />
+            <EventCard event={currentEvent} onPick={(choice) => setFeedback({ event: currentEvent, choice })} />
           </>
         ) : (
-          <div className="semester-event-wrap mt-8">
-            <PixelPanel9 variant="event" padding="px-4 py-6" className="text-center">
-              <div className="font-display text-[14px] tracking-wider">正在加载课程表…</div>
-              <div className="mt-2 text-[11px] text-ink/60">教务系统正在缓慢开机</div>
-            </PixelPanel9>
+          <div className="grid min-h-[360px] place-items-center text-center">
+            <div><div className="v4-title text-[18px]">教务系统正在加载</div><div className="mt-2 text-[12px] text-[var(--v4-muted)]">它一直不快，但一般还能用。</div></div>
           </div>
         )}
       </div>
 
-
-      {feedback && (
-        <FeedbackModal
-          event={feedback.event}
-          choice={feedback.choice}
-          onNext={confirmNext}
-        />
-      )}
-
-      {game.pendingReviveReason && !feedback && (
-        <ReviveModal
-          onAccept={() => gameStore.acceptRevive()}
-          onDecline={() => {
-            gameStore.declineRevive();
-            navigate({ to: "/midway-result" });
-          }}
-        />
-      )}
-
-
-      {drawer !== "none" && (
-        <DrawerSheet onClose={() => setDrawer("none")}>
-          {drawer === "profile" ? <CharacterPanel /> : <LogDrawer />}
-        </DrawerSheet>
-      )}
+      {feedback && <FeedbackSheet event={feedback.event} choice={feedback.choice} onClose={() => setFeedback(null)} onNext={confirmNext} />}
+      {game.pendingReviveReason && !feedback && <ReviveModal onAccept={() => gameStore.acceptRevive()} onDecline={() => { gameStore.declineRevive(); navigate({ to: "/midway-result" }); }} />}
+      {drawer !== "none" && <InfoDrawer type={drawer} onClose={() => setDrawer("none")} />}
     </PhoneFrame>
   );
 }
 
-function HudCell({ short, value, color }: { short: string; value: number; color: string }) {
-  const v = Math.max(0, Math.min(100, value));
+function getCoreStats(stats: Record<string, number>) {
+  return [
+    { label: "精力", value: stats.energy ?? 0, color: "var(--v4-blue)", icon: BatteryMedium },
+    { label: "专业认同", value: Math.round(((stats.obsession ?? 0) + (100 - (stats.escapeImpulse ?? 0))) / 2), color: "var(--v4-coral)", icon: Compass },
+    { label: "未来筹码", value: Math.round(((stats.gpaWill ?? 0) + (stats.careerFantasy ?? 0)) / 2), color: "var(--v4-mint)", icon: GraduationCap },
+  ];
+}
+
+function CoreStat({ label, value, color, icon: Icon }: ReturnType<typeof getCoreStats>[number]) {
+  const safe = Math.max(0, Math.min(100, value));
   return (
-    <div className="flex flex-col gap-1 leading-none">
-      <div className="pixel-seg-bar">
-        <div className="pixel-seg-bar-fill" style={{ width: `${v}%`, backgroundColor: color }} />
-      </div>
-      <div className="flex items-baseline gap-1 whitespace-nowrap px-[1px]">
-        <span className="font-display text-[11px] text-ink/80">{short}</span>
-        <span className="font-display text-[13px] tabular-nums ml-auto">{Math.round(value)}</span>
+    <div className="v4-stat">
+      <div className="v4-stat-label"><Icon size={13} />{label}</div>
+      <strong>{safe}</strong>
+      <div className="v4-stat-track"><div className="v4-stat-fill" style={{ width: `${safe}%`, background: color }} /></div>
+    </div>
+  );
+}
+
+function FeedbackSheet({ event, choice, onClose, onNext }: { event: any; choice: any; onClose: () => void; onNext: () => void }) {
+  const deltas = visibleDeltas(choice);
+  return (
+    <div className="v4-overlay">
+      <div className="v4-sheet">
+        <div className="v4-sheet-handle" />
+        <div className="flex items-start justify-between gap-4">
+          <div><div className="text-[11px] font-bold text-[var(--v4-muted)]">你选择了</div><div className="v4-title mt-1 text-[19px] leading-snug">{choice.text}</div></div>
+          <button className="v4-icon-button" aria-label="返回选择" onClick={onClose}><X size={18} /></button>
+        </div>
+        <div className="v4-feedback-result">{choice.feedback || choice.resultText || event.description || "事情就这样发生了。"}</div>
+        {deltas.length > 0 && <div className="v4-delta-row">{deltas.map((delta) => <span className={`v4-delta ${delta.value > 0 ? "positive" : "negative"}`} key={delta.label}>{delta.label} {delta.value > 0 ? "+" : ""}{delta.value}</span>)}</div>}
+        <button className="v4-primary w-full" onClick={onNext}>接受这个结果，继续</button>
       </div>
     </div>
   );
 }
 
-
-function FeedbackModal({
-  event,
-  choice,
-  onNext,
-}: {
-  event: any;
-  choice: any;
-  onNext: () => void;
-}) {
-  return (
-    <div className="absolute inset-0 z-50 flex items-center justify-center px-4">
-      <div className="absolute inset-0 bg-ink/55" />
-      <PixelPanel9
-        variant="noteYellow"
-        className="relative z-10 animate-pop-in flex flex-col"
-        style={{ width: 280, minHeight: Math.round(280 * 1536 / 1024) }}
-        padding="p-4 flex flex-col h-full"
-      >
-        <div className="inline-flex items-center self-start border-2 border-ink bg-cream px-2.5 py-1 text-[11px] font-display tracking-wider"
-             style={{ boxShadow: "2px 2px 0 0 var(--ink)" }}>
-          系统记录
-        </div>
-
-        <div className="mt-4 font-display text-[19px] leading-snug">{event?.title}</div>
-
-        <p className="mt-2 text-[13.5px] leading-relaxed text-ink/85">
-          {choice?.text}。
-        </p>
-
-        <div className="mt-4 h-[2px] bg-ink/25" />
-
-        <div className="mt-3 text-[10.5px] font-display tracking-[0.25em] text-ink/55">
-          系统提示
-        </div>
-        <p className="mt-1.5 text-[14px] leading-relaxed">
-          {choice?.feedback || choice?.resultText || "……"}
-        </p>
-
-        <div className="mt-auto pt-5">
-          <PixelButton3 variant="primary" onClick={onNext}>
-            继续 →
-          </PixelButton3>
-        </div>
-      </PixelPanel9>
-    </div>
-  );
+function visibleDeltas(choice: any) {
+  const stats = choice.effects?.stats ?? choice.statChanges ?? {};
+  const rows = [
+    { label: "精力", value: Number(stats.energy ?? 0) },
+    { label: "专业认同", value: Number(stats.obsession ?? 0) - Number(stats.escapeImpulse ?? 0) },
+    { label: "未来筹码", value: Math.round((Number(stats.gpaWill ?? 0) + Number(stats.careerFantasy ?? 0)) / 2) },
+  ];
+  return rows.filter((row) => row.value !== 0);
 }
 
-function DrawerSheet({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
-  return (
-    <>
-      <button
-        aria-label="关闭"
-        onClick={onClose}
-        className="absolute inset-0 z-40 bg-ink/40"
-      />
-      <div className="absolute inset-x-0 bottom-0 z-50 sheet-panel p-3 pb-5 animate-pop-in max-h-[78%] overflow-y-auto">
-        <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-ink/40" />
-        {children}
-      </div>
-    </>
-  );
-}
-
-function LogDrawer() {
+function InfoDrawer({ type, onClose }: { type: "profile" | "log"; onClose: () => void }) {
   const game = useGameState();
+  const major = majorById[game.majorId];
   return (
-    <div>
-      <div className="font-display text-[15px] mb-2">事件记录</div>
-      {game.history.length === 0 && (
-        <div className="text-[12px] text-ink/60">还没有记录。</div>
-      )}
-      <ul className="space-y-1.5">
-        {game.history.map((h, i) => (
-          <li key={i} className="pixel-border-sm !shadow-none bg-cream p-2 text-[12px]">
-            <div className="flex justify-between text-[10px] text-ink/60">
-              <span>{h.semester}</span>
-              <span>#{game.history.length - i}</span>
-            </div>
-            <div className="font-display text-[13px] mt-0.5">{h.title}</div>
-            <div className="text-[11px] text-ink/80">→ {h.choice}</div>
-          </li>
-        ))}
-      </ul>
+    <div className="v4-overlay">
+      <div className="v4-sheet">
+        <div className="v4-sheet-handle" />
+        <div className="flex items-center justify-between">
+          <div className="v4-title text-[20px]">{type === "profile" ? "我的状态" : "走过的路"}</div>
+          <button className="v4-icon-button" aria-label="关闭" onClick={onClose}><X size={18} /></button>
+        </div>
+        {type === "profile" ? (
+          <div className="mt-4 grid gap-3">
+            <div className="v4-save-line"><UserRound size={18} /><span><strong>{game.characterName}</strong> · {major?.name} · {currentSemesterLabel(game)}</span></div>
+            <div className="grid grid-cols-3 gap-2">{getCoreStats(game.stats).map((stat) => <CoreStat key={stat.label} {...stat} />)}</div>
+            <div className="text-[12px] leading-relaxed text-[var(--v4-muted)]">已经历 {game.history.length} 个事件，解锁 {game.achievements.length} 个记录。隐藏数值仍在影响故事，但不会一直拿出来吓你。</div>
+          </div>
+        ) : (
+          <div className="mt-4 grid gap-2">
+            {game.history.length === 0 && <div className="py-8 text-center text-[12px] text-[var(--v4-muted)]">还没做出第一个决定。</div>}
+            {game.history.map((item, index) => (
+              <div className="v4-detail-section" key={`${item.title}-${index}`}>
+                <div className="text-[10px] font-bold text-[var(--v4-muted)]">{item.semester}</div>
+                <div className="mt-1 text-[13px] font-bold">{item.title}</div>
+                <div className="mt-1 text-[12px] leading-relaxed text-[var(--v4-muted)]">你选择：{item.choice}</div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
 function ReviveModal({ onAccept, onDecline }: { onAccept: () => void; onDecline: () => void }) {
   return (
-    <div className="absolute inset-0 z-50 flex items-center justify-center px-4">
-      <div className="absolute inset-0 bg-ink/70" />
-      <PixelPanel9
-        variant="noteYellow"
-        className="relative z-10 animate-pop-in flex flex-col"
-        style={{ width: 288, minHeight: 360 }}
-        padding="p-4 flex flex-col h-full"
-      >
-        <div className="inline-flex items-center self-start border-2 border-ink bg-cherry text-cream px-2.5 py-1 text-[11px] font-display tracking-wider"
-             style={{ boxShadow: "2px 2px 0 0 var(--ink)" }}>
-          ⚠ 紧急抢救
-        </div>
-        <div className="mt-4 font-display text-[19px] leading-snug">嘴硬续命？</div>
-        <p className="mt-2 text-[13px] leading-relaxed text-ink/85">
-          你已触发【本科人生紧急抢救状态】。<br/>
-          是否发动一次性技能「嘴硬续命」？
-        </p>
-        <div className="mt-3 h-[2px] bg-ink/25" />
-        <div className="mt-2 text-[10.5px] font-display tracking-[0.25em] text-ink/55">代价</div>
-        <ul className="mt-1 space-y-0.5 text-[12px] leading-[1.55] text-ink/85">
-          <li>· 跑路冲动 −25 · 精神电量 −8 · 滤镜 −10</li>
-          <li>· 嘴硬浓度 +35（解锁成就「嘴硬续命」）</li>
-        </ul>
-        <div className="mt-auto pt-4 grid grid-cols-2 gap-2">
-          <PixelButton3 variant="ghost" onClick={onDecline}>先撤了</PixelButton3>
-          <PixelButton3 variant="primary" onClick={onAccept}>嘴硬续命</PixelButton3>
-        </div>
-      </PixelPanel9>
+    <div className="v4-overlay !items-center">
+      <div className="v4-modal">
+        <div className="text-[11px] font-bold text-[var(--v4-red)]">状态预警</div>
+        <div className="v4-title mt-1 text-[22px]">这一局快撑不住了</div>
+        <p className="mt-2 text-[13px] leading-relaxed text-[var(--v4-muted)]">你可以接受现在的结局，也可以使用一次“嘴硬续命”：先缓一口气，降低跑路冲动，再继续往下读。</p>
+        <div className="mt-5 grid grid-cols-2 gap-2"><button className="v4-secondary" onClick={onDecline}>到这里也行</button><button className="v4-primary" onClick={onAccept}>再撑一学期</button></div>
+      </div>
     </div>
   );
 }

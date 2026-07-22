@@ -1,68 +1,12 @@
 import { useEffect } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { ArrowLeft, ArrowRight, BatteryMedium, Compass, GraduationCap } from "lucide-react";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
+import { MajorMark } from "@/components/game/CampusArt";
 import { useGameState } from "@/lib/gameStore";
 import { majorById } from "@/data/script/majorCatalog";
-import { HUD_STATS } from "@/lib/statsMeta";
-import {
-  PixelStatBar,
-  PixelTierBadge,
-  PixelButton3,
-} from "@/components/pixel/PixelSkin";
 
 export const Route = createFileRoute("/intro")({ component: IntroPage });
-
-/** 深棕机身背景色 —— 与参考图一致 */
-const WOOD = "#3a2418";
-const WOOD_HI = "#5a3a28";
-
-/** 顶部深棕框内的「← 返回」像素按钮 */
-function BackChip({ onClick }: { onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className="relative inline-flex items-center justify-center font-display text-cream text-[12px] tracking-wider select-none border-[3px] border-cream/90 active:translate-x-[1px] active:translate-y-[1px]"
-      style={{
-        background: WOOD_HI,
-        padding: "6px 12px",
-        boxShadow: `0 2px 0 0 rgba(0,0,0,0.5), inset 0 2px 0 0 rgba(255,255,255,0.08)`,
-        borderRadius: 0,
-      }}
-    >
-      ← 返回
-    </button>
-  );
-}
-
-/** 顶部卷轴形标题：专业建档中... */
-function ScrollTitle() {
-  return (
-    <div
-      className="relative flex-1 inline-flex items-center justify-center font-display text-ink tracking-[0.15em] select-none border-[3px] border-ink"
-      style={{
-        background: "var(--parchment)",
-        padding: "8px 16px",
-        minHeight: 40,
-        fontSize: 15,
-        boxShadow: `0 3px 0 0 var(--ink), inset 0 2px 0 0 rgba(255,255,255,0.35), inset 0 -3px 0 0 rgba(0,0,0,0.12)`,
-        borderRadius: 0,
-      }}
-    >
-      {/* 卷轴左右耳朵 */}
-      <span
-        aria-hidden
-        className="absolute -left-2 top-1/2 -translate-y-1/2 block"
-        style={{ width: 8, height: 20, background: "var(--ink)" }}
-      />
-      <span
-        aria-hidden
-        className="absolute -right-2 top-1/2 -translate-y-1/2 block"
-        style={{ width: 8, height: 20, background: "var(--ink)" }}
-      />
-      专业建档中...
-    </div>
-  );
-}
 
 function IntroPage() {
   const game = useGameState();
@@ -70,156 +14,59 @@ function IntroPage() {
   const major = game.majorId ? majorById[game.majorId] : null;
 
   useEffect(() => {
-    if (major) return;
-    // 首帧 SSR 快照可能 majorId 为空，等 localStorage 水合一次；
-    // 若存档里也没有 majorId 才回到选专业。
-    try {
-      const raw =
-        typeof window !== "undefined"
-          ? window.localStorage.getItem("cszmg_save_v3")
-          : null;
-      if (raw && JSON.parse(raw)?.majorId) return;
-    } catch {
-      /* ignore */
-    }
-    navigate({ to: "/major" });
-  }, [major, navigate]);
+    if (game.hydrated && !major) navigate({ to: "/major" });
+  }, [game.hydrated, major, navigate]);
 
   if (!major) return null;
 
-  const tier = (major.tier ?? "B") as "S" | "A" | "B" | "C";
+  const coreStats = [
+    { label: "精力", value: game.stats.energy ?? 0, color: "var(--v4-blue)", icon: BatteryMedium },
+    { label: "专业认同", value: game.stats.obsession ?? 0, color: "var(--v4-coral)", icon: Compass },
+    { label: "未来筹码", value: Math.round(((game.stats.gpaWill ?? 0) + (game.stats.careerFantasy ?? 0)) / 2), color: "var(--v4-mint)", icon: GraduationCap },
+  ];
 
   const topBar = (
-    <div
-      className="flex items-center gap-3 px-3 pt-3 pb-3 border-b-[3px] border-ink"
-      style={{ background: WOOD }}
-    >
-      <BackChip onClick={() => navigate({ to: "/major" })} />
-      <ScrollTitle />
-    </div>
+    <header className="v4-topbar">
+      <button className="v4-icon-button" aria-label="返回专业选择" onClick={() => navigate({ to: "/major" })}><ArrowLeft size={19} /></button>
+      <div><div className="v4-title text-[19px]">入学确认</div><div className="mt-0.5 text-[11px] text-[var(--v4-muted)]">最后看一眼，然后真的去读</div></div>
+    </header>
   );
 
   return (
     <PhoneFrame topBar={topBar}>
-      <div
-        className="flex-1 min-h-0 overflow-y-auto"
-        style={{ background: WOOD }}
-      >
-        <div className="p-3 pb-5">
-          <div
-            className="relative border-[3px] border-ink p-4"
-            style={{
-              background: "var(--cream)",
-              boxShadow: "4px 4px 0 0 var(--ink)",
-              borderRadius: 0,
-              imageRendering: "pixelated",
-            }}
-          >
-            {/* 顶部：旗帜 · 专业名 · 段位徽章 */}
-            <div className="flex items-start gap-2">
-              <div
-                className="shrink-0 select-none leading-none"
-                style={{ fontSize: 30 }}
-                aria-hidden
-              >
-                🚩
-              </div>
-              <div className="flex-1 min-w-0 text-center">
-                <h1
-                  className="pixel-logo leading-tight break-words"
-                  style={{ fontSize: 22 }}
-                >
-                  {major.name}
-                </h1>
-                <div className="mt-1 text-[11px] text-ink/70">
-                  · {game.school} ·
-                </div>
-              </div>
-              <PixelTierBadge tier={tier} size={38} className="shrink-0" />
-            </div>
-
-            {/* 录取通知条 */}
-            <div className="mt-3 flex items-center gap-2">
-              <span className="flex-1 border-t-[2px] border-dotted border-ink/40" aria-hidden />
-              <span className="font-display text-[10.5px] tracking-[0.3em] text-ink/80">
-                录取通知 · 新生报到
-              </span>
-              <span className="flex-1 border-t-[2px] border-dotted border-ink/40" aria-hidden />
-            </div>
-
-            {/* 正文文案 */}
-            <div className="mt-3 text-center font-display text-[12.5px] leading-[1.8] text-ink px-1">
-              <p>恭喜你！即将开启 {major.name} 副本。</p>
-              <p className="mt-1 text-ink/80">
-                {major.card?.subtitle ??
-                  major.card?.description ??
-                  "未来四年，愿你披荆斩棘，全身而退。"}
-              </p>
-            </div>
-
-            {/* 场景插图占位（等待美术贴图） */}
-            <div
-              className="mt-4 relative w-full flex items-center justify-center border-[3px] border-dashed border-ink/40"
-              style={{ height: 200, background: "rgba(0,0,0,0.04)" }}
-            >
-              <div className="text-center text-ink/45 font-display text-[10.5px] tracking-[0.25em]">
-                [ 专业场景插图占位 ]
-                <div className="mt-1 text-[9px] tracking-[0.2em]">
-                  ILLUSTRATION · ~ 320 × 200
-                </div>
-              </div>
-            </div>
-
-            {/* 初始属性 */}
-            <div className="mt-5 flex items-center gap-1.5">
-              <span className="text-ink text-[14px] leading-none">★</span>
-              <span className="font-display text-[11px] tracking-[0.2em] text-ink/80">
-                初始属性
-              </span>
-              <span
-                className="flex-1 border-t border-dashed border-ink/30 ml-1"
-                aria-hidden
-              />
-            </div>
-
-            <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-3">
-              {HUD_STATS.map((s) => {
-                const v = Math.max(
-                  0,
-                  Math.min(100, Math.round(game.stats[s.key] ?? 0)),
-                );
-                return (
-                  <div key={s.key} className="min-w-0">
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="text-[12px] text-ink whitespace-nowrap">
-                        {s.label}
-                      </span>
-                      <span className="font-display text-[12px] tabular-nums text-ink">
-                        {v}
-                      </span>
-                    </div>
-                    <PixelStatBar
-                      value={v}
-                      color={s.color}
-                      height={14}
-                      className="mt-1"
-                    />
-                  </div>
-                );
-              })}
+      <div className="v4-scroll">
+        <div className="v4-detail">
+          <div className="flex items-center gap-4 rounded-[8px] border-[1.5px] border-[var(--v4-ink)] bg-white p-4">
+            <MajorMark id={major.id} size={64} />
+            <div className="min-w-0">
+              <div className="text-[12px] font-bold text-[var(--v4-muted)]">{game.characterName} 的本科录取结果</div>
+              <h1 className="v4-title mt-1 text-[28px] leading-tight">{major.name}</h1>
+              <div className="mt-1 text-[12px] text-[var(--v4-muted)]">云上大学 · 四年制本科</div>
             </div>
           </div>
 
-          {/* 进入大一上 */}
-          <div className="mt-4">
-            <PixelButton3
-              variant="primaryTall"
-              onClick={() => navigate({ to: "/semester" })}
-            >
-              进入大学 · 大一上
-            </PixelButton3>
+          <p className="m-0 text-[14px] leading-[1.75] text-[var(--v4-muted)]">{major.intro?.body?.split("\n")[0] ?? major.card?.description}</p>
+
+          <div className="grid grid-cols-3 gap-2">
+            {coreStats.map(({ label, value, color, icon: Icon }) => (
+              <div className="v4-stat" key={label}>
+                <div className="v4-stat-label"><Icon size={13} />{label}</div>
+                <strong>{Math.round(value)}</strong>
+                <div className="v4-stat-track"><div className="v4-stat-fill" style={{ width: `${Math.max(0, Math.min(100, value))}%`, background: color }} /></div>
+              </div>
+            ))}
           </div>
+
+          <section className="v4-detail-section">
+            <h3 className="v4-title">未来四年大概率会遇到</h3>
+            <ul>{(major.painPoints ?? []).slice(0, 4).map((item: string) => <li key={item}>{item}</li>)}</ul>
+          </section>
+
+          <div className="rounded-[8px] bg-[var(--v4-soft)] p-3 text-[12px] leading-relaxed text-[var(--v4-muted)]">提示：这不是专业测评，也没有标准答案。选你当下最想选的，后果才会像你自己的故事。</div>
         </div>
+      </div>
+      <div className="border-t border-[var(--v4-line)] p-4">
+        <button className="v4-primary w-full" onClick={() => navigate({ to: "/semester" })}>从大一上开始<ArrowRight size={19} /></button>
       </div>
     </PhoneFrame>
   );

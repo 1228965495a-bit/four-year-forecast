@@ -1,6 +1,4 @@
-// 事件卡：接脚本引擎的新 event/choice 结构。
-import { PixelPanel9 } from "@/components/pixel/PixelPanel9";
-import { PixelButton3 } from "@/components/pixel/PixelSkin";
+import { ChevronRight } from "lucide-react";
 
 type Choice = {
   id?: string;
@@ -8,6 +6,7 @@ type Choice = {
   feedback?: string;
   resultText?: string;
   effects?: any;
+  statChanges?: Record<string, number>;
 };
 
 type EventLike = {
@@ -22,59 +21,40 @@ type EventLike = {
 };
 
 const TYPE_LABEL: Record<string, string> = {
-  main: "主线",
-  major_random: "日常",
-  hidden: "隐藏",
-  route: "路线",
-  transfer: "转专业",
-  gg_check: "危机判定",
-  settlement: "结算",
+  main: "主线事件", major_random: "校园日常", hidden: "隐藏事件",
+  route: "方向选择", transfer: "转专业机会", gg_check: "状态预警", settlement: "学期结算",
 };
 
-export function EventCard({
-  event,
-  onPick,
-}: {
-  event: EventLike;
-  onPick: (opt: Choice) => void;
-}) {
-  const opts = event.options ?? event.choices ?? [];
-  const badge = TYPE_LABEL[event.type ?? "main"] ?? event.type ?? "";
+export function EventCard({ event, onPick }: { event: EventLike; onPick: (opt: Choice) => void }) {
+  const options = event.options ?? event.choices ?? [];
   const body = event.body ?? event.description ?? "";
+
   return (
-    <PixelPanel9 variant="event" padding="px-3 pt-2 pb-2.5">
-      <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-2 mb-1.5">
-        <span className="rank-badge rank-B" aria-hidden>
-          {badge.slice(0, 1) || "?"}
-        </span>
-        <span className="min-w-0 font-display text-[13px] leading-snug line-clamp-2 break-words">
-          {event.title}
-        </span>
-      </div>
-      <p className="event-dialog-text mb-2 text-[12px] leading-snug">{body}</p>
-      <div className="event-options space-y-1.5">
-        {opts.map((opt, i) => (
-          <OptionRow key={opt.id ?? i} option={opt} onPick={onPick} index={i} />
+    <article className="v4-event-card">
+      <div className="v4-event-eyebrow">{TYPE_LABEL[event.type ?? "main"] ?? "本科日常"}</div>
+      <h2 className="v4-title">{event.title}</h2>
+      <p className="v4-event-body">{body}</p>
+      <div className="v4-options">
+        {options.map((option, index) => (
+          <button className="v4-choice" key={option.id ?? index} onClick={() => onPick(option)}>
+            <span className="v4-choice-index">{String.fromCharCode(65 + index)}</span>
+            <span className="v4-choice-text">{option.text}</span>
+            <span className="flex items-center gap-2">
+              <ImpactHints option={option} />
+              <ChevronRight size={17} color="var(--v4-muted)" />
+            </span>
+          </button>
         ))}
       </div>
-    </PixelPanel9>
+    </article>
   );
 }
 
-function OptionRow({ option, onPick, index }: { option: Choice; onPick: (o: Choice) => void; index: number }) {
-  const letter = String.fromCharCode(65 + index);
-  return (
-    <PixelButton3
-      variant="option"
-      full
-      onClick={() => onPick(option)}
-      style={{ minHeight: 38, padding: "6px 12px", fontSize: 12.5 }}
-    >
-      <span className="flex-1 min-w-0 flex items-center gap-2">
-        <span className="font-display text-ink/70 text-[12px] shrink-0">{letter}.</span>
-        <span className="flex-1 min-w-0 text-left leading-snug whitespace-normal">{option.text}</span>
-        <span className="text-ink/60 shrink-0 text-[11px]">▶</span>
-      </span>
-    </PixelButton3>
-  );
+function ImpactHints({ option }: { option: Choice }) {
+  const changes = option.effects?.stats ?? option.statChanges ?? {};
+  const hints: string[] = [];
+  if (changes.energy) hints.push("var(--v4-blue)");
+  if (changes.obsession || changes.filter || changes.escapeImpulse) hints.push("var(--v4-coral)");
+  if (changes.gpaWill || changes.careerFantasy) hints.push("var(--v4-mint)");
+  return <span className="v4-choice-hints" aria-hidden>{hints.slice(0, 3).map((color, i) => <span className="v4-impact" style={{ background: color }} key={`${color}-${i}`} />)}</span>;
 }

@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { ArrowRight, BookOpen, Pencil, Play, RotateCcw, UserRound, X } from "lucide-react";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
-import { CampusScene, GlyphPlay, GlyphBook, GlyphPerson, GlyphDisk } from "@/components/game/PixelIcon";
+import { HomeCampusArt } from "@/components/game/CampusArt";
 import { useGameState, gameStore } from "@/lib/gameStore";
 import { majorById } from "@/data/script/majorCatalog";
-import { PixelButton } from "@/components/ui/PixelButton";
-import { PixelPanel } from "@/components/ui/PixelPanel";
-import { PixelButton3 } from "@/components/pixel/PixelSkin";
 
 export const Route = createFileRoute("/")({ component: HomePage });
 
@@ -16,252 +14,97 @@ function HomePage() {
   const currentMajor = game.majorId ? majorById[game.majorId] : null;
   const hasSave = !!currentMajor;
   const [characterOpen, setCharacterOpen] = useState(false);
+  const [restartOpen, setRestartOpen] = useState(false);
   const [nameDraft, setNameDraft] = useState(game.characterName);
 
-  const onStart = () => {
-    if (!hasSave) {
-      const { characterName } = gameStore.get();
-      gameStore.reset();
-      gameStore.set({ characterName, school: "云上大学" });
-    }
+  const startFresh = () => {
+    const { characterName } = gameStore.get();
+    gameStore.reset();
+    gameStore.set({ characterName, school: "云上大学" });
+    setRestartOpen(false);
     navigate({ to: "/major" });
   };
-  const onCharacter = () => {
+
+  const continueGame = () => {
+    if (!hasSave) return startFresh();
+    navigate({ to: game.finished ? "/result" : game.midwayFinished ? "/midway-result" : "/semester" });
+  };
+
+  const openCharacter = () => {
     setNameDraft(game.characterName);
     setCharacterOpen(true);
   };
+
   const saveCharacter = () => {
-    gameStore.set({
-      characterName: nameDraft.trim() || "新生同学",
-      school: "云上大学",
-    });
+    gameStore.set({ characterName: nameDraft.trim() || "新生同学", school: "云上大学" });
     setCharacterOpen(false);
   };
 
   return (
     <PhoneFrame>
-      <div className="relative flex flex-col gap-2.5 p-2.5 pb-4">
-        {/* ============ 顶部游戏栏 ============ */}
-        <div className="pixel-panel-sm !p-1.5 bg-ink !text-cream flex items-center gap-2">
-          <div className="h-4 w-4 bg-cherry border-2 border-cream" />
-          <span className="font-display text-[10px] tracking-widest text-cream">
-            CAMPUS · SIM · v0.3
-          </span>
-          <span className="ml-auto flex items-center gap-1 text-[9px] text-cream/80">
-            <span className="h-1.5 w-1.5 bg-sage animate-pixel-blink" />
-            LIVE
-          </span>
-        </div>
-
-        {/* ============ 游戏画面（校园场景 + 大标题）============ */}
-        <div className="pixel-panel !p-0 overflow-hidden">
-          <div className="relative">
-            <CampusScene height={190} />
-            <div className="absolute inset-0 pixel-scanlines pointer-events-none opacity-30" />
-            {/* Logo 悬浮 */}
-            <div className="absolute inset-x-0 bottom-2 flex justify-center">
-              <div className="inline-block pixel-panel-sm bg-cherry !text-cream !shadow-[3px_3px_0_0_var(--ink)] px-2.5 py-0.5">
-                <span className="font-display text-[10px] tracking-[0.2em] text-cream">
-                  ENTER · UNIVERSITY · DUNGEON
-                </span>
-              </div>
-            </div>
+      <div className="v4-home-scroll">
+        <div className="v4-home">
+          <div className="v4-brand-row">
+            <span className="v4-kicker">云上大学 · 本科人生模拟器</span>
+            <span className="v4-version">新版本预览</span>
           </div>
-          <div className="border-t-[3px] border-ink bg-cream text-center px-3 py-3">
-            <h1 className="pixel-logo text-[24px] leading-[1.05]">
-              这专业我
-              <br />
-              先替你读了四年
-            </h1>
-            <p className="mt-2 text-[11px] text-ink/70 leading-snug">
-              选一个专业，进入一段离谱又真实的本科副本
-            </p>
+
+          <HomeCampusArt />
+
+          <h1 className="v4-title">这专业我<br />先替你读了四年</h1>
+          <p className="v4-home-lead">选一个专业，做一点当时觉得合理的决定，然后看看四年后自己到底活成了什么样。</p>
+
+          {hasSave && (
+            <div className="v4-save-line">
+              <UserRound size={18} />
+              <span><strong>{game.characterName}</strong> 正在读 {currentMajor?.name} · 第 {game.semesterIdx + 1} 学期</span>
+            </div>
+          )}
+
+          <div className="v4-home-actions">
+            <button className="v4-primary" onClick={continueGame}>
+              {hasSave ? <Play size={19} fill="currentColor" /> : <ArrowRight size={20} />}
+              {hasSave ? "继续这一局" : "开始我的本科四年"}
+            </button>
+            <div className="v4-home-subactions">
+              <button className="v4-secondary" onClick={() => navigate({ to: "/catalog" })}><BookOpen size={17} />专业档案</button>
+              <button className="v4-secondary" onClick={openCharacter}><Pencil size={17} />改个名字</button>
+            </div>
+            {hasSave && (
+              <button className="mx-auto flex items-center gap-1.5 px-3 py-2 text-[12px] text-[var(--v4-muted)]" onClick={() => setRestartOpen(true)}>
+                <RotateCcw size={14} />重新选专业
+              </button>
+            )}
           </div>
         </div>
-
-        {/* ============ 主菜单 ============ */}
-        <PixelPanel
-          title="主菜单 · MAIN MENU"
-          titleRight={<span className="text-[10px] opacity-70">按 ↵ 选择</span>}
-          bodyClassName="p-2.5 space-y-2"
-        >
-          <PixelButton3 variant="primaryTall" onClick={onStart}>
-            <span className="flex items-center gap-2.5 px-1">
-              <span className="inline-flex h-7 w-7 items-center justify-center bg-cream border-2 border-ink shrink-0 text-ink">
-                <GlyphPlay />
-              </span>
-              <span className="flex flex-col items-start leading-tight">
-                <span className="font-display text-[15px] text-cream">
-                  {hasSave ? "继续本科副本" : "开始模拟"}
-                </span>
-                <span className="text-[10px] text-cream/85">
-                  {hasSave ? "读取当前存档" : "创建新档案"}
-                </span>
-              </span>
-              <span className="ml-2 text-[9px] font-display tracking-widest bg-ink text-cream px-1.5 py-0.5">
-                PLAY ▶
-              </span>
-            </span>
-          </PixelButton3>
-          <div className="grid grid-cols-3 gap-2">
-            <MiniMenuBtn label="专业图鉴" glyph={<GlyphBook />} accent="sky" onClick={() => navigate({ to: "/catalog" })} />
-            <MiniMenuBtn label="角色设定" glyph={<GlyphPerson />} accent="sage" onClick={onCharacter} />
-            <MiniMenuBtn
-              label="读取进度"
-              glyph={<GlyphDisk />}
-              accent="sunny"
-              onClick={() => navigate({ to: game.finished ? "/result" : "/semester" })}
-              disabled={!hasSave}
-            />
-          </div>
-        </PixelPanel>
-
-        {/* ============ 学生档案速览 + 便签 ============ */}
-        <div className="grid grid-cols-5 gap-2">
-          <PixelPanel size="sm" className="col-span-3" bodyClassName="p-2">
-            <div className="text-[9px] font-display tracking-widest text-ink/60">PROFILE</div>
-            <div className="font-display text-[13px] leading-tight truncate mt-0.5">
-              {game.characterName}
-            </div>
-            <div className="text-[10px] text-ink/70 truncate">
-              {hasSave ? `${currentMajor?.name} · ${game.school}` : `${game.school} · 未入学`}
-            </div>
-            <div className="mt-1 flex flex-wrap gap-1">
-              <span className="tag-badge tag-fun">新生档案</span>
-              {hasSave && <span className="tag-badge tag-stable">已入学</span>}
-              {game.finished && <span className="tag-badge tag-hot">已毕业</span>}
-            </div>
-          </PixelPanel>
-
-          {/* 便签 */}
-          <div
-            className="col-span-2 relative border-[3px] border-ink shadow-[3px_3px_0_0_var(--ink)] p-2 -rotate-2"
-            style={{ background: "var(--parchment)" }}
-          >
-            <div className="absolute -top-2 left-1/2 -translate-x-1/2 h-3 w-8 bg-cherry border-2 border-ink" />
-            <div className="text-[9px] font-display tracking-widest text-ink/60">今日提示</div>
-            <div className="text-[11px] leading-snug mt-0.5">
-              嘴硬 ≠ 真爱，跑路 ≠ 失败。
-            </div>
-          </div>
-        </div>
-
-        <div className="text-center text-[9px] text-ink/50 pt-0.5">
-          © Pixel Future · 每一次选择都会导向不同的人生
-        </div>
-
-        {characterOpen && (
-          <div className="absolute inset-0 z-50 flex items-center justify-center bg-ink/55 p-4">
-            <div className="w-full border-[3px] border-ink bg-cream shadow-[5px_5px_0_0_var(--ink)]">
-              <div className="flex items-center justify-between border-b-[3px] border-ink bg-sage px-3 py-2">
-                <div className="font-display text-[14px] leading-none">角色设定</div>
-                <button
-                  onClick={() => setCharacterOpen(false)}
-                  className="h-7 w-7 border-2 border-ink bg-cream font-display text-[13px] leading-none shadow-[2px_2px_0_0_var(--ink)]"
-                  aria-label="关闭角色设定"
-                >
-                  ×
-                </button>
-              </div>
-              <div className="space-y-3 p-3">
-                <label className="block">
-                  <span className="font-display text-[10px] tracking-widest text-ink/60">姓名</span>
-                  <input
-                    value={nameDraft}
-                    onChange={(e) => setNameDraft(e.target.value)}
-                    maxLength={12}
-                    className="mt-1 w-full border-[3px] border-ink bg-cream px-2 py-2 text-[14px] outline-none shadow-[2px_2px_0_0_var(--ink)]"
-                  />
-                </label>
-                <div className="border-[3px] border-ink bg-parchment px-2 py-2 shadow-[2px_2px_0_0_var(--ink)]">
-                  <div className="font-display text-[10px] tracking-widest text-ink/60">学校</div>
-                  <div className="mt-1 text-[13px] text-ink/80">云上大学</div>
-                </div>
-                <div className="grid grid-cols-2 gap-2 pt-1">
-                  <PixelButton3 variant="ghost" onClick={() => setCharacterOpen(false)}>
-                    取消
-                  </PixelButton3>
-                  <PixelButton3 variant="secondary" onClick={saveCharacter}>
-                    保存
-                  </PixelButton3>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
+
+      {characterOpen && (
+        <div className="v4-overlay">
+          <div className="v4-modal">
+            <div className="flex items-center justify-between">
+              <div><div className="v4-title text-[20px]">角色设定</div><div className="mt-1 text-[12px] text-[var(--v4-muted)]">学校固定为云上大学，名字你说了算。</div></div>
+              <button className="v4-icon-button" aria-label="关闭角色设定" onClick={() => setCharacterOpen(false)}><X size={18} /></button>
+            </div>
+            <label className="mt-5 block text-[12px] font-bold text-[var(--v4-muted)]">你的名字</label>
+            <input value={nameDraft} onChange={(e) => setNameDraft(e.target.value)} maxLength={12} className="mt-2 w-full rounded-[8px] border-[1.5px] border-[var(--v4-ink)] bg-white px-3 py-3 text-[15px] outline-none" />
+            <button className="v4-primary mt-5 w-full" onClick={saveCharacter}>保存</button>
+          </div>
+        </div>
+      )}
+
+      {restartOpen && (
+        <div className="v4-overlay">
+          <div className="v4-modal">
+            <div className="v4-title text-[20px]">真的重新开始？</div>
+            <p className="mt-2 text-[13px] leading-relaxed text-[var(--v4-muted)]">当前这局会被新存档覆盖。名字会保留，专业和进度会重新选择。</p>
+            <div className="mt-5 grid grid-cols-2 gap-2">
+              <button className="v4-secondary" onClick={() => setRestartOpen(false)}>先不重开</button>
+              <button className="v4-primary" onClick={startFresh}>重新开始</button>
+            </div>
+          </div>
+        </div>
+      )}
     </PhoneFrame>
   );
 }
-
-function MenuRow({
-  label,
-  hint,
-  glyph,
-  onClick,
-  accent,
-  primary,
-}: {
-  label: string;
-  hint?: string;
-  glyph: React.ReactNode;
-  onClick: () => void;
-  accent: "cherry" | "sky" | "sage" | "sunny";
-  primary?: boolean;
-}) {
-  const bg =
-    accent === "cherry" ? "var(--cherry)" :
-    accent === "sky" ? "var(--sky)" :
-    accent === "sage" ? "var(--sage)" : "var(--sunny)";
-  return (
-    <button
-      onClick={onClick}
-      className="pixel-btn w-full flex items-center gap-2.5 p-2.5 text-left"
-      style={{ background: bg, color: primary ? "var(--cream)" : "var(--ink)" }}
-    >
-      <span className="inline-flex h-8 w-8 items-center justify-center bg-cream border-2 border-ink shrink-0">
-        {glyph}
-      </span>
-      <div className="flex-1 min-w-0">
-        <div className="font-display text-[15px] leading-tight">{label}</div>
-        {hint && <div className="text-[10px] opacity-80">{hint}</div>}
-      </div>
-      {primary && (
-        <span className="text-[9px] font-display tracking-widest bg-ink text-cream px-1.5 py-0.5">
-          PLAY ▶
-        </span>
-      )}
-    </button>
-  );
-}
-
-function MiniMenuBtn({
-  label, glyph, onClick, accent, disabled,
-}: {
-  label: string;
-  glyph: React.ReactNode;
-  onClick: () => void;
-  accent: "cherry" | "sky" | "sage" | "sunny";
-  disabled?: boolean;
-}) {
-  const bg =
-    accent === "cherry" ? "var(--cherry)" :
-    accent === "sky" ? "var(--sky)" :
-    accent === "sage" ? "var(--sage)" : "var(--sunny)";
-  return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className="pixel-btn flex flex-col items-center gap-1 py-1.5"
-      style={{ background: bg }}
-    >
-      <span className="inline-flex h-5 w-5 items-center justify-center bg-cream border-2 border-ink">
-        {glyph}
-      </span>
-      <span className="font-display text-[11px] leading-none">{label}</span>
-    </button>
-  );
-}
-
-// silence unused
-void PixelButton;
