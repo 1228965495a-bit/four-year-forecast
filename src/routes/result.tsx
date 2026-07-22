@@ -31,7 +31,8 @@ function ResultPage() {
     if (!major) return;
     let alive = true;
     (async () => {
-      const { loadMajorRuntime, pickEnding, getAchievementsForMajor } = await import("@/lib/scriptEngine");
+      const { loadMajorRuntime, pickEnding, getAchievementsForMajor } =
+        await import("@/lib/scriptEngine");
       await loadMajorRuntime(major.id);
       if (!alive) return;
       setEnding(pickEnding(game));
@@ -39,7 +40,9 @@ function ResultPage() {
       const nameById = new Map(achievements.map((item: any) => [item.id, item.name]));
       setAchievementNames(game.achievements.map((id) => nameById.get(id) ?? id));
     })();
-    return () => { alive = false; };
+    return () => {
+      alive = false;
+    };
   }, [game, major]);
 
   const tags = useMemo(() => deriveResultTags(game, "final"), [game]);
@@ -51,12 +54,22 @@ function ResultPage() {
   const hook = ending?.shareText ?? major.shareTexts?.[0] ?? summary;
   const total = totalSemesters();
 
-  const retry = () => { gameStore.reset(); navigate({ to: "/major" }); };
-  const home = () => { gameStore.reset(); navigate({ to: "/" }); };
-  const share = () => shareOutcome({
-    title,
-    text: `《这专业我先替你读了四年》\n专业：${major.name}\n结局：${title}\n“${hook}”`,
-  });
+  const retry = () => {
+    gameStore.reset();
+    navigate({ to: "/major" });
+  };
+  const home = () => {
+    gameStore.reset();
+    navigate({ to: "/" });
+  };
+  const isLawVerdict = major.id === "law";
+  const share = () =>
+    shareOutcome({
+      title,
+      text: isLawVerdict
+        ? `我的法学人格判决书\n\n判决结果：${title}\n“${hook}”\n\n四年法学，句句都是呈堂证供。`
+        : `《这专业我先替你读了四年》\n专业：${major.name}\n结局：${title}\n“${hook}”`,
+    });
 
   return (
     <OutcomeView
