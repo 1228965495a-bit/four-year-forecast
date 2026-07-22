@@ -7,7 +7,7 @@ import type { EngineState } from "./scriptEngine";
 import { SEMESTER_KEYS, currentSemesterLabelFromIndex } from "@/data/script/semesterMeta";
 import { majorById } from "@/data/script/majorCatalog";
 import { checkMidGG, applyRevivePenalties } from "./midGgRules";
-import { archiveLawResult, createLawRunState, deriveLawResult, EMPTY_LAW_ARCHIVE, LAW_MEMORIES, type LawArchive } from "./lawRoguelite";
+import { archiveLawResult, createLawRunState, deriveLawResult, EMPTY_LAW_ARCHIVE, LAW_MEMORIES, pickLawCoreEvent, type LawArchive } from "./lawRoguelite";
 
 type EngineModule = typeof import("./scriptEngine");
 
@@ -193,7 +193,12 @@ export const gameStore = {
   selectMajor(id: string) {
     const engine = initEngineShellForMajor(id);
     const lawArchive = id === "law" ? { ...state.lawArchive, runs: state.lawArchive.runs + 1 } : state.lawArchive;
-    if (id === "law") createLawRunState(engine, lawArchive);
+    if (id === "law") {
+      createLawRunState(engine, lawArchive);
+      const firstLawEvent = pickLawCoreEvent(engine);
+      engine.currentEventId = firstLawEvent;
+      engine.seenEvents = firstLawEvent ? [firstLawEvent] : [];
+    }
     state = {
       ...emptyState(),
       ...engine,

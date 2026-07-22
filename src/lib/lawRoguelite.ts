@@ -93,12 +93,12 @@ const KEY_IMPACTS: Record<string, any> = {
 };
 
 export const LAW_CORE_POOLS: Record<number, string[]> = {
-  0: ["law_y1s1_main_001"],
-  1: ["law_y1s2_main_004"],
-  2: ["law_y2s1_main_007", "law_y2s1_main_009"],
+  0: ["law_y1s1_main_001", "law_y1s1_main_002", "law_y1s1_main_003"],
+  1: ["law_y1s2_main_004", "law_y1s2_main_006"],
+  2: ["law_y2s1_main_007", "law_y2s1_main_008", "law_y2s1_main_009"],
   3: ["law_y2s2_main_010", "law_y2s2_main_012"],
-  4: ["law_y3s1_main_014", "law_y3s1_route_015"],
-  5: ["law_y3s2_route_016", "law_y3s2_main_018"],
+  4: ["law_y3s1_main_013", "law_y3s1_main_014", "law_y3s1_route_015"],
+  5: ["law_y3s2_route_016", "law_y3s2_route_017", "law_y3s2_main_018"],
   6: ["law_y4s1_main_019", "law_y4s1_route_020"],
   7: ["law_y4s2_final_023"],
 };
@@ -174,10 +174,12 @@ export function pickLawResourceEvent(state: MutableLawState & { semesterIdx: num
   const semester = ["y1s1", "y1s2", "y2s1", "y2s2", "y3s1", "y3s2", "y4s1"][state.semesterIdx];
   if (!semester) return null;
   const semesterResourceIds = LAW_ROGUELITE_EVENTS.filter((event) => event.semester === semester).map((event) => event.id);
-  if (semesterResourceIds.some((id) => state.seenEvents.includes(id))) return null;
+  const shownCount = semesterResourceIds.filter((id) => state.seenEvents.includes(id)).length;
+  const targetCount = 1 + ((Number(state.hiddenStats.lawRunSeed ?? 1) + state.semesterIdx) % 2);
+  if (shownCount >= targetCount) return null;
   const pool = LAW_ROGUELITE_EVENTS.filter((event) => event.semester === semester && !state.seenEvents.includes(event.id));
   if (!pool.length) return null;
-  const seed = Number(state.hiddenStats.lawRunSeed ?? 1) * 19 + state.semesterIdx * 13;
+  const seed = Number(state.hiddenStats.lawRunSeed ?? 1) * 19 + state.semesterIdx * 13 + shownCount * 7;
   return pool[seed % pool.length].id;
 }
 
@@ -191,7 +193,7 @@ export function shouldFollowLawEvent(state: MutableLawState & { semesterIdx: num
 }
 
 export function shouldDrawLawOptional(state: MutableLawState & { semesterIdx: number; semesterEventCount?: number }) {
-  return (state.semesterEventCount ?? 0) < 3 && state.semesterIdx >= 0 && state.semesterIdx <= 6;
+  return (state.semesterEventCount ?? 0) < 4 && state.semesterIdx >= 0 && state.semesterIdx <= 6;
 }
 
 export function deriveLawResult(game: LawGameLike) {

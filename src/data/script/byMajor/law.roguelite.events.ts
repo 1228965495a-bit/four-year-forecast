@@ -6,7 +6,7 @@ type DecisionEffects = {
   opportunity: number;
   persona: Record<string, number>;
   routes: Record<string, number>;
-  evidence: string;
+  evidence?: string;
 };
 
 function option(id: string, text: string, feedback: string, effects: DecisionEffects) {
@@ -19,13 +19,17 @@ function option(id: string, text: string, feedback: string, effects: DecisionEff
       lawResources: { professionalAccumulation: effects.professional, opportunity: effects.opportunity },
       lawPersona: effects.persona,
       lawRoutes: effects.routes,
-      personaEvidence: [effects.evidence],
+      personaEvidence: effects.evidence ? [effects.evidence] : [],
     },
   };
 }
 
 function event(id: string, semester: SemesterKey, title: string, description: string, options: ReturnType<typeof option>[]) {
   return { id, majorId: "law", semester, type: "resource", title, description, tags: ["资源取舍", "本周只能保住一部分"], options };
+}
+
+function incident(id: string, semester: SemesterKey, title: string, description: string, options: ReturnType<typeof option>[]) {
+  return { id, majorId: "law", semester, type: "roguelite_random", title, description, tags: ["随机插曲"], options };
 }
 
 export const LAW_ROGUELITE_EVENTS = [
@@ -105,5 +109,70 @@ export const LAW_ROGUELITE_EVENTS = [
     option("b", "拒绝 offer，继续等真正想走的路线", "你保住了可能性，也把不确定性完整留在了自己手里。每天查邮箱开始成为一种新型必修课。", { energy: -12, professional: 4, opportunity: 5, persona: { idealDrive: 11, ambiguityTolerance: 8 }, routes: { academic: 4, civil: 5, detour: 4 }, evidence: "advocate" }),
     option("c", "向对方争取延期，不提前替自己判决", "你没有立刻接受，也没有浪漫拒绝，而是第一次把谈判用在了自己的人生上。", { energy: -8, professional: 5, opportunity: 3, persona: { expression: 7, evidence: 1, realityPlanning: 8 }, routes: { firm: 6, advocacy: 5 }, evidence: "evidence" }),
   ]),
+  event("law_resource_y1s1_003", "y1s1", "补退选只剩十分钟，法理名师和周五空课不可兼得", "抢到名师意味着周五早八，保住空课意味着跟一个据说会把 PPT 念出感情的老师。教务系统正在倒计时。", [
+    option("a", "换进名师班，接受每周五被闹钟依法传唤", "你得到一门值得听的课，也失去了大学里最像周末的半天。", { energy: -8, professional: 8, opportunity: 3, persona: { idealDrive: 6, ruleSensitivity: 4 }, routes: { academic: 5 }, evidence: "rule_keeper" }),
+    option("b", "保住空课，靠自己和教材建立委托关系", "周五上午归你所有。至于法理学，你与教材形成了事实上的共同生活。", { energy: 4, professional: 2, opportunity: -2, persona: { realityPlanning: 7, stressTolerance: 3 }, routes: { survival: 5 }, evidence: "planner" }),
+    option("c", "先问遍学长学姐，再按往年考核方式下注", "你用二十条聊天记录换来一张课程风险表，第一次把选课做成尽调。", { energy: -5, professional: 4, opportunity: 4, persona: { evidence: 2, realityPlanning: 8 }, routes: { firm: 3, academic: 2 }, evidence: "evidence" }),
+  ]),
+  event("law_resource_y1s2_003", "y1s2", "法律科普号催稿，期末重点刚发了六十页", "你的第一篇署名推文今晚截稿，老师同时把六十页重点扔进群里，并补了一句‘不多，大家理解为主’。", [
+    option("a", "把推文写到能发，复习先抓老师反复强调的部分", "推文收获了三位数阅读量，你也学会了在六十页里辨认老师的语气证据。", { energy: -13, professional: 5, opportunity: 8, persona: { expression: 8, ambiguityTolerance: 4 }, routes: { advocacy: 5 }, evidence: "advocate" }),
+    option("b", "退出本期推文，完整啃完考试重点", "账号少了一篇内容，你的笔记多了一套能在考场上救命的结构。", { energy: -11, professional: 9, opportunity: -4, persona: { ruleSensitivity: 7, idealDrive: 4 }, routes: { academic: 6 }, evidence: "rule_keeper" }),
+    option("c", "交一篇短稿，给复习留出不可侵占的时间", "编辑说还能再展开，你说下期一定。双方都知道这是一次附期限的承诺。", { energy: -6, professional: 4, opportunity: 2, persona: { realityPlanning: 9, expression: 3 }, routes: { survival: 4, advocacy: 2 }, evidence: "planner" }),
+  ]),
+  event("law_resource_y2s1_003", "y2s1", "老师招研究助理，条件是先整理三百份裁判文书", "这是认识老师的入口，也是一个会把周末压缩成 Excel 行号的入口。报名邮件只需要一分钟，后续代价不支持撤回。", [
+    option("a", "报名，把三百份文书当成学术入场券", "你开始在裁判文书里看见规律，也开始在梦里看见案号。", { energy: -18, professional: 12, opportunity: 10, persona: { evidence: 2, idealDrive: 7 }, routes: { academic: 11 }, evidence: "evidence" }),
+    option("b", "不报名，保住课程和自己的周末", "你错过了一次被老师记住的机会，但周日晚上没有对人生提起确认之诉。", { energy: 7, professional: 3, opportunity: -7, persona: { realityPlanning: 8, stressTolerance: 4 }, routes: { survival: 8 }, evidence: "planner" }),
+    option("c", "先问清署名、工时和具体产出再决定", "老师第一次收到一封像尽职调查清单的报名邮件，也第一次认真回复了你的问题。", { energy: -7, professional: 7, opportunity: 5, persona: { evidence: 3, ruleSensitivity: 5 }, routes: { firm: 5, academic: 4 }, evidence: "evidence" }),
+  ]),
+  event("law_resource_y2s2_003", "y2s2", "模拟法庭队友赛前失联，你的转专业材料还差一页", "队友负责的质证稿一片空白，转专业申请今晚关窗。救场意味着材料可能来不及，先救自己意味着全队一起沉默。", [
+    option("a", "替队友补质证稿，转专业申请下次再说", "你把全队从沉默里捞出来，也亲手关掉了这一轮转专业窗口。", { energy: -18, professional: 9, opportunity: 6, persona: { responsibility: 11, expression: 5 }, routes: { advocacy: 10 }, evidence: "mediator" }),
+    option("b", "先交转专业材料，让队伍按缺席事实处理", "申请成功进入系统。队友第二天出现时，群里的空气已经足够单独构成证据。", { energy: -11, professional: -3, opportunity: -4, persona: { realityPlanning: 12, responsibility: -4 }, routes: { transfer: 13 }, evidence: "escape" }),
+    option("c", "只补质证框架，同时把失联经过发给领队", "你没有独自填完所有坑，而是把事实、责任和最低交付一起摆上桌。", { energy: -10, professional: 6, opportunity: 2, persona: { evidence: 3, responsibility: 5, realityPlanning: 7 }, routes: { advocacy: 4, survival: 4 }, evidence: "evidence" }),
+  ]),
+  event("law_resource_y3s1_003", "y3s1", "法院实习第一天，带教让你留下做一份‘很快的’检索", "末班地铁还有四十分钟，检索范围没有边界，带教说做完发他就行。你突然理解了‘很快’属于相对概念。", [
+    option("a", "留下做完，先让带教记住可靠", "你赶上了最后一班地铁，也在二十三点五十八分收到一个‘辛苦’。", { energy: -18, professional: 10, opportunity: 10, persona: { stressTolerance: 8, responsibility: 6 }, routes: { firm: 8, civil: 3 }, evidence: "planner" }),
+    option("b", "先确认检索范围，约定明早交第一版", "任务从宇宙大小缩成了八个关键词。边界没有伤害职业形象，反而救了双方一晚。", { energy: -8, professional: 8, opportunity: 6, persona: { expression: 6, evidence: 2, realityPlanning: 7 }, routes: { firm: 7 }, evidence: "evidence" }),
+    option("c", "按时离开，实习不值得拿健康无限担保", "你坐上地铁时还有电量。第二天带教没有夸你，但任务照样继续。", { energy: 5, professional: 1, opportunity: -6, persona: { stressTolerance: 5, realityPlanning: 8 }, routes: { survival: 9 }, evidence: "planner" }),
+  ]),
+  event("law_resource_y3s2_003", "y3s2", "交换名额、实习续期和保研夏令营同日截止", "三个申请都要求一套不同版本的你：国际化的你、能干活的你、会研究的你。今晚只能精修一份。", [
+    option("a", "精修夏令营材料，把研究方向讲成一条路", "你的个人陈述终于不像关键词拼盘，另外两封邮件则停在草稿箱。", { energy: -15, professional: 12, opportunity: 5, persona: { idealDrive: 9, ruleSensitivity: 5 }, routes: { academic: 13 }, evidence: "rule_keeper" }),
+    option("b", "拿下实习续期，让真实工作继续积累", "带教回复了欢迎继续。你的暑假有了去处，也失去了‘什么都可能’的浪漫。", { energy: -13, professional: 9, opportunity: 10, persona: { realityPlanning: 10, stressTolerance: 4 }, routes: { firm: 13 }, evidence: "planner" }),
+    option("c", "押交换名额，允许路线暂时偏离标准答案", "申请寄出后你第一次期待一张陌生课表。确定性下降了，世界半径上升了。", { energy: -11, professional: 3, opportunity: 8, persona: { ambiguityTolerance: 11, idealDrive: 5 }, routes: { detour: 9, transfer: 4 }, evidence: "advocate" }),
+  ]),
+  event("law_resource_y4s1_003", "y4s1", "论文资料付费墙、面试模拟和毕业照撞在一天", "数据库要付费，学长只在今晚有空模拟面试，班群说错过毕业照不补拍。大四开始用纪念、机会和成果争夺同一块时间。", [
+    option("a", "约学长模拟面试，毕业照靠后期补存在感", "你纠正了三个面试漏洞，也在班级合照里获得了一个精心修入的位置。", { energy: -12, professional: 6, opportunity: 11, persona: { realityPlanning: 9, expression: 6 }, routes: { firm: 10 }, evidence: "planner" }),
+    option("b", "解决论文资料，先让答辩有东西可答", "你拿到关键文献。朋友圈里全班站得整整齐齐，你在数据库里独自毕业。", { energy: -13, professional: 13, opportunity: -3, persona: { ruleSensitivity: 7, idealDrive: 6 }, routes: { academic: 10 }, evidence: "rule_keeper" }),
+    option("c", "去拍毕业照，今晚不再把人生全部折算成产出", "论文和面试都没有因此毁灭。你得到一张多年后还能证明自己确实来过的照片。", { energy: 6, professional: -2, opportunity: -2, persona: { ambiguityTolerance: 6, stressTolerance: 5 }, routes: { survival: 9 }, evidence: "mediator" }),
+  ]),
 ];
 
+export const LAW_ROGUELITE_RANDOM_EVENTS = [
+  incident("law_incident_y1s1_001", "y1s1", "图书馆座位争议，全桌请法学生现场判案", "对面同学说水杯占座有效，旁边同学主张离席二十分钟视为放弃。你只是来背书，却突然获得临时审判权。", [
+    option("a", "先查馆规，再宣布水杯不具备民事主体资格", "围观群众对结论基本满意，对你真的打开馆规这件事尤其震撼。", { energy: -4, professional: 4, opportunity: 2, persona: { evidence: 1, ruleSensitivity: 4 }, routes: { academic: 2 } }),
+    option("b", "提议拼桌，拒绝让一只水杯制造校园判例", "争议在两分钟内解决。你没有留下判决书，只留下了两个座位。", { energy: 1, professional: 1, opportunity: 3, persona: { responsibility: 3, ambiguityTolerance: 3 }, routes: { advocacy: 2 } }),
+  ]),
+  incident("law_incident_y1s2_001", "y1s2", "选课系统崩了，群里开始征集违约责任", "全班卡在提交页面，有人主张教务处构成根本违约，有人已经开始制作损失清单。", [
+    option("a", "截图保存，按公告和时间顺序整理事实", "十分钟后系统恢复，你的证据包失去诉讼价值，却意外成了群里的操作指南。", { energy: -3, professional: 3, opportunity: 2, persona: { evidence: 2, realityPlanning: 3 }, routes: { firm: 2 } }),
+    option("b", "先去吃饭，拒绝对加载图标进行法律分析", "你回来时系统已经恢复，唯一损失是一顿饭期间错过了四十七条群消息。", { energy: 4, professional: 0, opportunity: -1, persona: { stressTolerance: 4 }, routes: { survival: 3 } }),
+  ]),
+  incident("law_incident_y2s1_001", "y2s1", "校园墙捡到耳机，评论区要求你证明所有权", "失主说耳机是他的，评论区要求公开序列号、购买记录和使用痕迹。一场失物招领逐渐长成证据法课堂。", [
+    option("a", "私下核对特征，提醒大家别公开个人信息", "耳机顺利归还。评论区没等到公开审判，只等到一句‘已解决’。", { energy: -4, professional: 4, opportunity: 3, persona: { evidence: 2, responsibility: 3 }, routes: { firm: 2 } }),
+    option("b", "围观但不接案，今天只做普通路人", "案件在你划走后自行解决。事实证明，不是每次看见争议都必须自动出庭。", { energy: 3, professional: 0, opportunity: 0, persona: { realityPlanning: 3 }, routes: { survival: 2 } }),
+  ]),
+  incident("law_incident_y2s2_001", "y2s2", "老师考前四十八小时宣布：开卷，但只能带一本书", "全班先欢呼，再发现一本到场意味着目录、索引和贴签将共同决定命运。开卷考试正式转型为书本导航竞赛。", [
+    option("a", "重做目录和索引，把教材训练成搜索引擎", "你的书长出了五颜六色的标签，翻页速度开始具有职业选手气质。", { energy: -8, professional: 6, opportunity: 0, persona: { ruleSensitivity: 5, realityPlanning: 4 }, routes: { academic: 4 } }),
+    option("b", "继续理解案例，不参加贴签军备竞赛", "你带着一本外表朴素的教材进场，决定相信大脑仍有最低限度的管辖权。", { energy: -5, professional: 5, opportunity: 0, persona: { ambiguityTolerance: 4, idealDrive: 3 }, routes: { advocacy: 2 } }),
+  ]),
+  incident("law_incident_y3s1_001", "y3s1", "实习群二十三点四十七分突然有人 @ 你", "消息只有一句‘这个明早能给吗’，没有主语，没有附件，也没有说明‘这个’究竟是什么。", [
+    option("a", "立即回复，先把任务范围问清楚", "五轮消息后，你终于确认对方 @ 错了人。今晚最大的产出是排除责任主体。", { energy: -5, professional: 2, opportunity: 2, persona: { evidence: 2, expression: 3 }, routes: { firm: 3 } }),
+    option("b", "静音睡觉，明早按工作时间处理", "第二天你发现对方确实 @ 错了人。边界第一次以未读消息的形式为你胜诉。", { energy: 6, professional: 0, opportunity: -1, persona: { realityPlanning: 4, stressTolerance: 3 }, routes: { survival: 4 } }),
+  ]),
+  incident("law_incident_y3s2_001", "y3s2", "你在校园墙写的法律分析突然爆了", "原本只想纠正一个常识错误，结果转发过千。评论区开始咨询劳动、租房、恋爱和室友外卖失踪。", [
+    option("a", "补充免责声明，只回答自己能核实的部分", "热度下降了一点，可信度上升了一点。你拒绝从学生一夜晋升为全科免费法律顾问。", { energy: -7, professional: 6, opportunity: 7, persona: { evidence: 2, responsibility: 3 }, routes: { advocacy: 5 } }),
+    option("b", "趁热做成系列，接受本周复习进度缩水", "账号涨粉了，复习计划也开始掉粉。你第一次体会到表达真的会带来机会和账单。", { energy: -13, professional: 4, opportunity: 10, persona: { expression: 8, stressTolerance: 3 }, routes: { advocacy: 7 } }),
+  ]),
+  incident("law_incident_y4s1_001", "y4s1", "面试前夜，亲戚发来一份合同让你‘顺手看看’", "文件二十八页，亲戚说不复杂，只想知道能不能签。你的面试稿还停在自我介绍第二句。", [
+    option("a", "说明不能替代律师，只标出最明显的风险", "亲戚得到三条风险提示，你保住了大部分面试时间，也保住了职业边界。", { energy: -7, professional: 5, opportunity: 1, persona: { expression: 4, responsibility: 4 }, routes: { firm: 4 } }),
+    option("b", "婉拒，今晚只对自己的面试承担责任", "亲戚回了一个‘好吧’。你第一次发现拒绝免费审合同并不会自动失去亲属关系。", { energy: 3, professional: 1, opportunity: -1, persona: { realityPlanning: 5, stressTolerance: 3 }, routes: { survival: 4 } }),
+  ]),
+];

@@ -9,6 +9,7 @@ export const majorDataLoaders: Record<string, () => Promise<MajorDataBundle>> = 
     events: [
       ...(await import("./byMajor/law.events.json")).default,
       ...(await import("./byMajor/law.roguelite.events")).LAW_ROGUELITE_EVENTS,
+      ...(await import("./byMajor/law.roguelite.events")).LAW_ROGUELITE_RANDOM_EVENTS,
     ],
     endings: (await import("./byMajor/law.endings.json")).default,
     achievements: (await import("./byMajor/law.achievements.json")).default,

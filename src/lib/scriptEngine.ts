@@ -348,7 +348,7 @@ function balancedStatDelta(majorId: string, delta: any) {
 
 function advanceSemester(state: EngineState) {
   if (state.majorId === "law") {
-    if (state.semesterEventCount < 3) {
+    if (state.semesterEventCount < 4) {
       const resourceId = pickLawResourceEvent(state);
       if (resourceId) {
         state.currentEventId = resourceId;
@@ -437,7 +437,10 @@ function pickRandomEvent(state: EngineState): string | null {
   const lawCallbacks = state.majorId === "law"
     ? runtime.events.filter((event: any) => event.type === "hidden" && event.semester === SEMESTER_KEYS[state.semesterIdx]).map((event: any) => event.id)
     : [];
-  const pool = [...new Set([...configuredPool, ...lawCallbacks])];
+  const lawIncidents = state.majorId === "law"
+    ? runtime.events.filter((event: any) => event.type === "roguelite_random" && event.semester === SEMESTER_KEYS[state.semesterIdx]).map((event: any) => event.id)
+    : [];
+  const pool = [...new Set([...configuredPool, ...lawCallbacks, ...lawIncidents])];
   const eligible = pool
     .map((id) => runtime.eventById[id])
     .filter((e): e is any => !!e && !state.seenEvents.includes(e.id))
