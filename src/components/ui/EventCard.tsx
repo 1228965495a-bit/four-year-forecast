@@ -28,6 +28,7 @@ const TYPE_LABEL: Record<string, string> = {
 export function EventCard({ event, onPick }: { event: EventLike; onPick: (opt: Choice) => void }) {
   const options = event.options ?? event.choices ?? [];
   const body = event.body ?? event.description ?? "";
+  const keepsConsequencesHidden = event.id.startsWith("law_");
 
   return (
     <article className="v4-event-card">
@@ -40,7 +41,7 @@ export function EventCard({ event, onPick }: { event: EventLike; onPick: (opt: C
             <span className="v4-choice-index">{String.fromCharCode(65 + index)}</span>
             <span className="v4-choice-text">{option.text}</span>
             <span className="flex items-center gap-2">
-              <ImpactHints option={option} />
+              {!keepsConsequencesHidden && <ImpactHints option={option} />}
               <ChevronRight size={17} color="var(--v4-muted)" />
             </span>
           </button>

@@ -172,6 +172,8 @@
         "mainEventIds": [
           "law_y2s1_main_007",
           "law_y2s1_main_008",
+          "law_y2s1_branch_evidence_001",
+          "law_y2s1_branch_escape_001",
           "law_y2s1_main_009"
         ],
         "randomSlots": [
@@ -342,7 +344,12 @@
       "law_random_007",
       "law_random_008",
       "law_random_009",
-      "law_random_010"
+      "law_random_010",
+      "law_hidden_001",
+      "law_hidden_002",
+      "law_hidden_003",
+      "law_hidden_004",
+      "law_hidden_005"
     ],
     "hiddenEvents": [
       "law_hidden_001",

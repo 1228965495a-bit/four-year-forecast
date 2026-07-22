@@ -46,6 +46,12 @@ function runtimeOf(majorId: string) {
   return data;
 }
 
+export function discoverableEventCount(majorId: string) {
+  const runtime = loadedRuntime.get(majorId);
+  if (!runtime) return 0;
+  return runtime.events.length;
+}
+
 export interface EngineState {
   majorId: string;
   semesterIdx: number; // 0..7
@@ -340,10 +346,12 @@ function pickRandomEvent(state: EngineState): string | null {
   const eligible = pool
     .map((id) => runtime.eventById[id])
     .filter((e): e is any => !!e && !state.seenEvents.includes(e.id))
+    .filter((e) => !e.semester || e.semester === SEMESTER_KEYS[state.semesterIdx])
     .filter((e) => evalCond(state, e.triggerCondition) && evalCond(state, e.conditions));
   if (!eligible.length) return null;
-  // 用 semesterIdx + seenEvents.length 做确定性抽取
-  const seed = (state.semesterIdx + 1) * 9301 + state.seenEvents.length * 49297;
+  // 法学样板把已走分支纳入种子：不同选择会遇到不同校园插曲，同时存档仍可稳定复现。
+  const branchSalt = state.majorId === "law" ? stableHash(state.seenEvents.join("|")) : 0;
+  const seed = (state.semesterIdx + 1) * 9301 + state.seenEvents.length * 49297 + branchSalt;
   const totalW = eligible.reduce((s, e) => s + (e.weight ?? 1), 0);
   let r = (seed >>> 0) % Math.max(1, Math.floor(totalW));
   for (const e of eligible) {
@@ -351,6 +359,15 @@ function pickRandomEvent(state: EngineState): string | null {
     if (r < 0) return e.id;
   }
   return eligible[0].id;
+}
+
+function stableHash(value: string) {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
 }
 
 // ============= 结局 =============

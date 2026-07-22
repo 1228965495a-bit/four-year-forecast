@@ -72,6 +72,9 @@ export interface GameState extends EngineState {
   characterName: string;
   school: string;
   history: HistoryItem[];
+  /** 跨周目保留的事件图鉴，按专业记录。 */
+  discoveries: Record<string, string[]>;
+  discoverableTotals: Record<string, number>;
   /** 最近解锁的成就 id，用于弹 toast */
   pendingAchievement: string | null;
   /** 中途主动结束游戏（点顶部 结 按钮） */
@@ -108,6 +111,8 @@ function emptyState(): GameState {
     characterName: "新生同学",
     school: "云上大学",
     history: [],
+    discoveries: {},
+    discoverableTotals: {},
     pendingAchievement: null,
     midwayFinished: false,
   };
@@ -135,6 +140,16 @@ function persist() {
 }
 function emit() { listeners.forEach((l) => l()); persist(); }
 
+function recordDiscovery(source: GameState, majorId: string, eventId: string | null): GameState {
+  if (!majorId || !eventId) return source;
+  const current = source.discoveries[majorId] ?? [];
+  if (current.includes(eventId)) return source;
+  return {
+    ...source,
+    discoveries: { ...source.discoveries, [majorId]: [...current, eventId] },
+  };
+}
+
 function hydrateFromStorage() {
   if (hydrated || typeof window === "undefined") return;
   hydrated = true;
@@ -154,7 +169,11 @@ export const gameStore = {
   getServerSnapshot(): GameState { return SERVER_SNAPSHOT; },
   subscribe(l: () => void) { listeners.add(l); return () => listeners.delete(l); },
   set(patch: Partial<GameState>) { state = { ...state, ...patch }; emit(); },
-  reset() { state = { ...emptyState(), hydrated: hydrated || typeof window !== "undefined" }; emit(); },
+  reset() {
+    const { discoveries, discoverableTotals } = state;
+    state = { ...emptyState(), discoveries, discoverableTotals, hydrated: hydrated || typeof window !== "undefined" };
+    emit();
+  },
 
   selectMajor(id: string) {
     const engine = initEngineShellForMajor(id);
@@ -165,6 +184,8 @@ export const gameStore = {
       currentEventData: null,
       characterName: state.characterName,
       school: state.school,
+      discoveries: state.discoveries,
+      discoverableTotals: state.discoverableTotals,
     };
     emit();
     // 立刻在后台把完整脚本包拉起来，等玩家看完 intro 到 /semester 时已就绪
@@ -173,12 +194,16 @@ export const gameStore = {
       if (state.majorId !== id || state.currentEventData) return;
       const existingEvent = engineRuntime.getCurrentEvent(state);
       const currentEventId = existingEvent ? state.currentEventId : engineRuntime.firstEventIdForSemester(id, state.semesterIdx);
-      state = {
+      state = recordDiscovery({
         ...state,
         currentEventId,
         seenEvents: currentEventId && !state.seenEvents.includes(currentEventId) ? [...state.seenEvents, currentEventId] : state.seenEvents,
         currentEventData: existingEvent ?? engineRuntime.getCurrentEvent({ ...state, currentEventId }),
-      };
+        discoverableTotals: {
+          ...state.discoverableTotals,
+          [id]: engineRuntime.discoverableEventCount(id),
+        },
+      }, id, currentEventId);
       emit();
     });
   },
@@ -195,13 +220,17 @@ export const gameStore = {
       choice: choice?.text ?? "",
       feedback: choice?.feedback ?? choice?.resultText ?? "",
     };
-    let merged: GameState = {
+    let merged: GameState = recordDiscovery({
       ...state,
       ...next,
       currentEventData,
       history: [history, ...state.history].slice(0, 60),
       pendingAchievement: newAchievements[0] ?? state.pendingAchievement,
-    };
+      discoverableTotals: {
+        ...state.discoverableTotals,
+        [state.majorId]: engineRuntime.discoverableEventCount(state.majorId),
+      },
+    }, state.majorId, next.currentEventId);
 
     // 中途 GG 判定 —— 只在还没进入结局 / 还没排队续命时跑
     if (!merged.finished && !merged.midwayFinished && !merged.pendingReviveReason) {
@@ -233,11 +262,15 @@ export const gameStore = {
     const existingEvent = engineRuntime.getCurrentEvent(state);
     const currentEventId = existingEvent ? state.currentEventId : engineRuntime.firstEventIdForSemester(state.majorId, state.semesterIdx);
     const nextState = { ...state, currentEventId };
-    state = {
+    state = recordDiscovery({
       ...nextState,
       seenEvents: currentEventId && !nextState.seenEvents.includes(currentEventId) ? [...nextState.seenEvents, currentEventId] : nextState.seenEvents,
       currentEventData: existingEvent ?? engineRuntime.getCurrentEvent(nextState),
-    };
+      discoverableTotals: {
+        ...nextState.discoverableTotals,
+        [state.majorId]: engineRuntime.discoverableEventCount(state.majorId),
+      },
+    }, state.majorId, currentEventId);
     emit();
   },
 

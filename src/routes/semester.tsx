@@ -105,7 +105,8 @@ function CoreStat({ label, value, color, icon: Icon }: ReturnType<typeof getCore
 }
 
 function FeedbackSheet({ event, choice, onClose, onNext }: { event: any; choice: any; onClose: () => void; onNext: () => void }) {
-  const deltas = visibleDeltas(choice);
+  const keepsConsequencesHidden = event.id?.startsWith("law_");
+  const deltas = keepsConsequencesHidden ? [] : visibleDeltas(choice);
   return (
     <div className="v4-overlay">
       <div className="v4-sheet">
@@ -115,6 +116,7 @@ function FeedbackSheet({ event, choice, onClose, onNext }: { event: any; choice:
           <button className="v4-icon-button" aria-label="返回选择" onClick={onClose}><X size={18} /></button>
         </div>
         <div className="v4-feedback-result">{choice.feedback || choice.resultText || event.description || "事情就这样发生了。"}</div>
+        {keepsConsequencesHidden && <div className="mb-3 text-[11px] font-bold text-[var(--v4-muted)]">这次选择已经进入卷宗，之后可能再次出现。</div>}
         {deltas.length > 0 && <div className="v4-delta-row">{deltas.map((delta) => <span className={`v4-delta ${delta.value > 0 ? "positive" : "negative"}`} key={delta.label}>{delta.label} {delta.value > 0 ? "+" : ""}{delta.value}</span>)}</div>}
         <button className="v4-primary w-full" onClick={onNext}>接受这个结果，继续</button>
       </div>
@@ -135,6 +137,9 @@ function visibleDeltas(choice: any) {
 function InfoDrawer({ type, onClose }: { type: "profile" | "log"; onClose: () => void }) {
   const game = useGameState();
   const major = majorById[game.majorId];
+  const discovered = game.discoveries[game.majorId]?.length ?? 0;
+  const discoverableTotal = game.discoverableTotals[game.majorId] ?? 0;
+  const lawPersona = game.majorId === "law" ? revealedLawPersona(game.hiddenStats) : null;
   return (
     <div className="v4-overlay">
       <div className="v4-sheet">
@@ -147,7 +152,8 @@ function InfoDrawer({ type, onClose }: { type: "profile" | "log"; onClose: () =>
           <div className="mt-4 grid gap-3">
             <div className="v4-save-line"><UserRound size={18} /><span><strong>{game.characterName}</strong> · {major?.name} · {currentSemesterLabel(game)}</span></div>
             <div className="grid grid-cols-3 gap-2">{getCoreStats(game.stats).map((stat) => <CoreStat key={stat.label} {...stat} />)}</div>
-            <div className="text-[12px] leading-relaxed text-[var(--v4-muted)]">已经历 {game.history.length} 个事件，解锁 {game.achievements.length} 个记录。隐藏数值仍在影响故事，但不会一直拿出来吓你。</div>
+            {game.majorId === "law" && <div className="v4-detail-section"><div className="text-[10px] font-bold text-[var(--v4-muted)]">法学人格</div><div className="mt-1 text-[13px] font-bold">{lawPersona ?? "尚未定型"}</div><div className="mt-1 text-[11px] leading-relaxed text-[var(--v4-muted)]">{lawPersona ? "你的选择已经形成稳定倾向，后续事件会开始区别对待你。" : "再做几次决定，系统才敢给你下结论。"}</div></div>}
+            <div className="text-[12px] leading-relaxed text-[var(--v4-muted)]">本局经历 {game.history.length} 个事件，累计发现 {discovered}{discoverableTotal ? ` / ${discoverableTotal}` : ""} 个事件，解锁 {game.achievements.length} 个记录。</div>
           </div>
         ) : (
           <div className="mt-4 grid gap-2">
@@ -164,6 +170,15 @@ function InfoDrawer({ type, onClose }: { type: "profile" | "log"; onClose: () =>
       </div>
     </div>
   );
+}
+
+function revealedLawPersona(hiddenStats: Record<string, number>) {
+  const candidates = [
+    { label: "论证上瘾型", value: hiddenStats.lawTheory ?? 0 },
+    { label: "证据优先型", value: hiddenStats.lawEvidence ?? 0 },
+    { label: "依法逃生型", value: hiddenStats.lawEscape ?? 0 },
+  ].sort((a, b) => b.value - a.value);
+  return candidates[0].value >= 2 ? candidates[0].label : null;
 }
 
 function ReviveModal({ onAccept, onDecline }: { onAccept: () => void; onDecline: () => void }) {
