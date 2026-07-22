@@ -25,10 +25,10 @@ export interface MidGgCheckResult {
 }
 
 const SEMESTER_PRESSURE: Record<string, number> = {
-  y1s1: 0.6, y1s2: 0.7,
-  y2s1: 0.85, y2s2: 1.0,
-  y3s1: 1.2, y3s2: 1.35,
-  y4s1: 1.5, y4s2: 1.4,
+  y1s1: 0.45, y1s2: 0.6,
+  y2s1: 0.75, y2s2: 0.9,
+  y3s1: 1.05, y3s2: 1.2,
+  y4s1: 1.35, y4s2: 1.2,
 };
 
 function pick(state: EngineState) {
@@ -65,16 +65,20 @@ function pickReason(state: EngineState, manual: boolean): MidGgReason | null {
   // 大四下：优先走终局
   if (semKey === "y4s2") return null;
 
-  if (v.mentalEnergy <= 0) return "energy_depleted";
-  if (v.escapeImpulse >= 95) return "escape_overflow";
-  if (v.majorInterest <= 5 && v.escapeImpulse >= 75) return "interest_dead";
-  if (v.mentalEnergy <= 15 && v.escapeImpulse >= 80 && v.majorInterest <= 25) return "multi_collapse";
-  if (v.filterThickness <= 10 && v.escapeImpulse >= 85 && v.mentalEnergy <= 30) return "filter_broken_escape";
+  const sustainedLawOverwork = state.majorId === "law" && (state.hiddenStats.overworkLoad ?? 0) >= 10;
+  if (v.mentalEnergy <= 0 && (state.majorId !== "law" || sustainedLawOverwork)) return "energy_depleted";
+  if (v.escapeImpulse >= 98) return "escape_overflow";
+  if (v.majorInterest <= 3 && v.escapeImpulse >= 85) return "interest_dead";
+  if (v.mentalEnergy <= 8 && v.escapeImpulse >= 90 && v.majorInterest <= 15) return "multi_collapse";
+  if (v.filterThickness <= 5 && v.escapeImpulse >= 92 && v.mentalEnergy <= 20) return "filter_broken_escape";
 
   // 大一下更保守
-  if (semKey === "y1s2" && adjusted < 120) return null;
+  if (semKey === "y1s2" && adjusted < 145) return null;
 
-  if (adjusted >= 105) return "risk_overflow";
+  if (adjusted >= 130) {
+    if (state.majorId === "law" && v.majorInterest >= 45 && v.escapeImpulse < 75 && !sustainedLawOverwork) return null;
+    return "risk_overflow";
+  }
   return null;
 }
 
@@ -173,7 +177,7 @@ export function applyRevivePenalties(state: EngineState) {
   const s = state.stats;
   const h = state.hiddenStats;
   s.escapeImpulse = Math.max(0, Math.min(100, (s.escapeImpulse ?? 0) - 25));
-  s.energy = Math.max(0, Math.min(100, (s.energy ?? 0) - 8));
-  s.filter = Math.max(0, Math.min(100, (s.filter ?? 0) - 10));
+  s.energy = Math.max(0, Math.min(100, (s.energy ?? 0) + 12));
+  s.filter = Math.max(0, Math.min(100, (s.filter ?? 0) - 5));
   h.stubbornness = Math.max(0, Math.min(100, (h.stubbornness ?? 0) + 35));
 }

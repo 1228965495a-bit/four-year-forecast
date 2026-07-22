@@ -245,9 +245,16 @@ export function applyChoice(prev: EngineState, choice: any): ApplyResult {
 
   const eff = choice.effects ?? {};
 
-  mergeDelta(state.stats, eff.stats, true);
+  const statDelta = balancedStatDelta(state.majorId, eff.stats);
+  mergeDelta(state.stats, statDelta, true);
   mergeDelta(state.majorStats, eff.majorStats, true);
   mergeDelta(state.hiddenStats, eff.hiddenStats, false);
+
+  if (state.majorId === "law") {
+    const rawEnergyCost = Number(eff.stats?.energy ?? 0);
+    if (rawEnergyCost <= -7) state.hiddenStats.overworkLoad = (state.hiddenStats.overworkLoad ?? 0) + 1;
+    if (rawEnergyCost >= 3) state.hiddenStats.overworkLoad = Math.max(0, (state.hiddenStats.overworkLoad ?? 0) - 1);
+  }
 
   for (const f of eff.flagsAdd ?? []) if (!state.flags.includes(f)) state.flags.push(f);
   for (const r of eff.routeAdd ?? []) if (!state.routes.includes(r)) state.routes.push(r);
@@ -301,6 +308,11 @@ function mergeDelta(bag: Record<string, number>, delta: any, clamp: boolean) {
   }
 }
 
+function balancedStatDelta(majorId: string, delta: any) {
+  if (majorId !== "law" || !delta || Number(delta.energy ?? 0) >= 0) return delta;
+  return { ...delta, energy: Math.ceil(Number(delta.energy) * 0.75) };
+}
+
 function advanceSemester(state: EngineState) {
   const nextTimelineId = nextTimelineEventInSemester(state);
   if (nextTimelineId) {
@@ -331,6 +343,10 @@ function advanceSemester(state: EngineState) {
   }
   state.semesterIdx = nextIdx;
   state.semesterRandomShown = false;
+  if (state.majorId === "law") {
+    state.stats.energy = clamp01_100((state.stats.energy ?? 0) + 6);
+    state.stats.escapeImpulse = clamp01_100((state.stats.escapeImpulse ?? 0) - 3);
+  }
   const next = firstEventOfSemester(state.majorId, nextIdx);
   state.currentEventId = next;
   if (next && !state.seenEvents.includes(next)) state.seenEvents.push(next);
