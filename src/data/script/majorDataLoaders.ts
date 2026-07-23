@@ -5,15 +5,18 @@ type MajorDataBundle = {
 };
 
 export const majorDataLoaders: Record<string, () => Promise<MajorDataBundle>> = {
-  law: async () => ({
-    events: [
+  law: async () => {
+    const { applyLawCopy } = await import("./byMajor/law.copy");
+    return {
+      events: applyLawCopy([
       ...(await import("./byMajor/law.events.json")).default,
       ...(await import("./byMajor/law.roguelite.events")).LAW_ROGUELITE_EVENTS,
       ...(await import("./byMajor/law.roguelite.events")).LAW_ROGUELITE_RANDOM_EVENTS,
-    ],
-    endings: (await import("./byMajor/law.endings.json")).default,
-    achievements: (await import("./byMajor/law.achievements.json")).default,
-  }),
+      ]),
+      endings: (await import("./byMajor/law.endings.json")).default,
+      achievements: (await import("./byMajor/law.achievements.json")).default,
+    };
+  },
   computer_science: async () => ({
     events: (await import("./byMajor/computer_science.events.json")).default,
     endings: (await import("./byMajor/computer_science.endings.json")).default,
