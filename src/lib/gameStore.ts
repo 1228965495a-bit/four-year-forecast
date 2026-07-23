@@ -366,10 +366,13 @@ export const gameStore = {
   },
 
   chooseLawMemory(memoryId: string) {
-    if (state.majorId !== "law" || state.legacyMemory) return;
+    if (state.majorId !== "law" || state.legacyMemory === memoryId) return;
     const next = { ...state, stats: { ...state.stats }, hiddenStats: { ...state.hiddenStats } };
     const memory = LAW_MEMORIES.find((item) => item.id === memoryId);
     if (!memory) return;
+    if (state.legacyMemory === "exam_notice") next.stats.professionalAccumulation = Math.max(0, (next.stats.professionalAccumulation ?? 0) - 6);
+    if (state.legacyMemory === "saved_chance") next.stats.opportunity = Math.max(0, (next.stats.opportunity ?? 0) - 8);
+    if (state.legacyMemory === "route_hint") next.hiddenStats.realityPlanning = (next.hiddenStats.realityPlanning ?? 50) - 7;
     next.legacyMemory = memory.id;
     if (memory.id === "exam_notice") next.stats.professionalAccumulation = Math.min(100, (next.stats.professionalAccumulation ?? 0) + 6);
     if (memory.id === "saved_chance") next.stats.opportunity = Math.min(100, (next.stats.opportunity ?? 0) + 8);

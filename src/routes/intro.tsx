@@ -58,7 +58,7 @@ function IntroPage() {
           {major.id === "law" && game.lawArchive.runs > 1 && <section className="v4-detail-section">
             <h3 className="v4-title">带一条过来人记忆</h3>
             <p className="mt-1 text-[11px] leading-relaxed text-[var(--v4-muted)]">你已经替自己读过一次法学。这一局可以带走一项轻量经验，不会替你决定路线。</p>
-            <div className="mt-3 grid gap-2">{LAW_MEMORIES.map((memory) => <button className={`v4-memory-choice ${game.legacyMemory === memory.id ? "is-selected" : ""}`} disabled={Boolean(game.legacyMemory)} key={memory.id} onClick={() => gameStore.chooseLawMemory(memory.id)}><span><strong>{memory.title}</strong><small>{memory.description}</small></span>{game.legacyMemory === memory.id && <span>已携带</span>}</button>)}</div>
+            <div className="mt-3 grid gap-2">{LAW_MEMORIES.map((memory) => <button className={`v4-memory-choice ${game.legacyMemory === memory.id ? "is-selected" : ""}`} key={memory.id} onClick={() => gameStore.chooseLawMemory(memory.id)}><span><strong>{memory.title}</strong><small>{memory.description}</small></span>{game.legacyMemory === memory.id && <span>已携带</span>}</button>)}</div>
           </section>}
 
           <div className="grid grid-cols-3 gap-2">
