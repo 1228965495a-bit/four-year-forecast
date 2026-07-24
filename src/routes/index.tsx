@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { ArrowRight, BookOpen, Pencil, Play, RotateCcw, UserRound, X } from "lucide-react";
+import { ArrowRight, BookOpen, Dices, GitBranch, Pencil, Play, RotateCcw, UserRound, X } from "lucide-react";
 import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { HomeCampusArt } from "@/components/game/CampusArt";
 import { useGameState, gameStore } from "@/lib/gameStore";
 import { majorById } from "@/data/script/majorCatalog";
+import { canEnterMajorGame, getMajorExperienceConfig } from "@/data/majorExperienceConfig";
 
 export const Route = createFileRoute("/")({ component: HomePage });
 
@@ -12,7 +13,8 @@ function HomePage() {
   const game = useGameState();
   const navigate = useNavigate();
   const currentMajor = game.majorId ? majorById[game.majorId] : null;
-  const hasSave = !!currentMajor;
+  const currentExperience = getMajorExperienceConfig(game.majorId);
+  const hasSave = !!currentMajor && canEnterMajorGame(game.majorId);
   const [characterOpen, setCharacterOpen] = useState(false);
   const [restartOpen, setRestartOpen] = useState(false);
   const [nameDraft, setNameDraft] = useState(game.characterName);
@@ -46,25 +48,30 @@ function HomePage() {
         <div className="v4-home">
           <div className="v4-brand-row">
             <span className="v4-kicker">云上大学 · 本科人生模拟器</span>
-            <span className="v4-version">新版本预览</span>
           </div>
 
           <HomeCampusArt />
 
-          <h1 className="v4-title">这专业我<br />先替你读了四年</h1>
-          <p className="v4-home-lead">选一个专业，做一点当时觉得合理的决定，然后看看四年后自己到底活成了什么样。</p>
+          <h1 className="v4-title">如果你真的读了这个专业，毕业时会变成谁？</h1>
+          <p className="v4-home-lead">选一个你想报、正在读，或者已经后悔过的专业，重新开一局大学人生。</p>
+          <div className="v4-home-loop">
+            <span><Dices size={14} />随机事件</span>
+            <span><GitBranch size={14} />多路线结局</span>
+            <span><RotateCcw size={14} />反复重开</span>
+          </div>
+          <div className="v4-home-question text-[12px] font-bold text-[var(--v4-muted)]">同一个专业，你能活出几种结局？</div>
 
           {hasSave && (
             <div className="v4-save-line">
               <UserRound size={18} />
-              <span><strong>{game.characterName}</strong> 正在读 {currentMajor?.name} · 第 {game.semesterIdx + 1} 学期</span>
+              <span><strong>{game.characterName}</strong> 正在读 {currentMajor?.name} · {currentExperience?.stageNames[game.semesterIdx] ?? `第 ${game.semesterIdx + 1} 学期`}</span>
             </div>
           )}
 
           <div className="v4-home-actions">
             <button className="v4-primary" onClick={continueGame}>
               {hasSave ? <Play size={19} fill="currentColor" /> : <ArrowRight size={20} />}
-              {hasSave ? "继续这一局" : "开始我的本科四年"}
+              {hasSave ? "继续这一局" : "选择专业"}
             </button>
             <div className="v4-home-subactions">
               <button className="v4-secondary" onClick={() => navigate({ to: "/catalog" })}><BookOpen size={17} />专业档案</button>

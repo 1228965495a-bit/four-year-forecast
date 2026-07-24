@@ -28,7 +28,7 @@ const RULES: Rule[] = [
   { id: "gpa",       label: "绩点求生者",  icon: "📚", scope: "both",   test: (g) => (g.stats?.gpaWill ?? 0) >= 65 },
   { id: "ddl",       label: "DDL 幸存者",  icon: "⏰", scope: "final",  test: (g) => (g.stats?.gpaWill ?? 0) >= 55 && (g.stats?.energy ?? 0) < 60 },
   { id: "nightowl",  label: "熬夜战神",    icon: "🌙", scope: "final",  test: (g) => (g.stats?.energy ?? 0) < 55 },
-  { id: "debug",     label: "debug 人",   icon: "🐞", scope: "final",  test: (g) => g.majorId === "computer_science" || g.majorId === "artificial_intelligence" },
+  { id: "debug",     label: "debug 人",   icon: "🐞", scope: "final",  test: (g) => g.majorId === "computer_science" },
   { id: "juan",      label: "还能再卷一下", icon: "💪", scope: "final",  test: (g) => (g.stats?.obsession ?? 0) >= 70 },
   { id: "law_lat",   label: "法考再说",    icon: "⚖️", scope: "midway", test: (g) => g.majorId === "law" },
   { id: "safety",    label: "保命第一",    icon: "🛡️", scope: "midway", test: (g) => (g.ggRisk ?? 0) >= 40 },

@@ -3,8 +3,19 @@
 
 import { majorById } from "@/data/script/majorCatalog";
 import { majorDataLoaders } from "@/data/script/majorDataLoaders";
-import { SEMESTER_KEYS, SEMESTER_LABEL } from "@/data/script/semesterMeta";
-import { applyLawChoiceLayer, pickLawCoreEvent, pickLawResourceEvent, resolveLawEvent, shouldDrawLawOptional, shouldFollowLawEvent } from "@/lib/lawRoguelite";
+import {
+  SEMESTER_KEYS,
+  SEMESTER_LABEL,
+  totalSemesters as configuredTotalSemesters,
+} from "@/data/script/semesterMeta";
+import { applyLawChoiceLayer, defaultLawNextEvent, pickLawCallbackEvent, pickLawCoreEvent, pickLawResourceEvent, resolveLawEvent, shouldDrawLawOptional, shouldFollowLawEvent } from "@/lib/lawRoguelite";
+import { applyCSChoiceLayer, pickCSCallbackEvent, pickCSCoreEvent, resolveCSEvent, shouldDrawCSOptional, shouldFollowCSEvent } from "@/lib/computerScienceRoguelite";
+import { applyClinicalChoiceLayer, pickClinicalCallbackEvent, pickClinicalCoreEvent, pickClinicalOptionalEvent, shouldDrawClinicalOptional, shouldFollowClinicalEvent } from "@/lib/clinicalMedicineRoguelite";
+import { applyChineseChoiceLayer, pickChineseCallbackEvent, pickChineseCoreEvent, pickChineseOptionalEvent, shouldDrawChineseOptional, shouldFollowChineseEvent } from "@/lib/chineseLiteratureRoguelite";
+import { applyAccountingChoiceLayer, pickAccountingCallbackEvent, pickAccountingCoreEvent, pickAccountingOptionalEvent, resolveAccountingEvent, shouldDrawAccountingOptional, shouldFollowAccountingEvent } from "@/lib/accountingRoguelite";
+import { decorateMajorReplayEvent, recordMajorReplayChoice } from "@/lib/majorReplay";
+import { humorTypeRepeatPenalty } from "@/lib/eventCopyQuality";
+import type { ReplayRunContext } from "@/lib/replaySystem";
 export { SEMESTER_KEYS } from "@/data/script/semesterMeta";
 export type { SemesterKey } from "@/data/script/semesterMeta";
 
@@ -69,6 +80,7 @@ export interface EngineState {
   routeScores: Record<string, number>;
   specialExperiences: string[];
   pendingTrend: string | null;
+  replayContext: ReplayRunContext | null;
   semesterEventCount: number;
   ggRisk: number;
   finished: boolean;
@@ -125,6 +137,7 @@ export function initEngineForMajor(majorId: string): EngineState {
     routeScores: {},
     specialExperiences: [],
     pendingTrend: null,
+    replayContext: null,
     semesterEventCount: 0,
     ggRisk: 0,
     finished: false,
@@ -256,6 +269,13 @@ export function applyChoice(prev: EngineState, choice: any): ApplyResult {
     achievements: [...prev.achievements],
     routeScores: { ...prev.routeScores },
     specialExperiences: [...prev.specialExperiences],
+    replayContext: prev.replayContext ? {
+      ...prev.replayContext,
+      shownPortraitIds: [...prev.replayContext.shownPortraitIds],
+      pendingPortraits: [...prev.replayContext.pendingPortraits],
+      behaviorCounts: { ...prev.replayContext.behaviorCounts },
+      recentBehaviorTags: [...prev.replayContext.recentBehaviorTags],
+    } : null,
   };
 
   const eff = choice.effects ?? {};
@@ -265,6 +285,13 @@ export function applyChoice(prev: EngineState, choice: any): ApplyResult {
   mergeDelta(state.majorStats, eff.majorStats, true);
   mergeDelta(state.hiddenStats, eff.hiddenStats, false);
   if (state.majorId === "law") applyLawChoiceLayer(state, event, choice);
+  if (state.majorId === "computer_science") applyCSChoiceLayer(state, event, choice);
+  if (state.majorId === "clinical_medicine") applyClinicalChoiceLayer(state, event, choice);
+  if (state.majorId === "chinese_language_literature") applyChineseChoiceLayer(state, event, choice);
+  if (state.majorId === "accounting") applyAccountingChoiceLayer(state, event, choice);
+  if (["computer_science", "clinical_medicine", "chinese_language_literature", "accounting"].includes(state.majorId)) {
+    recordMajorReplayChoice(state, choice);
+  }
 
   if (state.majorId === "law") {
     const rawEnergyCost = Number(eff.stats?.energy ?? 0);
@@ -293,10 +320,29 @@ export function applyChoice(prev: EngineState, choice: any): ApplyResult {
 
   // 决定下一事件
   state.semesterEventCount += 1;
-  const nextId = normalizeId(choice.nextEventId ?? choice.nextEvent);
-  const explicitNext = nextId ? runtime.eventById[nextId] : null;
-  const explicitEligible = explicitNext && evalCond(state, explicitNext.triggerCondition) && evalCond(state, explicitNext.conditions);
-  const shouldFollow = explicitEligible && (state.majorId !== "law" || shouldFollowLawEvent(state, explicitNext));
+  const authoredNextId = normalizeId(choice.nextEventId ?? choice.nextEvent);
+  const lawFallbackNextId = state.majorId === "law" ? defaultLawNextEvent(event.id) : null;
+  let nextId = authoredNextId ?? lawFallbackNextId;
+  let explicitNext = nextId ? runtime.eventById[nextId] : null;
+  let explicitEligible = explicitNext && evalCond(state, explicitNext.triggerCondition) && evalCond(state, explicitNext.conditions);
+  if (!explicitEligible && authoredNextId && lawFallbackNextId && authoredNextId !== lawFallbackNextId) {
+    nextId = lawFallbackNextId;
+    explicitNext = runtime.eventById[nextId];
+    explicitEligible = explicitNext && evalCond(state, explicitNext.triggerCondition) && evalCond(state, explicitNext.conditions);
+  }
+  const shouldFollow = explicitEligible && (
+    state.majorId === "law"
+      ? shouldFollowLawEvent(state, explicitNext)
+      : state.majorId === "computer_science"
+      ? shouldFollowCSEvent(state, explicitNext)
+      : state.majorId === "clinical_medicine"
+      ? shouldFollowClinicalEvent(state, explicitNext)
+      : state.majorId === "chinese_language_literature"
+      ? shouldFollowChineseEvent(state, explicitNext)
+      : state.majorId === "accounting"
+      ? shouldFollowAccountingEvent(state, explicitNext)
+      : true
+  );
   if (nextId && shouldFollow) {
     if (state.majorId === "law" && explicitNext.semester) {
       const nextSemesterIdx = SEMESTER_KEYS.indexOf(explicitNext.semester);
@@ -342,13 +388,35 @@ function mergeDelta(bag: Record<string, number>, delta: any, clamp: boolean) {
 }
 
 function balancedStatDelta(majorId: string, delta: any) {
-  if (majorId !== "law" || !delta || Number(delta.energy ?? 0) >= 0) return delta;
+  if (!["law", "computer_science", "clinical_medicine", "chinese_language_literature", "accounting"].includes(majorId) || !delta || Number(delta.energy ?? 0) >= 0) return delta;
   return { ...delta, energy: Math.ceil(Number(delta.energy) * 0.75) };
 }
 
 function advanceSemester(state: EngineState) {
   if (state.majorId === "law") {
     if (state.semesterEventCount < 4) {
+      const callbackId = pickLawCallbackEvent(state);
+      if (callbackId) {
+        state.currentEventId = callbackId;
+        if (!state.seenEvents.includes(callbackId)) state.seenEvents.push(callbackId);
+        return;
+      }
+
+      const preferOptional = (
+        Number(state.hiddenStats.lawRunSeed ?? 1)
+        + state.semesterIdx
+        + state.seenEvents.length
+      ) % 2 === 0;
+      if (preferOptional && !state.semesterRandomShown && shouldDrawLawOptional(state)) {
+        const optionalId = pickRandomEvent(state);
+        if (optionalId) {
+          state.currentEventId = optionalId;
+          state.semesterRandomShown = true;
+          if (!state.seenEvents.includes(optionalId)) state.seenEvents.push(optionalId);
+          return;
+        }
+      }
+
       const resourceId = pickLawResourceEvent(state);
       if (resourceId) {
         state.currentEventId = resourceId;
@@ -366,6 +434,90 @@ function advanceSemester(state: EngineState) {
       }
     }
     advanceLawSemester(state);
+    return;
+  }
+  if (state.majorId === "computer_science") {
+    if (state.semesterEventCount < 3) {
+      const callbackId = pickCSCallbackEvent(state);
+      if (callbackId) {
+        state.currentEventId = callbackId;
+        if (!state.seenEvents.includes(callbackId)) state.seenEvents.push(callbackId);
+        return;
+      }
+      if (!state.semesterRandomShown && shouldDrawCSOptional(state)) {
+        const optionalId = pickRandomEvent(state);
+        if (optionalId) {
+          state.currentEventId = optionalId;
+          state.semesterRandomShown = true;
+          if (!state.seenEvents.includes(optionalId)) state.seenEvents.push(optionalId);
+          return;
+        }
+      }
+    }
+    advanceCSSemester(state);
+    return;
+  }
+  if (state.majorId === "clinical_medicine") {
+    if (state.semesterEventCount < 3) {
+      const callbackId = pickClinicalCallbackEvent(state);
+      if (callbackId) {
+        state.currentEventId = callbackId;
+        if (!state.seenEvents.includes(callbackId)) state.seenEvents.push(callbackId);
+        return;
+      }
+      if (!state.semesterRandomShown && shouldDrawClinicalOptional(state)) {
+        const optionalId = pickClinicalOptionalEvent(state, runtimeOf(state.majorId).events);
+        if (optionalId) {
+          state.currentEventId = optionalId;
+          state.semesterRandomShown = true;
+          if (!state.seenEvents.includes(optionalId)) state.seenEvents.push(optionalId);
+          return;
+        }
+      }
+    }
+    advanceClinicalSemester(state);
+    return;
+  }
+  if (state.majorId === "chinese_language_literature") {
+    if (state.semesterEventCount < 3) {
+      const callbackId = pickChineseCallbackEvent(state);
+      if (callbackId) {
+        state.currentEventId = callbackId;
+        if (!state.seenEvents.includes(callbackId)) state.seenEvents.push(callbackId);
+        return;
+      }
+      if (!state.semesterRandomShown && shouldDrawChineseOptional(state)) {
+        const optionalId = pickChineseOptionalEvent(state);
+        if (optionalId) {
+          state.currentEventId = optionalId;
+          state.semesterRandomShown = true;
+          if (!state.seenEvents.includes(optionalId)) state.seenEvents.push(optionalId);
+          return;
+        }
+      }
+    }
+    advanceChineseSemester(state);
+    return;
+  }
+  if (state.majorId === "accounting") {
+    if (state.semesterEventCount < 3) {
+      const callbackId = pickAccountingCallbackEvent(state);
+      if (callbackId) {
+        state.currentEventId = callbackId;
+        if (!state.seenEvents.includes(callbackId)) state.seenEvents.push(callbackId);
+        return;
+      }
+      if (!state.semesterRandomShown && shouldDrawAccountingOptional(state)) {
+        const optionalId = pickAccountingOptionalEvent(state);
+        if (optionalId) {
+          state.currentEventId = optionalId;
+          state.semesterRandomShown = true;
+          if (!state.seenEvents.includes(optionalId)) state.seenEvents.push(optionalId);
+          return;
+        }
+      }
+    }
+    advanceAccountingSemester(state);
     return;
   }
 
@@ -388,7 +540,7 @@ function advanceSemester(state: EngineState) {
   }
 
   const nextIdx = state.semesterIdx + 1;
-  if (nextIdx >= SEMESTER_KEYS.length) {
+  if (nextIdx >= configuredTotalSemesters(state.majorId)) {
     // 结算：跑一次结局判定
     const ending = pickEnding(state);
     state.finished = true;
@@ -410,7 +562,7 @@ function advanceSemester(state: EngineState) {
 
 function advanceLawSemester(state: EngineState) {
   const nextIdx = state.semesterIdx + 1;
-  if (nextIdx >= SEMESTER_KEYS.length) {
+  if (nextIdx >= configuredTotalSemesters(state.majorId)) {
     const ending = pickEnding(state);
     state.finished = true;
     state.endingId = ending?.id ?? null;
@@ -428,6 +580,85 @@ function advanceLawSemester(state: EngineState) {
   if (!next) advanceLawSemester(state);
 }
 
+function advanceCSSemester(state: EngineState) {
+  const nextIdx = state.semesterIdx + 1;
+  if (nextIdx >= configuredTotalSemesters(state.majorId)) {
+    const ending = pickEnding(state);
+    state.finished = true;
+    state.endingId = ending?.id ?? null;
+    state.currentEventId = null;
+    return;
+  }
+  state.semesterIdx = nextIdx;
+  state.semesterRandomShown = false;
+  state.semesterEventCount = 0;
+  state.stats.energy = clamp01_100((state.stats.energy ?? 0) + 5);
+  const next = pickCSCoreEvent(state);
+  state.currentEventId = next;
+  if (next && !state.seenEvents.includes(next)) state.seenEvents.push(next);
+  if (!next) advanceCSSemester(state);
+}
+
+function advanceClinicalSemester(state: EngineState) {
+  const nextIdx = state.semesterIdx + 1;
+  if (nextIdx >= configuredTotalSemesters(state.majorId)) {
+    const ending = pickEnding(state);
+    state.finished = true;
+    state.endingId = ending?.id ?? null;
+    state.currentEventId = null;
+    return;
+  }
+  state.semesterIdx = nextIdx;
+  state.semesterRandomShown = false;
+  state.semesterEventCount = 0;
+  state.stats.energy = clamp01_100((state.stats.energy ?? 0) + 5);
+  state.stats.escapeImpulse = clamp01_100((state.stats.escapeImpulse ?? 0) - 2);
+  const next = pickClinicalCoreEvent(state);
+  state.currentEventId = next;
+  if (next && !state.seenEvents.includes(next)) state.seenEvents.push(next);
+  if (!next) advanceClinicalSemester(state);
+}
+
+function advanceChineseSemester(state: EngineState) {
+  const nextIdx = state.semesterIdx + 1;
+  if (nextIdx >= configuredTotalSemesters(state.majorId)) {
+    const ending = pickEnding(state);
+    state.finished = true;
+    state.endingId = ending?.id ?? null;
+    state.currentEventId = null;
+    return;
+  }
+  state.semesterIdx = nextIdx;
+  state.semesterRandomShown = false;
+  state.semesterEventCount = 0;
+  state.stats.energy = clamp01_100((state.stats.energy ?? 0) + 5);
+  state.stats.escapeImpulse = clamp01_100((state.stats.escapeImpulse ?? 0) - 2);
+  const next = pickChineseCoreEvent(state);
+  state.currentEventId = next;
+  if (next && !state.seenEvents.includes(next)) state.seenEvents.push(next);
+  if (!next) advanceChineseSemester(state);
+}
+
+function advanceAccountingSemester(state: EngineState) {
+  const nextIdx = state.semesterIdx + 1;
+  if (nextIdx >= configuredTotalSemesters(state.majorId)) {
+    const ending = pickEnding(state);
+    state.finished = true;
+    state.endingId = ending?.id ?? null;
+    state.currentEventId = null;
+    return;
+  }
+  state.semesterIdx = nextIdx;
+  state.semesterRandomShown = false;
+  state.semesterEventCount = 0;
+  state.stats.energy = clamp01_100((state.stats.energy ?? 0) + 5);
+  state.stats.escapeImpulse = clamp01_100((state.stats.escapeImpulse ?? 0) - 2);
+  const next = pickAccountingCoreEvent(state);
+  state.currentEventId = next;
+  if (next && !state.seenEvents.includes(next)) state.seenEvents.push(next);
+  if (!next) advanceAccountingSemester(state);
+}
+
 // ============= 随机事件 =============
 
 function pickRandomEvent(state: EngineState): string | null {
@@ -441,20 +672,30 @@ function pickRandomEvent(state: EngineState): string | null {
     ? runtime.events.filter((event: any) => event.type === "roguelite_random" && event.semester === SEMESTER_KEYS[state.semesterIdx]).map((event: any) => event.id)
     : [];
   const pool = [...new Set([...configuredPool, ...lawCallbacks, ...lawIncidents])];
-  const eligible = pool
+  let eligible = pool
     .map((id) => runtime.eventById[id])
     .filter((e): e is any => !!e && !state.seenEvents.includes(e.id))
     .filter((e) => !e.semester || e.semester === SEMESTER_KEYS[state.semesterIdx])
     .filter((e) => evalCond(state, e.triggerCondition) && evalCond(state, e.conditions));
+  if (state.replayContext && state.replayContext.completedEventCount < 3) {
+    const previousSeen = new Set(state.replayContext.previousRun.seenEventIds);
+    const fresh = eligible.filter((event) => !previousSeen.has(event.id));
+    if (fresh.length) eligible = fresh;
+  }
   if (!eligible.length) return null;
   // 法学样板把已走分支纳入种子：不同选择会遇到不同校园插曲，同时存档仍可稳定复现。
-  const branchSalt = state.majorId === "law" ? stableHash(state.seenEvents.join("|")) : 0;
-  const seed = (state.semesterIdx + 1) * 9301 + state.seenEvents.length * 49297 + branchSalt;
-  const totalW = eligible.reduce((s, e) => s + (e.weight ?? 1), 0);
+  const branchSalt = ["law", "computer_science"].includes(state.majorId) ? stableHash(state.seenEvents.join("|")) : 0;
+  const runSalt = state.majorId === "computer_science" ? Number(state.hiddenStats.csRunSeed ?? 1) * 7919 : 0;
+  const seed = (state.semesterIdx + 1) * 9301 + state.seenEvents.length * 49297 + branchSalt + runSalt;
+  const weighted = eligible.map((event) => ({
+    event,
+    weight: Math.max(0.1, Number(event.weight ?? 1) * humorTypeRepeatPenalty(runtime.events, state.seenEvents, event)),
+  }));
+  const totalW = weighted.reduce((sum, item) => sum + item.weight, 0);
   let r = (seed >>> 0) % Math.max(1, Math.floor(totalW));
-  for (const e of eligible) {
-    r -= e.weight ?? 1;
-    if (r < 0) return e.id;
+  for (const item of weighted) {
+    r -= item.weight;
+    if (r < 0) return item.event.id;
   }
   return eligible[0].id;
 }
@@ -498,7 +739,13 @@ export function scanAchievements(state: EngineState): string[] {
 export function getCurrentEvent(state: EngineState): any | null {
   if (!state.currentEventId || !hasMajorRuntime(state.majorId)) return null;
   const event = runtimeOf(state.majorId).eventById[state.currentEventId] ?? null;
-  return state.majorId === "law" ? resolveLawEvent(state, event) : event;
+  if (state.majorId === "law") return resolveLawEvent(state, event);
+  if (state.majorId === "computer_science") return decorateMajorReplayEvent(state, resolveCSEvent(state, event));
+  if (state.majorId === "accounting") return decorateMajorReplayEvent(state, resolveAccountingEvent(state, event));
+  if (["clinical_medicine", "chinese_language_literature"].includes(state.majorId)) {
+    return decorateMajorReplayEvent(state, event);
+  }
+  return event;
 }
 
 export async function getAchievementsForMajor(majorId: string) {
@@ -509,8 +756,8 @@ export function currentSemesterLabel(state: EngineState): string {
   return SEMESTER_LABEL[SEMESTER_KEYS[state.semesterIdx]];
 }
 
-export function totalSemesters() {
-  return SEMESTER_KEYS.length;
+export function totalSemesters(majorId?: string | null) {
+  return configuredTotalSemesters(majorId);
 }
 
 export { majorById };

@@ -5,7 +5,12 @@ import { PhoneFrame } from "@/components/game/PhoneFrame";
 import { MajorMark } from "@/components/game/CampusArt";
 import { gameStore, useGameState } from "@/lib/gameStore";
 import { majorById } from "@/data/script/majorCatalog";
-import { getLawTrait, LAW_MEMORIES } from "@/lib/lawRoguelite";
+import { getLawTrait } from "@/lib/lawRoguelite";
+import { getCSStartTrait } from "@/lib/computerScienceRoguelite";
+import { getClinicalStartTrait } from "@/lib/clinicalMedicineRoguelite";
+import { getChineseStartTrait } from "@/lib/chineseLiteratureRoguelite";
+import { getAccountingStartTrait } from "@/lib/accountingRoguelite";
+import { canEnterMajorGame, getMajorExperienceConfig } from "@/data/majorExperienceConfig";
 
 export const Route = createFileRoute("/intro")({ component: IntroPage });
 
@@ -13,23 +18,58 @@ function IntroPage() {
   const game = useGameState();
   const navigate = useNavigate();
   const major = game.majorId ? majorById[game.majorId] : null;
+  const experience = getMajorExperienceConfig(game.majorId);
 
   useEffect(() => {
-    if (game.hydrated && !major) navigate({ to: "/major" });
-  }, [game.hydrated, major, navigate]);
+    if (!game.hydrated) return;
+    if (!experience || !major) navigate({ to: "/major" });
+    else if (!canEnterMajorGame(game.majorId)) {
+      navigate({ to: "/major-preview/$majorId", params: { majorId: game.majorId } });
+    }
+  }, [experience, game.hydrated, game.majorId, major, navigate]);
 
-  if (!major) return null;
+  if (!major || !experience || !canEnterMajorGame(game.majorId)) return null;
 
-  const coreStats = major.id === "law" ? [
-    { label: "精力", value: game.stats.energy ?? 0, color: "var(--v4-blue)", icon: BatteryMedium },
-    { label: "专业积累", value: game.stats.professionalAccumulation ?? 0, color: "var(--v4-coral)", icon: BookOpenCheck },
-    { label: "机会", value: game.stats.opportunity ?? 0, color: "var(--v4-mint)", icon: KeyRound },
-  ] : [
-    { label: "精力", value: game.stats.energy ?? 0, color: "var(--v4-blue)", icon: BatteryMedium },
-    { label: "专业认同", value: game.stats.obsession ?? 0, color: "var(--v4-coral)", icon: BookOpenCheck },
-    { label: "未来筹码", value: Math.round(((game.stats.gpaWill ?? 0) + (game.stats.careerFantasy ?? 0)) / 2), color: "var(--v4-mint)", icon: KeyRound },
-  ];
+  const coreStats = major.id === "law"
+    ? [
+        { label: "精力", value: game.stats.energy ?? 0, color: "var(--v4-blue)", icon: BatteryMedium },
+        { label: "专业积累", value: game.stats.professionalAccumulation ?? 0, color: "var(--v4-coral)", icon: BookOpenCheck },
+        { label: "机会", value: game.stats.opportunity ?? 0, color: "var(--v4-mint)", icon: KeyRound },
+      ]
+    : major.id === "computer_science"
+      ? [
+          { label: "精力", value: game.stats.energy ?? 0, color: "var(--v4-blue)", icon: BatteryMedium },
+          { label: "技术积累", value: game.stats.technicalAccumulation ?? 0, color: "var(--v4-coral)", icon: BookOpenCheck },
+          { label: "项目机会", value: game.stats.projectOpportunity ?? 0, color: "var(--v4-mint)", icon: KeyRound },
+        ]
+      : major.id === "clinical_medicine"
+        ? [
+            { label: "精力", value: game.stats.energy ?? 0, color: "var(--v4-blue)", icon: BatteryMedium },
+            { label: "医学积累", value: game.stats.medicalAccumulation ?? 0, color: "var(--v4-coral)", icon: BookOpenCheck },
+            { label: "临床机会", value: game.stats.clinicalOpportunity ?? 0, color: "var(--v4-mint)", icon: KeyRound },
+          ]
+      : major.id === "chinese_language_literature"
+        ? [
+            { label: "精力", value: game.stats.energy ?? 0, color: "var(--v4-blue)", icon: BatteryMedium },
+            { label: "文本积累", value: game.stats.textAccumulation ?? 0, color: "var(--v4-coral)", icon: BookOpenCheck },
+            { label: "表达机会", value: game.stats.expressionOpportunity ?? 0, color: "var(--v4-mint)", icon: KeyRound },
+          ]
+      : major.id === "accounting"
+        ? [
+            { label: "精力", value: game.stats.energy ?? 0, color: "var(--v4-blue)", icon: BatteryMedium },
+            { label: "专业积累", value: game.stats.accountingKnowledge ?? 0, color: "var(--v4-coral)", icon: BookOpenCheck },
+            { label: "实务机会", value: game.stats.practicalOpportunity ?? 0, color: "var(--v4-mint)", icon: KeyRound },
+          ]
+      : [
+          { label: "精力", value: game.stats.energy ?? 0, color: "var(--v4-blue)", icon: BatteryMedium },
+          { label: "专业认同", value: game.stats.obsession ?? 0, color: "var(--v4-coral)", icon: BookOpenCheck },
+          { label: "未来筹码", value: Math.round(((game.stats.gpaWill ?? 0) + (game.stats.careerFantasy ?? 0)) / 2), color: "var(--v4-mint)", icon: KeyRound },
+        ];
   const lawTrait = major.id === "law" ? getLawTrait(game.initialTrait) : null;
+  const csTrait = major.id === "computer_science" ? getCSStartTrait(game.initialTrait) : null;
+  const clinicalTrait = major.id === "clinical_medicine" ? getClinicalStartTrait(game.initialTrait) : null;
+  const chineseTrait = major.id === "chinese_language_literature" ? getChineseStartTrait(game.initialTrait) : null;
+  const accountingTrait = major.id === "accounting" ? getAccountingStartTrait(game.initialTrait) : null;
 
   const topBar = (
     <header className="v4-topbar">
@@ -47,19 +87,17 @@ function IntroPage() {
             <div className="min-w-0">
               <div className="text-[12px] font-bold text-[var(--v4-muted)]">{game.characterName} 的本科录取结果</div>
               <h1 className="v4-title mt-1 text-[28px] leading-tight">{major.name}</h1>
-              <div className="mt-1 text-[12px] text-[var(--v4-muted)]">云上大学 · 四年制本科</div>
+              <div className="mt-1 text-[12px] text-[var(--v4-muted)]">云上大学 · {experience.graduationYear} 年制本科</div>
             </div>
           </div>
 
           <p className="m-0 text-[14px] leading-[1.75] text-[var(--v4-muted)]">{major.intro?.body?.split("\n")[0] ?? major.card?.description}</p>
 
           {lawTrait && <section className="v4-law-trait"><div className="text-[10px] font-bold text-[var(--v4-muted)]">本局随机入学状态</div><h2>{lawTrait.title}</h2><p>{lawTrait.description}</p></section>}
-
-          {major.id === "law" && game.lawArchive.runs > 1 && <section className="v4-detail-section">
-            <h3 className="v4-title">带一条过来人记忆</h3>
-            <p className="mt-1 text-[11px] leading-relaxed text-[var(--v4-muted)]">你已经替自己读过一次法学。这一局可以带走一项轻量经验，不会替你决定路线。</p>
-            <div className="mt-3 grid gap-2">{LAW_MEMORIES.map((memory) => <button className={`v4-memory-choice ${game.legacyMemory === memory.id ? "is-selected" : ""}`} key={memory.id} onClick={() => gameStore.chooseLawMemory(memory.id)}><span><strong>{memory.title}</strong><small>{memory.description}</small></span>{game.legacyMemory === memory.id && <span>已携带</span>}</button>)}</div>
-          </section>}
+          {csTrait && <section className="v4-law-trait"><div className="text-[10px] font-bold text-[var(--v4-muted)]">本局随机开局状况</div><h2>{csTrait.title}</h2><p>{csTrait.description}</p></section>}
+          {clinicalTrait && <section className="v4-law-trait"><div className="text-[10px] font-bold text-[var(--v4-muted)]">本局随机入学变量</div><h2>{clinicalTrait.title}</h2><p>{clinicalTrait.description}</p></section>}
+          {chineseTrait && <section className="v4-law-trait"><div className="text-[10px] font-bold text-[var(--v4-muted)]">本局随机入学状态</div><h2>{chineseTrait.title}</h2><p>{chineseTrait.description}</p></section>}
+          {accountingTrait && <section className="v4-law-trait"><div className="text-[10px] font-bold text-[var(--v4-muted)]">本局随机入学状态</div><h2>{accountingTrait.title}</h2><p>{accountingTrait.description}</p></section>}
 
           <div className="grid grid-cols-3 gap-2">
             {coreStats.map(({ label, value, color, icon: Icon }) => (
@@ -72,7 +110,7 @@ function IntroPage() {
           </div>
 
           <section className="v4-detail-section">
-            <h3 className="v4-title">未来四年大概率会遇到</h3>
+            <h3 className="v4-title">未来{experience.graduationYear}年大概率会遇到</h3>
             <ul>{(major.painPoints ?? []).slice(0, 4).map((item: string) => <li key={item}>{item}</li>)}</ul>
           </section>
 

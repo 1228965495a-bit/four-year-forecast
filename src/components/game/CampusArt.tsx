@@ -1,38 +1,22 @@
 import type { LucideIcon } from "lucide-react";
 import {
-  BookOpen, Brain, BriefcaseBusiness, Calculator, ChartNoAxesCombined,
-  Code2, GraduationCap, Languages, Newspaper, RadioTower, Scale,
-  SmilePlus, Stethoscope, Wrench, Zap,
+  BookOpen, Calculator, Code2, Scale, Stethoscope, Vote,
 } from "lucide-react";
 
 const MAJOR_ICON: Record<string, LucideIcon> = {
   law: Scale,
   computer_science: Code2,
-  artificial_intelligence: Brain,
   clinical_medicine: Stethoscope,
-  finance: ChartNoAxesCombined,
   accounting: Calculator,
-  journalism_communication: Newspaper,
-  electrical_engineering: Zap,
-  english: Languages,
-  teacher_education: GraduationCap,
   chinese_language_literature: BookOpen,
-  stomatology: SmilePlus,
-  psychology: Brain,
-  electronic_information: RadioTower,
-  mechanical_engineering: Wrench,
-  business_administration: BriefcaseBusiness,
+  community_next_major: Vote,
 };
 
 const MAJOR_COLOR: Record<string, string> = {
   law: "var(--v4-coral)", computer_science: "var(--v4-blue)",
-  artificial_intelligence: "var(--v4-violet)", clinical_medicine: "var(--v4-red)",
-  finance: "var(--v4-yellow)", accounting: "var(--v4-mint)",
-  journalism_communication: "var(--v4-orange)", electrical_engineering: "var(--v4-yellow)",
-  english: "var(--v4-blue)", teacher_education: "var(--v4-mint)",
-  chinese_language_literature: "var(--v4-coral)", stomatology: "var(--v4-blue)",
-  psychology: "var(--v4-violet)", electronic_information: "var(--v4-mint)",
-  mechanical_engineering: "var(--v4-orange)", business_administration: "var(--v4-yellow)",
+  clinical_medicine: "var(--v4-red)", accounting: "var(--v4-mint)",
+  chinese_language_literature: "var(--v4-coral)",
+  community_next_major: "var(--v4-violet)",
 };
 
 export function MajorMark({ id, size = 44 }: { id: string; size?: number }) {

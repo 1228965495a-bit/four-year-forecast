@@ -1,4 +1,6 @@
 import { LAW_ROGUELITE_EVENTS } from "@/data/script/byMajor/law.roguelite.events";
+import { decorateLawReplayEvent, pickLawReplayOpening, recordLawReplayChoice } from "./lawReplay";
+import type { ReplayRunContext } from "./replaySystem";
 
 export type LawRouteKey = "academic" | "firm" | "civil" | "advocacy" | "transfer" | "survival" | "detour";
 
@@ -20,6 +22,7 @@ type MutableLawState = {
   routeScores?: Record<string, number>;
   specialExperiences?: string[];
   pendingTrend?: string | null;
+  replayContext?: ReplayRunContext | null;
 };
 
 type LawGameLike = MutableLawState & {
@@ -46,22 +49,22 @@ export const LAW_TRAITS = [
 ] as const;
 
 export const LAW_ROUTE_DEFINITIONS = [
-  { id: "academic", title: "保研学术线", ending: "把脚注写成上岸路线", summary: "你把课程、论文和老师推荐串成了一条学术路径。别人追热点，你在追注释来源。" },
-  { id: "firm", title: "律所实习就业线", ending: "从复印机管辖权开始执业", summary: "你见过律政剧删掉的检索、改稿和凌晨消息，仍决定先从真实法律工作里站稳。" },
-  { id: "civil", title: "考公考编线", ending: "在职位表里实现稳定预期", summary: "你把专业积累换成岗位选择，把路线焦虑整理成报名条件，最终押注一条稳定路径。" },
-  { id: "advocacy", title: "模拟法庭表达线", ending: "把被点名练成了发言席", summary: "你从课堂被告席一路走到模拟法庭，逐渐发现自己不只会找漏洞，也敢把论证说出口。" },
-  { id: "transfer", title: "转专业隐藏线", ending: "依法解除专业关系", summary: "你不是在情绪最差时逃跑，而是查规则、攒筹码、等窗口，真正替自己推开了一扇门。" },
-  { id: "survival", title: "混合生存线", ending: "在绩点和睡眠之间庭外和解", summary: "你没有包揽所有成果，但保住了毕业证、电量和继续生活的能力。" },
-  { id: "detour", title: "非典型偏航线", ending: "把法学装成跨行业被动技能", summary: "你没有沿标准法律职业前进，却把证据、规则和表达带进了另一条路。" },
+  { id: "academic", title: "学术牛马预服役线", ending: "名单没出，导师先把你当研究生用了", summary: "你从帮老师查两篇文献开始，查着查着有了选题，改着改着多出八个版本。别人暑假在旅游，你在夏令营海投；别人问你保没保上，你不敢说，只敢继续改摘要。等名单终于落地，你已经提前过了半年研究生生活。", shareText: "我的法学本科结局：保研名单还没出，老师已经按研究生标准用了我半年。录取通知来得很晚，“再改一版”来得一直很准时。" },
+  { id: "firm", title: "律所实习就业线", ending: "律政剧没拍的活，你全干了", summary: "你见过律政剧删掉的检索、改稿、装订和凌晨消息，也学会在第七版文件名里保持职业微笑。滤镜掉了不少，但你确认自己愿意从真实业务里慢慢站稳。", shareText: "我在法学院走了律所就业线：没在法庭上拍桌子，先在第七版合同里找到了职业方向。" },
+  { id: "civil", title: "考公考编线", ending: "焦虑一律转成岗位表", summary: "你没有让就业焦虑在脑内无限开庭，而是把它拆成岗位、条件、时间表和备选方案。别人还在问以后怎么办，你已经把应届身份规划到了小数点后两位。", shareText: "我的法学本科结局：把焦虑做成Excel，在职位表里为未来申请了一个可执行版本。" },
+  { id: "advocacy", title: "全场默认你主辩线", ending: "表达能力上来了，麦也焊手上了", summary: "你从第一次被老师点名时脑子空白，练到能在三分钟内把队友那份逻辑稀碎的稿子救回来。代价是以后每逢汇报、答辩和模拟法庭，群里都会准时出现那句：“要不还是你讲吧。”", shareText: "我的法学本科结局：表达能力确实练出来了，代价是每次小组作业都有人默默把麦递给我。" },
+  { id: "transfer", title: "法学院成功出逃线", ending: "逃生门不是贴图，真能推开", summary: "你把培养方案翻到包浆，绩点守到能用，连教务处几点开门都摸清了。名单公布那天，你终于确认法学院的逃生门不是游戏贴图。新专业照样有DDL，但至少这次是你自己点的确认键。", shareText: "我的法学本科结局：培养方案翻烂了，转专业名单上终于有我。逃生门不是贴图，真能开。" },
+  { id: "survival", title: "法学院低空通关线", ending: "没拿满成就，人活到了片尾", summary: "你没拿国奖、没把每场比赛都打满，也没在期末周把自己卷成失踪人口。该交的交，该拒绝的拒绝，偶尔擦线飞过，最后把毕业证和还能用的精神状态一起带出了法学院。", shareText: "我的法学本科结局：没拿满成就，也没把自己搭进去。毕业证到手，人还能正常开机。" },
+  { id: "detour", title: "非典型跨行线", ending: "法律没做主业，成了被动技能", summary: "你没有沿着法考、律所或体制内的标准航线前进，却把检索、规则、表达和风险意识装进了另一份职业。法学没有成为终点，但它已经悄悄接管了你的思考方式。", shareText: "我没有从事法律职业，但法学已经成了跨行业被动技能：听到结论先问依据，看到合同先找坑。" },
 ] as const;
 
 export const LAW_PERSONAS = [
-  { id: "evidence", title: "证据链强迫症患者", verdict: "你已经很久没有单纯听一个故事了，你只会下意识问：原始聊天记录呢？", score: (s: MutableLawState) => dim(s, "evidence") * 10 + dim(s, "ruleSensitivity") * 0.6 + (100 - dim(s, "ambiguityTolerance")) * 0.25 + proof(s, "evidence") * 60 },
-  { id: "advocate", title: "野生法庭辩手", verdict: "别人只是发表意见，你已经默默准备好了正方一辩、反方质询和总结陈词。", score: (s: MutableLawState) => dim(s, "expression") * 0.8 + dim(s, "stressTolerance") * 0.35 + routeScore(s, "advocacy") * 3 + proof(s, "advocate") * 60 },
-  { id: "rule_keeper", title: "法条秩序维护者", verdict: "你不一定记得法条原文，但听见‘大家都这样’时，已经会本能地追问依据。", score: (s: MutableLawState) => dim(s, "ruleSensitivity") * 0.8 + dim(s, "idealDrive") * 0.35 + Number(s.majorStats.legalCloseness ?? 0) * 0.2 + proof(s, "rule_keeper") * 60 },
-  { id: "planner", title: "考公路线规划大师", verdict: "别人焦虑时刷短视频，你焦虑时会打开岗位表，并给未来建立三个备选方案。", score: (s: MutableLawState) => dim(s, "realityPlanning") * 0.9 + routeScore(s, "civil") * 3 + Number(s.stats.opportunity ?? 0) * 0.1 + proof(s, "planner") * 60 },
-  { id: "escape", title: "三次想转专业仍毕业型", verdict: "你把每一扇逃生门都查过一遍，最后是否离开不重要，重要的是门把手上全是你的指纹。", score: (s: MutableLawState) => dim(s, "escape") * 10 + dim(s, "realityPlanning") * 0.5 + Number(s.stats.escapeImpulse ?? 0) * 0.3 + proof(s, "escape") * 60 },
-  { id: "mediator", title: "人间纠纷调解器", verdict: "入学时你想主持正义，毕业时你只想让所有小组成员按时交材料并停止互相拉黑。", score: (s: MutableLawState) => dim(s, "responsibility") * 0.8 + dim(s, "idealDrive") * 0.3 + dim(s, "expression") * 0.2 + proof(s, "mediator") * 60 },
+  { id: "evidence", title: "全网聊天记录质证员", verdict: "你可以接受别人情绪失控，但不能接受时间线对不上。朋友刚说“事情是这样的”，你已经在等原始聊天记录和完整上下文。", shareText: "我的法学人格是全网聊天记录质证员：瓜可以晚吃，证据链不能断。", tags: ["原始记录派", "时间线考古学家", "完整上下文爱好者"], score: (s: MutableLawState) => dim(s, "evidence") * 10 + dim(s, "ruleSensitivity") * 0.6 + (100 - dim(s, "ambiguityTolerance")) * 0.25 + proof(s, "evidence") * 60 },
+  { id: "advocate", title: "随地开庭型法学生", verdict: "你没有打算逢人就杠，可任何观点到了你这里都会自动经历立论、质询和总结陈词。普通聊天十分钟，旁听席已经坐满。", shareText: "我的法学人格是随地开庭型法学生：朋友只是发表意见，我已经进入交叉质询。", tags: ["观点必须说完整", "反方雷达常开", "发言席常驻"], score: (s: MutableLawState) => dim(s, "expression") * 0.8 + dim(s, "stressTolerance") * 0.35 + routeScore(s, "advocacy") * 3 + proof(s, "advocate") * 60 },
+  { id: "rule_keeper", title: "“依据呢”型法学生", verdict: "你对“大家都这样”具有天然抗性。规则可以讨论，结论可以改变，但谁想靠一句“一直如此”糊弄过去，先把依据交上来。", shareText: "我的法学人格是“依据呢”型法学生：不一定背得出原文，但一定会追问你凭什么。", tags: ["规则敏感体质", "口头禅：依据呢", "惯例默认待核"], score: (s: MutableLawState) => dim(s, "ruleSensitivity") * 0.8 + dim(s, "idealDrive") * 0.35 + Number(s.majorStats.legalCloseness ?? 0) * 0.2 + proof(s, "rule_keeper") * 60 },
+  { id: "planner", title: "焦虑表格化选手", verdict: "别人焦虑时刷短视频，你会打开岗位表，把报名条件、时间节点和Plan B排整齐。情绪还没解决，单元格先全部对齐。", shareText: "我的法学人格是焦虑表格化选手：未来还没定，备选方案已经编号到C。", tags: ["岗位表收藏家", "Plan B常驻", "情绪转Excel"], score: (s: MutableLawState) => dim(s, "realityPlanning") * 0.9 + routeScore(s, "civil") * 3 + Number(s.stats.opportunity ?? 0) * 0.1 + proof(s, "planner") * 60 },
+  { id: "escape", title: "法学院逃生门测绘师", verdict: "你查过转专业、辅修、跨考和跨行的每个出口。最后走不走另说，法学院哪扇门能推、几点开放，你比教务处更清楚。", shareText: "我的法学人格是法学院逃生门测绘师：人可以暂时不跑，路线必须提前查好。", tags: ["退出机制研究员", "跨行雷达", "随身携带Plan B"], score: (s: MutableLawState) => dim(s, "escape") * 10 + dim(s, "realityPlanning") * 0.5 + Number(s.stats.escapeImpulse ?? 0) * 0.3 + proof(s, "escape") * 60 },
+  { id: "mediator", title: "小组作业善后专员", verdict: "你入学时想解决社会纠纷，毕业前先解决队友失联、任务撞车和群聊冷战。每次冲突都有人获得成长，通常你只得到收尾工作。", shareText: "我的法学人格是小组作业善后专员：别人负责表达立场，我负责让文件按时交上去。", tags: ["团队补位体质", "失联队友召回术", "冲突收尾人"], score: (s: MutableLawState) => dim(s, "responsibility") * 0.8 + dim(s, "idealDrive") * 0.3 + dim(s, "expression") * 0.2 + proof(s, "mediator") * 60 },
 ] as const;
 
 const KEY_IMPACTS: Record<string, any> = {
@@ -93,14 +96,20 @@ const KEY_IMPACTS: Record<string, any> = {
 };
 
 export const LAW_CORE_POOLS: Record<number, string[]> = {
-  0: ["law_y1s1_main_001", "law_y1s1_main_002", "law_y1s1_main_003"],
-  1: ["law_y1s2_main_004", "law_y1s2_main_006"],
-  2: ["law_y2s1_main_007", "law_y2s1_main_008", "law_y2s1_main_009"],
-  3: ["law_y2s2_main_010", "law_y2s2_main_012"],
-  4: ["law_y3s1_main_013", "law_y3s1_main_014", "law_y3s1_route_015"],
-  5: ["law_y3s2_route_016", "law_y3s2_route_017", "law_y3s2_main_018"],
-  6: ["law_y4s1_main_019", "law_y4s1_route_020"],
-  7: ["law_y4s2_final_023"],
+  0: ["law_y1s1_main_001"],
+  1: ["law_y1s2_main_004"],
+  2: ["law_y2s1_main_007"],
+  3: ["law_y2s2_main_010"],
+  4: ["law_y3s1_main_013"],
+  5: ["law_y3s2_route_016"],
+  6: ["law_y4s1_main_019"],
+  7: ["law_y4s2_main_022"],
+};
+
+const LAW_DEFAULT_NEXT: Record<string, string> = {
+  law_y2s1_main_007: "law_y2s1_main_008",
+  law_y2s2_main_010: "law_y2s2_main_012",
+  law_y3s2_route_017: "law_y3s2_main_018",
 };
 
 export function createLawRunState(state: MutableLawState, archive: LawArchive) {
@@ -159,14 +168,34 @@ export function applyLawChoiceLayer(state: MutableLawState, event: any, choice: 
   for (const experience of impact.experiences ?? []) pushUnique(state.specialExperiences, experience);
 
   state.hiddenStats.lawChoiceCount = Number(state.hiddenStats.lawChoiceCount ?? 0) + 1;
+  recordLawReplayChoice(state.replayContext, choice);
   state.pendingTrend = state.hiddenStats.lawChoiceCount % 3 === 0 ? deriveTrend(state) : null;
 }
 
 export function pickLawCoreEvent(state: MutableLawState & { semesterIdx: number }) {
+  if (state.semesterIdx === 0 && (state.replayContext?.completedEventCount ?? 0) === 0) {
+    const replayOpening = pickLawReplayOpening(state.replayContext);
+    if (replayOpening) return replayOpening;
+  }
   const pool = LAW_CORE_POOLS[state.semesterIdx] ?? [];
   const unseen = pool.filter((id) => !state.seenEvents.includes(id));
   if (!unseen.length) return null;
   const seed = Number(state.hiddenStats.lawRunSeed ?? 1) + state.semesterIdx * 7 + state.seenEvents.length;
+  return unseen[seed % unseen.length];
+}
+
+export function defaultLawNextEvent(eventId: string) {
+  return LAW_DEFAULT_NEXT[eventId] ?? null;
+}
+
+export function pickLawCallbackEvent(state: MutableLawState & { semesterIdx: number }) {
+  if (state.semesterIdx !== 2) return null;
+  const candidates: string[] = [];
+  if (Number(state.hiddenStats.lawEvidence ?? 0) >= 1) candidates.push("law_y2s1_branch_evidence_001");
+  if (Number(state.hiddenStats.lawEscape ?? 0) >= 1) candidates.push("law_y2s1_branch_escape_001");
+  const unseen = candidates.filter((id) => !state.seenEvents.includes(id));
+  if (!unseen.length) return null;
+  const seed = Number(state.hiddenStats.lawRunSeed ?? 1) + state.seenEvents.length;
   return unseen[seed % unseen.length];
 }
 
@@ -177,7 +206,12 @@ export function pickLawResourceEvent(state: MutableLawState & { semesterIdx: num
   const shownCount = semesterResourceIds.filter((id) => state.seenEvents.includes(id)).length;
   const targetCount = 1 + ((Number(state.hiddenStats.lawRunSeed ?? 1) + state.semesterIdx) % 2);
   if (shownCount >= targetCount) return null;
-  const pool = LAW_ROGUELITE_EVENTS.filter((event) => event.semester === semester && !state.seenEvents.includes(event.id));
+  const basePool = LAW_ROGUELITE_EVENTS.filter((event) => event.semester === semester && !state.seenEvents.includes(event.id));
+  const previousSeen = new Set(state.replayContext?.previousRun.seenEventIds ?? []);
+  const freshPool = (state.replayContext?.completedEventCount ?? 99) < 3
+    ? basePool.filter((event) => !previousSeen.has(event.id))
+    : [];
+  const pool = freshPool.length ? freshPool : basePool;
   if (!pool.length) return null;
   const seed = Number(state.hiddenStats.lawRunSeed ?? 1) * 19 + state.semesterIdx * 13 + shownCount * 7;
   return pool[seed % pool.length].id;
@@ -188,8 +222,8 @@ export function shouldFollowLawEvent(state: MutableLawState & { semesterIdx: num
   if (next.type === "transfer" && next.id.startsWith("law_transfer_apply")) return true;
   if (next.id.startsWith("law_transfer_transition")) return true;
   if (next.id === "law_y2s2_main_012" && routeScore(state, "transfer") >= 5) return true;
-  if ((state.semesterEventCount ?? 0) >= 2) return false;
-  return next.type === "hidden" || next.type === "transfer";
+  if ((state.semesterEventCount ?? 0) >= 3) return false;
+  return ["main", "route", "hidden", "transfer", "gg_check", "settlement"].includes(next.type);
 }
 
 export function shouldDrawLawOptional(state: MutableLawState & { semesterIdx: number; semesterEventCount?: number }) {
@@ -233,7 +267,7 @@ export function getLawTrait(id: string | null | undefined) {
 }
 
 export function resolveLawEvent(state: MutableLawState, event: any) {
-  if (event?.id !== "law_transfer_apply_003") return event;
+  if (event?.id !== "law_transfer_apply_003") return decorateLawReplayEvent(state as any, event);
   const score = Number(state.hiddenStats.transferChance ?? 35)
     + Number(state.stats.professionalAccumulation ?? 0) * 0.22
     + Number(state.stats.opportunity ?? 0) * 0.12
@@ -247,7 +281,7 @@ export function resolveLawEvent(state: MutableLawState, event: any) {
       ? "页面上写着申请通过。你不是靠一时冲动逃走，而是用绩点、材料和两学期的准备换来第二条时间线。"
       : "页面上写着未通过。规则、名额和准备程度共同给出了结果，但你至少真正推过一次那扇门。",
   };
-  return { ...event, options: [resolved], choices: [resolved] };
+  return decorateLawReplayEvent(state as any, { ...event, options: [resolved], choices: [resolved] });
 }
 
 function deriveRoute(state: MutableLawState) {
@@ -257,8 +291,9 @@ function deriveRoute(state: MutableLawState) {
     return {
       ...transfer,
       title: "转专业未遂线",
-      ending: "申请驳回，法学继续履行",
-      summary: "你认真查过规则、交过材料，也真的推过那扇门。门没有开，于是你带着一次失败申请回到法学院，把剩下的路重新走完。",
+      ending: "门推了，名额没推开",
+      summary: "你认真查规则、交材料，也真的试过离开。结果名单没有你的名字，课表却准时续上。你带着一次未遂记录回到法学院，从此对教务系统角落的小字拥有异常敏锐的嗅觉。",
+      shareText: "我的转专业申请理由充分、材料齐全、名额不足。门没开，但我已经知道它在哪里了。",
     };
   }
   const ranked = LAW_ROUTE_DEFINITIONS.map((route) => ({ route, score: routeScore(state, route.id) })).sort((a, b) => b.score - a.score);

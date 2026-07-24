@@ -13,6 +13,24 @@ export type MidGgReason =
   | "multi_collapse"
   | "filter_broken_escape"
   | "risk_overflow"
+  | "law_final_week"
+  | "law_moot_court"
+  | "law_internship_v12"
+  | "law_exam_accuracy"
+  | "law_thesis_versions"
+  | "cs_project_offline"
+  | "cs_algorithm_lock"
+  | "cs_interview_burnout"
+  | "cs_thesis_crash"
+  | "clinical_energy_shutdown"
+  | "clinical_filter_exit"
+  | "clinical_overload"
+  | "chinese_energy_shutdown"
+  | "chinese_expression_overload"
+  | "chinese_interest_cooling"
+  | "accounting_energy_shutdown"
+  | "accounting_overresponsibility"
+  | "accounting_plan_collapse"
   | "revive_failed";
 
 export interface MidGgCheckResult {
@@ -29,6 +47,7 @@ const SEMESTER_PRESSURE: Record<string, number> = {
   y2s1: 0.75, y2s2: 0.9,
   y3s1: 1.05, y3s2: 1.2,
   y4s1: 1.35, y4s2: 1.2,
+  y5s1: 1.35, y5s2: 1.2,
 };
 
 function pick(state: EngineState) {
@@ -52,6 +71,27 @@ function riskScore(v: ReturnType<typeof pick>) {
   );
 }
 
+const LAW_CRISIS_REASONS = [
+  ["law_mid_gg_final_week", "law_final_week"],
+  ["law_mid_gg_moot_court", "law_moot_court"],
+  ["law_mid_gg_internship_v12", "law_internship_v12"],
+  ["law_mid_gg_exam_accuracy", "law_exam_accuracy"],
+  ["law_mid_gg_thesis_versions", "law_thesis_versions"],
+] as const satisfies ReadonlyArray<readonly [string, MidGgReason]>;
+
+const LAW_GG_THRESHOLDS = {
+  energyDepleted: 5,
+  escapeOverflow: 97,
+  interestDead: 5,
+  interestDeadEscape: 78,
+  multiEnergy: 12,
+  multiEscape: 82,
+  multiInterest: 25,
+  brokenFilter: 8,
+  brokenFilterEscape: 82,
+  brokenFilterEnergy: 25,
+} as const;
+
 function pickReason(state: EngineState, manual: boolean): MidGgReason | null {
   const v = pick(state);
   const semKey = SEMESTER_KEYS[state.semesterIdx];
@@ -60,13 +100,62 @@ function pickReason(state: EngineState, manual: boolean): MidGgReason | null {
 
   if (manual) return "manual_quit";
 
+  for (const [flag, reason] of LAW_CRISIS_REASONS) {
+    if (state.flags.includes(flag)) return reason;
+  }
+
   // 大一上：默认禁用普通中途 GG
   if (semKey === "y1s1") return null;
   // 大四下：优先走终局
-  if (semKey === "y4s2") return null;
+  if (semKey === "y4s2" && state.majorId !== "clinical_medicine") return null;
+  if (semKey === "y5s2") return null;
+
+  if (state.majorId === "law") {
+    // 大一下仅允许真正归零的极端状态触发，避免新手期连续暴毙。
+    if (semKey === "y1s2") return v.mentalEnergy <= 0 ? "energy_depleted" : null;
+
+    if (
+      v.mentalEnergy <= LAW_GG_THRESHOLDS.multiEnergy
+      && v.escapeImpulse >= LAW_GG_THRESHOLDS.multiEscape
+      && v.majorInterest <= LAW_GG_THRESHOLDS.multiInterest
+    ) return "multi_collapse";
+    if (
+      v.filterThickness <= LAW_GG_THRESHOLDS.brokenFilter
+      && v.escapeImpulse >= LAW_GG_THRESHOLDS.brokenFilterEscape
+      && v.mentalEnergy <= LAW_GG_THRESHOLDS.brokenFilterEnergy
+    ) return "filter_broken_escape";
+    if (v.mentalEnergy <= LAW_GG_THRESHOLDS.energyDepleted) return "energy_depleted";
+    if (
+      v.majorInterest <= LAW_GG_THRESHOLDS.interestDead
+      && v.escapeImpulse >= LAW_GG_THRESHOLDS.interestDeadEscape
+    ) return "interest_dead";
+    if (v.escapeImpulse >= LAW_GG_THRESHOLDS.escapeOverflow) return "escape_overflow";
+  }
+
+  if (state.majorId === "computer_science") {
+    if ((state.majorStats.thesisPressure ?? 0) >= 85 && v.mentalEnergy <= 28) return "cs_thesis_crash";
+    if ((state.majorStats.internshipAnxiety ?? 0) >= 88 && v.mentalEnergy <= 24) return "cs_interview_burnout";
+    if ((state.majorStats.algorithmShadow ?? 0) >= 86 && v.mentalEnergy <= 22) return "cs_algorithm_lock";
+    if ((state.majorStats.bugDebt ?? 0) >= 82 && v.mentalEnergy <= 24) return "cs_project_offline";
+  }
+  if (state.majorId === "clinical_medicine") {
+    if (v.mentalEnergy <= 3) return "clinical_energy_shutdown";
+    if (v.mentalEnergy <= 14 && v.escapeImpulse >= 78) return "clinical_overload";
+    if (v.filterThickness <= 8 && v.escapeImpulse >= 82) return "clinical_filter_exit";
+  }
+  if (state.majorId === "chinese_language_literature") {
+    if (v.mentalEnergy <= 3) return "chinese_energy_shutdown";
+    if ((state.hiddenStats.overResponsibility ?? 0) >= 72 && v.mentalEnergy <= 16) return "chinese_expression_overload";
+    if ((state.hiddenStats.interestProtection ?? 50) <= 24 && v.mentalEnergy <= 22) return "chinese_interest_cooling";
+  }
+  if (state.majorId === "accounting") {
+    if (v.mentalEnergy <= 3) return "accounting_energy_shutdown";
+    if ((state.hiddenStats.overResponsibility ?? 0) >= 74 && v.mentalEnergy <= 17) return "accounting_overresponsibility";
+    if ((state.hiddenStats.examPlanning ?? 50) >= 76 && v.mentalEnergy <= 15) return "accounting_plan_collapse";
+  }
 
   const sustainedLawOverwork = state.majorId === "law" && (state.hiddenStats.overworkLoad ?? 0) >= 10;
-  if (v.mentalEnergy <= 0 && (state.majorId !== "law" || sustainedLawOverwork)) return "energy_depleted";
+  if (v.mentalEnergy <= 0 && state.majorId !== "law") return "energy_depleted";
   if (v.escapeImpulse >= 98) return "escape_overflow";
   if (v.majorInterest <= 3 && v.escapeImpulse >= 85) return "interest_dead";
   if (v.mentalEnergy <= 8 && v.escapeImpulse >= 90 && v.majorInterest <= 15) return "multi_collapse";
@@ -84,49 +173,144 @@ function pickReason(state: EngineState, manual: boolean): MidGgReason | null {
 
 function titleFor(state: EngineState, reason: MidGgReason): string {
   const v = pick(state);
+  if (reason === "law_final_week") return "四门闭卷同时开庭的人";
+  if (reason === "law_moot_court") return "全组唯一活跃诉讼主体";
+  if (reason === "law_internship_v12") return "最终版_v12_真的最终本人";
+  if (reason === "law_exam_accuracy") return "正确率反向上岸选手";
+  if (reason === "law_thesis_versions") return "真的最终版失踪人口";
+  if (reason === "cs_project_offline") return "在我电脑上也坏了的人";
+  if (reason === "cs_algorithm_lock") return "第一题卡到比赛结束选手";
+  if (reason === "cs_interview_burnout") return "秋招多线程崩溃现场";
+  if (reason === "cs_thesis_crash") return "毕设最终版恢复失败";
+  if (reason === "clinical_energy_shutdown") return "白大褂省电模式已关机";
+  if (reason === "clinical_filter_exit") return "医学滤镜退订成功";
+  if (reason === "clinical_overload") return "课程轮转考研三线停机";
+  if (reason === "chinese_energy_shutdown") return "论文仍在加载，人已自动保存退出";
+  if (reason === "chinese_expression_overload") return "全组默认文案外包到期";
+  if (reason === "chinese_interest_cooling") return "阅读兴趣申请暂停评分";
+  if (reason === "accounting_energy_shutdown") return "总表平了，本人停止响应";
+  if (reason === "accounting_overresponsibility") return "全组唯一总表责任人";
+  if (reason === "accounting_plan_collapse") return "证书计划仍满格，精力只到今晚";
   if (reason === "manual_quit") {
-    if (v.escapeImpulse >= 75) return "跑路预备役";
-    if (v.mentalEnergy <= 25) return "电量告急幸存者";
-    if (v.majorInterest <= 30) return "专业冷却者";
-    return "战略暂停选手";
+    if (v.escapeImpulse >= 75) return "主动撤离型玩家";
+    if (v.mentalEnergy <= 25) return "电量见底自救者";
+    if (v.majorInterest <= 30) {
+      if (state.majorId === "computer_science") return "计算机已读不回型";
+      if (state.majorId === "chinese_language_literature") return "中文系已读暂缓型";
+      if (state.majorId === "accounting") return "会计副本保存退出型";
+      return "法学已读不回型";
+    }
+    return "本局先存档的人";
   }
-  if (v.mentalEnergy <= 0) return "电量归零幸存者";
-  if (v.escapeImpulse >= 95) return "战略撤离选手";
-  if (v.mentalEnergy <= 15 && v.escapeImpulse >= 80 && v.majorInterest <= 25) return "本科副本崩盘者";
-  if (v.filterThickness <= 10 && v.escapeImpulse >= 85) return "滤镜粉碎撤离者";
-  if (v.gpaDesire >= 85 && v.mentalEnergy <= 20) return "卷到断电的人";
-  if (v.majorInterest <= 20) return "专业冷却者";
-  return "战略暂停选手";
+  if (v.mentalEnergy <= 0) return "卷到自动关机的人";
+  if (v.escapeImpulse >= 95) return "逃生指令执行员";
+  if (v.mentalEnergy <= 15 && v.escapeImpulse >= 80 && v.majorInterest <= 25) return "全线掉线型玩家";
+  if (v.filterThickness <= 10 && v.escapeImpulse >= 85) return "滤镜粉碎体验官";
+  if (v.gpaDesire >= 85 && v.mentalEnergy <= 20) return "绩点亮着人已黑屏";
+  if (v.majorInterest <= 20) return "法学已读不回型";
+  return "本局先存档的人";
 }
 
 const COPY: Record<MidGgReason, { subtitle: string; conclusion: string }> = {
   manual_quit: {
-    subtitle: "你按下了结束键，提前结束本科副本。",
-    conclusion: "跑路不是失败，是战略转移。",
+    subtitle: "你没有等系统把电量清零，先亲手按下了结束键。这个本科副本停在这里，人生进度条还在继续，换方向也算一种有效操作。",
+    conclusion: "我不是没通关，只是拒绝给错误副本继续续费。",
   },
   energy_depleted: {
-    subtitle: "系统检测到：你的精神电量已跌破安全线。",
-    conclusion: "活着，比全勤更重要。",
+    subtitle: "你把课程、DDL和接锅任务一起扛到了电量归零。系统判定本轮暂停：先给人充电，再讨论绩点、法考和未来路线。",
+    conclusion: "法条还没背完，我的精神电量先提交了结课申请。",
   },
   escape_overflow: {
-    subtitle: "跑路冲动爆表，副本自动进入撤离模式。",
-    conclusion: "退出一次，不代表人生失败。",
+    subtitle: "你对离开的想象已经从偶尔闪现升级为全屏弹窗。系统替你按下撤离键，省得你一边搜转专业条件，一边假装自己还能再坚持一学期。",
+    conclusion: "这局没有输，我只是把跑路冲动成功执行了。",
   },
   interest_dead: {
-    subtitle: "你对这个专业已经完全不上头了。",
-    conclusion: "继续读下去不是热爱，是惯性。",
+    subtitle: "课程还在更新，你对法学的兴趣已经停止续费。继续靠惯性往前拖只会增加沉没成本，于是系统把这局停在“确实不来电”。",
+    conclusion: "我的专业滤镜没碎，它只是彻底停止加载。",
   },
   multi_collapse: {
-    subtitle: "精神电量、专业兴趣和跑路冲动同时告急。",
-    conclusion: "这不是想不开，是副本适配度报警。",
+    subtitle: "精神电量、专业兴趣和跑路冲动同时越过警戒线，系统无法再靠一句“熬过期末就好”修复。本轮判定为多线程崩溃，先结束加载。",
+    conclusion: "三个进度条同时选择了自由，我只负责被系统抬出副本。",
   },
   filter_broken_escape: {
-    subtitle: "滤镜碎得很彻底，跑路冲动也很诚实。",
-    conclusion: "报志愿前多问一句，比之后后悔便宜。",
+    subtitle: "律政剧滤镜已经碎成粉，精力和跑路冲动也给出了同一结论。你终于停止替这个专业补光，选择从真实体验里撤离。",
+    conclusion: "法学无滤镜版本已看完，我决定不续订下一学期。",
   },
   risk_overflow: {
-    subtitle: "综合风险突破警戒线，系统建议先撤。",
-    conclusion: "等你想好了，再回来开新档。",
+    subtitle: "单项数值还没全部见底，综合风险已经先越过警戒线。系统检测到你正在用“还能撑”掩盖持续过载，本轮先强制保存并退出。",
+    conclusion: "我各项看着都还行，合起来已经不建议继续运行。",
+  },
+  law_final_week: {
+    subtitle: "四门闭卷排成一周，你把请求权基础、刑法构成和行政行为背进了同一个脑区。走出最后一场考试时，你已经无法证明自己具备完全民事行为能力。",
+    conclusion: "四门都考完了，只有我申请了缺席判决。",
+  },
+  law_moot_court: {
+    subtitle: "开庭前两小时，队友失联、证据目录错页、打印店开始排队。你一人兼任主辩、助理和后勤，最后当庭陈述的是自己的精神状态。",
+    conclusion: "模拟法庭赢没赢不知道，反正全组只有我真实出庭。",
+  },
+  law_internship_v12: {
+    subtitle: "带教凌晨一点发来“简单调整”，第七版在天亮前长成第十二版。你第二天还有闭卷考试，电脑保存成功了，人没有。",
+    conclusion: "文件最终版有十二个，我的精神状态没有最终版。",
+  },
+  law_exam_accuracy: {
+    subtitle: "你刷了三百道题，正确率从 52% 稳定降到 41%。经验贴收藏夹越来越满，脑子里的知识点开始彼此撤销。",
+    conclusion: "我的法考资料已经上岸，正确率决定留在岸边。",
+  },
+  law_thesis_versions: {
+    subtitle: "导师每次都说整体不错，再改一版。你在 final、final2 和真的final 之间寻找最新版，论文有版本管理，人没有。",
+    conclusion: "论文通过查重之前，我先没通过版本识别。",
+  },
+  cs_project_offline: {
+    subtitle: "展示前夜，接口、数据库和部署环境同时失联。队友坚持“各自模块都没问题”，系统只好确认：项目没有一个 Bug，项目本身就是 Bug。",
+    conclusion: "所有人的代码都能跑，只有合起来以后项目没了。",
+  },
+  cs_algorithm_lock: {
+    subtitle: "你在第一道题上调试到比赛结束，样例一直通过，隐藏测试一直沉默。排行榜已经更新三轮，你还在和那个不存在的边界条件进行单方面谈判。",
+    conclusion: "动态规划规划了所有状态，唯独没规划我怎么下场。",
+  },
+  cs_interview_burnout: {
+    subtitle: "秋招、笔试、项目追问和毕设同时占满线程。你能解释缓存穿透，却解释不了自己为什么凌晨三点还在改简历第十四版。",
+    conclusion: "八股背会了，人类进程因为内存不足被系统终止。",
+  },
+  cs_thesis_crash: {
+    subtitle: "演示当天，模型权重找不到、数据库版本不对、导师还问上周说好的创新点。备份文件很多，能完整启动的版本一个都没有。",
+    conclusion: "毕设拥有七个最终版，没有一个愿意出席答辩。",
+  },
+  clinical_energy_shutdown: {
+    subtitle: "课程、技能训练和临床任务把精力条推到了零。系统不允许用患者安全替你的硬撑买单，本局先在白大褂省电模式里保存退出。",
+    conclusion: "培养方案还剩很多页，我的精神电量先完成了出院。",
+  },
+  clinical_filter_exit: {
+    subtitle: "白大褂滤镜已经碎完，跑路冲动也从搜索框变成了明确决定。你没有把看清现实等同于失败，而是在沉没成本继续增加前停下。",
+    conclusion: "医学滤镜已退订，五年试用期不自动续费。",
+  },
+  clinical_overload: {
+    subtitle: "课程、轮转、科研和升学倒计时同时占满日程。你一直在删减睡眠维持多线运行，系统最终替你承认：有限资源不能完成无限培养任务。",
+    conclusion: "计划表每格都有安排，只有本人没有可用时间。",
+  },
+  chinese_energy_shutdown: {
+    subtitle: "文学史、课程论文、试讲和改稿一起把精力条推到了零。文件都成功保存了，只有本人暂时无法继续编辑。",
+    conclusion: "论文仍在加载，我的精神状态先自动保存退出。",
+  },
+  chinese_expression_overload: {
+    subtitle: "小组展示、朋友圈文案、校刊终稿和实习标题都默认由你收尾。文字还写得出来，负责写字的人先拒绝继续无限续杯。",
+    conclusion: "朋友负责经历人生，我负责配文，最后本人没有剩余字数。",
+  },
+  chinese_interest_cooling: {
+    subtitle: "每一本书都要交报告，每一次写作都要看反馈，私人阅读终于申请暂停评分。文字没有离开你，只是暂时不负责证明价值。",
+    conclusion: "文学史还没背完，我的阅读兴趣先申请了休学。",
+  },
+  accounting_energy_shutdown: {
+    subtitle: "月结、证书、总表和论文一起把电量推到零。表格还能打开，人需要先保存退出。",
+    conclusion: "总表终于平了，我的精神状态没有。",
+  },
+  accounting_overresponsibility: {
+    subtitle: "每个人都说自己的明细没问题，于是合并、复核和解释全部落到你这里。文件交了，默认接锅的权限也该到期了。",
+    conclusion: "大家负责自己的部分，我负责证明这些部分不是不同世界。",
+  },
+  accounting_plan_collapse: {
+    subtitle: "课程表、证书计划和实习日程都排得很完整，唯一没被排进去的是恢复时间。本局先暂停，不拿睡眠继续填计划缺口。",
+    conclusion: "证书计划排到了明年，精力只剩到今晚。",
   },
   revive_failed: {
     subtitle: "嘴硬已经无法覆盖事实。",
@@ -134,7 +318,37 @@ const COPY: Record<MidGgReason, { subtitle: string; conclusion: string }> = {
   },
 };
 
+const REASON_TAGS: Partial<Record<MidGgReason, string[]>> = {
+  manual_quit: ["主动撤离", "及时止损", "换档重开", "路线重算"],
+  energy_depleted: ["电量归零", "过载停机", "先睡再说", "暂停续命"],
+  escape_overflow: ["跑路值爆表", "战略撤离", "退出机制", "换路重开"],
+  interest_dead: ["兴趣掉线", "惯性就读", "滤镜停更", "方向冷却"],
+  multi_collapse: ["多项告急", "系统过载", "当场停机", "先救玩家"],
+  filter_broken_escape: ["理想破产", "无滤镜实况", "撤离成功", "志愿避雷"],
+  risk_overflow: ["综合风险", "隐性过载", "强制存档", "暂停运行"],
+  law_final_week: ["四门闭卷", "部门法串台", "考完即失忆", "人已离线"],
+  law_moot_court: ["全组失联", "唯一主辩", "接锅出庭", "真实开庭"],
+  law_internship_v12: ["最终版_v12", "凌晨返工", "电脑已保存", "人未保存"],
+  law_exam_accuracy: ["正确率 41%", "经验贴上岸", "错题自由落体", "法考暂退"],
+  law_thesis_versions: ["真的最终版", "版本失控", "导师再改一版", "文件考古"],
+  cs_project_offline: ["在我电脑上是好的", "合并即消失", "项目急救", "主分支离线"],
+  cs_algorithm_lock: ["第一题坐牢", "隐藏测试", "边界失踪", "比赛结束"],
+  cs_interview_burnout: ["秋招过载", "八股满载", "简历_v14", "人类停机"],
+  cs_thesis_crash: ["毕设失联", "最终版很多", "答辩事故", "备份无效"],
+  clinical_energy_shutdown: ["白大褂省电", "电量归零", "先救玩家", "暂停培养"],
+  clinical_filter_exit: ["滤镜退订", "路线重算", "及时止损", "医学祛魅"],
+  clinical_overload: ["多线过载", "考研倒计时", "轮转并发", "日历爆满"],
+  chinese_energy_shutdown: ["论文加载中", "电量归零", "先救作者", "暂停改稿"],
+  chinese_expression_overload: ["文案外包到期", "小组救场", "改稿过载", "边界补课"],
+  chinese_interest_cooling: ["兴趣暂停评分", "阅读冷却", "文字仍在", "先还给生活"],
+  accounting_energy_shutdown: ["账表仍开着", "本人已保存", "电量归零", "先别关人"],
+  accounting_overresponsibility: ["总表接锅", "全组善后", "边界到期", "责任重分"],
+  accounting_plan_collapse: ["证书排满", "计划改版", "精力不足", "暂停硬撑"],
+};
+
 function tagsFor(state: EngineState, reason: MidGgReason): string[] {
+  const authored = REASON_TAGS[reason];
+  if (authored) return authored;
   const v = pick(state);
   const tags = new Set<string>();
   if (v.escapeImpulse >= 90) ["跑路冲动 MAX", "战略撤离", "保命第一"].forEach((t) => tags.add(t));
@@ -144,7 +358,7 @@ function tagsFor(state: EngineState, reason: MidGgReason): string[] {
   if (v.gpaDesire >= 85 && v.mentalEnergy <= 20) ["绩点过载", "卷到断电"].forEach((t) => tags.add(t));
   if (v.jobIllusion <= 20 && v.filterThickness <= 30) ["就业祛魅", "现实入侵"].forEach((t) => tags.add(t));
   if (reason === "manual_quit") tags.add("嘴硬型选手");
-  if (tags.size === 0) tags.add("战略暂停选手");
+  if (tags.size === 0) tags.add("本局先存档的人");
   return Array.from(tags).slice(0, 4);
 }
 
@@ -162,7 +376,17 @@ export function checkMidGG(
 
   const isManual = reason === "manual_quit";
   const title = titleFor(state, reason);
-  const copy = COPY[reason];
+  const copy = state.majorId === "computer_science" && reason === "energy_depleted"
+    ? {
+        subtitle: "课程、项目、面试和 Bug 一起把精力条跑到了零。电脑还有充电器，人类进程没有自动恢复选项，本轮先保存退出。",
+        conclusion: "代码还在运行，我先因为电量不足停止响应。",
+      }
+    : state.majorId === "clinical_medicine" && reason === "energy_depleted"
+      ? {
+          subtitle: "课程、技能训练和轮转一起把精力条跑到了零。医学训练不奖励拿安全边界换硬撑，本轮先保存退出。",
+          conclusion: "培养方案没有结束，我的精神电量先完成了出院。",
+        }
+      : COPY[reason];
   const tags = tagsFor(state, reason);
 
   // 主动结束或已经续过命，直接结算；否则先给一次续命机会
@@ -180,4 +404,6 @@ export function applyRevivePenalties(state: EngineState) {
   s.energy = Math.max(0, Math.min(100, (s.energy ?? 0) + 12));
   s.filter = Math.max(0, Math.min(100, (s.filter ?? 0) - 5));
   h.stubbornness = Math.max(0, Math.min(100, (h.stubbornness ?? 0) + 35));
+  const crisisFlags = new Set<string>(LAW_CRISIS_REASONS.map(([flag]) => flag));
+  state.flags = state.flags.filter((flag) => !crisisFlags.has(flag));
 }

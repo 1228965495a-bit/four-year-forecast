@@ -1,21 +1,11 @@
 // 分类/emoji 展示映射：从 majors.json 的 category / id 映射到 UI 展示。
 
 const MAJOR_EMOJI: Record<string, string> = {
+  law: "",
   computer_science: "",
-  artificial_intelligence: "",
   clinical_medicine: "",
-  finance: "",
   accounting: "",
-  journalism_communication: "",
-  electrical_engineering: "",
-  english: "",
-  teacher_education: "",
   chinese_language_literature: "",
-  stomatology: "",
-  psychology: "",
-  electronic_information: "",
-  mechanical_engineering: "",
-  business_administration: "",
 };
 
 export function majorEmoji(id: string): string {

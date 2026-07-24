@@ -18,6 +18,7 @@ type EventLike = {
   tags?: string[];
   options?: Choice[];
   choices?: Choice[];
+  legacyExperienceHint?: string | null;
 };
 
 const TYPE_LABEL: Record<string, string> = {
@@ -28,13 +29,19 @@ const TYPE_LABEL: Record<string, string> = {
 export function EventCard({ event, onPick }: { event: EventLike; onPick: (opt: Choice) => void }) {
   const options = event.options ?? event.choices ?? [];
   const body = event.body ?? event.description ?? "";
-  const keepsConsequencesHidden = event.id.startsWith("law_");
+  const keepsConsequencesHidden = ["law_", "computer_science_", "clinical_"].some((prefix) => event.id.startsWith(prefix));
 
   return (
     <article className="v4-event-card">
       <div className="v4-event-eyebrow">{TYPE_LABEL[event.type ?? "main"] ?? "本科日常"}</div>
       <h2 className="v4-title">{event.title}</h2>
       <p className="v4-event-body">{body}</p>
+      {event.legacyExperienceHint && (
+        <div className="v4-legacy-hint">
+          <strong>上一局留下的经验</strong>
+          <span>{event.legacyExperienceHint}</span>
+        </div>
+      )}
       <div className="v4-options">
         {options.map((option, index) => (
           <button className="v4-choice" key={option.id ?? index} onClick={() => onPick(option)}>

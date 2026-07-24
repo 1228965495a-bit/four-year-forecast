@@ -9,20 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UiRouteImport } from './routes/ui'
 import { Route as SemesterRouteImport } from './routes/semester'
 import { Route as ResultRouteImport } from './routes/result'
+import { Route as NextMajorVoteRouteImport } from './routes/next-major-vote'
 import { Route as MidwayResultRouteImport } from './routes/midway-result'
 import { Route as MajorRouteImport } from './routes/major'
 import { Route as IntroRouteImport } from './routes/intro'
 import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MajorPreviewMajorIdRouteImport } from './routes/major-preview.$majorId'
+import { Route as GameMajorIdRouteImport } from './routes/game.$majorId'
 
-const UiRoute = UiRouteImport.update({
-  id: '/ui',
-  path: '/ui',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SemesterRoute = SemesterRouteImport.update({
   id: '/semester',
   path: '/semester',
@@ -31,6 +28,11 @@ const SemesterRoute = SemesterRouteImport.update({
 const ResultRoute = ResultRouteImport.update({
   id: '/result',
   path: '/result',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NextMajorVoteRoute = NextMajorVoteRouteImport.update({
+  id: '/next-major-vote',
+  path: '/next-major-vote',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MidwayResultRoute = MidwayResultRouteImport.update({
@@ -58,6 +60,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MajorPreviewMajorIdRoute = MajorPreviewMajorIdRouteImport.update({
+  id: '/major-preview/$majorId',
+  path: '/major-preview/$majorId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GameMajorIdRoute = GameMajorIdRouteImport.update({
+  id: '/game/$majorId',
+  path: '/game/$majorId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -65,9 +77,11 @@ export interface FileRoutesByFullPath {
   '/intro': typeof IntroRoute
   '/major': typeof MajorRoute
   '/midway-result': typeof MidwayResultRoute
+  '/next-major-vote': typeof NextMajorVoteRoute
   '/result': typeof ResultRoute
   '/semester': typeof SemesterRoute
-  '/ui': typeof UiRoute
+  '/game/$majorId': typeof GameMajorIdRoute
+  '/major-preview/$majorId': typeof MajorPreviewMajorIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -75,9 +89,11 @@ export interface FileRoutesByTo {
   '/intro': typeof IntroRoute
   '/major': typeof MajorRoute
   '/midway-result': typeof MidwayResultRoute
+  '/next-major-vote': typeof NextMajorVoteRoute
   '/result': typeof ResultRoute
   '/semester': typeof SemesterRoute
-  '/ui': typeof UiRoute
+  '/game/$majorId': typeof GameMajorIdRoute
+  '/major-preview/$majorId': typeof MajorPreviewMajorIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -86,9 +102,11 @@ export interface FileRoutesById {
   '/intro': typeof IntroRoute
   '/major': typeof MajorRoute
   '/midway-result': typeof MidwayResultRoute
+  '/next-major-vote': typeof NextMajorVoteRoute
   '/result': typeof ResultRoute
   '/semester': typeof SemesterRoute
-  '/ui': typeof UiRoute
+  '/game/$majorId': typeof GameMajorIdRoute
+  '/major-preview/$majorId': typeof MajorPreviewMajorIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -98,9 +116,11 @@ export interface FileRouteTypes {
     | '/intro'
     | '/major'
     | '/midway-result'
+    | '/next-major-vote'
     | '/result'
     | '/semester'
-    | '/ui'
+    | '/game/$majorId'
+    | '/major-preview/$majorId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -108,9 +128,11 @@ export interface FileRouteTypes {
     | '/intro'
     | '/major'
     | '/midway-result'
+    | '/next-major-vote'
     | '/result'
     | '/semester'
-    | '/ui'
+    | '/game/$majorId'
+    | '/major-preview/$majorId'
   id:
     | '__root__'
     | '/'
@@ -118,9 +140,11 @@ export interface FileRouteTypes {
     | '/intro'
     | '/major'
     | '/midway-result'
+    | '/next-major-vote'
     | '/result'
     | '/semester'
-    | '/ui'
+    | '/game/$majorId'
+    | '/major-preview/$majorId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -129,20 +153,15 @@ export interface RootRouteChildren {
   IntroRoute: typeof IntroRoute
   MajorRoute: typeof MajorRoute
   MidwayResultRoute: typeof MidwayResultRoute
+  NextMajorVoteRoute: typeof NextMajorVoteRoute
   ResultRoute: typeof ResultRoute
   SemesterRoute: typeof SemesterRoute
-  UiRoute: typeof UiRoute
+  GameMajorIdRoute: typeof GameMajorIdRoute
+  MajorPreviewMajorIdRoute: typeof MajorPreviewMajorIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/ui': {
-      id: '/ui'
-      path: '/ui'
-      fullPath: '/ui'
-      preLoaderRoute: typeof UiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/semester': {
       id: '/semester'
       path: '/semester'
@@ -155,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/result'
       fullPath: '/result'
       preLoaderRoute: typeof ResultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/next-major-vote': {
+      id: '/next-major-vote'
+      path: '/next-major-vote'
+      fullPath: '/next-major-vote'
+      preLoaderRoute: typeof NextMajorVoteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/midway-result': {
@@ -192,6 +218,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/major-preview/$majorId': {
+      id: '/major-preview/$majorId'
+      path: '/major-preview/$majorId'
+      fullPath: '/major-preview/$majorId'
+      preLoaderRoute: typeof MajorPreviewMajorIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/game/$majorId': {
+      id: '/game/$majorId'
+      path: '/game/$majorId'
+      fullPath: '/game/$majorId'
+      preLoaderRoute: typeof GameMajorIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -201,9 +241,11 @@ const rootRouteChildren: RootRouteChildren = {
   IntroRoute: IntroRoute,
   MajorRoute: MajorRoute,
   MidwayResultRoute: MidwayResultRoute,
+  NextMajorVoteRoute: NextMajorVoteRoute,
   ResultRoute: ResultRoute,
   SemesterRoute: SemesterRoute,
-  UiRoute: UiRoute,
+  GameMajorIdRoute: GameMajorIdRoute,
+  MajorPreviewMajorIdRoute: MajorPreviewMajorIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

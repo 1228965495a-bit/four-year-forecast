@@ -5,6 +5,7 @@ import { gameStore, useGameState, currentSemesterLabel } from "@/lib/gameStore";
 import { totalSemesters } from "@/data/script/semesterMeta";
 import { majorById } from "@/data/script/majorCatalog";
 import { deriveResultTags } from "@/lib/resultTags";
+import { canEnterMajorGame, getMajorExperienceConfig } from "@/data/majorExperienceConfig";
 
 export const Route = createFileRoute("/midway-result")({
   head: () => ({
@@ -20,10 +21,15 @@ function MidwayResultPage() {
   const game = useGameState();
   const navigate = useNavigate();
   const major = game.majorId ? majorById[game.majorId] : null;
+  const experience = getMajorExperienceConfig(game.majorId);
 
   useEffect(() => {
-    if (game.hydrated && !major) navigate({ to: "/" });
-  }, [game.hydrated, major, navigate]);
+    if (!game.hydrated) return;
+    if (!major || !experience) navigate({ to: "/major" });
+    else if (!canEnterMajorGame(game.majorId)) {
+      navigate({ to: "/major-preview/$majorId", params: { majorId: game.majorId } });
+    }
+  }, [experience, game.hydrated, game.majorId, major, navigate]);
 
   const tags = useMemo(() => {
     if (!game.midGgTags?.length) return deriveResultTags(game, "midway");
@@ -40,14 +46,14 @@ function MidwayResultPage() {
     ].slice(0, 6);
   }, [game]);
 
-  if (!major) return null;
+  if (!major || !experience || !canEnterMajorGame(game.majorId)) return null;
 
   const semester = currentSemesterLabel(game);
-  const title = game.midGgTitle || "战略暂停选手";
-  const summary = game.midGgSubtitle || "你按下了结束键，提前结束本科副本。";
-  const hook = game.midGgConclusion || "跑路不是失败，是战略转移。";
+  const title = game.midGgTitle || "本局先存档的人";
+  const summary = game.midGgSubtitle || "你没有等系统把电量清零，先亲手按下了结束键。这个本科副本停在这里，人生进度条还在继续，换方向也算一种有效操作。";
+  const hook = game.midGgConclusion || "我不是没通关，只是拒绝给错误副本继续续费。";
   const advice = `已保留：头发、睡眠和少量幻想。\n已释放：早八、全勤和内耗额度。\n建议：带上这份鉴定，去下一段人生开新号。`;
-  const total = totalSemesters();
+  const total = totalSemesters(game.majorId);
 
   const retry = () => { gameStore.reset(); navigate({ to: "/major" }); };
   const home = () => { gameStore.reset(); navigate({ to: "/" }); };

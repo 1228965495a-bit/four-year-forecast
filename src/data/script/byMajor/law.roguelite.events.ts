@@ -7,6 +7,7 @@ type DecisionEffects = {
   persona: Record<string, number>;
   routes: Record<string, number>;
   evidence?: string;
+  flags?: string[];
 };
 
 function option(id: string, text: string, feedback: string, effects: DecisionEffects) {
@@ -20,6 +21,7 @@ function option(id: string, text: string, feedback: string, effects: DecisionEff
       lawPersona: effects.persona,
       lawRoutes: effects.routes,
       personaEvidence: effects.evidence ? [effects.evidence] : [],
+      flagsAdd: effects.flags ?? [],
     },
   };
 }
@@ -30,6 +32,28 @@ function event(id: string, semester: SemesterKey, title: string, description: st
 
 function incident(id: string, semester: SemesterKey, title: string, description: string, options: ReturnType<typeof option>[]) {
   return { id, majorId: "law", semester, type: "roguelite_random", title, description, tags: ["随机插曲"], options };
+}
+
+function crisis(
+  id: string,
+  semester: SemesterKey,
+  title: string,
+  description: string,
+  conditions: Record<string, unknown>,
+  options: ReturnType<typeof option>[],
+) {
+  return {
+    id,
+    majorId: "law",
+    semester,
+    type: "roguelite_random",
+    title,
+    description,
+    conditions,
+    weight: 4,
+    tags: ["事故现场", "这次真会 GG"],
+    options,
+  };
 }
 
 export const LAW_ROGUELITE_EVENTS = [
@@ -147,6 +171,56 @@ export const LAW_ROGUELITE_EVENTS = [
 ];
 
 export const LAW_ROGUELITE_RANDOM_EVENTS = [
+  crisis("law_crisis_y2s1_final_week", "y2s1", "四门闭卷挤在六天里，你已经开始法条串台", "民法题刚读到请求权基础，脑子里却自动播放刑法构成要件。行政法笔记摊在左边，商法重点压在泡面下面。距离第一场考试还有三十六小时。", {
+    any: [
+      { type: "stat", key: "energy", op: "<=", value: 65 },
+      { type: "hiddenStat", key: "ruleSensitivity", op: ">=", value: 62 },
+    ],
+  }, [
+    option("a", "放弃四门全优，按考试顺序只救最近两门", "你第一次承认时间表比意志力更有法律效力。两门重点清楚了，另外两门接受普通通过。", { energy: 7, professional: 2, opportunity: -2, persona: { realityPlanning: 9, ambiguityTolerance: 4 }, routes: { survival: 8 }, evidence: "planner" }),
+    option("b", "咖啡续杯，四门一起背到天亮", "凌晨四点，你把无权代理写进了犯罪构成，把行政行为撤销成了可撤销合同。电脑还亮着，人已经停止区分部门法。", { energy: -24, professional: 5, opportunity: 0, persona: { stressTolerance: -8, ruleSensitivity: 4 }, routes: { academic: 3 }, evidence: "rule_keeper", flags: ["law_mid_gg_final_week"] }),
+    option("c", "拉同学互换重点，承认一个人背不完全部", "你贡献民法框架，同学贡献行政法押题。没有人独立完成奇迹，但大家终于知道明天考什么。", { energy: -6, professional: 6, opportunity: 4, persona: { responsibility: 5, realityPlanning: 6 }, routes: { survival: 5, academic: 2 }, evidence: "mediator" }),
+  ]),
+  crisis("law_crisis_y2s2_moot_court", "y2s2", "模拟法庭开庭前两小时，队友集体进入失联状态", "主辩稿停在“尊敬的审判长”，证据目录错了三页，负责打印的人最后上线时间是昨晚。领队在群里问：谁能先顶一下？", {
+    any: [
+      { type: "stat", key: "energy", op: "<=", value: 68 },
+      { type: "hiddenStat", key: "responsibility", op: ">=", value: 62 },
+    ],
+  }, [
+    option("a", "砍掉所有花活，只保一套能开庭的最低版本", "你删掉炫技环节，重排证据顺序。比赛不一定漂亮，但至少不会由一页空白担任主辩。", { energy: -8, professional: 7, opportunity: 3, persona: { realityPlanning: 8, expression: 4 }, routes: { advocacy: 6, survival: 3 }, evidence: "planner" }),
+    option("b", "主辩、材料、打印全接过来，今天我就是全组", "你一人完成开庭、质证和后勤。散庭时裁判问团队如何分工，你差点提交自己的器官清单。", { energy: -25, professional: 8, opportunity: 3, persona: { responsibility: 10, stressTolerance: -10 }, routes: { advocacy: 7 }, evidence: "mediator", flags: ["law_mid_gg_moot_court"] }),
+    option("c", "群里点名分工，缺谁的部分就如实缺席", "沉默的队友陆续恢复民事行为能力。你没有替全组制造奇迹，只让每个人重新成为责任主体。", { energy: -5, professional: 5, opportunity: 2, persona: { evidence: 2, responsibility: -3, expression: 7 }, routes: { advocacy: 4, survival: 4 }, evidence: "evidence" }),
+  ]),
+  crisis("law_crisis_y3s1_internship_v12", "y3s1", "带教凌晨一点发来一句：整体不错，简单改一下", "附件名是“合同终版_v7”。消息下面跟着十六条修改意见，最后一条写着“明早上班前给我”。你八点半还有一场闭卷考试。", {
+    any: [
+      { type: "stat", key: "energy", op: "<=", value: 68 },
+      { type: "hiddenStat", key: "realityPlanning", op: ">=", value: 62 },
+    ],
+  }, [
+    option("a", "先交可用版，明确说明早上有考试", "你把最要命的三处改完，剩下的列成清单。带教没有鼓掌，但也没有宣布你的职业生涯当场终结。", { energy: -7, professional: 6, opportunity: 2, persona: { expression: 7, realityPlanning: 8 }, routes: { firm: 5, survival: 3 }, evidence: "planner" }),
+    option("b", "把“最终版”改到天亮，考试靠法感", "文件从 v7 长到 v12，天也亮了。合同保存成功，你走进考场时发现自己的大脑没有自动保存。", { energy: -28, professional: 8, opportunity: 6, persona: { stressTolerance: -10, responsibility: 7 }, routes: { firm: 8 }, evidence: "planner", flags: ["law_mid_gg_internship_v12"] }),
+    option("c", "关电脑睡觉，明早先考试再处理实习", "你没有用一次实习替整学期成绩作无限担保。第二天消息仍在那里，但你至少看得懂题干。", { energy: 9, professional: -2, opportunity: -5, persona: { realityPlanning: 9, stressTolerance: 5 }, routes: { survival: 8 }, evidence: "planner" }),
+  ]),
+  crisis("law_crisis_y3s2_exam_accuracy", "y3s2", "法考正确率连续三天向下，你开始刷经验贴求判决", "三百道题刷完，正确率从 52% 稳定降到 41%。收藏夹里已经有二十七篇上岸经验，脑子里的知识点正在互相撤销。", {
+    any: [
+      { type: "stat", key: "energy", op: "<=", value: 70 },
+      { type: "hiddenStat", key: "ruleSensitivity", op: ">=", value: 65 },
+    ],
+  }, [
+    option("a", "关掉经验贴，只复盘今天真正错掉的二十题", "错题数量没有立刻变少，但每一道终于有了死因。正确率第一次停止自由落体。", { energy: -6, professional: 9, opportunity: 0, persona: { evidence: 3, ruleSensitivity: 6, realityPlanning: 4 }, routes: { civil: 4, academic: 3 }, evidence: "evidence" }),
+    option("b", "再开一套卷证明 41% 只是偶然", "新卷用 39% 完成了举证。你成功证明前一天不是偶然，也暂时失去了继续证明的精神能力。", { energy: -25, professional: 3, opportunity: -1, persona: { stressTolerance: -9, ambiguityTolerance: -6 }, routes: { civil: 5 }, evidence: "rule_keeper", flags: ["law_mid_gg_exam_accuracy"] }),
+    option("c", "把法考改成长线，不在本周给人生判终局", "你从冲刺表里删掉三套卷，换回睡眠和一份能执行的复盘计划。考试没有消失，灾难叙事先退庭了。", { energy: 8, professional: 4, opportunity: -3, persona: { realityPlanning: 10, ambiguityTolerance: 6 }, routes: { survival: 6, civil: 3 }, evidence: "planner" }),
+  ]),
+  crisis("law_crisis_y4s1_thesis_versions", "y4s1", "导师说整体不错，再改一版；你找不到哪版是整体", "桌面上躺着 final、final2、真的final 和 final_导师意见。明早要交开题修改稿，每一份都像最新版，又都缺一点东西。", {
+    any: [
+      { type: "stat", key: "energy", op: "<=", value: 72 },
+      { type: "stat", key: "professionalAccumulation", op: ">=", value: 45 },
+    ],
+  }, [
+    option("a", "建版本表，只保留一个母版重新合并", "你花了一小时做原本早该做的事。论文终于只剩一个现在时，文件夹里的历史版本被依法封存。", { energy: -7, professional: 10, opportunity: 0, persona: { evidence: 2, realityPlanning: 9 }, routes: { academic: 6, survival: 2 }, evidence: "evidence" }),
+    option("b", "继续凭文件名寻找“真的最终版”", "你在四份文档之间来回复制，最后把旧段落覆盖了新修改。论文通过查重之前，你先没通过版本识别。", { energy: -24, professional: -4, opportunity: -2, persona: { stressTolerance: -10, realityPlanning: -7 }, routes: { academic: 3 }, evidence: "rule_keeper", flags: ["law_mid_gg_thesis_versions"] }),
+    option("c", "带着四个版本找导师，当面确认哪份能救", "导师沉默了三秒，帮你圈出母版。尴尬只持续了一会儿，独自猜版本本来会持续一整夜。", { energy: -5, professional: 7, opportunity: 3, persona: { expression: 6, ambiguityTolerance: 5 }, routes: { academic: 5 }, evidence: "mediator" }),
+  ]),
   incident("law_incident_y1s1_001", "y1s1", "图书馆座位争议，全桌请法学生现场判案", "对面同学说水杯占座有效，旁边同学主张离席二十分钟视为放弃。你只是来背书，却突然获得临时审判权。", [
     option("a", "先查馆规，再宣布水杯不具备民事主体资格", "围观群众对结论基本满意，对你真的打开馆规这件事尤其震撼。", { energy: -4, professional: 4, opportunity: 2, persona: { evidence: 1, ruleSensitivity: 4 }, routes: { academic: 2 } }),
     option("b", "提议拼桌，拒绝让一只水杯制造校园判例", "争议在两分钟内解决。你没有留下判决书，只留下了两个座位。", { energy: 1, professional: 1, opportunity: 3, persona: { responsibility: 3, ambiguityTolerance: 3 }, routes: { advocacy: 2 } }),
