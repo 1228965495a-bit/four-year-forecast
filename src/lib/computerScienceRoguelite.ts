@@ -365,7 +365,7 @@ function deriveReasons(game: CSGameLike, routeId: string, personaId: string) {
   const proofLabels: Record<string, string> = {
     shipper: "你多次先保可运行版本，再决定技术债什么时候偿还。",
     debugger: "面对报错时，你更常查看日志、缩小范围，而不是只靠重启碰运气。",
-    deadline: "你多次在高压和低电量下完成最后交付，DDL 爆发倾向明显。",
+    deadline: "你多次拖到截止前才集中赶工，而且往往是在已经很累的时候勉强做完。",
     merger: "团队出问题时，你经常接下整合、沟通或最后合并工作。",
     interview: "你持续把项目和学习转成简历、面试与现实入口。",
     stack_tourist: "你接触过多套技术和工具，也留下了数次没有继续深挖的记录。",
@@ -374,8 +374,8 @@ function deriveReasons(game: CSGameLike, routeId: string, personaId: string) {
   const decisive = game.history.filter((item) => /报错|项目|算法|实习|路线|Git|毕设/.test(item.title));
   for (const item of decisive.slice(-2)) reasons.push(`在“${item.title}”里，你选择了“${item.choice}”。`);
   const routeName = CS_ROUTE_DEFINITIONS.find((route) => route.id === routeId)?.title;
-  reasons.push(`四年里，你给“${routeName}”投入的技术积累、机会和关键选择最多。`);
-  reasons.push(`结算时保有 ${Math.round(game.stats.technicalAccumulation ?? 0)} 点技术积累、${Math.round(game.stats.projectOpportunity ?? 0)} 点项目机会。`);
+  reasons.push(`四年里，你最常把时间和机会留给“${routeName}”相关的选择。`);
+  reasons.push(`毕业时，你有 ${Math.round(game.stats.technicalAccumulation ?? 0)} 点技术积累和 ${Math.round(game.stats.projectOpportunity ?? 0)} 点项目机会。`);
   return reasons.filter(Boolean).slice(0, 4);
 }
 
@@ -396,7 +396,7 @@ function deriveLockedHint(game: CSGameLike, routeId: string) {
   if (routeId !== "opensource" && !game.flags.includes("cs_pr_reviewed")) return "有一条开源支线还没合并：它需要读文档、完成可运行项目，并在社区事件里留下真实修复。";
   if (routeId !== "algorithm" && routeScore(game, "algorithm") < 8) return "动态规划训练营还留着一个位置。下一局可以更早亲手拆边界，而不是只收藏题解。";
   if (routeId !== "product" && dim(game, "requirementSense") < 65) return "有一次需求沟通被你当成了纯技术问题。下一局先问清楚为什么做，再决定怎么写。";
-  return "还有一些事故只会在特定构筑下出现：同一个报错习惯，可能把你送进完全不同的路线。";
+  return "还有一些事件只会在特定选择之后出现。同样一次报错，用不同方法处理，后面可能会走向完全不同的结果。";
 }
 
 function deriveReplayChallenge(game: CSGameLike, routeId: string) {
@@ -404,7 +404,7 @@ function deriveReplayChallenge(game: CSGameLike, routeId: string) {
   if (routeId === "job") return "上一局走了就业线。这次不背八股，试着靠一个真正完成的项目打开路线。";
   if (routeId === "project") return "上一局功能优先。这次认真读文档、找根因，尝试打开开源隐藏线。";
   if (routeId === "opensource") return "上一局 PR 已合并。这次完全不碰社区，看看本地项目会把你送到哪里。";
-  return "下一局使用与你本局相反的排错习惯，至少完成一个没见过的特殊经历。";
+  return "下一次试试和这一局完全不同的排错方法，看看能不能遇到没有见过的事件。";
 }
 
 function deriveFit(game: CSGameLike, routeId: string) {
@@ -413,7 +413,7 @@ function deriveFit(game: CSGameLike, routeId: string) {
   const planning = dim(game, "realityPlanning");
   const strengths = [
     debug >= 62 ? "你能在报错和反复失败里维持排查顺序。" : "你更擅长借助搜索、同伴和现成工具快速推进。",
-    curiosity >= 62 ? "面对陌生系统，你愿意继续追问它为什么这样运行。" : "你对技术本身未必上头，但能围绕具体目标完成交付。",
+    curiosity >= 62 ? "遇到陌生系统时，你愿意继续追问它为什么这样运行。" : "你未必特别迷恋技术，但能围绕具体目标把东西做完。",
   ];
   const risks = dim(game, "ddlBurst") >= 65
     ? "你太依赖最后阶段爆发，复杂项目会把这种侥幸放大成真实风险。"

@@ -250,8 +250,8 @@ export function deriveAccountingResult(game: AccountingGame) {
     persona,
     experiences,
     reasons: [
-      `四年里，你在“${route.title}”相关的事上花掉了最多电量。`,
-      `“${persona.title}”不是最后一题抽中的，前面的表格和群聊早就暴露了你。`,
+      `四年里，你最常把时间花在“${route.title}”相关的事情上。`,
+      `你不止一次做出符合“${persona.title}”的选择，所以这个结果不是最后一题临时决定的。`,
       proofLine(persona.id),
     ],
     viralStats: [
@@ -273,7 +273,7 @@ export function deriveAccountingResult(game: AccountingGame) {
       risks: dim(game, "overResponsibility") > dim(game, "boundarySense") + 8
         ? "你太容易变成默认收总表的人。下次合并前，先让每个人对自己的明细和公式签收。"
         : "去年的模板可能在今年过期，长得一样的业务也可能少一张关键单据。",
-      direction: `${route.title}是本局最强倾向，但结果不替代真实培养方案、考试要求和职业咨询。`,
+      direction: `你的选择更接近“${route.title}”。这只是游戏里的本科结果，不能代替真实培养方案、考试要求和职业咨询。`,
     },
   };
 }
@@ -293,7 +293,7 @@ function deriveExperiences(game: AccountingGame) {
     [game.flags.includes("accounting_callback_anomaly"), "早一个月的记录牵出另外两笔"],
     [game.flags.includes("accounting_callback_template"), "Excel模板被整个小组继续使用"],
     [game.flags.includes("accounting_callback_analysis"), "从核算转向财务分析"],
-    [game.flags.includes("accounting_callback_tax"), "税务与合规隐藏入口"],
+    [game.flags.includes("accounting_callback_tax"), "第一次参与真实税务资料核对"],
     [game.flags.includes("accounting_callback_cross"), "运营面试先发现取消订单没剔除"],
     [game.flags.includes("accounting_callback_lowcost"), "唯一一个不用翻聊天记录的最终版"],
   ];

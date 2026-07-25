@@ -321,7 +321,7 @@ function deriveReasons(game: LawGameLike, routeId: string, personaId: string) {
   const decisionTitles = new Set(LAW_ROGUELITE_EVENTS.map((event) => event.title));
   const tradeoffs = [...game.history].reverse().filter((item) => decisionTitles.has(item.title));
   const evidenceChoices = tradeoffs.length > 1 ? [tradeoffs[0], tradeoffs[tradeoffs.length - 1]] : tradeoffs;
-  for (const item of evidenceChoices) reasons.push(`在“${item.title}”里，你选择了“${item.choice}”。系统把你保住和放弃的东西同时计入了人格结算。`);
+  for (const item of evidenceChoices) reasons.push(`在“${item.title}”里，你选择了“${item.choice}”。这类取舍在四年里不止出现了一次。`);
   if (personaId === "evidence") reasons.push("面对争议时，你多次优先核对事实、时间线和原始材料。比如大一那次家庭咨询，你没有直接下结论。");
   if (personaId === "advocate") reasons.push("课堂点名和模拟法庭出现时，你选择把观点说完整，而不是让沉默替你答辩。");
   if (personaId === "rule_keeper") reasons.push("你的规则敏感度持续上升，遇到‘大家都这样’时仍会追问依据。");
@@ -329,8 +329,8 @@ function deriveReasons(game: LawGameLike, routeId: string, personaId: string) {
   if (personaId === "escape") reasons.push("你不止一次留意转专业与跨行入口，并认真计算过离开的成本。");
   if (personaId === "mediator") reasons.push("面对团队任务和他人求助时，你多次选择承担、补位或把冲突重新组织起来。");
   const routeName = LAW_ROUTE_DEFINITIONS.find((route) => route.id === routeId)?.title;
-  reasons.push(`大三之后，你对“${routeName}”投入的专业积累和机会最多，它成为本局主路线。`);
-  reasons.push(`本局结束时，你保有 ${Math.round(game.stats.energy ?? 0)} 点精力、${Math.round(game.stats.professionalAccumulation ?? 0)} 点专业积累和 ${Math.round(game.stats.opportunity ?? 0)} 点机会。`);
+  reasons.push(`大三以后，你最常把时间和机会留给“${routeName}”相关的选择。`);
+  reasons.push(`毕业时，你还有 ${Math.round(game.stats.energy ?? 0)} 点精力、${Math.round(game.stats.professionalAccumulation ?? 0)} 点专业积累和 ${Math.round(game.stats.opportunity ?? 0)} 点机会。`);
   return reasons.slice(0, 4);
 }
 
@@ -344,8 +344,8 @@ function buildStory(game: LawGameLike, route: { id: LawRouteKey; title: string; 
     : `你没有变成入学时想象的标准法律人，却带着“${persona.title}”这套生存方式离开法学院。`;
   return [
     { year: "大一", text: `${trait ? trait.title : "你带着一点法学滤镜入学"}。第一次真正做决定时，你选择了“${firstChoice}”。` },
-    { year: "大二", text: `核心课开始收走滤镜，你的专业积累来到 ${Math.round(game.stats.professionalAccumulation ?? 0)}。一些早期选择开始回来找你。` },
-    { year: "大三", text: `路线逐渐收窄，你把有限的机会主要押在“${route.title}”，也因此错过了另外几条人生。` },
+    { year: "大二", text: `核心课让你看见法学真实的学习内容，你的专业积累来到 ${Math.round(game.stats.professionalAccumulation ?? 0)}。大一做过的一些选择，也开始影响后面的机会。` },
+    { year: "大三", text: `你逐渐把有限的时间留给“${route.title}”，也因此放弃了另外几种可能。` },
     { year: "大四", text: finalChapter },
   ];
 }
@@ -385,7 +385,7 @@ function deriveTrend(state: MutableLawState) {
     { value: dim(state, "responsibility"), text: "你似乎越来越习惯替小组收拾残局。" },
     { value: dim(state, "ruleSensitivity"), text: "一个危险的趋势正在形成：你开始享受挑别人论证漏洞。" },
     { value: dim(state, "evidence") * 12, text: "你正在逐渐失去对残缺证据和模糊叙述的耐心。" },
-    { value: dim(state, "realityPlanning"), text: "系统观察：焦虑出现时，你越来越习惯先查规则和入口。" },
+    { value: dim(state, "realityPlanning"), text: "一焦虑起来，你越来越习惯先查规则、截止日期和可选方向。" },
     { value: routeScore(state, "survival") * 8, text: "你的专业滤镜碎了，但人暂时还没走。" },
   ];
   return trends.sort((a, b) => b.value - a.value)[0].text;

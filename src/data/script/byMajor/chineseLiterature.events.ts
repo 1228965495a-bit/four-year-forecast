@@ -57,14 +57,14 @@ export const CHINESE_CORE_EVENTS: ChineseEvent[] = [
     o("c", "组个读书会，每人负责一本", "四个人一人啃三本。轮到自己负责的书时如数家珍，轮到别人的书时集体点头。", -3, { text: 5, opportunity: 3, traits: { expression: 6, teamBackup: 7 }, flags: ["chinese_read_group"], routes: { media: 3, editor: 2 }, proof: "copywriter" }),
     o("d", "先收齐笔记，考试前集中到场", "网盘很快集齐《重点》《新重点》《老师没说但可能考》。书一页没翻，资料版本考据先开题。", 2, { text: 2, traits: { lastMinute: 9, realityPlanning: 3 }, flags: ["chinese_read_summary"], routes: { survival: 5 }, proof: "ancient_survivor" }),
   ]),
-  e("chinese_core_02_ancient", "y1s2", "main", "一个“之”字出现了四种用法", "古代汉语课刚讲到第三句，老师已经把同一个“之”字标了四次。每个字都认识，不代表它们愿意按现代汉语上班。", [
-    o("a", "逐句标词性，把用法分开记", "页边挤满箭头和词性。速度不快，但“之”终于没有继续共用一个身份证。", -7, { text: 9, traits: { textSensitivity: 8, ancientTolerance: 8 }, flags: ["chinese_ancient_parse"], routes: { research: 4 }, experiences: ["一个“之”字把你困了半节课"], proof: "ancient_survivor" }),
-    o("b", "先背例句，考场再凭语感判断", "例句背得很顺，换一句以后语感开始假装没见过你。", -4, { text: 5, traits: { memorization: 8, lastMinute: 4 }, flags: ["chinese_ancient_examples"], routes: { teacher: 2, civil: 2 }, proof: "ancient_survivor" }),
-    o("c", "拉同桌互相翻译，错一个改一个", "两个人轮流把古人翻译成现代人，笑了几次，也真抓住了几个坑。", -4, { text: 6, opportunity: 2, traits: { expression: 5, ancientTolerance: 6 }, flags: ["chinese_ancient_pair"], routes: { teacher: 3 }, proof: "copywriter" }),
-    o("d", "承认短期学不会，先保住及格线", "你把高频考点圈出来，放过了暂时解释不清的训诂。没有通透，期末先活着。", 2, { text: 3, traits: { lowCostSurvival: 8, boundarySense: 6 }, flags: ["chinese_ancient_survive"], routes: { survival: 6 }, proof: "ancient_survivor" }),
+  e("chinese_core_02_ancient", "y1s2", "main", "老师让你解释四句话里的“之”", "四句话里都有“之”，意思却不一样：有时相当于“的”，有时指“他”或“它”，有时放进现代汉语里根本不用翻。老师下一步就要点人回答，你准备怎么把它们分清？", [
+    o("a", "先把四句话翻成现代汉语，再比较区别", "你先弄清每句话到底在说什么，再回头看“之”在里面做什么。过程有点慢，但老师换个例句，你也能自己判断。", -7, { text: 9, traits: { textSensitivity: 8, ancientTolerance: 8 }, flags: ["chinese_ancient_parse"], routes: { research: 4 }, experiences: ["四句话里的“之”把你困了半节课"], proof: "ancient_survivor" }),
+    o("b", "把这四个例句背下来，考试碰到相似的就套", "四个例句背得很顺，老师一换句子，你突然发现自己只记住了答案，没记住为什么。", -4, { text: 5, traits: { memorization: 8, lastMinute: 4 }, flags: ["chinese_ancient_examples"], routes: { teacher: 2, civil: 2 }, proof: "ancient_survivor" }),
+    o("c", "和同桌一人翻两句，再互相挑错", "你们把四句话都说成了现代汉语，争了几轮以后，总算知道自己到底错在哪。", -4, { text: 6, opportunity: 2, traits: { expression: 5, ancientTolerance: 6 }, flags: ["chinese_ancient_pair"], routes: { teacher: 3 }, proof: "copywriter" }),
+    o("d", "先记最常考的两种，剩下的期末前再补", "你先保住了最容易拿的分。至于另外两种“之”，暂时继续在课本里自由活动。", 2, { text: 3, traits: { lowCostSurvival: 8, boundarySense: 6 }, flags: ["chinese_ancient_survive"], routes: { survival: 6 }, proof: "ancient_survivor" }),
   ]),
-  e("chinese_core_03_paper", "y2s1", "main", "老师说你的选题能写到退休", "你的题目叫《中国现代文学中的女性书写研究》。老师念完停了两秒：“课程论文三千字，你准备从哪一年写到哪一年？”", [
-    o("a", "缩到一篇小说，先讲清一扇窗", "题目小了很多，正文反而第一次有地方落脚。老师没再圈标题，只圈了十四处论证。", -7, { text: 10, opportunity: 3, traits: { topicNarrowing: 10, textSensitivity: 8, revisionPatience: 6 }, flags: ["chinese_paper_narrow"], routes: { research: 9, editor: 2 }, experiences: ["老师让你把选题砍掉三分之二"], proof: "close_reader" }),
+  e("chinese_core_03_paper", "y2s1", "main", "老师说你的选题够写一辈子", "你的题目叫《中国现代文学中的女性书写研究》。老师念完停了两秒：“课程论文只有三千字，你到底准备写哪位作家的哪一篇？”", [
+    o("a", "缩到一篇小说，只讲清一个问题", "题目终于从整个现代文学缩到一篇小说。老师没再圈标题，只圈了十四处论证。", -7, { text: 10, opportunity: 3, traits: { topicNarrowing: 10, textSensitivity: 8, revisionPatience: 6 }, flags: ["chinese_paper_narrow"], routes: { research: 9, editor: 2 }, experiences: ["老师让你把选题砍掉三分之二"], proof: "close_reader" }),
     o("b", "保留大题目，靠结构把它撑起来", "目录看起来足以解释半部文学史，正文每一节都只分到几百字。气势保住了，证据在门外排队。", -10, { text: 6, traits: { ambition: 9, stressTolerance: 6, topicNarrowing: -4 }, flags: ["chinese_paper_big"], routes: { writing: 3 }, proof: "writer" }),
     o("c", "拿去问老师，到底该砍哪一半", "老师直接划掉三行，又发来两篇论文：“先照这个大小写。”问题是小了，今晚的阅读量大了。", -6, { text: 8, opportunity: 7, traits: { activeHelp: 8, revisionPatience: 8 }, flags: ["chinese_paper_teacher"], routes: { research: 8 }, proof: "planner" }),
     o("d", "换成熟悉作品，先确保能交", "你没有挑战整个文学史，按时交出一篇不惊艳但能自圆其说的论文。", -3, { text: 5, traits: { realityPlanning: 6, interestProtection: 5 }, flags: ["chinese_paper_safe"], routes: { survival: 5, civil: 2 }, proof: "planner" }),
@@ -75,25 +75,25 @@ export const CHINESE_CORE_EVENTS: ChineseEvent[] = [
     o("c", "进校园媒体，接一条真实选题", "负责人把你的抒情标题删了，换成一句能让人看懂发生了什么的话。浪漫少了，阅读量有了。", -6, { text: 5, opportunity: 9, traits: { mediaSense: 9, expression: 7 }, flags: ["chinese_media_entry"], routes: { media: 10 }, proof: "copywriter" }),
     o("d", "匿名投稿，先让自己的东西出去", "稿子发出后两周没有回音。你每天只刷新一次邮箱，第三周开始刷新两次。", -5, { text: 6, opportunity: 4, traits: { creativeImpulse: 10, rejectionTolerance: 3 }, flags: ["chinese_writing_public_1"], routes: { writing: 8 }, experiences: ["文章没人看但你没有立刻删除"], proof: "writer" }),
   ]),
-  e("chinese_core_05_exit", "y3s1", "main", "辅导员问：中文好，然后呢", "辅导员把升学、教资、考公、编辑和内容实习投到屏幕上，最后问：“所以你准备报哪个？”刚才还说中文系是万金油的人，全低头搜起了岗位表。", [
-    o("a", "保论文和升学，把研究做深", "你删掉两份实习收藏，把时间留给论文和老师的第二轮批注。", -7, { text: 8, opportunity: 5, traits: { readingStamina: 7, revisionPatience: 7 }, flags: ["chinese_route_research"], closes: ["media"], routes: { research: 12 }, proof: "close_reader" }),
+  e("chinese_core_05_exit", "y3s1", "main", "辅导员问：中文系毕业以后，你想干什么", "屏幕上列着考研、教资、考公、编辑和内容实习。辅导员问：“你准备选哪一个？”刚才还说中文系什么都能干的人，低头开始查每个岗位到底招不招中文系。", [
+    o("a", "准备考研，把论文和专业课先做好", "你删掉两份实习收藏，把时间留给论文和老师的第二轮批注。", -7, { text: 8, opportunity: 5, traits: { readingStamina: 7, revisionPatience: 7 }, flags: ["chinese_route_research"], closes: ["media"], routes: { research: 12 }, proof: "close_reader" }),
     o("b", "教资和试讲先排进日历", "普通话、笔试、认定、试讲一共开了四个网页。“毕业去当老师”终于从饭桌答案变成了四次报名费。", -6, { text: 4, opportunity: 5, traits: { teachingPractice: 6, realityPlanning: 8 }, flags: ["chinese_route_teacher"], closes: ["writing"], routes: { teacher: 12 }, proof: "planner" }),
     o("c", "研究岗位表，先看专业代码认不认", "你发现“汉语言文学类”和“中国语言文学类”差两个字，就可能让报名按钮直接变灰。", -4, { opportunity: 5, traits: { civilPlanning: 10, realityPlanning: 10 }, flags: ["chinese_route_civil"], closes: ["research"], routes: { civil: 12 }, experiences: ["第一次看懂岗位表里的专业代码"], proof: "planner" }),
     o("d", "去内容行业试一次，拿作品说话", "你把校刊、推文和课程作业塞进作品集。面试官没问你最喜欢哪个作家，先问这篇推文的数据是谁做的。", -6, { text: 5, opportunity: 8, traits: { portfolioSense: 9, mediaSense: 5 }, flags: ["chinese_route_content"], routes: { editor: 7, media: 7, writing: 5 }, proof: "proofreader" }),
   ]),
-  e("chinese_core_06_conflict", "y3s2", "main", "试讲、实习和论文在同一周截止", "编辑实习要你周五交样稿，试讲队周六磨课，老师周日收论文二稿。三个群都在发“收到请回复”，你的电量没有群聊那么积极。", [
-    o("a", "保论文，实习只做能交付的一部分", "样稿少了一页，论文终于有了第二版。你失去一点展示面，换来一条能继续追的研究线。", -9, { text: 10, opportunity: -2, traits: { revisionPatience: 10, boundarySense: 6 }, flags: ["chinese_conflict_paper"], routes: { research: 10 }, proof: "close_reader" }),
+  e("chinese_core_06_conflict", "y3s2", "main", "试讲、实习样稿和论文都在这周截止", "编辑让你周五交样稿，试讲队周六磨课，老师周日收论文二稿。三个群都在问“收到吗”，可你这周只够认真做好两件事。", [
+    o("a", "先保论文，实习样稿只做到基本要求", "样稿少了一页，论文终于有了第二版。你少了一项能展示的成果，却有时间把论文继续写下去。", -9, { text: 10, opportunity: -2, traits: { revisionPatience: 10, boundarySense: 6 }, flags: ["chinese_conflict_paper"], routes: { research: 10 }, proof: "close_reader" }),
     o("b", "保试讲，论文申请晚两天交", "试讲终于卡在十分钟内。论文老师回了六个字：“收到，下次提前说。”你盯着句号看了很久。", -8, { text: 4, opportunity: 8, traits: { teachingPractice: 10, responsibility: 5 }, flags: ["chinese_conflict_teaching"], routes: { teacher: 10 }, proof: "copywriter" }),
-    o("c", "保实习，接受自己的论文只改重点", "标题改到第十版，内容准时上线。论文没有脱胎换骨，作品集多了一项真实交付。", -8, { text: 6, opportunity: 10, traits: { editingSense: 7, deliveryFirst: 9 }, flags: ["chinese_conflict_content"], routes: { editor: 7, media: 7 }, proof: "proofreader" }),
-    o("d", "砍掉一项额外任务，先把人保住", "你退出一个群聊，剩下两件事都按时交了。履历少一格，睡眠重新获得基本权利。", 4, { text: 3, traits: { lowCostSurvival: 11, boundarySense: 10 }, flags: ["chinese_conflict_survival"], routes: { survival: 12 }, proof: "ancient_survivor" }),
+    o("c", "保实习，论文只改最重要的问题", "实习样稿按时上线，论文也完成了必要修改。它没有变成最好的版本，但你没有让两件事一起逾期。", -8, { text: 6, opportunity: 10, traits: { editingSense: 7, deliveryFirst: 9 }, flags: ["chinese_conflict_content"], routes: { editor: 7, media: 7 }, proof: "proofreader" }),
+    o("d", "放掉一项额外任务，先保证能睡觉", "你退出一个群聊，剩下两件事都按时交了。履历少了一项，这周也终于没有继续熬夜。", 4, { text: 3, traits: { lowCostSurvival: 11, boundarySense: 10 }, flags: ["chinese_conflict_survival"], routes: { survival: 12 }, proof: "ancient_survivor" }),
   ]),
-  e("chinese_core_07_lock", "y4s1", "main", "开题和报名系统同一天催命", "招聘网站显示“仅剩3天”，报名系统今晚八点关，导师在微信问二稿在哪。四年前你什么都想试，现在三个倒计时一起走。", [
-    o("a", "把论文做成升学材料，不再换题", "题目终于没有继续变大或变新。你开始补证据，而不是重新发明世界。", -8, { text: 10, opportunity: 5, traits: { topicNarrowing: 8, revisionPatience: 9 }, flags: ["chinese_lock_research"], routes: { research: 12 }, proof: "close_reader" }),
+  e("chinese_core_07_lock", "y4s1", "main", "导师催二稿，报名系统今晚八点关", "招聘岗位还剩三天截止，考试报名今晚八点关闭，导师又在微信问论文二稿在哪。你不能再每件事都准备一点，今天必须先选一件。", [
+    o("a", "准备升学，论文就按现在的题目继续写", "题目终于没有继续变大或变新。你开始补证据，而不是重新换题。", -8, { text: 10, opportunity: 5, traits: { topicNarrowing: 8, revisionPatience: 9 }, flags: ["chinese_lock_research"], routes: { research: 12 }, proof: "close_reader" }),
     o("b", "锁定教师岗，拿试讲逐场修", "第一场板书太满，第二场互动太假，第三场终于像一堂真的课。", -9, { text: 5, opportunity: 9, traits: { teachingPractice: 11, stressTolerance: 7 }, flags: ["chinese_lock_teacher"], routes: { teacher: 12 }, proof: "copywriter" }),
     o("c", "锁定公考，把焦虑拆成岗位和日期", "收藏夹从“经验分享”变成职位、限制、报名日和备选方案。未来没定，表格已经能执行。", -7, { text: 4, opportunity: 5, traits: { civilPlanning: 12, realityPlanning: 10 }, flags: ["chinese_lock_civil"], routes: { civil: 12 }, proof: "planner" }),
-    o("d", "用作品集投内容岗，创作留作副线", "白天改简历里的案例，晚上保留一个不看数据的文档。文字开始分工，而不是互相抢命。", -7, { text: 6, opportunity: 10, traits: { portfolioSense: 9, interestProtection: 8 }, flags: ["chinese_lock_content"], routes: { editor: 6, media: 6, writing: 4 }, proof: "writer" }),
+    o("d", "用作品集投内容岗，自己的东西下班后再写", "白天改简历里的案例，晚上写一点自己的东西。工作和创作终于不用抢同一段时间。", -7, { text: 6, opportunity: 10, traits: { portfolioSense: 9, interestProtection: 8 }, flags: ["chinese_lock_content"], routes: { editor: 6, media: 6, writing: 4 }, proof: "writer" }),
   ]),
-  e("chinese_core_08_finish", "y4s2", "main", "答辩老师又在题目下面画了一道线", "四年前你以为中文系主要负责读书。现在桌上有毕业论文第九版、几份投递记录，还有一本没有任何课程要求你读完的小说。", [
+  e("chinese_core_08_finish", "y4s2", "main", "答辩结束后，你终于能读一本不用考试的书", "桌上还放着毕业论文第九版和几份求职记录，旁边那本小说却没有老师点名，也不用写读书报告。四年以后，你第一次可以只因为想看而翻开它。", [
     o("a", "把最后两处论证补齐，再交论文", "答辩没有掌声雷动，但老师终于没再说“范围太大”。这个小问题，你确实讲完了。", -6, { text: 9, traits: { revisionPatience: 8, topicNarrowing: 6 }, flags: ["chinese_final_research"], routes: { research: 8 }, experiences: ["论文题目终于没有被要求继续缩小"], proof: "close_reader" }),
     o("b", "带着试讲、申论或作品集去上班", "毕业证上写着汉语言文学，录用你的那一项写着试讲、材料题或三篇上线稿。", -4, { opportunity: 8, traits: { realityPlanning: 7, responsibility: 6 }, flags: ["chinese_final_job"], routes: { teacher: 5, civil: 5, editor: 4, media: 4 }, proof: "planner" }),
     o("c", "继续写，但不要求它立刻养活自己", "那个停在第三段的文档有了第四段。它暂时不负责房租，只负责没有彻底消失。", 1, { text: 5, traits: { creativeImpulse: 9, interestProtection: 10 }, flags: ["chinese_final_writing"], routes: { writing: 10, survival: 3 }, experiences: ["把写作保留成副业"], proof: "writer" }),
@@ -102,9 +102,9 @@ export const CHINESE_CORE_EVENTS: ChineseEvent[] = [
 ];
 
 export const CHINESE_ROUTE_EVENTS: ChineseEvent[] = [
-  e("chinese_route_research_01", "y2s2", "route", "十四处批注改完，又长出十一处", "你按老师的红字改了一整晚。第二天文档回来，原来的十四处少了，新批注又冒出十一处，其中五处都在问：“依据呢？”", [
+  e("chinese_route_research_01", "y2s2", "route", "十四处批注改完，老师又标了十一处", "你按老师的红字改了一整晚。第二天文档回来，原来的十四处少了，新批注又多了十一处，其中五处都在问：“依据呢？”", [
     o("a", "再缩一层，只保留最硬的证据", "标题从二十二个字缩到十三个字。能复制粘贴的背景先没了，正文终于开始说人话。", -6, { text: 8, opportunity: 5, traits: { topicNarrowing: 8, revisionPatience: 8 }, flags: ["chinese_paper_second_revision"], routes: { research: 8 }, proof: "close_reader" }),
-    o("b", "只改老师圈出的地方，先交上去", "红圈消失了一半，没圈到的逻辑继续自由生长。", -2, { text: 4, traits: { deliveryFirst: 6 }, routes: { survival: 4 }, proof: "planner" }),
+    o("b", "只改老师圈出的地方，先交上去", "红圈少了一半，但没有被圈出的逻辑问题还留在正文里。", -2, { text: 4, traits: { deliveryFirst: 6 }, routes: { survival: 4 }, proof: "planner" }),
     o("c", "换成更熟的作品，停止追这个问题", "论文顺利交了，老师记住的那个小问题停在上学期。", 1, { text: 3, traits: { interestProtection: 5 }, closes: ["research"], routes: { survival: 5 }, proof: "ancient_survivor" }),
   ], ["research"]),
   e("chinese_route_research_02", "y3s1", "route", "夏令营材料要你用三百字说清选题", "你原来的摘要有八百字，还没写到问题本身。报名页面只剩三百字和一个不会被感动的字数统计。", [
@@ -177,7 +177,7 @@ export const CHINESE_ROUTE_EVENTS: ChineseEvent[] = [
   ], ["editor"]),
   e("chinese_route_editor_04", "y4s1", "route", "校刊截稿夜又少了一篇稿子", "版面已经排好，作者突然失联。群里所有人都说“我这边基本完成”，最后一块空白开始看你。", [
     o("a", "重排版面，不临时灌一篇水稿", "页数少了两页，整本刊物没有因此出现一篇来历可疑的文章。", -6, { text: 7, opportunity: 7, traits: { editingSense: 8, responsibility: 7 }, flags: ["chinese_journal_delivered"], routes: { editor: 10 }, experiences: ["校刊第八版校对完成"], proof: "proofreader" }),
-    o("b", "自己补一篇，先把版面填满", "刊物按页数交付，你的论文和睡眠一起承担了填空题。", -10, { text: 6, traits: { overResponsibility: 10, creativeImpulse: 5 }, routes: { editor: 6, writing: 4 }, proof: "writer" }),
+    o("b", "自己补一篇，先把空出来的版面填上", "刊物按时交了，你自己的论文却少改了一晚。这次缺稿最后还是由你的时间补上。", -10, { text: 6, traits: { overResponsibility: 10, creativeImpulse: 5 }, routes: { editor: 6, writing: 4 }, proof: "writer" }),
     o("c", "让负责人决定，别默认自己接锅", "空白没有消失，但责任终于回到了有权限的人手里。", 1, { traits: { boundarySense: 10, lowCostSurvival: 6 }, routes: { survival: 6, editor: 4 }, proof: "planner" }),
   ], ["editor"]),
 
@@ -262,13 +262,13 @@ export const CHINESE_RANDOM_EVENTS: ChineseEvent[] = [
   ]),
   e("chinese_random_09", null, "major_random", "征文通知写着“题材不限”", "题材不限，字数三千，今晚截止。文件夹里刚好有一个开头，唯一的问题是它真的只有开头。", [
     o("a", "补成完整稿，接受它不完美", "结尾有点急，但投稿附件第一次不是半成品。", -8, { text: 7, opportunity: 5, traits: { completionHabit: 8, creativeImpulse: 6 }, flags: ["chinese_writing_public_random"], routes: { writing: 5 }, proof: "writer" }),
-    o("b", "不为截止日期硬凑，继续慢写", "比赛与你擦肩，文档没有因此长出一个赶工结尾。", 2, { traits: { interestProtection: 7, boundarySense: 5 }, routes: { writing: 2, survival: 2 }, proof: "planner" }),
+    o("b", "不为截止日期硬凑，继续慢写", "你错过了这次比赛，但也没有为了赶稿草草补一个结尾。", 2, { traits: { interestProtection: 7, boundarySense: 5 }, routes: { writing: 2, survival: 2 }, proof: "planner" }),
     o("c", "换成交过的课程随笔改一版", "投稿按时，原创热情暂时由旧作代理出席。", -4, { text: 5, opportunity: 4, traits: { deliveryFirst: 6 }, routes: { editor: 3 }, proof: "proofreader" }),
   ]),
   e("chinese_random_10", null, "major_random", "跨行面试突然让你改一段用户文案", "岗位名称和中文系没有直接关系，面试官发来一段说不清重点的提示语，让你十分钟内改得更清楚。", [
     o("a", "先拆信息，再把动作写到第一句", "你把四行绕口通知改成两句话。面试官没问你背过哪些作家，只问：“为什么不一开始就这么写？”", -4, { text: 5, opportunity: 8, traits: { structureSense: 8, realityPlanning: 6 }, flags: ["chinese_cross_skill"], routes: { survival: 6, media: 3 }, experiences: ["中文能力在跨行面试里意外派上用场"], proof: "copywriter" }),
     o("b", "把语言写得更有感染力", "句子好看了，用户下一步该点哪里仍然需要推理。", -3, { text: 4, traits: { creativeImpulse: 6 }, routes: { writing: 3 }, proof: "writer" }),
-    o("c", "保留原意，只修病句和歧义", "文案没换人格，至少不再同时要求用户点击和等待。", -2, { text: 5, traits: { editingSense: 7, textSensitivity: 6 }, routes: { editor: 4, survival: 3 }, proof: "proofreader" }),
+    o("c", "保留原意，只修病句和歧义", "语气没有大改，但用户终于能看懂下一步该点击还是等待。", -2, { text: 5, traits: { editingSense: 7, textSensitivity: 6 }, routes: { editor: 4, survival: 3 }, proof: "proofreader" }),
   ]),
 ];
 

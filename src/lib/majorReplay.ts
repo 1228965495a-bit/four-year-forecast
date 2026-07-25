@@ -272,8 +272,8 @@ export function deriveMajorReplayRecommendations(
   const fork = [...history].find((item) => item.eventId && !item.eventId.includes("hidden")) ?? history[0];
   return [
     makeRecommendation("near_miss", near, fork
-      ? `在“${fork.title}”里，你选择了“${fork.choice}”。这条路当时没有消失，只是被你把资源投去了别处。`
-      : "这条路线离你并不远，只差几次关键资源没有投进去。"),
+      ? `在“${fork.title}”里，你选择了“${fork.choice}”。当时如果把更多时间留给另一项，你可能就会走向这里。`
+      : "你离这条路并不远，只是几次关键选择里，把时间留给了别的事情。"),
     makeRecommendation("opposite", opposite, `上一局你把最多力气用在“${config.routes.find((item) => item.id === currentRouteId)?.title ?? currentRouteId}”。这一把会故意奖励另一种处理问题的方式。`),
   ];
 
@@ -405,8 +405,8 @@ export function deriveMajorPortraits(state: ReplayState, checkpoint: number): Em
     title: nouns[stage],
     description: latest
       ? `你在“${latest.title}”里选择了“${latest.choice}”，这已经不是一次孤立的决定。`
-      : "你的资源投向开始稳定地偏向一种处理方式。",
-    evidenceText: `目前最常出现的选择倾向：${targetTag}。这不是最终结论，后面仍然可以拐弯。`,
+      : "你最近几次都用了相似的方法处理问题。",
+    evidenceText: `目前最常出现的选择方式：${targetTag}。这不是最终结论，后面仍然可以改变。`,
   }];
 }
 

@@ -257,12 +257,12 @@ function deriveReasons(game: ChineseGameLike, routeId: string, personaId: string
     proofreader: "你多次处理版本、病句、标点和真实改稿。",
     copywriter: "你经常把模糊表达整理成别人能听懂的话。",
     writer: "退稿和个位数阅读量都没能让你删掉下一个文档。",
-    ancient_survivor: "你没有把所有课程卷满，但长期保住了阅读和交付。",
+    ancient_survivor: "你没有把所有课程都学到最好，但一直能按时完成阅读和作业。",
     planner: "你真的查过截止日期、专业代码和不能报的条件。",
   };
   return [
-    `四年里，你在“${route.title}”相关的事上花掉了最多电量。`,
-    `“${persona.title}”不是最后一题抽中的，你前面已经这样选过很多次。`,
+    `四年里，你最常把时间花在“${route.title}”相关的事情上。`,
+    `你不止一次做出符合“${persona.title}”的选择，所以这个结果不是最后一题临时决定的。`,
     proofLabels[personaId],
   ];
 }
@@ -300,13 +300,13 @@ function deriveReplayChallenge(routeId: string) {
 function deriveFit(state: MutableChineseState, routeId: string) {
   return {
     strengths: [
-      dim(state, "textSensitivity") >= 64 ? "你对措辞、结构和语气差异有稳定敏感度。" : "你能把模糊材料整理成可交付的表达。",
+      dim(state, "textSensitivity") >= 64 ? "你对措辞、结构和语气差异很敏感。" : "你能把说不清楚的材料整理成别人看得懂的文字。",
       dim(state, "interestProtection") >= 64 ? "你知道如何给私人阅读与写作保留空间。" : "你愿意为明确目标承受一段高强度文本训练。",
     ],
     risks: dim(state, "overResponsibility") > dim(state, "boundarySense") + 8
       ? "你容易成为默认改稿和表达补位者，需要更早确认范围。"
       : "中文能力需要通过作品、试讲、论文或材料写作被具体证明，不能只停在“万金油”。",
-    direction: `${CHINESE_ROUTE_DEFINITIONS.find((item) => item.id === routeId)?.title ?? "中文系训练"}是本局最强倾向，但副本结果不替代真实院校培养方案和职业咨询。`,
+    direction: `你的选择更接近“${CHINESE_ROUTE_DEFINITIONS.find((item) => item.id === routeId)?.title ?? "中文系训练"}”。这只是游戏里的本科结果，不能代替真实院校培养方案和职业咨询。`,
   };
 }
 
@@ -314,7 +314,7 @@ function deriveTrend(state: MutableChineseState) {
   const ranked = CHINESE_ROUTE_DEFINITIONS
     .map((route) => ({ route, score: Number(state.routeScores?.[route.id] ?? 0) }))
     .sort((a, b) => b.score - a.score);
-  return `你最近几次选择都在把你推向「${ranked[0].route.title}」。下一件事还可能把你拽去别处。`;
+  return `你最近几次选择都更接近“${ranked[0].route.title}”，下一次怎么选仍然可能改变方向。`;
 }
 
 function deriveCommittedRoute(state: MutableChineseState): ChineseRouteKey | null {

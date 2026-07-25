@@ -42,8 +42,8 @@ export const CLINICAL_ROUTE_DEFINITIONS = [
   { id: "research", title: "科研积累线", ending: "数据返工了，研究习惯留下了", summary: "你经历过口径不一、结果不漂亮和项目名比贡献大的诱惑。最后能写进材料的，不只是项目标题，还有你真正核对过、解释过和拒绝糊弄的部分。", shareText: "我的临床本科路线：没有一作从天而降，只有数据口径凌晨返工。" },
   { id: "planning", title: "升学规划线", ending: "计划改到第十二版，主线还活着", summary: "实习、课程和倒计时不断切碎日历，你学会给计划留缓冲，也学会放弃不可能同时完成的目标。你不是完全按表生活，只是没再让一次偏离摧毁整条路线。", shareText: "我的临床本科路线：考研计划改到第十二版，至少这次没把自己也删掉。" },
   { id: "humanities", title: "医学人文线", ending: "会解释，也会把责任交回团队", summary: "你听得见患者和家属话里的担心，也知道共情不是无限接单。你在信息、情绪和专业边界之间做翻译，但不再把自己默认成全组永久缓冲垫。", shareText: "我的临床本科路线：能听懂情绪，也终于学会不把所有情绪都背回宿舍。" },
-  { id: "detour", title: "医学转向隐藏线", ending: "白大褂没穿到底，医学训练没有白读", summary: "你保留医学带来的检索、风险和沟通习惯，转向临床之外的入口。这不是被副本淘汰，而是在看过真实培养路径后，做了一次有证据的路线调整。", shareText: "我的临床隐藏路线：离开临床不是逃跑，是把五年训练带去另一个需要它的地方。" },
-  { id: "survival", title: "低耗可靠生存线", ending: "没有包揽全场，但从来没有失联", summary: "你拒绝过项目、放弃过高光，也一直把基础任务交付清楚。不是满成就截图，却是在长线培养里最难伪装的一种可靠。", shareText: "我的临床本科路线：没把每个机会都接住，但每个答应过的事都有回音。" },
+  { id: "detour", title: "医学相关转向", ending: "白大褂没穿到底，医学训练没有白读", summary: "你没有继续走临床，却把五年里练出的检索、风险判断和沟通能力带去了别的工作。离开临床不等于五年作废，只是职业方向变了。", shareText: "我的临床路线：离开临床不是逃跑，是把五年训练带去另一个需要它的地方。" },
+  { id: "survival", title: "稳稳读完五年", ending: "没有包揽全场，但从来没有失联", summary: "你拒绝过一些项目，也放弃过看起来很亮眼的机会，但答应过的基础任务一直按时完成。你不是最卷的那个人，却是别人愿意把事情交给的人。", shareText: "我的临床本科路线：没把每个机会都接住，但每个答应过的事都有回音。" },
 ] as const;
 
 export const CLINICAL_PERSONAS = [
@@ -84,7 +84,7 @@ export const CLINICAL_PERSONAS = [
   },
   {
     id: "calendar_player", title: "考研日历成精型选手",
-    verdict: "你的计划表经历过轮转、临时任务和精神电量的反复攻击，仍能长出下一版。你真正擅长的不是按表完美执行，而是偏离以后还能回来。",
+    verdict: "轮转和临时任务一次次打乱计划，你还是会重新调整。你真正擅长的不是每天都按表完成，而是落下一天以后还能接着往下做。",
     tags: ["计划迭代", "主线保活", "允许偏离"],
     shareText: "我的医学生人格：考研日历成精型。计划改到第十二版，主线居然还活着。",
     score: (s: MutableClinicalState) => personaScore(s, "examPlanning", "realityPlanning", "planner"),
@@ -264,8 +264,8 @@ function deriveReasons(game: ClinicalGameLike, routeId: string, personaId: strin
   const route = CLINICAL_ROUTE_DEFINITIONS.find((item) => item.id === routeId)!;
   const persona = CLINICAL_PERSONAS.find((item) => item.id === personaId)!;
   const reasons = [
-    `你的“${route.title}”路线权重在本局选择中最高。`,
-    `“${persona.title}”对应的行为倾向被连续选择，而不是由最后一题决定。`,
+    `四年里，你最常把时间留给“${route.title}”相关的选择。`,
+    `你不止一次做出了符合“${persona.title}”的选择，所以这个结果不是由最后一题临时决定的。`,
   ];
   const proofLabels: Record<string, string> = {
     timeline: "你多次先核对病历事实和时间线，再给判断。",
@@ -292,7 +292,7 @@ function deriveLockedHint(state: MutableClinicalState, routeId: string) {
   const next = CLINICAL_ROUTE_DEFINITIONS
     .filter((route) => route.id !== routeId && !state.flags.includes(`clinical_closed_${route.id}`))
     .sort((a, b) => Number(state.routeScores?.[b.id] ?? 0) - Number(state.routeScores?.[a.id] ?? 0))[0];
-  return next ? `你也曾接近“${next.title}”。下一局在大三路线分岔时换一种资源投入，它会更早出现。` : "你在本局主动关闭了多数路线。下一局少接一个任务，入口会重新出现。";
+  return next ? `你也差点走向“${next.title}”。下一次读到大三时，把更多时间留给相关机会，就可能走到不同结果。` : "这一局里，你主动放弃了几条路。下一次少接一个任务，可能就有时间尝试别的方向。";
 }
 
 function deriveReplayChallenge(routeId: string) {
@@ -305,19 +305,19 @@ function deriveReplayChallenge(routeId: string) {
     detour: "下一局保留临床入口直到最后，再判断理想是否还在。",
     survival: "下一局只额外承诺一件事，并把它做成特殊经历。",
   };
-  return copy[routeId] ?? "换一种资源分配，再读一次这五年。";
+  return copy[routeId] ?? "下一次换一种取舍，再读一次这五年。";
 }
 
 function deriveFit(state: MutableClinicalState, routeId: string) {
   return {
     strengths: [
       dim(state, "clinicalCaution") >= 62 ? "你能把不确定与安全边界说清。" : "你愿意在真实体验后修正判断。",
-      dim(state, "responsibility") >= 62 ? "你对承诺和交付有稳定责任感。" : "你开始知道精力也是有限资源。",
+      dim(state, "responsibility") >= 62 ? "你答应过的事情通常会认真做完。" : "你开始知道自己的精力有限，不能什么都接。",
     ],
     risks: dim(state, "emotionalLabor") > dim(state, "boundarySense") + 10
       ? "你容易成为默认沟通和接锅对象，需要更早划定边界。"
       : "你可能为了维持计划而错过探索，或为了探索让主线反复重启。",
-    direction: `${CLINICAL_ROUTE_DEFINITIONS.find((item) => item.id === routeId)?.title ?? "临床训练"}是本局最强倾向，但本科结局不是执业能力证明，也不替代真实升学和职业咨询。`,
+    direction: `你的选择更接近“${CLINICAL_ROUTE_DEFINITIONS.find((item) => item.id === routeId)?.title ?? "临床训练"}”。这只是本科阶段的游戏结果，不代表真实执业能力，也不能代替升学和职业咨询。`,
   };
 }
 
@@ -325,7 +325,7 @@ function deriveTrend(state: MutableClinicalState) {
   const ranked = CLINICAL_ROUTE_DEFINITIONS
     .map((route) => ({ route, score: Number(state.routeScores?.[route.id] ?? 0) }))
     .sort((a, b) => b.score - a.score);
-  return `本局倾向正在向「${ranked[0].route.title}」靠近，但下一次资源选择仍可能改写路线。`;
+  return `你最近的选择更接近“${ranked[0].route.title}”，下一次把时间花在哪里，结果仍然可能改变。`;
 }
 
 function applyStartTrait(state: MutableClinicalState, id: string) {

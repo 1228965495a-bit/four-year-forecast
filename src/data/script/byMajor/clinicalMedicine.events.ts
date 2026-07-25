@@ -83,24 +83,24 @@ function e(
 }
 
 export const CLINICAL_CORE_EVENTS: ClinicalEvent[] = [
-  e("clinical_core_01_entry", "y1s1", "main", "解剖课前，教室第一次安静下来", "老师没有讲传奇病例，只认真介绍了捐献者与课堂边界。刚才还在讨论白大褂合不合身的人都收了声。医学的第一课没有滤镜，只有尊重。", [
+  e("clinical_core_01_entry", "y1s1", "main", "第一次解剖课，全班突然安静了", "老师先介绍捐献者，再讲实验室里的规矩。刚才还在讨论白大褂好不好看的人都不说话了。你第一次真切地意识到，课本上的人体曾经是一个具体的人。", [
     o("a", "把课堂规范逐条记下来", "你没有说漂亮话，只把名字、流程和不能越过的边界记得很牢。", -3, { medical: 5, traits: { clinicalCaution: 7, idealDrive: 3 }, flags: ["clinical_respect_first"], routes: { diagnosis: 2 }, experiences: ["解剖课第一次真正安静下来"], proof: "guideline" }),
     o("b", "先问清课程怎么学、怎么考", "敬畏没有妨碍你关心期末。老师给了范围，也提醒你别把人体结构背成互不认识的地名。", -2, { medical: 4, traits: { realityPlanning: 6 }, flags: ["clinical_practical_entry"], routes: { planning: 2, survival: 2 }, proof: "planner" }),
     o("c", "承认自己有点怕，先慢慢适应", "你没有硬装镇定。下课时心跳恢复了，滤镜少了一层，留下来的尊重反而更具体。", 1, { traits: { ambiguityTolerance: 4, boundarySense: 6, idealDrive: 2 }, flags: ["clinical_honest_entry"], routes: { humanities: 3, survival: 2 }, proof: "idealist" }, { filter: -6 }),
   ]),
-  e("clinical_core_02_study", "y1s2", "main", "每门基础课都觉得自己是唯一一门", "生化、组胚、生理同时发来重点，三个老师都说“跟着进度就不难”。你的进度只有一份，重点已经开始争夺同一块脑区。", [
+  e("clinical_core_02_study", "y1s2", "main", "生化、组胚、生理都觉得你只学它一门", "三位老师都说“跟着进度就不难”，三份重点却同时发了下来。你一天还是二十四小时，只能决定哪门先学、哪门先欠着。", [
     o("a", "自己画框架，再往里面塞细节", "第一晚只整理完两章，看起来比刷题慢。至少第二天翻开时，你知道知识该放在哪里。", -7, { medical: 9, traits: { timelineSense: 8, studyFramework: 9 }, flags: ["clinical_study_framework"], routes: { diagnosis: 5, research: 2 }, proof: "timeline" }),
     o("b", "跟着题库背，先保住考试", "你迅速知道哪些词最常出现在选项里。至于它们为什么同时出现，暂时交给下学期解释。", -5, { medical: 5, traits: { memorizationStamina: 7, realityPlanning: 4 }, flags: ["clinical_study_questionbank"], routes: { planning: 3, survival: 3 }, proof: "planner" }),
-    o("c", "拉三个人组队，各自整理一门", "资料很快凑齐了，格式像来自三个平行宇宙。你负责把标题统一，也顺便学会了开口确认。", -4, { medical: 5, opportunity: 3, traits: { teamBackup: 8, expression: 5 }, flags: ["clinical_study_team"], routes: { humanities: 3, survival: 2 }, proof: "buffer" }),
+    o("c", "拉三个人组队，各自整理一门", "资料很快凑齐了，但三个人标重点的方式完全不同。你负责统一格式，也顺便确认了哪些内容大家都没弄懂。", -4, { medical: 5, opportunity: 3, traits: { teamBackup: 8, expression: 5 }, flags: ["clinical_study_team"], routes: { humanities: 3, survival: 2 }, proof: "buffer" }),
     o("d", "期末前集中背，平时先活着", "日常睡眠保住了。期末周到来时，六百页课件也完整保住了自己。", 3, { medical: 2, traits: { lastMinute: 10, stressTolerance: 2 }, flags: ["clinical_study_cram"], routes: { survival: 5 }, proof: "predictor" }, { gpaWill: -3 }),
   ]),
-  e("clinical_core_03_mechanism", "y2s1", "main", "标准答案会背，老师偏问为什么", "病例讨论写着发热、乏力和几项化验结果。你刚把最像的答案圈出来，老师追问：“哪条信息支持？哪条又对不上？”题库突然失去选择题格式。", [
+  e("clinical_core_03_mechanism", "y2s1", "main", "诊断背出来了，老师追问：为什么", "病例里写着发热、乏力和几项化验结果。你刚说出最像的诊断，老师就问：“哪条信息支持？又有哪条对不上？”这次不能只靠在几个答案里挑一个。", [
     o("a", "把症状按时间重排，再列矛盾点", "答案晚了几分钟，但你找到了两处不能硬塞进同一结论的信息。", -6, { medical: 9, traits: { timelineSense: 10, clinicalCaution: 6 }, flags: ["clinical_case_timeline"], routes: { diagnosis: 8 }, proof: "timeline" }),
     o("b", "先说最可能的，再查依据补完整", "你给了方向，也把“不确定”留在句子里。老师没夸你果断，只说这个顺序至少安全。", -5, { medical: 7, traits: { clinicalCaution: 9, guidelineHabit: 7 }, flags: ["clinical_case_verify"], routes: { diagnosis: 6, planning: 2 }, proof: "guideline" }),
     o("c", "拉同组同学各解释一段机制", "四个人拼出了一条能走通的链。你个人没有包办，但讨论没有停在互相看脸。", -4, { medical: 6, opportunity: 3, traits: { teamBackup: 8, expression: 6 }, flags: ["clinical_case_team"], routes: { humanities: 4, diagnosis: 3 }, proof: "buffer" }),
     o("d", "按记住的标准答案先答完", "病名说对了，理由像从另一道题借来的。老师点点头：“答案认识，病例还不认识。”", -2, { medical: 3, traits: { memorizationStamina: 5, clinicalCaution: -3 }, flags: ["clinical_case_answer_only"], routes: { survival: 3 }, proof: "predictor" }),
   ]),
-  e("clinical_core_04_skill", "y2s2", "main", "技能课第一次失败，老师还站在旁边", "练习时动作顺序背得很熟，真正轮到你，手套、器械和无菌区同时开始考你。老师没有催，只问：“你现在最不确定哪一步？”", [
+  e("clinical_core_04_skill", "y2s2", "main", "操作步骤背得很熟，一上手还是乱了", "真正轮到你操作时，手套戴歪了，器械放错了位置，还差点碰到无菌区。老师没有催，只问：“你从哪一步开始不确定的？”", [
     o("a", "停下来先复述流程，再重新做", "你没有靠速度掩盖混乱。第二遍慢得明显，但每一步终于属于同一个流程。", -7, { medical: 8, traits: { operationPractice: 8, clinicalCaution: 8 }, flags: ["clinical_skill_process"], routes: { surgery: 7 }, proof: "guideline" }),
     o("b", "请同学指出刚才哪一步开始错", "同学只改了一个手位，你却少重复了三次错误动作。求助没有替你完成，只替你缩短了弯路。", -5, { medical: 7, opportunity: 3, traits: { activeHelp: 9, operationPractice: 7 }, flags: ["clinical_skill_help"], routes: { surgery: 6, humanities: 2 }, proof: "buffer" }),
     o("c", "课后留下来再练几轮", "最后一轮没有突然变成天才，只是手不再一听见老师脚步就自动改方向。", -10, { medical: 10, traits: { operationPractice: 11, stressTolerance: 6 }, flags: ["clinical_skill_repeat"], routes: { surgery: 9 }, experiences: ["一次失败后的重新练习"], proof: "idealist" }),
@@ -112,35 +112,35 @@ export const CLINICAL_CORE_EVENTS: ClinicalEvent[] = [
     o("c", "让对方先讲完，再归纳确认", "计时器响得有点早，但对方纠正了一处你原本会写错的信息。倾听占了时间，也省下了误解。", -7, { medical: 6, traits: { interviewPatience: 10, emotionalLabor: 7, expression: 6 }, flags: ["clinical_interview_listen"], routes: { humanities: 9 }, proof: "buffer" }),
     o("d", "礼貌打断，把问题拉回考试模板", "你按时问完了，时间线仍有两个洞。老师没有扣你礼貌分，只在病历旁画了两个问号。", -3, { medical: 3, traits: { realityPlanning: 4, interviewPatience: -4 }, flags: ["clinical_interview_rushed"], routes: { planning: 2, survival: 3 }, proof: "planner" }),
   ]),
-  e("clinical_core_06_routes", "y3s2", "main", "科研、考研和临床机会同时发来消息", "导师问你愿不愿进项目，学姐把考研节点表发进群，技能中心又开放了练习名额。三个入口都写着“尽快回复”，你的精力只够认真接住一个半。", [
+  e("clinical_core_06_routes", "y3s2", "main", "导师喊你进组，考研和技能训练也在催", "导师问你要不要参加项目，学姐发来了考研时间表，技能中心又开放了练习名额。三边都让你尽快答复，但你最多只能认真准备一件，另一件勉强兼顾。", [
     o("a", "进项目，但先问清自己具体做什么", "老师把任务说得很具体：读文献、清数据、每周汇报。项目没有自动变成果，工作量先变清楚了。", -7, { medical: 5, opportunity: 7, traits: { researchPatience: 7, clinicalCaution: 4 }, flags: ["clinical_research_entry"], closes: ["surgery"], routes: { research: 9 }, proof: "guideline" }),
     o("b", "先定考研方向，把复习节奏排出来", "未来仍然不确定，但日历先有了颜色。你放弃了这轮项目，也获得了一个能执行的起点。", -5, { medical: 4, opportunity: 2, traits: { examPlanning: 10, realityPlanning: 8 }, flags: ["clinical_plan_entry"], closes: ["research"], routes: { planning: 10 }, proof: "planner" }),
     o("c", "把时间留给技能和病例训练", "简历暂时少了一行，手里的病例和操作却没有被“以后再练”继续延期。", -6, { medical: 8, opportunity: 4, traits: { operationPractice: 6, timelineSense: 5 }, flags: ["clinical_clinical_entry"], closes: ["research"], routes: { diagnosis: 5, surgery: 5 }, proof: "timeline" }),
     o("d", "三个都不全接，先保课程和睡眠", "群聊里的机会继续滚动，你没有全部上车。课程按时交了，人也没有在大三提前进入省电保护。", 4, { medical: 3, traits: { boundarySense: 9, lowCostSurvival: 9 }, flags: ["clinical_boundary_choice"], closes: ["research", "surgery"], routes: { survival: 10 }, proof: "guideline" }),
   ]),
-  e("clinical_core_07_rounds", "y4s1", "main", "查房停在了你没预习的那床", "老师翻到化验单，抬头叫了你的名字。你昨晚准备的是隔壁床，眼前这份病历只看过首页。队伍已经停下，空气开始替你倒计时。", [
+  e("clinical_core_07_rounds", "y4s1", "main", "查房时，老师偏偏问了你没预习的那床", "老师翻到化验单，抬头叫了你的名字。你昨晚准备的是隔壁床，眼前这份病历只看过首页。全组都停下来，等你先开口。", [
     o("a", "先把已知时间线说清，不会的承认", "你没有猜诊断。老师让你回去补两项依据，尴尬保住了，病例也真的记住了。", -6, { medical: 8, opportunity: 4, traits: { clinicalCaution: 10, timelineSense: 8 }, flags: ["clinical_rounds_honest"], routes: { diagnosis: 9 }, experiences: ["第一次如实说“我不知道”"], proof: "guideline" }),
     o("b", "按昨晚准备的框架快速组织回答", "框架救了开头，细节还是露了空。至少你没有把所有知识点同时倒在病床前。", -8, { medical: 7, traits: { studyFramework: 8, stressTolerance: 6 }, flags: ["clinical_rounds_framework"], routes: { diagnosis: 6, planning: 3 }, proof: "predictor" }),
     o("c", "请同组补充自己没看到的信息", "同组接住了两项结果，你负责把前后顺序重新串起来。不是个人高光，但汇报完整落地。", -5, { medical: 6, opportunity: 5, traits: { teamBackup: 8, responsibility: 5 }, flags: ["clinical_rounds_team"], routes: { humanities: 5, diagnosis: 4 }, proof: "buffer" }),
     o("d", "先赌一个最像的答案", "病名没有完全偏，依据却经不起第二问。老师只说：“学生最安全的能力，是知道什么时候别赌。”", -3, { medical: 2, traits: { clinicalCaution: -8, ambiguityTolerance: -2 }, flags: ["clinical_rounds_guess"], routes: { survival: 2 }, proof: "predictor" }),
   ]),
-  e("clinical_core_08_rotation", "y4s2", "main", "轮转表把你分去了没想过的科室", "你原本把未来押在熟悉的方向，排班系统却把你送进一个完全陌生的科室。老师风格、工作节奏和沟通方式都与经验贴不一样。", [
-    o("a", "先完整跟一轮，再判断喜不喜欢", "你没有因为第一天站到腿麻就立刻下结论。两周后，新的偏好真的长出了一点证据。", -7, { medical: 7, opportunity: 7, traits: { ambiguityTolerance: 8, idealDrive: 4 }, flags: ["clinical_rotation_open"], routes: { diagnosis: 3, surgery: 3, humanities: 3 }, experiences: ["轮转后改变科室偏好"], proof: "idealist" }),
-    o("b", "按原计划复习，不让轮转带跑方向", "科室体验被压缩成必要任务，考研节奏没有断。你守住了计划，也主动放弃了一次路线改写。", -5, { medical: 4, traits: { examPlanning: 9, realityPlanning: 7 }, flags: ["clinical_rotation_plan"], closes: ["detour"], routes: { planning: 8 }, proof: "planner" }),
+  e("clinical_core_08_rotation", "y4s2", "main", "轮转表把你分到了从没考虑过的科室", "你原本已经想好了最想去的科室，排班却把你送到了一个完全陌生的地方。这里的工作节奏、带教方式和病人情况，都和经验帖里写的不一样。", [
+    o("a", "先完整跟两周，再判断喜不喜欢", "你没有因为第一天站到腿麻就立刻下结论。两周后，你发现自己确实更喜欢这个科室的日常。", -7, { medical: 7, opportunity: 7, traits: { ambiguityTolerance: 8, idealDrive: 4 }, flags: ["clinical_rotation_open"], routes: { diagnosis: 3, surgery: 3, humanities: 3 }, experiences: ["轮转后改变科室偏好"], proof: "idealist" }),
+    o("b", "按原计划复习，不因为一次轮转就改目标", "你把这个科室的任务按要求完成，考研复习没有中断。计划保住了，但你也没有继续了解这个新选择。", -5, { medical: 4, traits: { examPlanning: 9, realityPlanning: 7 }, flags: ["clinical_rotation_plan"], closes: ["detour"], routes: { planning: 8 }, proof: "planner" }),
     o("c", "多问带教真实工作，不只看高光", "你问了值班、培养路径和最难适应的部分。答案不浪漫，但终于比论坛标题完整。", -5, { medical: 6, opportunity: 6, traits: { realityPlanning: 7, expression: 5 }, flags: ["clinical_rotation_reality"], routes: { detour: 5, survival: 3 }, proof: "guideline" }),
     o("d", "完成最低要求，别再给自己加任务", "你没有成为科室里最亮眼的学生，但交接、记录和该做的任务都没有失联。", 3, { medical: 3, traits: { lowCostSurvival: 10, boundarySense: 8 }, flags: ["clinical_rotation_lowcost"], routes: { survival: 10 }, proof: "guideline" }),
   ]),
-  e("clinical_core_09_boss", "y5s1", "main", "实习任务把考研计划截成了两半", "上午跟组、下午补材料、晚上复习。日历上的计划没有错，现实只是拒绝按日历出现。导师、带教和倒计时都在等你回复。", [
-    o("a", "保考研主线，主动压缩其他任务", "你把不能兼顾的部分说清，失去一项机会，复习节奏终于没有每天重启。", -7, { medical: 4, traits: { examPlanning: 10, boundarySense: 7 }, flags: ["clinical_boss_plan"], closes: ["research"], routes: { planning: 11 }, proof: "planner" }),
+  e("clinical_core_09_boss", "y5s1", "main", "白天实习，晚上复习，计划每天都被打乱", "上午跟组，下午补材料，晚上才能复习。导师临时加任务，带教又在催进度，原本排好的考研计划一天比一天往后拖。", [
+    o("a", "考研复习优先，其他任务能不接就不接", "你把不能兼顾的部分说清，失去一项机会，复习计划终于没有每天重排。", -7, { medical: 4, traits: { examPlanning: 10, boundarySense: 7 }, flags: ["clinical_boss_plan"], closes: ["research"], routes: { planning: 11 }, proof: "planner" }),
     o("b", "保临床任务，复习改成碎片节奏", "整块复习时间消失了，你把知识点塞进交班前后。效率不漂亮，但临床没有只剩签到。", -9, { medical: 8, opportunity: 5, traits: { stressTolerance: 8, responsibility: 7 }, flags: ["clinical_boss_clinical"], routes: { diagnosis: 5, surgery: 5 }, proof: "idealist" }),
     o("c", "科研只做能解释清的部分，拒绝挂名", "成果数量没有突然增加，但你终于能说清自己处理过哪组数据、为什么返工。", -8, { medical: 6, opportunity: 6, traits: { researchPatience: 9, clinicalCaution: 6 }, flags: ["clinical_boss_research"], routes: { research: 10 }, proof: "guideline" }),
-    o("d", "先砍掉额外目标，保证基本完成", "你没有同时拿满实习、科研和考研。培养任务按时落地，睡眠也勉强保住了法律地位。", 5, { medical: 3, traits: { lowCostSurvival: 12, boundarySense: 10 }, flags: ["clinical_boss_survival"], closes: ["research", "surgery"], routes: { survival: 12 }, proof: "guideline" }),
+    o("d", "先放弃额外目标，把必须做的事情完成", "你没有同时顾好实习、科研和考研，但该交的任务都按时交了，也终于睡了几个完整的晚上。", 5, { medical: 3, traits: { lowCostSurvival: 12, boundarySense: 10 }, flags: ["clinical_boss_survival"], closes: ["research", "surgery"], routes: { survival: 12 }, proof: "guideline" }),
   ]),
-  e("clinical_core_10_future", "y5s2", "main", "毕业去向表只允许你填一个答案", "五年的课程、轮转、项目和计划最后挤进一张表。你放弃过一些入口，也把另一些习惯练成了本能。现在要选的不是最体面的答案，而是下一段能继续走的路。", [
+  e("clinical_core_10_future", "y5s2", "main", "毕业去向表只能填一个答案", "临床、升学和医学相关岗位都摆在面前。五年里你试过一些，也放弃过一些。现在不用选听起来最厉害的，只要选一个自己愿意继续做下去的。", [
     o("a", "继续临床，把不会的留给下一阶段学", "你没有把毕业写成全知全能。下一关更长，但你已经知道核对、求助和边界比逞强可靠。", -4, { medical: 7, opportunity: 4, traits: { idealDrive: 7, clinicalCaution: 7 }, flags: ["clinical_final_clinical"], routes: { diagnosis: 5, surgery: 4, humanities: 3 }, proof: "idealist" }),
-    o("b", "走升学路线，把长期计划继续执行", "倒计时没有消失，只是换了名字。你带走了能解释的积累，也留下了没能兼顾的科室机会。", -5, { medical: 6, traits: { examPlanning: 9, realityPlanning: 8 }, flags: ["clinical_final_postgrad"], routes: { planning: 7, research: 5 }, proof: "planner" }),
-    o("c", "保留医学训练，转向临床之外", "白大褂没有穿到底，医学却已经接管了你的检索习惯、风险意识和表达方式。", 1, { medical: 4, opportunity: 5, traits: { realityPlanning: 8, scienceCommunication: 7 }, flags: ["clinical_final_detour"], routes: { detour: 12 }, experiences: ["临床之外的医学入口"], proof: "guideline" }, { obsession: -4 }),
-    o("d", "先完成毕业，不替十年后的自己承诺", "你把毕业证和还能正常开机的自己一起带了出来。没有满成就，但每一步都没有假装无限电量。", 5, { medical: 3, traits: { lowCostSurvival: 12, boundarySense: 9 }, flags: ["clinical_final_survival"], routes: { survival: 12 }, experiences: ["低耗生存仍准时交付"], proof: "guideline" }),
+    o("b", "继续升学，先把下一阶段读完", "考试倒计时没有消失，只是换了名字。你带走了真正学会的东西，也放下了没时间尝试的科室。", -5, { medical: 6, traits: { examPlanning: 9, realityPlanning: 8 }, flags: ["clinical_final_postgrad"], routes: { planning: 7, research: 5 }, proof: "planner" }),
+    o("c", "不做临床，去试试其他医学相关工作", "白大褂没有穿到底，但你查资料、看风险和解释问题的习惯都留了下来。", 1, { medical: 4, opportunity: 5, traits: { realityPlanning: 8, scienceCommunication: 7 }, flags: ["clinical_final_detour"], routes: { detour: 12 }, experiences: ["临床之外的医学入口"], proof: "guideline" }, { obsession: -4 }),
+    o("d", "先顺利毕业，十年后的事以后再决定", "你拿到了毕业证，也没有被这五年彻底耗空。没把所有机会都抓住，但答应过的事情都做完了。", 5, { medical: 3, traits: { lowCostSurvival: 12, boundarySense: 9 }, flags: ["clinical_final_survival"], routes: { survival: 12 }, experiences: ["没有包揽所有事，但答应的都做完了"], proof: "guideline" }),
   ]),
 ];
 
@@ -183,7 +183,7 @@ const ROUTE_EVENTS: ClinicalEvent[] = [
   ], ["surgery"]),
   e("clinical_route_surgery_04", "y5s1", "route", "老师愿意再给你一次练习机会", "大二那次失败没有从记录里消失。你后来反复练过，也几次在不熟时主动说停。老师今天问：“准备好就在指导下再试一次。”", [
     o("a", "先复述边界和流程，再接受指导", "动作仍不完美，但你知道什么时候继续、什么时候停。老师记住的是稳定，不是逞强。", -8, { medical: 9, opportunity: 7, traits: { operationPractice: 10, clinicalCaution: 9 }, flags: ["clinical_skill_callback_done"], routes: { surgery: 11 }, experiences: ["一次失败后的重新练习"], proof: "guideline" }),
-    o("b", "今天状态不好，申请改天再练", "机会没有立刻兑现，却没有因为一句拒绝消失。你第一次把谨慎用在自己身上。", 1, { opportunity: 3, traits: { boundarySense: 10, clinicalCaution: 7 }, routes: { survival: 5, surgery: 3 }, proof: "guideline" }),
+    o("b", "今天状态不好，申请改天再练", "老师同意你改天再练。你少了一次今天上手的机会，但也没有在状态很差时硬撑。", 1, { opportunity: 3, traits: { boundarySense: 10, clinicalCaution: 7 }, routes: { survival: 5, surgery: 3 }, proof: "guideline" }),
     o("c", "抓住机会直接上，边做边问", "你在指导下完成了，过程中问了三次。敢尝试和会求助终于没有互相排斥。", -10, { medical: 8, opportunity: 6, traits: { operationPractice: 8, activeHelp: 8 }, routes: { surgery: 10 }, proof: "buffer" }),
   ], ["surgery"]),
 
@@ -197,7 +197,7 @@ const ROUTE_EVENTS: ClinicalEvent[] = [
     o("b", "把问题和当前结果一起报告导师", "导师没有生气，只回了句：“先把口径统一，再谈图。”你少做了一张注定重画的图。", -6, { opportunity: 5, traits: { clinicalCaution: 9, researchPatience: 7 }, flags: ["clinical_research_report"], routes: { research: 8 }, proof: "guideline" }),
     o("c", "先补一版能汇报的，之后再清理", "周会顺利过去，技术债换成数据债，继续坐在下周议程里。", -5, { medical: 2, traits: { lastMinute: 6 }, routes: { research: 4, survival: 2 }, proof: "predictor" }),
   ], ["research"]),
-  e("clinical_route_research_03", "y4s2", "route", "导师说：再补一组，应该就完整了", "上一组结果刚整理完，新问题又从图里长出来。实习排班和考研计划都在旁边等着，你不可能把所有时间都交给“再补一点”。", [
+  e("clinical_route_research_03", "y4s2", "route", "导师说：再补一组，应该就完整了", "上一组结果刚整理完，导师又发现一个需要补做的问题。实习排班已经定了，考研复习也落下不少，你不可能三边都照常推进。", [
     o("a", "先问补这组要回答什么问题", "任务从“再做一些”缩成一个能判断完成与否的问题。科研第一次出现边界。", -7, { medical: 6, opportunity: 6, traits: { researchPatience: 8, boundarySense: 7 }, routes: { research: 9 }, proof: "guideline" }),
     o("b", "接下任务，压缩实习后的休息", "数据补齐了，精力也被补成了负债。成果有进展，人开始靠咖啡维持统计学意义。", -13, { medical: 7, opportunity: 8, traits: { researchPatience: 9, overResponsibility: 8 }, routes: { research: 10 }, proof: "idealist" }),
     o("c", "说明当前排期，暂时不接新一组", "项目没有因此把你除名，但这轮成果可能赶不上材料节点。你保住了可持续，也付了机会成本。", 2, { opportunity: -2, traits: { boundarySense: 10, realityPlanning: 6 }, routes: { survival: 6, research: 3 }, proof: "guideline" }),
@@ -258,12 +258,12 @@ const ROUTE_EVENTS: ClinicalEvent[] = [
   e("clinical_route_detour_02", "y4s2", "route", "一次轮转让你开始查临床之外的岗位", "你并不讨厌医学知识，只是对病房节奏越来越没把握。搜索框里第一次出现公共卫生、医学编辑、医疗科技和健康传播。", [
     o("a", "约学长聊真实工作，不靠岗位名想象", "你问了日常任务、能力要求和最容易后悔的部分。另一扇门没有自动打开，至少有了门把手。", -4, { opportunity: 7, traits: { detourCuriosity: 10, realityPlanning: 8 }, flags: ["clinical_detour_contact"], routes: { detour: 10 }, proof: "planner" }),
     o("b", "先保留信息，临床再完整体验一轮", "你没有立刻转向，也没有删掉收藏。路线仍然开放，但需要下一次主动动作。", -3, { medical: 4, traits: { ambiguityTolerance: 7, detourCuriosity: 5 }, flags: ["clinical_detour_saved"], routes: { detour: 6, diagnosis: 2 }, proof: "idealist" }),
-    o("c", "把它当作一时疲惫，不再继续查", "搜索记录被关掉，临床路线重新占满屏幕。这个入口本轮到此为止。", 2, { traits: { idealDrive: 5 }, closes: ["detour"], routes: { diagnosis: 3, survival: 2 }, proof: "idealist" }),
+    o("c", "把它当作一时疲惫，不再继续查", "你关掉搜索页面，继续准备临床课程和轮转。这一次，你决定不再考虑转向其他工作。", 2, { traits: { idealDrive: 5 }, closes: ["detour"], routes: { diagnosis: 3, survival: 2 }, proof: "idealist" }),
   ], ["detour"]),
-  e("clinical_route_detour_03", "y5s1", "route", "医疗科技项目问你愿不愿做内容核对", "工作不是写代码，也不是看诊，而是把医学信息和产品表达对齐。你能用上训练过的谨慎，但要牺牲一部分实习和复习时间。", [
+  e("clinical_route_detour_03", "y5s1", "route", "医疗科技项目请你核对医学内容", "你需要检查产品里的医学说法是否准确、有没有夸大。这个任务能用上专业知识，但会占掉一部分实习和复习时间。", [
     o("a", "接下小任务，先验证自己是否喜欢", "你改掉三处过度承诺，也第一次发现医学训练可以在病房外继续工作。", -6, { medical: 5, opportunity: 8, traits: { scienceCommunication: 8, clinicalCaution: 8, detourCuriosity: 8 }, flags: ["clinical_detour_project"], routes: { detour: 11 }, proof: "guideline" }),
-    o("b", "先问清交付边界，不做全天候顾问", "任务范围缩小了，合作没有消失。临床之外的第一课同样是别假装无限资源。", -4, { opportunity: 6, traits: { boundarySense: 9, realityPlanning: 7 }, flags: ["clinical_detour_project"], routes: { detour: 9, survival: 3 }, proof: "planner" }),
-    o("c", "拒绝项目，冲刺当前临床方向", "路线被你主动关闭。不是入口不存在，是这一局你决定不把资源分过去。", 2, { medical: 4, closes: ["detour"], routes: { diagnosis: 4, planning: 3 }, proof: "idealist" }),
+    o("b", "先问清要核多少内容、什么时候交", "任务范围缩小了，合作也没有取消。你不用为了接一次项目，变成随时在线的免费顾问。", -4, { opportunity: 6, traits: { boundarySense: 9, realityPlanning: 7 }, flags: ["clinical_detour_project"], routes: { detour: 9, survival: 3 }, proof: "planner" }),
+    o("c", "拒绝项目，冲刺当前临床方向", "你决定先把时间留给临床和复习。这次项目不会继续，但以后仍然可以重新考虑其他方向。", 2, { medical: 4, closes: ["detour"], routes: { diagnosis: 4, planning: 3 }, proof: "idealist" }),
   ], ["detour"]),
   e("clinical_route_detour_04", "y5s2", "route", "临床没有走到底，医学训练还在", "去向确认前，你翻到大三做过的科普更正和大四查过的岗位记录。它们不是逃跑证据，而是一条用了三个学期才连起来的路线。", [
     o("a", "选择医学相关转向，保留专业能力", "你没有把五年一键清空。检索、核对、表达和风险边界一起被带进了下一份工作。", -2, { medical: 5, opportunity: 7, traits: { detourCuriosity: 10, realityPlanning: 9 }, flags: ["clinical_detour_complete"], routes: { detour: 14 }, experiences: ["临床之外的医学入口"], proof: "guideline" }),
@@ -286,7 +286,7 @@ export const CLINICAL_RANDOM_EVENTS: ClinicalEvent[] = [
   e("clinical_random_03_absent", null, "major_random", "同组同学突然缺席，汇报缺了一段", "离开始只剩二十分钟，群里那个“马上到”已经发了三次。你能补位，但这会吞掉自己准备的最后时间。", [
     o("a", "补关键段，剩下的明确说缺口", "汇报没有完美，至少没有靠你一个人假装完整。", -6, { medical: 4, opportunity: 3, traits: { teamBackup: 7, boundarySense: 6 }, proof: "buffer" }),
     o("b", "全部接过来，先把现场撑住", "现场撑住了，你自己的部分却因为没复习被追问到停机。", -10, { opportunity: 4, traits: { overResponsibility: 9, teamBackup: 8 }, proof: "buffer" }),
-    o("c", "不无限兜底，按原分工汇报", "缺口真实出现，责任也没有被“大家一起”平均到你头上。", 1, { traits: { boundarySense: 9, lowCostSurvival: 5 }, proof: "guideline" }),
+    o("c", "按原分工汇报，不替缺席的人补完全部", "汇报里确实少了一段，但老师也看见了原本的分工。你没有因为别人缺席，把所有责任都接到自己头上。", 1, { traits: { boundarySense: 9, lowCostSurvival: 5 }, proof: "guideline" }),
   ]),
   e("clinical_random_04_conflict", null, "major_random", "病例汇报材料前后对不上", "第一页写症状持续两周，第三页写三天。做 PPT 的人说是复制错了，汇报的人说先别改格式。", [
     o("a", "先修事实，再修版式", "字体暂时不齐，时间线终于不再自相矛盾。", -4, { medical: 5, traits: { timelineSense: 8, clinicalCaution: 6 }, proof: "timeline" }),
@@ -358,7 +358,7 @@ export const CLINICAL_HIDDEN_EVENTS: ClinicalEvent[] = [
     o("a", "接下汇报，先确认范围和时间", "被记住没有变成无限任务。机会和边界第一次同时出现。", -5, { medical: 6, opportunity: 9, traits: { clinicalCaution: 8, responsibility: 7, boundarySense: 6 }, flags: ["clinical_teacher_remembered"], routes: { diagnosis: 5, humanities: 3 }, experiences: ["老师让你下次继续汇报"], proof: "guideline" }),
   ], ["diagnosis", "humanities"], 25),
   e("clinical_hidden_lowcost", "y5s2", "hidden", "你没包揽所有机会，但从来没有失联", "五年里你拒绝过项目、放弃过高光，也没有把基础任务丢给别人。毕业前的互评里，有人写：事情交给你，至少会得到明确回复。", [
-    o("a", "收下这句不够卷、但很可靠的评价", "不是满成就截图，却是低耗路线里最难伪造的肯定。", 4, { medical: 4, traits: { lowCostSurvival: 10, boundarySense: 9, responsibility: 6 }, flags: ["clinical_lowcost_recognized"], routes: { survival: 12 }, experiences: ["低耗生存仍准时交付"], proof: "guideline" }),
+    o("a", "收下这句“不算最卷，但很可靠”", "你没拿最多的奖，也没接最多的任务，但答应过的事情一直有回音。这句评价已经足够具体。", 4, { medical: 4, traits: { lowCostSurvival: 10, boundarySense: 9, responsibility: 6 }, flags: ["clinical_lowcost_recognized"], routes: { survival: 12 }, experiences: ["没有包揽所有事，但答应的都做完了"], proof: "guideline" }),
   ], ["survival"], 28),
 ];
 

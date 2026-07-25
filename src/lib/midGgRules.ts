@@ -180,9 +180,9 @@ function titleFor(state: EngineState, reason: MidGgReason): string {
   if (reason === "law_thesis_versions") return "真的最终版失踪人口";
   if (reason === "cs_project_offline") return "在我电脑上也坏了的人";
   if (reason === "cs_algorithm_lock") return "第一题卡到比赛结束选手";
-  if (reason === "cs_interview_burnout") return "秋招多线程崩溃现场";
+  if (reason === "cs_interview_burnout") return "秋招任务太多，彻底忙乱";
   if (reason === "cs_thesis_crash") return "毕设最终版恢复失败";
-  if (reason === "clinical_energy_shutdown") return "白大褂省电模式已关机";
+  if (reason === "clinical_energy_shutdown") return "医学生已经撑不住了";
   if (reason === "clinical_filter_exit") return "医学滤镜退订成功";
   if (reason === "clinical_overload") return "课程轮转考研三线停机";
   if (reason === "chinese_energy_shutdown") return "论文仍在加载，人已自动保存退出";
@@ -197,10 +197,10 @@ function titleFor(state: EngineState, reason: MidGgReason): string {
     if (v.majorInterest <= 30) {
       if (state.majorId === "computer_science") return "计算机已读不回型";
       if (state.majorId === "chinese_language_literature") return "中文系已读暂缓型";
-      if (state.majorId === "accounting") return "会计副本保存退出型";
+      if (state.majorId === "accounting") return "事情没做完，人先没电了";
       return "法学已读不回型";
     }
-    return "本局先存档的人";
+    return "知道该先停下来的人";
   }
   if (v.mentalEnergy <= 0) return "卷到自动关机的人";
   if (v.escapeImpulse >= 95) return "逃生指令执行员";
@@ -208,16 +208,16 @@ function titleFor(state: EngineState, reason: MidGgReason): string {
   if (v.filterThickness <= 10 && v.escapeImpulse >= 85) return "滤镜粉碎体验官";
   if (v.gpaDesire >= 85 && v.mentalEnergy <= 20) return "绩点亮着人已黑屏";
   if (v.majorInterest <= 20) return "法学已读不回型";
-  return "本局先存档的人";
+  return "知道该先停下来的人";
 }
 
 const COPY: Record<MidGgReason, { subtitle: string; conclusion: string }> = {
   manual_quit: {
-    subtitle: "你没有等系统把电量清零，先亲手按下了结束键。这个本科副本停在这里，人生进度条还在继续，换方向也算一种有效操作。",
-    conclusion: "我不是没通关，只是拒绝给错误副本继续续费。",
+    subtitle: "你没有继续把自己耗到彻底撑不住，而是决定先停下来。大学生活在这里提前结束，但换专业、休学或重新选择，都不等于人生也结束了。",
+    conclusion: "这条路没有走到底，但我终于不再只因为已经走了很久就继续。",
   },
   energy_depleted: {
-    subtitle: "你把课程、DDL和接锅任务一起扛到了电量归零。系统判定本轮暂停：先给人充电，再讨论绩点、法考和未来路线。",
+    subtitle: "课程、截止日期和临时接下的任务一起压了过来，你已经没有精力继续做选择。先停下来恢复，再谈绩点、考试和以后往哪走。",
     conclusion: "法条还没背完，我的精神电量先提交了结课申请。",
   },
   escape_overflow: {
@@ -229,15 +229,15 @@ const COPY: Record<MidGgReason, { subtitle: string; conclusion: string }> = {
     conclusion: "我的专业滤镜没碎，它只是彻底停止加载。",
   },
   multi_collapse: {
-    subtitle: "精神电量、专业兴趣和跑路冲动同时越过警戒线，系统无法再靠一句“熬过期末就好”修复。本轮判定为多线程崩溃，先结束加载。",
-    conclusion: "三个进度条同时选择了自由，我只负责被系统抬出副本。",
+    subtitle: "你已经很累，对专业也越来越提不起兴趣，每天都在想要不要离开。再靠一句“熬过期末就好”撑下去解决不了问题，这一局先停在这里。",
+    conclusion: "不是某一件事打败了我，是太多事情一起压过来，我一直没有停。",
   },
   filter_broken_escape: {
     subtitle: "律政剧滤镜已经碎成粉，精力和跑路冲动也给出了同一结论。你终于停止替这个专业补光，选择从真实体验里撤离。",
     conclusion: "法学无滤镜版本已看完，我决定不续订下一学期。",
   },
   risk_overflow: {
-    subtitle: "单项数值还没全部见底，综合风险已经先越过警戒线。系统检测到你正在用“还能撑”掩盖持续过载，本轮先强制保存并退出。",
+    subtitle: "看起来每件事都还能再做一点，但你已经连续很久没有真正休息。再用一句“还能撑”拖下去，只会让所有事情一起失控，这一局先停下来。",
     conclusion: "我各项看着都还行，合起来已经不建议继续运行。",
   },
   law_final_week: {
@@ -265,19 +265,19 @@ const COPY: Record<MidGgReason, { subtitle: string; conclusion: string }> = {
     conclusion: "所有人的代码都能跑，只有合起来以后项目没了。",
   },
   cs_algorithm_lock: {
-    subtitle: "你在第一道题上调试到比赛结束，样例一直通过，隐藏测试一直沉默。排行榜已经更新三轮，你还在和那个不存在的边界条件进行单方面谈判。",
-    conclusion: "动态规划规划了所有状态，唯独没规划我怎么下场。",
+    subtitle: "你在第一道题上改到比赛结束。本地测试一直没问题，提交以后却一直显示答案错误。排行榜已经更新三轮，你还是没找到到底漏了哪一种情况。",
+    conclusion: "别人已经做完三道题，我还在证明第一题不是故意针对我。",
   },
   cs_interview_burnout: {
     subtitle: "秋招、笔试、项目追问和毕设同时占满线程。你能解释缓存穿透，却解释不了自己为什么凌晨三点还在改简历第十四版。",
-    conclusion: "八股背会了，人类进程因为内存不足被系统终止。",
+    conclusion: "面试题背会了，真正轮到我回答时，脑子只剩下一句“稍等”。",
   },
   cs_thesis_crash: {
     subtitle: "演示当天，模型权重找不到、数据库版本不对、导师还问上周说好的创新点。备份文件很多，能完整启动的版本一个都没有。",
     conclusion: "毕设拥有七个最终版，没有一个愿意出席答辩。",
   },
   clinical_energy_shutdown: {
-    subtitle: "课程、技能训练和临床任务把精力条推到了零。系统不允许用患者安全替你的硬撑买单，本局先在白大褂省电模式里保存退出。",
+    subtitle: "课程、技能训练和临床任务把你彻底耗空。继续硬撑已经会影响判断和操作，这一局先停下来休息。",
     conclusion: "培养方案还剩很多页，我的精神电量先完成了出院。",
   },
   clinical_filter_exit: {
@@ -289,7 +289,7 @@ const COPY: Record<MidGgReason, { subtitle: string; conclusion: string }> = {
     conclusion: "计划表每格都有安排，只有本人没有可用时间。",
   },
   chinese_energy_shutdown: {
-    subtitle: "文学史、课程论文、试讲和改稿一起把精力条推到了零。文件都成功保存了，只有本人暂时无法继续编辑。",
+    subtitle: "文学史、课程论文、试讲和改稿挤在一起，你已经累到同一句话读了几遍也看不进去。这一局先停下来。",
     conclusion: "论文仍在加载，我的精神状态先自动保存退出。",
   },
   chinese_expression_overload: {
@@ -301,7 +301,7 @@ const COPY: Record<MidGgReason, { subtitle: string; conclusion: string }> = {
     conclusion: "文学史还没背完，我的阅读兴趣先申请了休学。",
   },
   accounting_energy_shutdown: {
-    subtitle: "月结、证书、总表和论文一起把电量推到零。表格还能打开，人需要先保存退出。",
+    subtitle: "月结、证书、总表和论文一起压过来，你已经累到连最熟悉的数字也核不清。这一局先停下来休息。",
     conclusion: "总表终于平了，我的精神状态没有。",
   },
   accounting_overresponsibility: {
@@ -309,7 +309,7 @@ const COPY: Record<MidGgReason, { subtitle: string; conclusion: string }> = {
     conclusion: "大家负责自己的部分，我负责证明这些部分不是不同世界。",
   },
   accounting_plan_collapse: {
-    subtitle: "课程表、证书计划和实习日程都排得很完整，唯一没被排进去的是恢复时间。本局先暂停，不拿睡眠继续填计划缺口。",
+    subtitle: "课程、证书和实习都排得很满，计划里却没有留下休息时间。你已经不能继续拿睡眠填空，这一局先停下来。",
     conclusion: "证书计划排到了明年，精力只剩到今晚。",
   },
   revive_failed: {
@@ -325,7 +325,7 @@ const REASON_TAGS: Partial<Record<MidGgReason, string[]>> = {
   interest_dead: ["兴趣掉线", "惯性就读", "滤镜停更", "方向冷却"],
   multi_collapse: ["多项告急", "系统过载", "当场停机", "先救玩家"],
   filter_broken_escape: ["理想破产", "无滤镜实况", "撤离成功", "志愿避雷"],
-  risk_overflow: ["综合风险", "隐性过载", "强制存档", "暂停运行"],
+  risk_overflow: ["多项告急", "长期透支", "先停一下", "恢复优先"],
   law_final_week: ["四门闭卷", "部门法串台", "考完即失忆", "人已离线"],
   law_moot_court: ["全组失联", "唯一主辩", "接锅出庭", "真实开庭"],
   law_internship_v12: ["最终版_v12", "凌晨返工", "电脑已保存", "人未保存"],
@@ -358,7 +358,7 @@ function tagsFor(state: EngineState, reason: MidGgReason): string[] {
   if (v.gpaDesire >= 85 && v.mentalEnergy <= 20) ["绩点过载", "卷到断电"].forEach((t) => tags.add(t));
   if (v.jobIllusion <= 20 && v.filterThickness <= 30) ["就业祛魅", "现实入侵"].forEach((t) => tags.add(t));
   if (reason === "manual_quit") tags.add("嘴硬型选手");
-  if (tags.size === 0) tags.add("本局先存档的人");
+  if (tags.size === 0) tags.add("知道该先停下来的人");
   return Array.from(tags).slice(0, 4);
 }
 
@@ -378,12 +378,12 @@ export function checkMidGG(
   const title = titleFor(state, reason);
   const copy = state.majorId === "computer_science" && reason === "energy_depleted"
     ? {
-        subtitle: "课程、项目、面试和 Bug 一起把精力条跑到了零。电脑还有充电器，人类进程没有自动恢复选项，本轮先保存退出。",
+        subtitle: "课程、项目、面试和报错一起压过来，你已经累到无法继续判断先做什么。这一局先停下来休息。",
         conclusion: "代码还在运行，我先因为电量不足停止响应。",
       }
     : state.majorId === "clinical_medicine" && reason === "energy_depleted"
       ? {
-          subtitle: "课程、技能训练和轮转一起把精力条跑到了零。医学训练不奖励拿安全边界换硬撑，本轮先保存退出。",
+          subtitle: "课程、技能训练和轮转一起压过来，你已经累到会影响判断和操作。继续硬撑并不安全，这一局先停下来。",
           conclusion: "培养方案没有结束，我的精神电量先完成了出院。",
         }
       : COPY[reason];

@@ -316,7 +316,7 @@ export function deriveLawPortraits(state: LawReplayState, checkpoint: number): E
       id: `observed_${checkpoint}`,
       title: "选择开始留下形状",
       description: `这一年，你在“${latest.title}”里选择了“${latest.choice}”。`,
-      evidenceText: "它还不是最终人格，但已经不是一次孤立的决定。",
+      evidenceText: "一次选择还不能定义你，但你已经不止一次这样做了。",
     }] : [];
   }
   return candidates.slice(0, 2).map(({ item }) => ({

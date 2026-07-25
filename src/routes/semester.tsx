@@ -22,6 +22,7 @@ function SemesterPage() {
   const major = game.majorId ? majorById[game.majorId] : null;
   const experience = getMajorExperienceConfig(game.majorId);
   const [feedback, setFeedback] = useState<{ event: any; choice: any } | null>(null);
+  const [isConfirming, setIsConfirming] = useState(false);
   const [drawer, setDrawer] = useState<"none" | "profile" | "log">("none");
 
   useEffect(() => {
@@ -43,9 +44,23 @@ function SemesterPage() {
   if (!major || !experience || !canEnterMajorGame(game.majorId)) return null;
 
   const confirmNext = async () => {
-    if (!feedback) return;
-    await gameStore.applyChoice(feedback.choice);
-    setFeedback(null);
+    if (!feedback || isConfirming) return;
+    setIsConfirming(true);
+    try {
+      await gameStore.applyChoice(feedback.choice);
+      const next = gameStore.get();
+      if (next.finished) {
+        await navigate({ to: "/result", replace: true });
+        return;
+      }
+      if (next.midwayFinished) {
+        await navigate({ to: "/midway-result", replace: true });
+        return;
+      }
+      setFeedback(null);
+    } finally {
+      setIsConfirming(false);
+    }
   };
 
   const coreStats = getCoreStats(game.stats, game.majorId);
@@ -83,11 +98,16 @@ function SemesterPage() {
       </div>
 
       <div className="v4-semester-content">
-        {["law", "computer_science", "clinical_medicine", "chinese_language_literature", "accounting"].includes(game.majorId) && game.pendingTrend && <div className="v4-law-trend"><strong>趋势观察</strong><span>{game.pendingTrend}</span></div>}
+        {["law", "computer_science", "clinical_medicine", "chinese_language_literature", "accounting"].includes(game.majorId) && game.pendingTrend && <div className="v4-law-trend"><strong>趋势观察</strong><span>{readableTrend(game.pendingTrend)}</span></div>}
         {currentEvent ? (
           <>
             <EventCampusArt majorId={major.id} mood={currentEvent.type === "gg_check" ? "crisis" : "thinking"} />
-            <EventCard event={currentEvent} onPick={(choice) => setFeedback({ event: currentEvent, choice })} />
+            <EventCard
+              event={currentEvent}
+              onPick={(choice) => {
+                if (!feedback) setFeedback({ event: currentEvent, choice });
+              }}
+            />
           </>
         ) : (
           <div className="grid min-h-[360px] place-items-center text-center">
@@ -96,7 +116,7 @@ function SemesterPage() {
         )}
       </div>
 
-      {feedback && <FeedbackSheet event={feedback.event} choice={feedback.choice} onClose={() => setFeedback(null)} onNext={confirmNext} />}
+      {feedback && <FeedbackSheet event={feedback.event} choice={feedback.choice} isConfirming={isConfirming} onNext={confirmNext} />}
       {!feedback && game.pendingPortraits.length > 0 && (
         <PortraitModal portraits={game.pendingPortraits} onClose={() => gameStore.dismissPortraits()} />
       )}
@@ -104,6 +124,17 @@ function SemesterPage() {
       {drawer !== "none" && <InfoDrawer type={drawer} onClose={() => setDrawer("none")} />}
     </PhoneFrame>
   );
+}
+
+function readableTrend(value: string) {
+  if (value === "系统观察：焦虑出现时，你越来越习惯先查规则和入口。") {
+    return "一焦虑起来，你越来越习惯先查规则、截止日期和可选方向。";
+  }
+  const legacyClinical = value.match(/^本局倾向正在向「(.+)」靠近，但下一次资源选择仍可能改写路线。$/);
+  if (legacyClinical) {
+    return `你最近的选择更接近“${legacyClinical[1]}”，下一次怎么选仍然可能改变方向。`;
+  }
+  return value.replace(/^系统观察：/, "");
 }
 
 function PortraitModal({
@@ -117,7 +148,7 @@ function PortraitModal({
     <div className="v4-overlay !items-center">
       <div className="v4-modal v4-portrait-modal">
         <div className="flex items-center gap-2 text-[11px] font-bold text-[var(--v4-coral)]">
-          <Sparkles size={15} />你身上正在长出的东西
+          <Sparkles size={15} />你最近形成的习惯
         </div>
         <div className="mt-4 grid gap-3">
           {portraits.slice(0, 2).map((portrait) => (
@@ -128,7 +159,7 @@ function PortraitModal({
             </section>
           ))}
         </div>
-        <button className="v4-primary mt-4 w-full" onClick={onClose}>继续看看自己会变成谁</button>
+        <button className="v4-primary mt-4 w-full" onClick={onClose}>继续下一件事</button>
       </div>
     </div>
   );
@@ -188,7 +219,7 @@ function CoreStat({ label, value, color, icon: Icon }: ReturnType<typeof getCore
   );
 }
 
-function FeedbackSheet({ event, choice, onClose, onNext }: { event: any; choice: any; onClose: () => void; onNext: () => void }) {
+function FeedbackSheet({ event, choice, isConfirming, onNext }: { event: any; choice: any; isConfirming: boolean; onNext: () => void }) {
   const keepsConsequencesHidden = ["law_", "computer_science_", "clinical_", "chinese_", "accounting_"].some((prefix) => event.id?.startsWith(prefix));
   const consequenceHint = event.id?.startsWith("accounting_")
     ? "这次选择已经记进本局，后面的凭证、表格、实习或岗位可能再次提起它。"
@@ -197,17 +228,16 @@ function FeedbackSheet({ event, choice, onClose, onNext }: { event: any; choice:
     : "这次选择已经进入卷宗，之后可能再次出现。";
   const deltas = keepsConsequencesHidden ? [] : visibleDeltas(choice);
   return (
-    <div className="v4-overlay">
+    <div className="v4-overlay" role="dialog" aria-modal="true" aria-label="选择结果">
       <div className="v4-sheet">
         <div className="v4-sheet-handle" />
-        <div className="flex items-start justify-between gap-4">
-          <div><div className="text-[11px] font-bold text-[var(--v4-muted)]">你选择了</div><div className="v4-title mt-1 text-[19px] leading-snug">{choice.text}</div></div>
-          <button className="v4-icon-button" aria-label="返回选择" onClick={onClose}><X size={18} /></button>
-        </div>
+        <div><div className="text-[11px] font-bold text-[var(--v4-muted)]">你选择了</div><div className="v4-title mt-1 text-[19px] leading-snug">{choice.text}</div></div>
         <div className="v4-feedback-result">{choice.feedback || choice.resultText || event.description || "事情就这样发生了。"}</div>
         {keepsConsequencesHidden && <div className="mb-3 text-[11px] font-bold text-[var(--v4-muted)]">{consequenceHint}</div>}
         {deltas.length > 0 && <div className="v4-delta-row">{deltas.map((delta) => <span className={`v4-delta ${delta.value > 0 ? "positive" : "negative"}`} key={delta.label}>{delta.label} {delta.value > 0 ? "+" : ""}{delta.value}</span>)}</div>}
-        <button className="v4-primary w-full" onClick={onNext}>接受这个结果，继续</button>
+        <button className="v4-primary w-full" disabled={isConfirming} onClick={onNext}>
+          {isConfirming ? "正在进入下一段人生..." : "接受这个结果，继续"}
+        </button>
       </div>
     </div>
   );
